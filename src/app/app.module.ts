@@ -12,12 +12,22 @@ import { ErrorPageComponent } from './views/pages/error-page/error-page.componen
 
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { AddAssociatesComponent } from './app/views/pages/associates/add-associates/add-associates.component';
+import { CustomersComponent } from './views/pages/customers/customers.component';
+import { AssociatesComponent } from './views/pages/associates/associates.component';
+import { AllAssociatesComponent } from './views/pages/associates/all-associates/all-associates.component';
+import { AllCustomersComponent } from './views/pages/customers/all-customers/all-customers.component';
+import { AddCustomersComponent } from './views/pages/customers/add-customers/add-customers.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorPageComponent,
     AddAssociatesComponent,
+    CustomersComponent,
+    AssociatesComponent,
+    AllAssociatesComponent,
+    AllCustomersComponent,
+    AddCustomersComponent,
   ],
   imports: [
     BrowserModule,
