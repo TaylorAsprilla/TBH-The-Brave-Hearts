@@ -11,29 +11,16 @@ import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
-import { AddAssociatesComponent } from './app/views/pages/associates/add-associates/add-associates.component';
-import { CustomersComponent } from './views/pages/customers/customers.component';
-import { AssociatesComponent } from './views/pages/associates/associates.component';
-import { AllAssociatesComponent } from './views/pages/associates/all-associates/all-associates.component';
-import { AllCustomersComponent } from './views/pages/customers/all-customers/all-customers.component';
-import { AddCustomersComponent } from './views/pages/customers/add-customers/add-customers.component';
+import { CustomersModule } from './views/pages/customers/customers.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ErrorPageComponent,
-    AddAssociatesComponent,
-    CustomersComponent,
-    AssociatesComponent,
-    AllAssociatesComponent,
-    AllCustomersComponent,
-    AddCustomersComponent,
-  ],
+  declarations: [AppComponent, ErrorPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
+    CustomersModule,
   ],
   providers: [
     AuthGuard,
@@ -45,10 +32,10 @@ import { AddCustomersComponent } from './views/pages/customers/add-customers/add
           xml: () => import('highlight.js/lib/languages/xml'),
           typescript: () => import('highlight.js/lib/languages/typescript'),
           scss: () => import('highlight.js/lib/languages/scss'),
-        }
-      }
-    }
+        },
+      },
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

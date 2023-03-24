@@ -1,1 +1,577 @@
-<p>add-customers works!</p>
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Add Customers</h4>
+        <p class="“text-muted”">Life Policy</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- col -->
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Personal information</h6>
+        <aw-wizard #formLifePolicy>
+          <aw-wizard-step stepTitle="step 1">
+            <form
+              class="forms-sample"
+              (ngSubmit)="form1Submit()"
+              [formGroup]="validationForm1"
+            >
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="mb-3">
+                    <label for="carrier" class="form-label required"
+                      >Carrier</label
+                    >
+                    <select
+                      class="form-select"
+                      id="carrier"
+                      formControlName="carrier"
+                      [ngClass]="{
+                        'is-invalid': isForm1Submitted && form1.carrier.errors
+                      }"
+                    >
+                      <option selected disabled>Select the Carrier</option>
+                      <option>ANICO</option>
+                      <option>NLG</option>
+                      <option>Matual Of Omaha</option>
+                      <option>Foresters</option>
+                      <option>Other</option>
+                    </select>
+                    <div
+                      *ngIf="isForm1Submitted && form1.carrier.errors?.required"
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="mb-3">
+                    <label for="Policy Type" class="form-label required"
+                      >Policy Type</label
+                    >
+                    <select
+                      class="form-select"
+                      id="policityType"
+                      formControlName="policityType"
+                      [ngClass]="{
+                        'is-invalid':
+                          isForm1Submitted && form1.policityType.errors
+                      }"
+                    >
+                      >
+                      <option selected disabled>Select the Policy Type</option>
+                      <option>10 - YR TERM</option>
+                      <option>15 - YR TERM</option>
+                      <option>20 - YR TERM</option>
+                      <option>30 - YR TERM</option>
+                      <option>IUL</option>
+                      <option>ROP</option>
+                      <option>Wole Life</option>
+                      <option>Final Expense</option>
+                      <option>ART</option>
+                    </select>
+
+                    <div
+                      *ngIf="
+                        isForm1Submitted && form1.policityType.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="mb-3">
+                    <label class="form-label required">Monthly</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter Monthly"
+                      id="monthly"
+                      formControlName="monthly"
+                      [ngClass]="{
+                        'is-invalid': isForm1Submitted && form1.monthly.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="isForm1Submitted && form1.monthly.errors?.required"
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="mb-3">
+                    <label class="form-label required">Face Amount</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Face Amount"
+                      id="faceAmount"
+                      formControlName="faceAmount"
+                      [ngClass]="{
+                        'is-invalid':
+                          isForm1Submitted && form1.faceAmount.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="
+                        isForm1Submitted && form1.faceAmount.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+                <!-- Row -->
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label required">First Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="firstName"
+                        [ngClass]="{
+                          'is-invalid':
+                            isForm1Submitted && form1.firstName.errors
+                        }"
+                        placeholder="Enter first name"
+                        required
+                      />
+                      <div
+                        *ngIf="
+                          isForm1Submitted && form1.firstName.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Required
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label">Middle Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter middle name"
+                        formControlName="middleName"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label required">Last Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter last name"
+                        formControlName="lastName"
+                        [ngClass]="{
+                          'is-invalid':
+                            isForm1Submitted && form1.lastName.errors
+                        }"
+                        placeholder="Last name"
+                      />
+                      <div
+                        *ngIf="
+                          isForm1Submitted && form1.lastName.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Row -->
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label required">Address</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Street Address Line"
+                      formControlName="address"
+                      [ngClass]="{
+                        'is-invalid': isForm1Submitted && form1.address.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="isForm1Submitted && form1.address.errors?.required"
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label">Address</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Street Address Line 2"
+                      formControlName="addressLine2"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- Row -->
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label">City</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter city"
+                      formControlName="city"
+                    />
+                  </div>
+                </div>
+                <!-- Col -->
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label">State</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter state"
+                      formControlName="state"
+                    />
+                  </div>
+                </div>
+                <!-- Col -->
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label">Zip</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter zip code"
+                      formControlName="zipCode"
+                    />
+                  </div>
+                </div>
+                <!-- Col -->
+              </div>
+              <!-- Row -->
+
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label required">Phone</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="(000) 000 00 00"
+                      prefix="+7 "
+                      mask="(000) 000 00 00"
+                      formControlName="phone"
+                      [ngClass]="{
+                        'is-invalid': isForm1Submitted && form1.phone.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="isForm1Submitted && form1.phone.errors?.required"
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="mb-3">
+                    <label for="phoneType" class="form-label required"
+                      >Select Type</label
+                    >
+                    <select
+                      class="form-select"
+                      id="phoneType"
+                      formControlName="phone"
+                      [ngClass]="{
+                        'is-invalid': isForm1Submitted && form1.phoneType.errors
+                      }"
+                    >
+                      <option selected disabled>Select Type</option>
+                      <option>Cell</option>
+                      <option>Home</option>
+                      <option>Office</option>
+                    </select>
+                    <div
+                      *ngIf="
+                        isForm1Submitted && form1.phoneType.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-5">
+                  <div class="mb-3">
+                    <label class="form-label required">Email address</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      placeholder="Enter email"
+                      formControlName="email"
+                      [ngClass]="{
+                        'is-invalid': isForm1Submitted && form1.email.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="isForm1Submitted && form1.email.errors?.required"
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+
+                    <div
+                      *ngIf="
+                        form1.email.hasError('email') && form1.email.touched
+                      "
+                      class="invalid-feedback"
+                    >
+                      The value entered does not correspond to an email.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2">
+                  <div class="mb-3">
+                    <label for="phoneType" class="form-label required"
+                      >Marital Status
+                    </label>
+                    <select class="form-select" id="phoneType" required>
+                      <option selected disabled>Select Type</option>
+                      <option>Single</option>
+                      <option>Married</option>
+                      <option>Discorced</option>
+                      <option>Widow</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-2">
+                  <div class="mb-3">
+                    <label class="form-label required">Date of Birth</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      placeholder="Date of Birth"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-sm-2">
+                  <div class="mb-3">
+                    <label class="form-label required">SS</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Country / State of Birth</label
+                    >
+                    <input type="text" class="form-control" />
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="mb-3">
+                    <label class="form-label required">City of Birth</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-3">
+                    <div class="mb-3">
+                      <label for="phoneType" class="form-label"
+                        >Green Card/ITIN #
+                      </label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <div class="mb-3">
+                      <label for="phoneType" class="form-label"
+                        >Drivers License #
+                      </label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <div class="mb-3">
+                      <label for="phoneType" class="form-label"
+                        >Expiration
+                      </label>
+                      <input type="date" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <div class="mb-3">
+                      <label for="State" class="form-label">State </label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label for="phoneType" class="form-label required"
+                        >Gender
+                      </label>
+                      <select class="form-select" id="phoneType" required>
+                        <option selected disabled>Select the gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label required">Weight</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label required">Height</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label required">Annual Income</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label"> Household Income</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label"> Household net worth</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label required">Employer Name</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label">Occupation</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="mb-4">
+                      <label for="phoneType" class="form-label required"
+                        >Time Employed
+                      </label>
+                      <select class="form-select" id="phoneType" required>
+                        <option selected disabled>Please Select</option>
+                        <option>Less than 6 months</option>
+                        <option>More than 6 months</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label required">Annual Income</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label">Household Income</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label">Household net worth</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  autocomplete="off"
+                  placeholder="Password"
+                />
+              </div>
+            </div> -->
+                <!-- Col -->
+              </div>
+              <!-- Row -->
+              <div class="d-flex justify-content-center mt-2">
+                <button class="btn btn-primary" type="submit">Continue</button>
+              </div>
+            </form>
+          </aw-wizard-step>
+        </aw-wizard>
+      </div>
+    </div>
+  </div>
+</div>

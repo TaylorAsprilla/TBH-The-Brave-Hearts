@@ -11,7 +11,6 @@ import { QuillModule } from 'ngx-quill';
 // angular-archwizard
 import { ArchwizardModule } from 'angular-archwizard';
 
-
 import { FormElementsComponent } from './form-elements.component';
 import { BasicElementsComponent } from './basic-elements/basic-elements.component';
 import { EditorsComponent } from './editors/editors.component';
@@ -25,26 +24,31 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'basic-elements',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'basic-elements',
-        component: BasicElementsComponent
+        component: BasicElementsComponent,
       },
       {
         path: 'editors',
-        component: EditorsComponent
+        component: EditorsComponent,
       },
       {
         path: 'wizard',
-        component: WizardComponent
-      }
-    ]
-  }
-]
+        component: WizardComponent,
+      },
+    ],
+  },
+];
 
 @NgModule({
-  declarations: [FormElementsComponent, BasicElementsComponent, EditorsComponent, WizardComponent],
+  declarations: [
+    FormElementsComponent,
+    BasicElementsComponent,
+    EditorsComponent,
+    WizardComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -53,6 +57,6 @@ const routes: Routes = [
     FeatherIconModule,
     QuillModule.forRoot(), // ngx-quill
     ArchwizardModule, // angular-archwizard
-  ]
+  ],
 })
-export class FormElementsModule { }
+export class FormElementsModule {}
