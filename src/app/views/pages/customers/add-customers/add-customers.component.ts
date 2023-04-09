@@ -4,7 +4,7 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-// import { WizardComponent } from 'angular-archwizard';
+
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
 
 @Component({
@@ -28,21 +28,42 @@ export class AddCustomersComponent implements OnInit {
      * form1 value validation
      */
     this.validationForm1 = this.formBuilder.group({
-      carrier: ['', Validators.required],
-      policityType: ['', Validators.required],
-      monthly: ['', Validators.required],
-      faceAmount: ['', Validators.required],
-      firstName: ['', Validators.required],
-      middleName: [''],
-      lastName: ['', Validators.required],
-      address: ['', Validators.required],
+      carrier: ['', [Validators.required]],
+      policityType: ['', [Validators.required]],
+      monthly: ['', [Validators.required]],
+      faceAmount: ['', [Validators.required]],
+      firstName: ['', [Validators.minLength(2), Validators.required]],
+      middleName: ['', [Validators.minLength(3)]],
+      lastName: ['', [Validators.minLength(3), Validators.required]],
+      address: ['', [Validators.minLength(3), Validators.required]],
       addressLine2: [''],
-      city: [''],
-      state: [''],
+      city: ['', [Validators.minLength(3)]],
+      state: ['', [Validators.minLength(3)]],
       zipCode: [''],
-      phone: ['', Validators.required],
-      phoneType: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required]],
+      phoneType: ['', [Validators.required]],
+      email: [
+        '',
+        [Validators.required, Validators.email, Validators.minLength(3)],
+      ],
+      maritalStatus: ['', [Validators.required]],
+      dateBirth: ['', [Validators.required]],
+      ss: ['', [Validators.required]],
+      countryBirth: ['', [Validators.minLength(3), Validators.required]],
+      cityBirth: ['', [Validators.minLength(3), Validators.required]],
+      greenCard: ['', [Validators.minLength(3)]],
+      driversLicense: ['', [Validators.minLength(3)]],
+      expiration: [''],
+      stateGreenCard: ['', [Validators.minLength(3)]],
+      gender: ['', [Validators.required]],
+      weight: ['', [Validators.required]],
+      height: ['', [Validators.required]],
+      employerName: ['', [Validators.minLength(3), Validators.required]],
+      occupation: ['', [Validators.minLength(3)]],
+      timeEmployed: [''],
+      annualIncome: ['', [Validators.required]],
+      householdIncome: [''],
+      householdNetWorth: [''],
     });
 
     /**
@@ -62,7 +83,7 @@ export class AddCustomersComponent implements OnInit {
    * Wizard finish function
    */
   finishFunction() {
-    alert('Successfully Completed');
+    console.log('this.validationForm1.value,', this.validationForm1.value);
   }
 
   /**
@@ -83,9 +104,10 @@ export class AddCustomersComponent implements OnInit {
    * Go to next step while form value is valid
    */
   form1Submit() {
-    if (this.validationForm1.valid) {
-      this.formLifePolicy.goToNextStep();
-    }
+    // TODO Validación del formulario Life Policy
+    // if (this.validationForm1.valid) {
+    this.formLifePolicy.goToNextStep();
+    // }
     this.isForm1Submitted = true;
   }
 
