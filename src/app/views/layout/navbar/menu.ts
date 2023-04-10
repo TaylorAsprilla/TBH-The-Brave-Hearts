@@ -119,101 +119,101 @@ export const MENU: MenuItem[] = [
       },
     ],
   },
-  // {
-  //   label: 'Icons',
-  //   icon: 'smile',
-  //   subMenus: [
-  //     {
-  //       subMenuItems: [
-  //         {
-  //           label: 'Feather icons',
-  //           link: '/icons/feather-icons',
-  //         },
-  //         {
-  //           label: 'Mdi icons',
-  //           link: '/icons/mdi-icons',
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
-  // {
-  //   label: 'Special pages',
-  //   icon: 'book',
-  //   isMegaMenu: true,
-  //   subMenus: [
-  //     {
-  //       subMenuItems: [
-  //         {
-  //           label: 'Special pages',
-  //           isTitle: true,
-  //         },
-  //         {
-  //           label: 'Blank page',
-  //           link: '/general/blank-page',
-  //         },
-  //         {
-  //           label: 'Faq',
-  //           link: '/general/faq',
-  //         },
-  //         {
-  //           label: 'Invoice',
-  //           link: '/general/invoice',
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       subMenuItems: [
-  //         {
-  //           label: '',
-  //           isTitle: true,
-  //         },
-  //         {
-  //           label: 'Profile',
-  //           link: '/general/profile',
-  //         },
-  //         {
-  //           label: 'Pricing',
-  //           link: '/general/pricing',
-  //         },
-  //         {
-  //           label: 'Timeline',
-  //           link: '/general/timeline',
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       subMenuItems: [
-  //         {
-  //           label: 'Auth pages',
-  //           isTitle: true,
-  //         },
-  //         {
-  //           label: 'Login',
-  //           link: '/auth/login',
-  //         },
-  //         {
-  //           label: 'Register',
-  //           link: '/auth/register',
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       subMenuItems: [
-  //         {
-  //           label: 'Error pages',
-  //           isTitle: true,
-  //         },
-  //         {
-  //           label: '404',
-  //           link: '/error/404',
-  //         },
-  //         {
-  //           label: '500',
-  //           link: '/error/500',
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
+  {
+    label: 'Icons',
+    icon: 'smile',
+    subMenus: [
+      {
+        subMenuItems: [
+          {
+            label: 'Feather icons',
+            link: '/icons/feather-icons',
+          },
+          {
+            label: 'Mdi icons',
+            link: '/icons/mdi-icons',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Special pages',
+    icon: 'book',
+    isMegaMenu: true,
+    subMenus: [
+      {
+        subMenuItems: [
+          {
+            label: 'Special pages',
+            isTitle: true,
+          },
+          {
+            label: 'Blank page',
+            link: '/general/blank-page',
+          },
+          {
+            label: 'Faq',
+            link: '/general/faq',
+          },
+          {
+            label: 'Invoice',
+            link: '/general/invoice',
+          },
+        ],
+      },
+      {
+        subMenuItems: [
+          {
+            label: '',
+            isTitle: true,
+          },
+          {
+            label: 'Profile',
+            link: '/general/profile',
+          },
+          {
+            label: 'Pricing',
+            link: '/general/pricing',
+          },
+          {
+            label: 'Timeline',
+            link: '/general/timeline',
+          },
+        ],
+      },
+      {
+        subMenuItems: [
+          {
+            label: 'Auth pages',
+            isTitle: true,
+          },
+          {
+            label: 'Login',
+            link: '/auth/login',
+          },
+          {
+            label: 'Register',
+            link: '/auth/register',
+          },
+        ],
+      },
+      {
+        subMenuItems: [
+          {
+            label: 'Error pages',
+            isTitle: true,
+          },
+          {
+            label: '404',
+            link: '/error/404',
+          },
+          {
+            label: '500',
+            link: '/error/500',
+          },
+        ],
+      },
+    ],
+  },
 ];

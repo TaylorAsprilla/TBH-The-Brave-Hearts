@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
+  FormArray,
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
@@ -13,21 +14,22 @@ import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
   styleUrls: ['./add-customers.component.scss'],
 })
 export class AddCustomersComponent implements OnInit {
-  validationForm1: UntypedFormGroup;
-  validationForm2: UntypedFormGroup;
+  lifePolicyForm: UntypedFormGroup;
+  beneficiaryForm: UntypedFormGroup;
+  contigentBeneficiaryForm: UntypedFormGroup;
+  medicalForm: UntypedFormGroup;
 
-  isForm1Submitted: Boolean;
-  isForm2Submitted: Boolean;
+  islifePolicyFormSubmitted: Boolean;
+  isBeneficiaryFormSubmitted: Boolean;
+  isContigentBeneficiaryFormSubmitted: Boolean;
+  isMedicalFormFormSubmitted: Boolean;
 
-  @ViewChild('formLifePolicy') formLifePolicy: BaseWizardComponent;
+  @ViewChild('lifePolicy') lifePolicy: BaseWizardComponent;
 
   constructor(public formBuilder: UntypedFormBuilder) {}
 
   ngOnInit(): void {
-    /**
-     * form1 value validation
-     */
-    this.validationForm1 = this.formBuilder.group({
+    this.lifePolicyForm = this.formBuilder.group({
       carrier: ['', [Validators.required]],
       policityType: ['', [Validators.required]],
       monthly: ['', [Validators.required]],
@@ -66,58 +68,154 @@ export class AddCustomersComponent implements OnInit {
       householdNetWorth: [''],
     });
 
-    /**
-     * formw value validation
-     */
-    this.validationForm2 = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      mobileNumber: ['', Validators.required],
-      password: ['', Validators.required],
+    this.beneficiaryForm = this.formBuilder.group({
+      beneficiaries: this.formBuilder.array([]),
     });
 
-    this.isForm1Submitted = false;
-    this.isForm2Submitted = false;
+    this.contigentBeneficiaryForm = this.formBuilder.group({
+      contigentBeneficiaries: this.formBuilder.array([]),
+    });
+
+    this.medicalForm = this.formBuilder.group({
+      doctorName: ['', [Validators.minLength(2), Validators.required]],
+      doctorOfficeLocation: ['', [Validators.minLength(2)]],
+      officePhoneNumber: ['', []],
+      lastVisit: ['', [Validators.required]],
+      reasonForVisit: ['', [Validators.minLength(2)]],
+      outcomeOfVisit: ['', [Validators.minLength(3)]],
+      smoker: ['', [Validators.required]],
+      medicalCondition: ['', [Validators.minLength(3)]],
+      whenItWasDiagnosed: ['', [Validators.minLength(3)]],
+      medications: ['', [Validators.minLength(3)]],
+      dosage: ['', [Validators.minLength(3)]],
+      additionalInformation: ['', [Validators.minLength(3)]],
+      isFatherAlive: ['', []],
+      fatherAge: ['', []],
+      deceasedFather: ['', []],
+      isMotherAlive: ['', []],
+      motherAge: ['', []],
+      deceasedMother: ['', []],
+    });
+
+    this.islifePolicyFormSubmitted = false;
+    this.isBeneficiaryFormSubmitted = false;
+    this.isContigentBeneficiaryFormSubmitted = false;
+    this.isMedicalFormFormSubmitted = false;
   }
 
   /**
    * Wizard finish function
    */
   finishFunction() {
-    console.log('this.validationForm1.value,', this.validationForm1.value);
+    console.log('this.validationForm1.value,', this.lifePolicyForm.value);
   }
 
   /**
    * Returns form
    */
-  get form1() {
-    return this.validationForm1.controls;
+  get formLifePolicy() {
+    return this.lifePolicyForm.controls;
   }
 
   /**
    * Returns form
    */
-  get form2() {
-    return this.validationForm2.controls;
+  get formBeneficiary() {
+    return this.beneficiaryForm.controls;
   }
 
-  /**
-   * Go to next step while form value is valid
-   */
-  form1Submit() {
+  get formMedical() {
+    return this.medicalForm.controls;
+  }
+
+  get beneficiaries() {
+    return this.beneficiaryForm.get('beneficiaries') as FormArray;
+  }
+
+  get contigentBeneficiaries() {
+    return this.contigentBeneficiaryForm.get(
+      'contigentBeneficiaries'
+    ) as FormArray;
+  }
+
+  formLifePolicySubmit() {
     // TODO Validación del formulario Life Policy
+    console.log('entró');
     // if (this.validationForm1.valid) {
-    this.formLifePolicy.goToNextStep();
+    this.addBeneficiary();
+    this.lifePolicy.goToNextStep();
     // }
-    this.isForm1Submitted = true;
+    this.islifePolicyFormSubmitted = true;
   }
 
-  /**
-   * Go to next step while form value is valid
-   */
-  form2Submit() {
-    if (this.validationForm2.valid) {
-      this.formLifePolicy.goToNextStep();
+  beneficiaryFormSubmittedSubmit() {
+    console.log('entró 2');
+    // if (this.beneficiaryForm.valid) {
+    this.addContigentBeneficiary();
+    this.lifePolicy.goToNextStep();
+    // }
+    this.isBeneficiaryFormSubmitted = true;
+  }
+
+  contigentBeneficiaryFormSubmittedSubmit() {
+    // if (this.contigentBeneficiaryForm.valid) {
+    this.lifePolicy.goToNextStep();
+    // }
+    this.isContigentBeneficiaryFormSubmitted = true;
+  }
+
+  medicalFormSubmittedSubmit() {
+    console.log('entró');
+
+    if (this.medicalForm.valid) {
+      this.lifePolicy.goToNextStep();
     }
-    this.isForm2Submitted = true;
+    this.isMedicalFormFormSubmitted = true;
+  }
+
+  addBeneficiary() {
+    this.beneficiaries.push(
+      this.formBuilder.group({
+        firstName: ['', []],
+        middleName: ['', [Validators.minLength(3)]],
+        lastName: ['', [Validators.minLength(3), Validators.required]],
+
+        relationshipToInsured: [
+          '',
+          [Validators.minLength(3), Validators.required],
+        ],
+        phone: ['', [Validators.required]],
+        email: [
+          '',
+          [Validators.required, Validators.email, Validators.minLength(3)],
+        ],
+        dateBirth: [''],
+        ss: [''],
+        share: [''],
+      })
+    );
+  }
+
+  addContigentBeneficiary() {
+    this.contigentBeneficiaries.push(
+      this.formBuilder.group({
+        firstName: ['', []],
+        middleName: ['', [Validators.minLength(3)]],
+        lastName: ['', [Validators.minLength(3), Validators.required]],
+
+        relationshipToInsured: [
+          '',
+          [Validators.minLength(3), Validators.required],
+        ],
+        phone: ['', [Validators.required]],
+        email: [
+          '',
+          [Validators.required, Validators.email, Validators.minLength(3)],
+        ],
+        dateBirth: [''],
+        ss: [''],
+        share: [''],
+      })
+    );
   }
 }
