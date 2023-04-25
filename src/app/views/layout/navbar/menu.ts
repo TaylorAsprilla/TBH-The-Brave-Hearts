@@ -28,24 +28,67 @@ export const MENU: MenuItem[] = [
   },
 
   {
-    label: 'Associates',
+    label: 'Prospects',
+    icon: 'file-plus',
+    subMenus: [
+      {
+        subMenuItems: [
+          {
+            label: 'Add prospects',
+            isTitle: false,
+            link: '/prospect/add-prospects',
+          },
+          {
+            label: 'All prospects',
+            link: '/prospect/all-prospects',
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    label: 'Agents',
     icon: 'user',
     subMenus: [
       {
         subMenuItems: [
           {
-            label: 'Add associates',
+            label: 'Add agents',
             isTitle: false,
             link: '/associates/add-associates',
           },
           {
-            label: 'All associates',
+            label: 'All agents',
             link: '/associates/all-associates',
           },
         ],
       },
     ],
   },
+
+  {
+    label: 'Reports',
+    icon: 'file-text',
+    subMenus: [
+      {
+        subMenuItems: [
+          {
+            label: 'Search',
+            isTitle: false,
+            link: '',
+          },
+          {
+            label: 'Report',
+            link: '',
+          },
+        ],
+      },
+    ],
+  },
+
+  // ########################### Información Adicional #######################################
+
   {
     label: 'Forms',
     icon: 'file-text',

@@ -7,6 +7,7 @@ import { SortablejsModule } from 'ngx-sortablejs';
 import { AddCustomersComponent } from './add-customers/add-customers.component';
 import { AllCustomersComponent } from './all-customers/all-customers.component';
 import { CustomersRoutingModule } from './customers.routing';
+import { DropzoneModule } from 'ngx-dropzone-wrapper';
 
 @NgModule({
   declarations: [AllCustomersComponent, AddCustomersComponent],
@@ -21,6 +22,7 @@ import { CustomersRoutingModule } from './customers.routing';
       ghostClass: 'bg-light',
     }),
     ArchwizardModule,
+    DropzoneModule,
   ],
 
   exports: [AllCustomersComponent, AddCustomersComponent],

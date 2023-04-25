@@ -1,21 +1,10 @@
 <div class="row">
-  <div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Add Customers</h4>
-        <p class="“text-muted”">Life Policy</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
   <div class="col-md-12 stretch-card">
     <div class="card">
       <div class="card-body">
         <aw-wizard #lifePolicy>
           <aw-wizard-step stepTitle="step 1">
-            <div class="tittleForm">Life Pilicy</div>
+            <div class="tittleForm">Life Policy</div>
             <form
               class="forms-sample"
               (ngSubmit)="formLifePolicySubmit()"
@@ -100,7 +89,7 @@
                   <div class="mb-3">
                     <label class="form-label required">Monthly</label>
                     <input
-                      type="text"
+                      type="number"
                       class="form-control"
                       placeholder="Enter Monthly"
                       id="monthly"
@@ -127,7 +116,7 @@
                   <div class="mb-3">
                     <label class="form-label required">Face Amount</label>
                     <input
-                      type="text"
+                      type="number"
                       class="form-control"
                       placeholder="Face Amount"
                       id="faceAmount"
@@ -390,39 +379,25 @@
                   </div>
                 </div>
 
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                   <div class="mb-3">
-                    <label for="phoneType" class="form-label required"
+                    <label for="phoneType" class="form-label"
                       >Select Type</label
                     >
                     <select
                       class="form-select"
                       id="phoneType"
                       formControlName="phoneType"
-                      [ngClass]="{
-                        'is-invalid':
-                          islifePolicyFormSubmitted &&
-                          formLifePolicy.phoneType.errors
-                      }"
                     >
                       <option selected disabled>Select Type</option>
                       <option>Cell</option>
                       <option>Home</option>
                       <option>Office</option>
                     </select>
-                    <div
-                      *ngIf="
-                        islifePolicyFormSubmitted &&
-                        formLifePolicy.phoneType.errors?.required
-                      "
-                      class="invalid-feedback"
-                    >
-                      Required
-                    </div>
                   </div>
                 </div>
 
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                   <div class="mb-3">
                     <label class="form-label required">Email</label>
                     <input
@@ -458,8 +433,78 @@
                   </div>
                 </div>
               </div>
+
               <div class="row">
-                <div class="col-sm-2">
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label required">SS / ITIN # </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="documentNumber"
+                      [ngClass]="{
+                        'is-invalid':
+                          islifePolicyFormSubmitted &&
+                          formLifePolicy.documentNumber.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="
+                        islifePolicyFormSubmitted &&
+                        formLifePolicy.documentNumber.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+
+                    <div
+                      class="form-text text-danger"
+                      *ngIf="
+                        lifePolicyForm
+                          .get('greenCard')
+                          ?.hasError('minlength') &&
+                        lifePolicyForm.get('greenCard')?.touched
+                      "
+                    >
+                      The Green Card does not have the minimum length allowed.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label for="documentType" class="form-label required"
+                      >Document Type
+                    </label>
+                    <select
+                      class="form-select"
+                      id="documentType"
+                      formControlName="documentType"
+                      [ngClass]="{
+                        'is-invalid':
+                          islifePolicyFormSubmitted &&
+                          formLifePolicy.documentType.errors
+                      }"
+                    >
+                      <option selected disabled>Select Type</option>
+                      <option>SS</option>
+                      <option>Green Card</option>
+                      <option>ITIN</option>
+                    </select>
+                    <div
+                      *ngIf="
+                        islifePolicyFormSubmitted &&
+                        formLifePolicy.documentType.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
                   <div class="mb-3">
                     <label for="maritalStatus" class="form-label required"
                       >Marital Status
@@ -492,7 +537,7 @@
                   </div>
                 </div>
 
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                   <div class="mb-3">
                     <label class="form-label required">Date of Birth</label>
                     <input
@@ -518,31 +563,7 @@
                   </div>
                 </div>
 
-                <div class="col-sm-2">
-                  <div class="mb-3">
-                    <label class="form-label required">SS</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      formControlName="ss"
-                      [ngClass]="{
-                        'is-invalid':
-                          islifePolicyFormSubmitted && formLifePolicy.ss.errors
-                      }"
-                    />
-                    <div
-                      *ngIf="
-                        islifePolicyFormSubmitted &&
-                        formLifePolicy.ss.errors?.required
-                      "
-                      class="invalid-feedback"
-                    >
-                      Required
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                   <div class="mb-3">
                     <label class="form-label required"
                       >Country / State of Birth</label
@@ -581,7 +602,7 @@
                   </div>
                 </div>
 
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                   <div class="mb-3">
                     <label class="form-label required">City of Birth</label>
                     <input
@@ -613,95 +634,6 @@
                       "
                     >
                       The City birth does not have the minimum length allowed.
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-sm-3">
-                    <div class="mb-3">
-                      <label for="phoneType" class="form-label"
-                        >Green Card/ITIN #
-                      </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        formControlName="greenCard"
-                      />
-                      <div
-                        class="form-text text-danger"
-                        *ngIf="
-                          lifePolicyForm
-                            .get('greenCard')
-                            ?.hasError('minlength') &&
-                          lifePolicyForm.get('greenCard')?.touched
-                        "
-                      >
-                        The Green Card does not have the minimum length allowed.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-sm-3">
-                    <div class="mb-3">
-                      <label for="phoneType" class="form-label"
-                        >Drivers License #
-                      </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        formControlName="driversLicense"
-                      />
-                      <div
-                        class="form-text text-danger"
-                        *ngIf="
-                          lifePolicyForm
-                            .get('driversLicense')
-                            ?.hasError('minlength') &&
-                          lifePolicyForm.get('driversLicense')?.touched
-                        "
-                      >
-                        The Drivers license does not have the minimum length
-                        allowed.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-sm-3">
-                    <div class="mb-3">
-                      <label for="phoneType" class="form-label"
-                        >Expiration
-                      </label>
-                      <input
-                        type="date"
-                        class="form-control"
-                        formControlName="expiration"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="col-sm-3">
-                    <div class="mb-3">
-                      <label for="State" class="form-label"
-                        >State Green Card
-                      </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        formControlName="stateGreenCard"
-                      />
-                      <div
-                        class="form-text text-danger"
-                        *ngIf="
-                          lifePolicyForm
-                            .get('stateGreenCard')
-                            ?.hasError('minlength') &&
-                          lifePolicyForm.get('stateGreenCard')?.touched
-                        "
-                      >
-                        The state green card does not have the minimum length
-                        allowed.
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -1070,7 +1002,7 @@
                     type="button"
                     (click)="addBeneficiary()"
                   >
-                    <i data-feather="plus-square" appFeatherIcon></i>
+                    <i class="feather icon-plus-square"></i>
                   </button>
                 </div>
               </div>
@@ -1239,7 +1171,7 @@
                     type="button"
                     (click)="addContigentBeneficiary()"
                   >
-                    <i data-feather="plus-square" appFeatherIcon></i>
+                    <i class="feather icon-plus-square"></i>
                   </button>
                 </div>
               </div>
@@ -1514,6 +1446,429 @@
                   <button class="btn btn-primary" type="submit">
                     Continue
                   </button>
+                </div>
+              </div>
+            </form>
+          </aw-wizard-step>
+
+          <!-- ##################### Additional Questions ######################## -->
+
+          <aw-wizard-step stepTitle="step 5">
+            <div class="tittleForm">Additional Questions</div>
+            <form
+              (ngSubmit)="additionalQuestionFormSubmittedSubmit()"
+              [formGroup]="additionalQuestionForm"
+            >
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label required">Criminal record</label>
+                    <select
+                      class="form-select"
+                      id="criminalRecord"
+                      formControlName="criminalRecord"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>
+                        Yes (Please provide additional information in notes)
+                      </option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >During the last 5 years have you pleaded guilty to or
+                      been convicted of any moving vehicle violation or DUI or
+                      have you had a suspended license?</label
+                    >
+                    <select
+                      class="form-select"
+                      id="pleadedGuilty"
+                      formControlName="pleadedGuilty"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>
+                        Yes (Please provide additional information in notes)
+                      </option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Do you have another life insurance at this time?
+                      Excluding any from employer</label
+                    >
+                    <select
+                      class="form-select"
+                      id="anotherLife"
+                      formControlName="anotherLife"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>
+                        Yes (Please provide additional information in notes)
+                      </option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Have you ever applied for life, health, or disability
+                      insurance or reinstatement of same, which was declined,
+                      postponed, rated or modified in any way?</label
+                    >
+                    <select
+                      class="form-select"
+                      id="appliedForLife"
+                      formControlName="appliedForLife"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>
+                        Yes (Please provide additional information in notes)
+                      </option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Do you participate in any motor sport, automobile,
+                      motorcycle, boat or marathon racing; scuba, skin, sport or
+                      sky diving;sports in which you compete against other
+                      individuals; parachuting; or hang gliding; BASE (parachute
+                      jumping from buildings, Antennas, Spans (bridges) or
+                      Earth) or bungee cord jumping; big game hunting; mountain
+                      climbing; caveexploring; rodeos or snowmobiling</label
+                    >
+                    <select
+                      class="form-select"
+                      id="participateSport"
+                      formControlName="participateSport"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>
+                        Yes (Please provide additional information in notes)
+                      </option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Have you been or are you currently involved in any
+                      bankruptcy proceedings that have not been
+                      discharged?</label
+                    >
+                    <select
+                      class="form-select"
+                      id="involved"
+                      formControlName="involved"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>
+                        Yes (Please provide additional information in notes)
+                      </option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="d-flex justify-content-center mt-5">
+                  <button
+                    class="btn btn-secondary me-2"
+                    type="button"
+                    awPreviousStep
+                  >
+                    Back
+                  </button>
+                  <button class="btn btn-primary" type="submit">
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </form>
+          </aw-wizard-step>
+
+          <!-- ##################### Bank Information ######################## -->
+
+          <aw-wizard-step stepTitle="step 6">
+            <div class="tittleForm">Banck Information</div>
+            <form
+              (ngSubmit)="medicalFormSubmittedSubmit()"
+              [formGroup]="bankInformationForm"
+            >
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Draft payment date</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="draftPaymentDate"
+                      [ngClass]="{
+                        'is-invalid':
+                          isAdditionalQuestionFormSubmitted &&
+                          formBankInformation.draftPaymentDate.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="
+                        isAdditionalQuestionFormSubmitted &&
+                        formBankInformation.draftPaymentDate.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Bank/Credit Union name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="bank"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label class="form-label required">Account Number</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="accountNumber"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label class="form-label required">Routing Number</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="routingNumber"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="mb-3">
+                      <label class="form-label">Notes</label>
+                      <textarea
+                        name="textarea"
+                        class="form-control"
+                        formControlName="notes"
+                        rows="10"
+                        cols="30"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="d-flex justify-content-center mt-5">
+                  <button
+                    class="btn btn-secondary me-2"
+                    type="button"
+                    awPreviousStep
+                  >
+                    Back
+                  </button>
+                  <button class="btn btn-primary" type="submit">
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </form>
+          </aw-wizard-step>
+
+          <aw-wizard-step stepTitle="step 7">
+            <div class="tittleForm">Documents</div>
+            <form (ngSubmit)="submitForm()" [formGroup]="documentForm">
+              <div class="row">
+                <div class="col-md-4 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h6 class="card-title">Photo ID</h6>
+
+                      <input
+                        type="file"
+                        id="idPhoto"
+                        formControlName="idPhoto"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <!-- col -->
+
+                <div class="col-md-4 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h6 class="card-title">
+                        Please upload any other necessary document
+                      </h6>
+
+                      <input
+                        type="file"
+                        id="document1"
+                        formControlName="document1"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h6 class="card-title">
+                        Please upload any other necessary document
+                      </h6>
+
+                      <input
+                        type="file"
+                        id="document2"
+                        formControlName="document2"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Primary Agent's Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="primaryAgentName"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label required">%</label>
+                    <select
+                      class="form-select"
+                      id="percentage1"
+                      formControlName="percentage1"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>100</option>
+                      <option>75</option>
+                      <option>50</option>
+                      <option>25</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label">Secondary Agent's Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="secondaryAgentName"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label required">%</label>
+                    <select
+                      class="form-select"
+                      id="percentage2"
+                      formControlName="percentage2"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>100</option>
+                      <option>75</option>
+                      <option>50</option>
+                      <option>25</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label"
+                      >Field Training Agent's name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="fieldTrainingAgent"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label required">MB Base</label>
+                    <select
+                      class="form-select"
+                      id="mdBase"
+                      formControlName="mdBase"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>TBH</option>
+                      <option>DHT</option>
+                      <option>NGC</option>
+                      <option>TPT</option>
+                      <option>TTP</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="d-flex justify-content-center mt-5">
+                  <button
+                    class="btn btn-secondary me-2"
+                    type="button"
+                    awPreviousStep
+                  >
+                    Back
+                  </button>
+                  <button class="btn btn-primary" type="submit">Submit</button>
                 </div>
               </div>
             </form>

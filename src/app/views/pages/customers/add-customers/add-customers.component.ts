@@ -7,6 +7,11 @@ import {
 } from '@angular/forms';
 
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
+import {
+  DropzoneConfigInterface,
+  DropzoneDirective,
+} from 'ngx-dropzone-wrapper';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-customers',
@@ -18,17 +23,40 @@ export class AddCustomersComponent implements OnInit {
   beneficiaryForm: UntypedFormGroup;
   contigentBeneficiaryForm: UntypedFormGroup;
   medicalForm: UntypedFormGroup;
+  additionalQuestionForm: UntypedFormGroup;
+  bankInformationForm: UntypedFormGroup;
+  documentForm: UntypedFormGroup;
 
   islifePolicyFormSubmitted: Boolean;
   isBeneficiaryFormSubmitted: Boolean;
   isContigentBeneficiaryFormSubmitted: Boolean;
   isMedicalFormFormSubmitted: Boolean;
+  isAdditionalQuestionFormSubmitted: Boolean;
+  isBankInformationFormSubmitted: Boolean;
+  isDocumentFormSubmitted: Boolean;
+
+  public config: DropzoneConfigInterface = {
+    clickable: true,
+    maxFiles: 1,
+    autoReset: null,
+    errorReset: null,
+    cancelReset: null,
+  };
+
+  @ViewChild(DropzoneDirective, { static: false })
+  directiveRef?: DropzoneDirective;
 
   @ViewChild('lifePolicy') lifePolicy: BaseWizardComponent;
 
   constructor(public formBuilder: UntypedFormBuilder) {}
 
   ngOnInit(): void {
+    this.createForm();
+    this.addBeneficiary();
+    this.addContigentBeneficiary();
+  }
+
+  createForm() {
     this.lifePolicyForm = this.formBuilder.group({
       carrier: ['', [Validators.required]],
       policityType: ['', [Validators.required]],
@@ -43,20 +71,19 @@ export class AddCustomersComponent implements OnInit {
       state: ['', [Validators.minLength(3)]],
       zipCode: [''],
       phone: ['', [Validators.required]],
-      phoneType: ['', [Validators.required]],
+      phoneType: ['', []],
       email: [
         '',
         [Validators.required, Validators.email, Validators.minLength(3)],
       ],
+      documentType: ['', [Validators.required, Validators.minLength(2)]],
+      documentNumber: ['', [Validators.required, Validators.minLength(3)]],
       maritalStatus: ['', [Validators.required]],
       dateBirth: ['', [Validators.required]],
-      ss: ['', [Validators.required]],
+
       countryBirth: ['', [Validators.minLength(3), Validators.required]],
       cityBirth: ['', [Validators.minLength(3), Validators.required]],
-      greenCard: ['', [Validators.minLength(3)]],
-      driversLicense: ['', [Validators.minLength(3)]],
-      expiration: [''],
-      stateGreenCard: ['', [Validators.minLength(3)]],
+
       gender: ['', [Validators.required]],
       weight: ['', [Validators.required]],
       height: ['', [Validators.required]],
@@ -97,10 +124,42 @@ export class AddCustomersComponent implements OnInit {
       deceasedMother: ['', []],
     });
 
+    this.additionalQuestionForm = this.formBuilder.group({
+      criminalRecord: ['', [Validators.required]],
+      pleadedGuilty: ['', [Validators.required]],
+      anotherLife: ['', [Validators.required]],
+      appliedForLife: ['', [Validators.required]],
+      participateSport: ['', [Validators.required]],
+      involved: ['', [Validators.required]],
+    });
+
+    this.bankInformationForm = this.formBuilder.group({
+      draftPaymentDate: ['', [Validators.required]],
+      bank: ['', [Validators.required]],
+      accountNumber: ['', [Validators.required]],
+      routingNumber: ['', [Validators.required]],
+      notes: ['', []],
+    });
+
+    this.documentForm = this.formBuilder.group({
+      idPhoto: ['', []],
+      document1: ['', []],
+      document2: ['', []],
+      primaryAgentName: ['', [Validators.required]],
+      percentage1: ['', [Validators.required]],
+      secondaryAgentName: ['', []],
+      percentage2: ['', []],
+      fieldTrainingAgent: ['', []],
+      mdBase: ['', []],
+    });
+
     this.islifePolicyFormSubmitted = false;
     this.isBeneficiaryFormSubmitted = false;
     this.isContigentBeneficiaryFormSubmitted = false;
     this.isMedicalFormFormSubmitted = false;
+    this.isAdditionalQuestionFormSubmitted = false;
+    this.isBankInformationFormSubmitted = false;
+    this.isDocumentFormSubmitted = false;
   }
 
   /**
@@ -117,15 +176,20 @@ export class AddCustomersComponent implements OnInit {
     return this.lifePolicyForm.controls;
   }
 
-  /**
-   * Returns form
-   */
   get formBeneficiary() {
     return this.beneficiaryForm.controls;
   }
 
   get formMedical() {
     return this.medicalForm.controls;
+  }
+
+  get formBankInformation() {
+    return this.bankInformationForm.controls;
+  }
+
+  get formDocument() {
+    return this.documentForm.controls;
   }
 
   get beneficiaries() {
@@ -142,16 +206,15 @@ export class AddCustomersComponent implements OnInit {
     // TODO Validación del formulario Life Policy
     console.log('entró');
     // if (this.validationForm1.valid) {
-    this.addBeneficiary();
+
     this.lifePolicy.goToNextStep();
     // }
     this.islifePolicyFormSubmitted = true;
   }
 
   beneficiaryFormSubmittedSubmit() {
-    console.log('entró 2');
     // if (this.beneficiaryForm.valid) {
-    this.addContigentBeneficiary();
+
     this.lifePolicy.goToNextStep();
     // }
     this.isBeneficiaryFormSubmitted = true;
@@ -167,16 +230,60 @@ export class AddCustomersComponent implements OnInit {
   medicalFormSubmittedSubmit() {
     console.log('entró');
 
-    if (this.medicalForm.valid) {
-      this.lifePolicy.goToNextStep();
-    }
+    // if (this.medicalForm.valid) {
+    this.lifePolicy.goToNextStep();
+    // }
     this.isMedicalFormFormSubmitted = true;
+  }
+
+  additionalQuestionFormSubmittedSubmit() {
+    console.log('entró');
+
+    // if (this.additionalQuestionForm.valid) {
+    this.lifePolicy.goToNextStep();
+    // }
+    this.isAdditionalQuestionFormSubmitted = true;
+  }
+
+  bankInformationFormSubmittedSubmit() {
+    console.log('entró');
+
+    // if (this.bankInformationForm.valid) {
+    this.lifePolicy.goToNextStep();
+    // }
+    this.isBankInformationFormSubmitted = true;
+  }
+
+  submitForm() {
+    this.lifePolicyForm.value;
+    this.beneficiaryForm.value;
+    this.contigentBeneficiaryForm.value;
+    this.medicalForm.value;
+    this.additionalQuestionForm.value;
+    this.bankInformationForm.value;
+    this.documentForm.value;
+
+    console.log(
+      this.lifePolicyForm.value,
+      this.beneficiaryForm.value,
+      this.contigentBeneficiaryForm.value,
+      this.medicalForm.value,
+      this.additionalQuestionForm.value,
+      this.bankInformationForm.value,
+      this.documentForm.value
+    );
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Form sent successfully',
+      timer: 3500,
+    });
   }
 
   addBeneficiary() {
     this.beneficiaries.push(
       this.formBuilder.group({
-        firstName: ['', []],
+        firstName: ['', [Validators.required]],
         middleName: ['', [Validators.minLength(3)]],
         lastName: ['', [Validators.minLength(3), Validators.required]],
 

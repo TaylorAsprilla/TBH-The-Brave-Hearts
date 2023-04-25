@@ -12,6 +12,7 @@ import { ErrorPageComponent } from './views/pages/error-page/error-page.componen
 
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { CustomersModule } from './views/pages/customers/customers.module';
+import { ProspectsModule } from './views/pages/prospect/prospects.module';
 
 @NgModule({
   declarations: [AppComponent, ErrorPageComponent],
@@ -21,6 +22,7 @@ import { CustomersModule } from './views/pages/customers/customers.module';
     BrowserAnimationsModule,
     LayoutModule,
     CustomersModule,
+    ProspectsModule,
   ],
   providers: [
     AuthGuard,

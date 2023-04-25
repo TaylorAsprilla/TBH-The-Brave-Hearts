@@ -1,0 +1,385 @@
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-center">Prospects</h5>
+
+        <form
+          class="forms-sample"
+          (ngSubmit)="prospectFormSubmit()"
+          [formGroup]="prospectForm"
+        >
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">First Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="firstName"
+                  [ngClass]="{
+                    'is-invalid':
+                      isprospectFormSubmitted && formProspect.firstName.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isprospectFormSubmitted &&
+                    formProspect.firstName.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formProspect.firstName?.hasError('minlength') &&
+                    formProspect.firstName?.touched
+                  "
+                >
+                  The First Name does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Middle Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="middleName"
+                />
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formProspect.middleName?.hasError('minlength') &&
+                    formProspect.middleName?.touched
+                  "
+                >
+                  The Middle Name does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">Last Name </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="lastName"
+                  [ngClass]="{
+                    'is-invalid':
+                      isprospectFormSubmitted && formProspect.lastName.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isprospectFormSubmitted &&
+                    formProspect.lastName.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formProspect.lastName?.hasError('minlength') &&
+                    formProspect.lastName?.touched
+                  "
+                >
+                  The Last Name does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label for="carrier" class="form-label required"
+                  >Document Type</label
+                >
+                <select
+                  class="form-select"
+                  formControlName="documentType"
+                  [ngClass]="{
+                    'is-invalid':
+                      isprospectFormSubmitted &&
+                      formProspect.documentType.errors
+                  }"
+                >
+                  <option selected disabled>Select the Document Type</option>
+                  <option value="SS">SS</option>
+                  <option value="ITIN">ITIN</option>
+                  <option value="Drivers License">Drivers License</option>
+                </select>
+                <div
+                  *ngIf="
+                    isprospectFormSubmitted &&
+                    formProspect.documentType.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Enter email"
+                  formControlName="email"
+                  [ngClass]="{
+                    'is-invalid':
+                      isprospectFormSubmitted && formProspect.email.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isprospectFormSubmitted &&
+                    formProspect.email.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+
+                <div
+                  *ngIf="
+                    formProspect.email.hasError('email') &&
+                    formProspect.email.touched
+                  "
+                  class="invalid-feedback"
+                >
+                  The value entered does not correspond to an email.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">Date of Birth</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  placeholder="Date of Birth"
+                  formControlName="dateBirth"
+                  [ngClass]="{
+                    'is-invalid':
+                      isprospectFormSubmitted && formProspect.dateBirth.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isprospectFormSubmitted &&
+                    formProspect.dateBirth.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">Phone</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="(000) 000 00 00"
+                  prefix="+7 "
+                  mask="(000) 000 00 00"
+                  formControlName="phone"
+                  [ngClass]="{
+                    'is-invalid':
+                      isprospectFormSubmitted && formProspect.phone.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isprospectFormSubmitted &&
+                    formProspect.phone.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formProspect.phone?.hasError('minlength') &&
+                    formProspect.phone?.touched
+                  "
+                >
+                  The phone does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Couple Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="coupleName"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Couples Occupation</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="couplesOccupation"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Couple Income</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="coupleIncome"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">Children</label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    id="children1"
+                    formControlName="children"
+                    value="Yes"
+                  />
+                  <label class="form-check-label" for="children1"> Yes </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    id="children2"
+                    formControlName="children"
+                    value="No"
+                    checked
+                  />
+                  <label class="form-check-label" for="children2"> No </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Children Age</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="childrenAge"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Children Occupation</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="childrenOccupation"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Retirement Plans</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="retirementPlans"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Life Insurance</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="lifeInsurance"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Discretionary Income</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="discretionaryIncome"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Properties</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="properties"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Other Income</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="otherIncome"
+                />
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="mb-3">
+                <label class="form-label">Observations</label>
+                <textarea
+                  class="form-control"
+                  style="height: 100px"
+                  placeholder="Leave a comment here"
+                  formControlName="observations"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-center mt-2">
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { BaseComponent } from './views/layout/base/base.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
-import { AssociatesRoutingModule } from './views/pages/associates/associates.routing';
 
 const routes: Routes = [
   {
@@ -28,6 +27,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/pages/customers/customers.routing').then(
             (m) => m.CustomersRoutingModule
+          ),
+      },
+      {
+        path: 'prospect',
+        loadChildren: () =>
+          import('./views/pages/prospect/prospects.routing').then(
+            (m) => m.ProspectsRoutingModule
           ),
       },
       {
