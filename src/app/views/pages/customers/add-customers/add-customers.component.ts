@@ -150,7 +150,7 @@ export class AddCustomersComponent implements OnInit {
       secondaryAgentName: ['', []],
       percentage2: ['', []],
       fieldTrainingAgent: ['', []],
-      mdBase: ['', []],
+      mbBase: ['', []],
     });
 
     this.islifePolicyFormSubmitted = false;
@@ -273,6 +273,8 @@ export class AddCustomersComponent implements OnInit {
       this.documentForm.value
     );
 
+    this.clearForm();
+
     Swal.fire({
       icon: 'success',
       title: 'Form sent successfully',
@@ -324,5 +326,15 @@ export class AddCustomersComponent implements OnInit {
         share: [''],
       })
     );
+  }
+
+  clearForm() {
+    this.lifePolicyForm.reset(),
+      this.beneficiaryForm.reset(),
+      this.contigentBeneficiaryForm.reset(),
+      this.medicalForm.reset(),
+      this.additionalQuestionForm.reset(),
+      this.bankInformationForm.reset(),
+      this.documentForm.reset();
   }
 }

@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { AgentsModule } from './views/pages/agents/agents.module';
 import { CustomersModule } from './views/pages/customers/customers.module';
 import { ProspectsModule } from './views/pages/prospect/prospects.module';
 
@@ -21,6 +22,7 @@ import { ProspectsModule } from './views/pages/prospect/prospects.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
+    AgentsModule,
     CustomersModule,
     ProspectsModule,
   ],

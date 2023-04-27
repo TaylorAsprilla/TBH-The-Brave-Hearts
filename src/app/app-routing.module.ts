@@ -37,10 +37,10 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'associates',
+        path: 'agent',
         loadChildren: () =>
-          import('./views/pages/associates/associates.routing').then(
-            (m) => m.AssociatesRoutingModule
+          import('./views/pages/agents/agents.routing').then(
+            (m) => m.AgentsRoutingModule
           ),
       },
       {
