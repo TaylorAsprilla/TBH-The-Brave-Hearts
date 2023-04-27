@@ -11,19 +11,20 @@ import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
-import { AddAssociatesComponent } from './app/views/pages/associates/add-associates/add-associates.component';
+import { AgentsModule } from './views/pages/agents/agents.module';
+import { CustomersModule } from './views/pages/customers/customers.module';
+import { ProspectsModule } from './views/pages/prospect/prospects.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ErrorPageComponent,
-    AddAssociatesComponent,
-  ],
+  declarations: [AppComponent, ErrorPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
+    AgentsModule,
+    CustomersModule,
+    ProspectsModule,
   ],
   providers: [
     AuthGuard,
@@ -35,10 +36,10 @@ import { AddAssociatesComponent } from './app/views/pages/associates/add-associa
           xml: () => import('highlight.js/lib/languages/xml'),
           typescript: () => import('highlight.js/lib/languages/typescript'),
           scss: () => import('highlight.js/lib/languages/scss'),
-        }
-      }
-    }
+        },
+      },
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -6,50 +6,95 @@
           <div
             class="auth-side-wrapper"
             [ngStyle]="{
-              'background-image': 'url(https://via.placeholder.com/219x452)'
+              'background-image': 'url(assets/images/logo.png)'
             }"
           ></div>
         </div>
         <div class="col-md-8 ps-md-0">
           <div class="auth-form-wrapper px-4 py-5">
             <a routerLink="." class="nobleui-logo d-block mb-2"
-              >PHP<span>Agency</span></a
+              >PHP<span> Agency</span></a
             >
             <a routerLink="." class="nobleui-logo d-block mb-2"
-              >TBH<span>THE BRAVE HEARTS</span></a
+              >TBH<span> THE BRAVE HEARTS</span></a
             >
             <h5 class="text-muted fw-normal mb-4">
               Welcome back! Log in to your account.
             </h5>
-            <form class="forms-sample">
+            <form
+              class="forms-sample"
+              id="loginForm"
+              autocomplete="off"
+              [formGroup]="loginForm"
+              (ngSubmit)="login()"
+            >
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label"
-                  >Email address</label
-                >
+                <label for="user" class="form-label">Agent Code</label>
                 <input
-                  type="email"
+                  type="text"
                   class="form-control"
-                  id="exampleInputEmail1"
-                  placeholder="Email"
-                  value="admin@demo.com"
+                  formControlName="agentCode"
+                  id="user"
+                  placeholder="Agent Code"
+                  [ngClass]="{
+                    'is-invalid':
+                      isLoginFormSubmitted && formLogin.agentCode.errors
+                  }"
                 />
+                <div
+                  *ngIf="
+                    isLoginFormSubmitted && formLogin.agentCode.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formLogin.agentCode.hasError('minlength') &&
+                    formLogin.agentCode.touched
+                  "
+                >
+                  The Agent Code does not have the minimum length allowed.
+                </div>
               </div>
               <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label"
-                  >Password</label
-                >
+                <label for="password" class="form-label">Password</label>
                 <input
                   type="password"
                   class="form-control"
-                  id="exampleInputPassword1"
+                  formControlName="password"
+                  id="password"
                   autocomplete="current-password"
                   placeholder="Password"
-                  value="12345678"
+                  [ngClass]="{
+                    'is-invalid':
+                      isLoginFormSubmitted && formLogin.password.errors
+                  }"
                 />
+                <div
+                  *ngIf="
+                    isLoginFormSubmitted && formLogin.password.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formLogin.password.hasError('minlength') &&
+                    formLogin.password.touched
+                  "
+                >
+                  The password does not have the minimum length allowed.
+                </div>
               </div>
               <div class="form-check mb-3">
                 <input
                   type="checkbox"
+                  formControlName="remember"
                   class="form-check-input"
                   id="authCheck"
                 />
@@ -58,21 +103,10 @@
                 </label>
               </div>
               <div>
-                <button
-                  type="submit"
-                  class="btn btn-primary me-2 mb-2 mb-md-0"
-                  (click)="onLoggedin($event)"
-                >
+                <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0">
                   Login
                 </button>
-                <!-- <button type="button" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
-                  <i class="feather icon-twitter btn-icon-prepend"></i>
-                  Login with twitter
-                </button> -->
               </div>
-              <a routerLink="/auth/register" class="d-block mt-3 text-muted"
-                >Not a user? Sign up</a
-              >
             </form>
           </div>
         </div>

@@ -1,0 +1,260 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Agents</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Add Agents</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-center">Agents</h5>
+        <form id="agentForm" [formGroup]="agentForm" (ngSubmit)="createAgent()">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Agent Code</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="agentCode"
+                  placeholder="Enter agent Code"
+                  [ngClass]="{
+                    'is-invalid':
+                      isAgentFormSubmitted && formAgent.agentCode.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isAgentFormSubmitted && formAgent.agentCode.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formAgent.agentCode.hasError('minlength') &&
+                    formAgent.agentCode.touched
+                  "
+                >
+                  The Agent Code does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">First Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="firstName"
+                  placeholder="Enter first name"
+                  [ngClass]="{
+                    'is-invalid':
+                      isAgentFormSubmitted && formAgent.firstName.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isAgentFormSubmitted && formAgent.firstName.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formAgent.firstName.hasError('minlength') &&
+                    formAgent.firstName.touched
+                  "
+                >
+                  The First Name does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Last Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="lastName"
+                  placeholder="Enter last name"
+                  [ngClass]="{
+                    'is-invalid':
+                      isAgentFormSubmitted && formAgent.lastName.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isAgentFormSubmitted && formAgent.lastName.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formAgent.lastName.hasError('minlength') &&
+                    formAgent.lastName.touched
+                  "
+                >
+                  The Last Name does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="city"
+                  placeholder="Enter city"
+                />
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formAgent.city.hasError('minlength') &&
+                    formAgent.city.touched
+                  "
+                >
+                  The city does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">State</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="state"
+                  placeholder="Enter state"
+                  [ngClass]="{
+                    'is-invalid': isAgentFormSubmitted && formAgent.state.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isAgentFormSubmitted && formAgent.state.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formAgent.state.hasError('minlength') &&
+                    formAgent.state.touched
+                  "
+                >
+                  The State does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Zip</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="zip"
+                  placeholder="Enter zip code"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Email address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                  placeholder="Enter email"
+                  [ngClass]="{
+                    'is-invalid': isAgentFormSubmitted && formAgent.email.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isAgentFormSubmitted && formAgent.email.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+
+                <div
+                  *ngIf="
+                    formAgent.email.hasError('email') && formAgent.email.touched
+                  "
+                  class="invalid-feedback"
+                >
+                  The value entered does not correspond to an email.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="password"
+                  autocomplete="off"
+                  placeholder="Password"
+                  [ngClass]="{
+                    'is-invalid':
+                      isAgentFormSubmitted && formAgent.password.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isAgentFormSubmitted && formAgent.password.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    (formAgent.password.hasError('pattern') ||
+                      formAgent.password.hasError('minlength')) &&
+                    formAgent.password.touched
+                  "
+                >
+                  The password must be alphanumeric, have at least one capital
+                  letter and a minimum of 8 digits.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary submit">
+            Submit form
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
