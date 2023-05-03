@@ -67,17 +67,14 @@ export class LoginComponent implements OnInit {
             localStorage.removeItem('agentCode');
           }
 
-          localStorage.setItem('isLoggedin', 'true');
-          if (localStorage.getItem('isLoggedin')) {
-            this.router.navigate([this.returnUrl]);
-          }
-
           Swal.fire({
             position: 'bottom-end',
             html: `Welcome ${resp.user.firstName} ${resp.user.lastName}`,
             showConfirmButton: false,
             timer: 1500,
           });
+
+          this.router.navigate([this.returnUrl]);
         }
       },
       error: (error: any) => {
