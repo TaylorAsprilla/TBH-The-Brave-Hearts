@@ -5,6 +5,7 @@ import { Observable, catchError, map, of, tap } from 'rxjs';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { AgentFormInterface } from 'src/app/core/interfaces/agent-form.interface';
 import { LoginFormInterface } from 'src/app/core/interfaces/login-form.interface';
+import { AgentModel } from 'src/app/core/models/agent.model';
 import { environment } from 'src/environments/environment';
 
 const base_url = environment.base_url;
@@ -12,6 +13,8 @@ const base_url = environment.base_url;
   providedIn: 'root',
 })
 export class AgentService {
+  public agent: AgentModel;
+
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   validateToken(): Observable<boolean> {
@@ -25,10 +28,43 @@ export class AgentService {
       })
       .pipe(
         tap((resp: any) => {
+          const {
+            uid,
+            agentCode,
+            firstName,
+            lastName,
+            city,
+            state,
+            zip,
+            email,
+            img,
+            role,
+            active,
+            createdAt,
+          } = resp.agent;
+
+          this.agent = new AgentModel(
+            uid,
+            agentCode,
+            firstName,
+            lastName,
+            state,
+            email,
+            city,
+            zip,
+            '',
+            role,
+            img,
+            active,
+            createdAt
+          );
           localStorage.setItem('token', resp.token);
         }),
         map((resp) => true),
-        catchError((error) => of(false))
+        catchError((error) => {
+          console.log(error);
+          return of(false);
+        })
       );
   }
 
