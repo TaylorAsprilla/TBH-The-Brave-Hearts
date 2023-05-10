@@ -9,6 +9,8 @@
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
+        <app-spinner *ngIf="!!loading" [textData]="'Customers'"></app-spinner>
+
         <h4 class="card-title">Customers</h4>
 
         <a routerLink="/customer/add-customers">
@@ -23,133 +25,33 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>User</th>
-                <th>Name</th>
-                <th>Date of Birth</th>
-                <th>Phone</th>
-                <th>Salary</th>
-                <th>Start date</th>
-                <th>Actions</th>
+                <th>Img</th>
+                <th>Carrier</th>
+                <th>Policy Type</th>
+                <th>Monthly</th>
+                <th>Face Amount</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+                <th>State</th>
+                <th>Email</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngFor="let customer of customers">
                 <td class="py-1">
                   <img src="assets/images/users/associates.png" alt="image" />
                 </td>
-                <td>Cedric Kelly</td>
-                <td>01/01/2022</td>
-                <td>1 407 123 456 4564</td>
-                <td>$206,850</td>
-                <td>June 21, 2010</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary mb-1 mb-md-0"
-                  >
-                    More
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="assets/images/users/associates.png" alt="image" />
-                </td>
-                <td>Haley Kennedy</td>
-                <td>01/01/2022</td>
-                <th>1 407 123 456 4564</th>
-                <td>$313,500</td>
-                <td>May 15, 2013</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary mb-1 mb-md-0"
-                  >
-                    More
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="assets/images/users/associates.png" alt="image" />
-                </td>
-                <td>Bradley Greer</td>
-                <td>01/01/2022</td>
-                <th>1 407 123 456 4564</th>
-                <td>$132,000</td>
-                <td>Apr 12, 2014</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary mb-1 mb-md-0"
-                  >
-                    More
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="assets/images/users/associates.png" alt="image" />
-                </td>
-                <td>Brenden Wagner</td>
-                <td>01/01/2022</td>
-                <th>1 407 123 456 4564</th>
-                <td>$206,850</td>
-                <td>June 21, 2010</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary mb-1 mb-md-0"
-                  >
-                    More
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="assets/images/users/associates.png" alt="image" />
-                </td>
-                <td>Bruno Nash</td>
-                <td>01/01/2022</td>
-                <th>1 407 123 456 4564</th>
-                <td>$163,500</td>
-                <td>January 01, 2016</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary mb-1 mb-md-0"
-                  >
-                    More
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="assets/images/users/associates.png" alt="image" />
-                </td>
-                <td>Sonya Frost</td>
-                <td>01/01/2022</td>
-                <th>1 407 123 456 4564</th>
-                <td>$103,600</td>
-                <td>July 18, 2011</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary mb-1 mb-md-0"
-                  >
-                    More
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="assets/images/users/associates.png" alt="image" />
-                </td>
-                <td>Zenaida Frank</td>
-                <td>01/01/2022</td>
-                <th>1 407 123 456 4564</th>
-                <td>$313,500</td>
-                <td>March 22, 2013</td>
+                <td class="py-1">{{ customer.carrier }}</td>
+                <td>{{ customer.policityType }}</td>
+                <td>{{ customer.monthly }}</td>
+                <td>{{ customer.faceAmount }}</td>
+                <td>{{ customer.firstName }}</td>
+                <td>{{ customer.middleName }}</td>
+                <td>{{ customer.lastName }}</td>
+                <td>{{ customer.state }}</td>
+                <td>{{ customer.email }}</td>
                 <td>
                   <button
                     type="button"

@@ -1,3 +1,7 @@
+import { environment } from 'src/environments/environment';
+
+const imageProfile = environment.imageProfile;
+
 export class AgentModel {
   constructor(
     public uid: string,
@@ -14,4 +18,12 @@ export class AgentModel {
     public active?: boolean,
     public createdAt?: Date
   ) {}
+
+  get imageUrl() {
+    if (this.img) {
+      return `${imageProfile}/agents/${this.img}`;
+    } else {
+      return `${imageProfile}/agents/no-file.png`;
+    }
+  }
 }

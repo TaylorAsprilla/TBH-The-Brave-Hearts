@@ -3,14 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { FeatherIconModule } from '../../../core/feather-icon/feather-icon.module';
 
-import { NgbAccordionModule, NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbAccordionModule,
+  NgbDropdownModule,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
 
 import { GeneralComponent } from './general.component';
 import { BlankComponent } from './blank/blank.component';
 import { FaqComponent } from './faq/faq.component';
-import { InvoiceComponent } from './invoice/invoice.component';
 import { ProfileComponent } from './profile/profile.component';
-import { PricingComponent } from './pricing/pricing.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -22,45 +24,45 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'blank-page',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'blank-page',
-        component: BlankComponent
+        component: BlankComponent,
       },
       {
         path: 'faq',
-        component: FaqComponent
+        component: FaqComponent,
       },
-      {
-        path: 'invoice',
-        component: InvoiceComponent
-      },
+
       {
         path: 'profile',
-        component: ProfileComponent
+        component: ProfileComponent,
       },
-      {
-        path: 'pricing',
-        component: PricingComponent
-      },
+
       {
         path: 'timeline',
-        component: TimelineComponent
-      }
-    ]
-  }
-]
+        component: TimelineComponent,
+      },
+    ],
+  },
+];
 
 @NgModule({
-  declarations: [GeneralComponent, BlankComponent, FaqComponent, InvoiceComponent, ProfileComponent, PricingComponent, TimelineComponent],
+  declarations: [
+    GeneralComponent,
+    BlankComponent,
+    FaqComponent,
+    ProfileComponent,
+    TimelineComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     FeatherIconModule,
     NgbAccordionModule,
     NgbDropdownModule,
-    NgbTooltipModule
-  ]
+    NgbTooltipModule,
+  ],
 })
-export class GeneralModule { }
+export class GeneralModule {}
