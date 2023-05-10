@@ -58,10 +58,14 @@ export class LoginComponent implements OnInit {
     }
 
     const data = this.loginForm.value;
+
     this.agentService.login(data).subscribe({
       next: (resp: any) => {
-        if (resp && resp.user) {
-          if (data.remember) {
+        if (resp && resp.agent) {
+          const { firstName, lastName } = resp.agent;
+          const { remember } = data;
+
+          if (remember) {
             localStorage.setItem('agentCode', data.agentCode);
           } else {
             localStorage.removeItem('agentCode');
@@ -69,30 +73,30 @@ export class LoginComponent implements OnInit {
 
           Swal.fire({
             position: 'bottom-end',
-            html: `Welcome ${resp.user.firstName} ${resp.user.lastName}`,
+            html: `Welcome ${firstName} ${lastName}`,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 1000,
+          }).then(() => {
+            this.router.navigate([this.returnUrl]);
           });
-
-          this.router.navigate([this.returnUrl]);
         }
       },
       error: (error: any) => {
-        console.log('error', error);
         let errors = error?.error?.errors;
         let errorList: string[] = [];
 
         if (errors) {
-          Object.entries(errors).forEach(([key, value]: [string, any]) => {
-            if (value && value['msg']) {
-              errorList.push('° ' + value['msg'] + '<br>');
-            }
-          });
+          errorList = Object.values(errors)
+            .map((value: any) => value?.msg)
+            .filter((msg: any) => msg);
         }
+
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          html: `${errorList.length ? errorList.join('') : error.error.msg}`,
+          html: `${
+            errorList.length ? errorList.join('<br>') : error.error.msg
+          }`,
         });
       },
     });

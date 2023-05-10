@@ -8,6 +8,7 @@ import { AddCustomersComponent } from './add-customers/add-customers.component';
 import { AllCustomersComponent } from './all-customers/all-customers.component';
 import { CustomersRoutingModule } from './customers.routing';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { SpinnerModule } from '../../components/spinner/spinner.module';
 
 @NgModule({
   declarations: [AllCustomersComponent, AddCustomersComponent],
@@ -23,6 +24,7 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
     }),
     ArchwizardModule,
     DropzoneModule,
+    SpinnerModule,
   ],
 
   exports: [AllCustomersComponent, AddCustomersComponent],

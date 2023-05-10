@@ -55,13 +55,7 @@ const routes: Routes = [
             (m) => m.UiComponentsModule
           ),
       },
-      {
-        path: 'advanced-ui',
-        loadChildren: () =>
-          import('./views/pages/advanced-ui/advanced-ui.module').then(
-            (m) => m.AdvancedUiModule
-          ),
-      },
+
       {
         path: 'form-elements',
         loadChildren: () =>
@@ -69,13 +63,7 @@ const routes: Routes = [
             (m) => m.FormElementsModule
           ),
       },
-      {
-        path: 'advanced-form-elements',
-        loadChildren: () =>
-          import(
-            './views/pages/advanced-form-elements/advanced-form-elements.module'
-          ).then((m) => m.AdvancedFormElementsModule),
-      },
+
       {
         path: 'charts-graphs',
         loadChildren: () =>

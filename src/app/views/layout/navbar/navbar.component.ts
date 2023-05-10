@@ -19,6 +19,11 @@ import { AgentService } from 'src/app/services/agent/agent.service';
 })
 export class NavbarComponent implements OnInit {
   menuItems: MenuItem[] = [];
+  imageProfile: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  agentCode: number;
 
   /**
    * Fixed header menu on scroll
@@ -58,6 +63,8 @@ export class NavbarComponent implements OnInit {
         }
       });
     }
+
+    this.agentInformation();
   }
 
   /**
@@ -82,5 +89,15 @@ export class NavbarComponent implements OnInit {
     document
       .querySelector('.horizontal-menu .bottom-navbar')!
       .classList.toggle('header-toggled');
+  }
+
+  agentInformation() {
+    const agent = this.agentService.agent;
+
+    this.imageProfile = agent.imageUrl;
+    this.firstName = agent.firstName;
+    this.lastName = agent.lastName;
+    this.email = agent.email;
+    this.agentCode = agent.agentCode;
   }
 }

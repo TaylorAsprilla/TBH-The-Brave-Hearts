@@ -5,6 +5,7 @@ import { AgentsRoutingModule } from './agents.routing';
 import { AddAgentsComponent } from './add-agents/add-agents.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SpinnerModule } from '../../components/spinner/spinner.module';
 
 @NgModule({
   declarations: [AddAgentsComponent, AllAgentsComponent],
@@ -14,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
     AgentsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    SpinnerModule,
   ],
   exports: [AddAgentsComponent, AllAgentsComponent],
 })

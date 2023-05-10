@@ -30,7 +30,7 @@
             <a class="nav-link" ngbDropdownToggle id="profileDropdown">
               <img
                 class="wd-30 ht-30 rounded-circle"
-                src="assets/images/users/user-30-30.png"
+                [src]="imageProfile"
                 alt="profile"
               />
             </a>
@@ -41,13 +41,16 @@
                 <div class="mb-3">
                   <img
                     class="wd-80 ht-80 rounded-circle"
-                    src="assets/images/users/user.png"
+                    [src]="this.imageProfile"
                     alt=""
                   />
                 </div>
                 <div class="text-center">
-                  <p class="tx-16 fw-bolder">Amiah Burton</p>
-                  <p class="tx-12 text-muted">amiahburton@gmail.com</p>
+                  <p class="tx-16 fw-bolder">{{ firstName }} {{ lastName }}</p>
+                  <p class="tx-12 text-muted">{{ agentCode }}</p>
+                  <p class="tx-12 text-muted">
+                    {{ email.length > 30 ? email.slice(0, 30) + "..." : email }}
+                  </p>
                 </div>
               </div>
               <ul class="list-unstyled p-1">

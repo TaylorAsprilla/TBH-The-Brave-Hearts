@@ -6,67 +6,93 @@
 </nav>
 
 <div class="row">
-  <div class="col-lg-12 stretch-card">
+  <div class="col-md-12 stretch-card">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Agents</h4>
+        <app-spinner *ngIf="!!loading" [textData]="'Agents'"></app-spinner>
 
-        <a routerLink="/agent/add-agents">
-          <button
-            class="btn btn-primary crop mb-2 mb-md-0 feather icon-user-plus"
-          >
-            Add Agents
-          </button>
-        </a>
+        <h6 class="card-title">Agents</h6>
+        <span class="float-end badge bg-danger">{{ agents.length }}</span>
 
-        <div class="table-responsive pt-3">
-          <table class="table table-bordered">
+        <div class="mb-3">
+          <a routerLink="/agent/add-agents">
+            <button
+              class="btn btn-primary crop mb-2 mb-md-0 feather icon-user-plus"
+            >
+              Add Agents
+            </button>
+          </a>
+        </div>
+        <div id="dataTableExample" class="table-responsive">
+          <table class="table table-hover table-bordered">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Salary</th>
-                <th>Start date</th>
+                <th>Img</th>
+                <th>Agent Code</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Email</th>
+                <th>Active</th>
+                <th>Create At</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr class="table-info">
-                <td>1</td>
-                <td>Cedric Kelly</td>
-                <td>1 407 123 456 4564</td>
-                <td>$206,850</td>
-                <td>June 21, 2010</td>
-              </tr>
-              <tr class="table-warning">
-                <td>2</td>
-                <td>Haley Kennedy</td>
-                <td>1 407 123 456 4564</td>
-                <td>$313,500</td>
-                <td>May 15, 2013</td>
-              </tr>
-              <tr class="table-danger">
-                <td>3</td>
-                <td>Bradley Greer</td>
-                <td>1 407 123 456 4564</td>
-                <td>$132,000</td>
-                <td>Apr 12, 2014</td>
-              </tr>
-              <tr class="table-success">
-                <td>4</td>
-                <td>Brenden Wagner</td>
-                <td>1 407 123 456 4564</td>
-                <td>$206,850</td>
-                <td>June 21, 2010</td>
-              </tr>
-              <tr class="table-primary">
-                <td>5</td>
-                <td>Bruno Nash</td>
-                <td>1 407 123 456 4564</td>
-                <td>$163,500</td>
-                <td>January 01, 2016</td>
+              <tr *ngFor="let agent of agents">
+                <td>
+                  <img
+                    [src]="agent.imageUrl"
+                    [alt]="agent.firstName"
+                    class="rounded-circle img-xs"
+                  />
+                </td>
+                <td>{{ agent.agentCode }}</td>
+                <td>{{ agent.firstName }}</td>
+                <td>{{ agent.lastName }}</td>
+                <td>{{ agent.city }}</td>
+                <td>{{ agent.state }}</td>
+                <td>{{ agent.zip }}</td>
+                <td>{{ agent.email }}</td>
+                <td>
+                  <ng-container *ngIf="!!agent.active; else inactiveAgent">
+                    <span class="badge bg-primary">Active</span>
+                  </ng-container>
+                  <ng-template #inactiveAgent>
+                    <span class="badge bg-secondary">Inactive</span>
+                  </ng-template>
+                </td>
+                <td>{{ agent.createdAt }}</td>
+
+                <td>
+                  <button type="button" class="btn btn-primary">
+                    <i class="feather icon-edit"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger">
+                    <i class="feather icon-x-square"></i>
+                  </button>
+                  <button type="button" class="btn btn-success">
+                    <i class="feather icon-check-square"></i>
+                  </button>
+                </td>
               </tr>
             </tbody>
+            <tfoot>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
