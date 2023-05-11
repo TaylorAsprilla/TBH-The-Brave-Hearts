@@ -15,6 +15,7 @@ import { FaqComponent } from './faq/faq.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { Routes, RouterModule } from '@angular/router';
+import { ModalImageModule } from '../../components/modal-image/modal-image.module';
 
 const routes: Routes = [
   {
@@ -63,6 +64,7 @@ const routes: Routes = [
     NgbAccordionModule,
     NgbDropdownModule,
     NgbTooltipModule,
+    ModalImageModule,
   ],
 })
 export class GeneralModule {}

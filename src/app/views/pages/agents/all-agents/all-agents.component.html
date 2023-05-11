@@ -36,7 +36,7 @@
                 <th>Zip</th>
                 <th>Email</th>
                 <th>Active</th>
-                <th>Create At</th>
+                <th>Role</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -64,13 +64,28 @@
                     <span class="badge bg-secondary">Inactive</span>
                   </ng-template>
                 </td>
-                <td>{{ agent.createdAt }}</td>
+
+                <td>
+                  <select
+                    class="form-control w140"
+                    [(ngModel)]="agent.role"
+                    (change)="changeRole(agent)"
+                  >
+                    <option value="ADMIN_ROLE">Admin</option>
+                    <option value="USER_ROLE">User</option>
+                  </select>
+                </td>
 
                 <td>
                   <button type="button" class="btn btn-primary">
                     <i class="feather icon-edit"></i>
                   </button>
-                  <button type="button" class="btn btn-danger">
+                  <button
+                    (click)="deleteAgent(agent)"
+                    type="button"
+                    class="btn btn-danger"
+                    data-original-title="Delete"
+                  >
                     <i class="feather icon-x-square"></i>
                   </button>
                   <button type="button" class="btn btn-success">
@@ -81,7 +96,6 @@
             </tbody>
             <tfoot>
               <tr>
-                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>

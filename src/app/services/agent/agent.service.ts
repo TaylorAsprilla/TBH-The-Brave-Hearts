@@ -132,10 +132,25 @@ export class AgentService {
     return this.httpClient.post(`${base_url}/agents`, agent, this.headers);
   }
 
-  updateAgent(agent: AgentUpdateFormInterface) {
+  updateAgentProfile(agent: AgentUpdateFormInterface) {
     return this.httpClient.put(
       `${base_url}/agents/${this.uid}`,
       agent,
+      this.headers
+    );
+  }
+
+  updateAgent(agent: AgentModel) {
+    return this.httpClient.put(
+      `${base_url}/agents/${agent.uid}`,
+      agent,
+      this.headers
+    );
+  }
+
+  deleteAgent(agent: AgentModel) {
+    return this.httpClient.delete(
+      `${base_url}/agents/${agent.uid}`,
       this.headers
     );
   }

@@ -1,0 +1,41 @@
+<!-- Button trigger modal -->
+<button
+  class="btn btn-link"
+  (click)="openVerticalCenteredModal(verticalCenteredModal)"
+>
+  <i class="feather icon-file-plus"></i>
+
+  Change image
+</button>
+<!-- Modal -->
+<ng-template #verticalCenteredModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Upload image</h5>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="modal.close('by: close icon')"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <h3>Select Image</h3>
+    <p>Modal body</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('by: close button')"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="modal.close('by: save button')"
+    >
+      Upload image
+    </button>
+  </div>
+</ng-template>
