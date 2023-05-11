@@ -11,13 +11,15 @@ export class ModalImageComponent implements OnInit {
 
   constructor(private modalService: NgbModal) {}
 
-  ngOnInit(): void {
-    // this.openVerticalCenteredModal(this.verticalCenteredModal);
+  ngOnInit(): void {}
+
+  ngAfterViewInit() {
+    this.openVerticalCenteredModal();
   }
 
-  openVerticalCenteredModal(content: TemplateRef<any>) {
+  openVerticalCenteredModal() {
     this.modalService
-      .open(content, { centered: true })
+      .open(this.verticalCenteredModal, { centered: true })
       .result.then((result) => {
         console.log('Modal closed' + result);
       })

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
-import { DataTable } from 'simple-datatables';
 import { AgentService } from 'src/app/services/agent/agent.service';
 import { Subscription } from 'rxjs';
 import { AgentModel } from 'src/app/core/models/agent.model';
@@ -13,32 +12,33 @@ import Swal from 'sweetalert2';
 export class AllAgentsComponent implements OnInit, OnDestroy, AfterViewInit {
   agentSubscription: Subscription;
   agents: AgentModel[] = [];
-  dataTableAgents: any;
+  // dataTableAgents: any;
   loading: boolean = false;
 
   constructor(private agentService: AgentService) {}
 
   ngOnDestroy(): void {
     this.agentSubscription?.unsubscribe();
-    this.dataTableAgents?.destroy();
+    // this.dataTableAgents?.destroy();
   }
 
   ngOnInit(): void {
     this.loadAgents();
+    // const dataTable = new DataTable('#dataTableAgentsDos');
   }
 
   ngAfterViewInit() {
-    this.initializeTable();
+    // this.initializeTable();
   }
 
-  initializeTable() {
-    const options = { searchable: true, fixedHeight: true };
-    const tableElement = document.getElementById('dataTableAgents');
+  // initializeTable() {
+  //   const options = { searchable: true, fixedHeight: true };
+  //   const tableElement = document.getElementById('dataTableAgents');
 
-    if (tableElement) {
-      this.dataTableAgents = new DataTable(tableElement, options);
-    }
-  }
+  //   if (tableElement) {
+  //     this.dataTableAgents = new DataTable(tableElement, options);
+  //   }
+  // }
 
   loadAgents() {
     this.loading = true;
@@ -102,5 +102,9 @@ export class AllAgentsComponent implements OnInit, OnDestroy, AfterViewInit {
         });
       },
     });
+  }
+
+  trackByAgentId(index: number, agent: AgentModel): string {
+    return agent.uid;
   }
 }

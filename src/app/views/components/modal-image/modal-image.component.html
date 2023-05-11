@@ -1,12 +1,12 @@
 <!-- Button trigger modal -->
-<button
+<!-- <button
   class="btn btn-link"
   (click)="openVerticalCenteredModal(verticalCenteredModal)"
 >
   <i class="feather icon-file-plus"></i>
 
   Change image
-</button>
+</button> -->
 <!-- Modal -->
 <ng-template #verticalCenteredModal let-modal>
   <div class="modal-header">
@@ -14,7 +14,7 @@
     <button
       type="button"
       class="btn-close"
-      (click)="modal.close('by: close icon')"
+      (click)="modal.dismiss('by: close icon')"
       aria-label="Close"
     ></button>
   </div>
@@ -26,7 +26,7 @@
     <button
       type="button"
       class="btn btn-secondary"
-      (click)="modal.close('by: close button')"
+      (click)="modal.dismiss('by: close button')"
     >
       Cancel
     </button>
@@ -39,3 +39,7 @@
     </button>
   </div>
 </ng-template>
+
+<button class="btn btn-link" (click)="openVerticalCenteredModal()">
+  <i class="feather icon-file-plus"></i> Change image
+</button>

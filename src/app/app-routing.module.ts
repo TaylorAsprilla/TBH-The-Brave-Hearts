@@ -48,21 +48,6 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/pages/apps/apps.module').then((m) => m.AppsModule),
       },
-      {
-        path: 'ui-components',
-        loadChildren: () =>
-          import('./views/pages/ui-components/ui-components.module').then(
-            (m) => m.UiComponentsModule
-          ),
-      },
-
-      {
-        path: 'form-elements',
-        loadChildren: () =>
-          import('./views/pages/form-elements/form-elements.module').then(
-            (m) => m.FormElementsModule
-          ),
-      },
 
       {
         path: 'charts-graphs',
@@ -71,13 +56,7 @@ const routes: Routes = [
             (m) => m.ChartsGraphsModule
           ),
       },
-      {
-        path: 'tables',
-        loadChildren: () =>
-          import('./views/pages/tables/tables.module').then(
-            (m) => m.TablesModule
-          ),
-      },
+
       {
         path: 'icons',
         loadChildren: () =>
