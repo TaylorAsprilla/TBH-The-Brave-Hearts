@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UserType } from 'src/app/core/type/type';
 import { environment } from 'src/environments/environment';
 
 const imageProfile = environment.imageProfile;
@@ -9,11 +10,7 @@ const imageProfile = environment.imageProfile;
 export class FileUploadService {
   constructor() {}
 
-  async updateImage(
-    file: File,
-    type: 'agents' | 'customers',
-    id: string
-  ): Promise<boolean> {
+  async updateImage(file: File, type: UserType, id: string) {
     try {
       const url = `${imageProfile}/${type}/${id}`;
       const formData = new FormData();
@@ -28,8 +25,14 @@ export class FileUploadService {
         body: formData,
       });
 
-      console.log(resp);
-      return true;
+      const data = await resp.json();
+
+      if (data.ok) {
+        return data.fileName;
+      } else {
+        console.log(data.msg);
+        return false;
+      }
     } catch (error) {
       console.log(error);
       return false;

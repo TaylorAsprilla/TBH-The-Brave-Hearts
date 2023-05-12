@@ -1,0 +1,36 @@
+<ng-template #modalImage let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Upload image</h5>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="modal.dismiss('by: close icon')"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <h3>Select Image</h3>
+    <div class="text-center">
+      <img
+        *ngIf="!imgTemp"
+        [src]="user.imageUrl"
+        class="img-thumbnail img-fluid"
+      />
+      <img *ngIf="imgTemp" [src]="imgTemp" class="img-thumbnail img-fluid" />
+    </div>
+
+    <input type="file" (change)="onFileChange($event)" />
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.dismiss('by: close button')"
+    >
+      Cancel
+    </button>
+    <button type="button" class="btn btn-primary" (click)="uploadImage()">
+      Upload image
+    </button>
+  </div>
+</ng-template>

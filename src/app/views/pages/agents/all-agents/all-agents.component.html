@@ -15,16 +15,15 @@
         <span class="float-end badge bg-danger">{{ agents.length }}</span>
 
         <div class="mb-3">
-          <a routerLink="/agent/add-agents">
-            <button
-              class="btn btn-primary crop mb-2 mb-md-0 feather icon-user-plus"
-            >
-              Add Agents
-            </button>
-          </a>
+          <button
+            class="btn btn-primary crop mb-2 mb-md-0 feather icon-user-plus"
+            routerLink="/agent/add-agents"
+          >
+            Add Agents
+          </button>
         </div>
-        <div id="dataTableExample" class="table-responsive">
-          <table class="table table-hover table-bordered">
+        <div class="table-responsive">
+          <table id="dataTableAgentsDos" class="table">
             <thead>
               <tr>
                 <th>Img</th>
@@ -36,12 +35,13 @@
                 <th>Zip</th>
                 <th>Email</th>
                 <th>Active</th>
-                <th>Create At</th>
+                <th>Role</th>
                 <th>Action</th>
               </tr>
             </thead>
+
             <tbody>
-              <tr *ngFor="let agent of agents">
+              <tr *ngFor="let agent of agents; trackBy: trackByAgentId">
                 <td>
                   <img
                     [src]="agent.imageUrl"
@@ -57,20 +57,35 @@
                 <td>{{ agent.zip }}</td>
                 <td>{{ agent.email }}</td>
                 <td>
-                  <ng-container *ngIf="!!agent.active; else inactiveAgent">
-                    <span class="badge bg-primary">Active</span>
-                  </ng-container>
-                  <ng-template #inactiveAgent>
-                    <span class="badge bg-secondary">Inactive</span>
-                  </ng-template>
+                  <span
+                    class="badge bg-{{
+                      agent.active ? 'primary' : 'secondary'
+                    }}"
+                    >{{ agent.active ? "Active" : "Inactive" }}</span
+                  >
                 </td>
-                <td>{{ agent.createdAt }}</td>
+
+                <td>
+                  <select
+                    class="form-control w140"
+                    [(ngModel)]="agent.role"
+                    (change)="changeRole(agent)"
+                  >
+                    <option value="ADMIN_ROLE">Admin</option>
+                    <option value="USER_ROLE">User</option>
+                  </select>
+                </td>
 
                 <td>
                   <button type="button" class="btn btn-primary">
                     <i class="feather icon-edit"></i>
                   </button>
-                  <button type="button" class="btn btn-danger">
+                  <button
+                    (click)="deleteAgent(agent)"
+                    type="button"
+                    class="btn btn-danger"
+                    data-original-title="Delete"
+                  >
                     <i class="feather icon-x-square"></i>
                   </button>
                   <button type="button" class="btn btn-success">
@@ -81,7 +96,6 @@
             </tbody>
             <tfoot>
               <tr>
-                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>

@@ -79,8 +79,8 @@ export class AddAgentsComponent implements OnInit {
           this.resetForm();
         },
         error: (error: any) => {
-          let errors = error?.error?.errors;
-          let errorList: string[] = [];
+          const errors = error?.error?.errors;
+          const errorList: string[] = [];
 
           if (errors) {
             Object.entries(errors).forEach(([key, value]: [string, any]) => {
