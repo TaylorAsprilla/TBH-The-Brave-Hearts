@@ -13,7 +13,6 @@ import { GeneralComponent } from './general.component';
 import { BlankComponent } from './blank/blank.component';
 import { FaqComponent } from './faq/faq.component';
 import { ProfileComponent } from './profile/profile.component';
-import { TimelineComponent } from './timeline/timeline.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ModalImageModule } from '../../components/modal-image/modal-image.module';
 
@@ -40,11 +39,6 @@ const routes: Routes = [
         path: 'profile',
         component: ProfileComponent,
       },
-
-      {
-        path: 'timeline',
-        component: TimelineComponent,
-      },
     ],
   },
 ];
@@ -55,7 +49,6 @@ const routes: Routes = [
     BlankComponent,
     FaqComponent,
     ProfileComponent,
-    TimelineComponent,
   ],
   imports: [
     CommonModule,

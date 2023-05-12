@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AgentModel } from 'src/app/core/models/agent.model';
 import { AgentService } from 'src/app/services/agent/agent.service';
-import { FileUploadService } from 'src/app/services/fileUpload/file-upload.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -17,13 +17,13 @@ export class ProfileComponent implements OnInit {
   state: string;
   city: string;
   role: string;
+  showModal: boolean = false;
 
   agent: AgentModel;
 
-  constructor(
-    private agentService: AgentService,
-    private fileUploadService: FileUploadService
-  ) {}
+  imageSubscription: Subscription;
+
+  constructor(private agentService: AgentService) {}
 
   ngOnInit(): void {
     this.agent = this.agentService.agent;
@@ -41,5 +41,13 @@ export class ProfileComponent implements OnInit {
     this.state = agent.state;
     this.city = agent.city ? agent.city : '';
     this.role = agent.role ? agent.role : '';
+  }
+
+  changeImage() {
+    this.showModal = true;
+  }
+
+  actualizarImagen($event: any) {
+    this.agentInformation();
   }
 }

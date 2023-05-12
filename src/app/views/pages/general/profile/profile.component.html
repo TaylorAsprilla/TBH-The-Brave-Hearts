@@ -1,3 +1,12 @@
+<app-modal-image
+  class="float-start"
+  [user]="agent"
+  [type]="'agents'"
+  [showModal]="showModal"
+  (closeModal)="showModal = false"
+  (newImage)="actualizarImagen($event)"
+></app-modal-image>
+
 <div class="row profile-body">
   <!-- left wrapper start -->
 
@@ -6,12 +15,13 @@
       <div class="card-body">
         <div>
           <img
-            class="wd-70 rounded-circle"
+            class="wd-70 rounded-circle cursor-pointer"
             [src]="imageProfile"
             alt="profile"
+            (click)="changeImage()"
           />
           <span class="h4 ms-3 text-dark">{{ firstName }} {{ lastName }}</span>
-          <app-modal-image class="float-start"></app-modal-image>
+
           <div class="d-flex justify-content-end rounded-bottom">
             <div class="d-none d-md-block">
               <button class="btn btn-primary btn-icon-text">
