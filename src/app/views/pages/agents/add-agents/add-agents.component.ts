@@ -8,7 +8,6 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { AgentService } from 'src/app/services/agent/agent.service';
 import Swal from 'sweetalert2';
-import * as bcrypt from 'bcryptjs';
 import { customAlphabet } from 'nanoid';
 import { StateModel } from 'src/app/core/models/state.model';
 
@@ -23,8 +22,6 @@ export class AddAgentsComponent implements OnInit {
 
   isAgentFormSubmitted: Boolean;
 
-  FilterState: Observable<StateModel[]>;
-
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -35,26 +32,9 @@ export class AddAgentsComponent implements OnInit {
   ngOnInit(): void {
     this.states = this.activatedRoute.snapshot.data['states'];
 
+    console.log(this.states);
+
     this.createForm();
-  }
-
-  searchState(formControlName: string) {
-    const formControl = this.agentForm.get(formControlName);
-
-    if (formControl) {
-      this.FilterState = formControl.valueChanges.pipe(
-        startWith(''),
-        map((valor) => this.filtrar(valor || ''))
-      );
-    }
-  }
-
-  private filtrar(valor: string): StateModel[] {
-    const filtrarValores = valor.toLowerCase();
-
-    return this.states.filter((state: StateModel) =>
-      state.state.toLowerCase().includes(filtrarValores)
-    );
   }
 
   createForm() {
