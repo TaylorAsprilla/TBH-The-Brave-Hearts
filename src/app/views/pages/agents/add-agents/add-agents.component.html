@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Agent Code</label>
+                <label class="form-label required">Agent Code</label>
                 <input
                   type="number"
                   class="form-control"
@@ -47,7 +47,7 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">First Name</label>
+                <label class="form-label required">First Name</label>
                 <input
                   type="text"
                   class="form-control"
@@ -80,7 +80,7 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Last Name</label>
+                <label class="form-label required">Last Name</label>
                 <input
                   type="text"
                   class="form-control"
@@ -136,15 +136,26 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">State</label>
+                <label class="form-label required">State</label>
                 <ng-select
                   [items]="states"
                   bindLabel="state"
                   bindValue="state"
                   placeholder="type to search"
                   formControlName="state"
+                  [ngClass]="{
+                    'is-invalid': isAgentFormSubmitted && formAgent.state.errors
+                  }"
                 >
                 </ng-select>
+                <div
+                  *ngIf="
+                    isAgentFormSubmitted && formAgent.state.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
               </div>
             </div>
 
@@ -164,7 +175,7 @@
           <div class="row">
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Date Birth</label>
+                <label class="form-label required">Date Birth</label>
                 <input
                   type="date"
                   class="form-control"
@@ -188,7 +199,7 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Email address</label>
+                <label class="form-label required">Email address</label>
                 <input
                   type="email"
                   class="form-control"
@@ -220,7 +231,7 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Password</label>
+                <label class="form-label required">Password</label>
                 <input
                   type="password"
                   class="form-control"

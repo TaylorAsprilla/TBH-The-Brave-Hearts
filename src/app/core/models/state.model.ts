@@ -6,8 +6,3 @@ export class StateModel {
     public officialName?: string
   ) {}
 }
-
-export interface IStatesResponse {
-  ok: boolean;
-  states: StateModel[];
-}

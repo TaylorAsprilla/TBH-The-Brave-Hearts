@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { IStatesResponse, StateModel } from 'src/app/core/models/state.model';
+import { IStatesResponse } from 'src/app/core/interfaces/state.interface';
+import { StateModel } from 'src/app/core/models/state.model';
 
 const base_url = environment.base_url;
 
