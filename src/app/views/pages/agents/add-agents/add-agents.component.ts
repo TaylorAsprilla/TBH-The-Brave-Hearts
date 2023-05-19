@@ -1,3 +1,4 @@
+import { Observable, map, startWith } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
@@ -7,8 +8,8 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { AgentService } from 'src/app/services/agent/agent.service';
 import Swal from 'sweetalert2';
-import * as bcrypt from 'bcryptjs';
 import { customAlphabet } from 'nanoid';
+import { StateModel } from 'src/app/core/models/state.model';
 
 @Component({
   selector: 'app-add-agents',
@@ -17,6 +18,7 @@ import { customAlphabet } from 'nanoid';
 })
 export class AddAgentsComponent implements OnInit {
   agentForm: UntypedFormGroup;
+  states: StateModel[] = [];
 
   isAgentFormSubmitted: Boolean;
 
@@ -28,6 +30,10 @@ export class AddAgentsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.states = this.activatedRoute.snapshot.data['states'];
+
+    console.log(this.states);
+
     this.createForm();
   }
 
@@ -41,6 +47,7 @@ export class AddAgentsComponent implements OnInit {
       state: ['', [Validators.required, Validators.minLength(3)]],
       zip: ['', [Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
+      dateBirth: ['', [Validators.required]],
       password: [
         { value: password, disabled: true },
         [
@@ -60,12 +67,9 @@ export class AddAgentsComponent implements OnInit {
 
   createAgent() {
     this.isAgentFormSubmitted = true;
-    const encryptedPassword = this.encryptPassword(
-      this.formAgent.password.value
-    );
 
     const data = this.agentForm.value;
-    data.password = encryptedPassword;
+    data.password = this.formAgent.password.value;
 
     if (this.agentForm.valid) {
       this.agentService.createAgent(data).subscribe({
@@ -106,12 +110,6 @@ export class AddAgentsComponent implements OnInit {
     const generator = customAlphabet(alphabet, 8);
     const password = generator();
     return password;
-  }
-
-  encryptPassword(password: string) {
-    const salt = bcrypt.genSaltSync(10);
-    const passwordHash = bcrypt.hashSync(password, salt);
-    return passwordHash;
   }
 
   resetForm() {

@@ -4,6 +4,9 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { StateModel } from 'src/app/core/models/state.model';
+import { ProspectService } from 'src/app/services/prospect/prospect.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,11 +17,18 @@ import Swal from 'sweetalert2';
 export class AddProspectsComponent implements OnInit {
   prospectForm: UntypedFormGroup;
 
+  states: StateModel[] = [];
+
   isprospectFormSubmitted = false;
 
-  constructor(public formBuilder: UntypedFormBuilder) {}
+  constructor(
+    public formBuilder: UntypedFormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private prospectService: ProspectService
+  ) {}
 
   ngOnInit(): void {
+    this.states = this.activatedRoute.snapshot.data['states'];
     this.createForm();
   }
 
@@ -34,6 +44,7 @@ export class AddProspectsComponent implements OnInit {
       ],
       dateBirth: ['', [Validators.required, Validators.minLength(3)]],
       phone: ['', [Validators.minLength(7), Validators.required]],
+      state: ['', Validators.required],
       coupleName: [''],
       couplesOccupation: [''],
       coupleIncome: [''],
@@ -54,22 +65,42 @@ export class AddProspectsComponent implements OnInit {
   }
 
   prospectFormSubmit() {
-    console.log('Entró');
     this.isprospectFormSubmitted = true;
-    if (this.prospectForm.valid) {
-      this.prospectForm.value;
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Form sent successfully',
-        timer: 3500,
+    const data = this.prospectForm.value;
+    if (this.prospectForm.valid) {
+      this.prospectService.createprospect(data).subscribe({
+        next: (resp: any) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Prospect created',
+            html: `<b> Prospect Name: </b> ${resp.prospect.firstName} ${resp.prospect.lastName}`,
+          });
+          this.resetForm();
+        },
+        error: (error: any) => {
+          const errors = error?.error?.errors;
+          const errorList: string[] = [];
+
+          if (errors) {
+            Object.entries(errors).forEach(([key, value]: [string, any]) => {
+              if (value && value['msg']) {
+                errorList.push('° ' + value['msg'] + '<br>');
+              }
+            });
+          }
+
+          Swal.fire({
+            title: 'Error creating proespect',
+            icon: 'error',
+            html: `${errorList.length ? errorList.join('') : error.error.msg}`,
+          });
+        },
       });
-      this.clearForm();
-      console.log(this.prospectForm);
     }
   }
 
-  clearForm() {
+  resetForm() {
     this.prospectForm.reset();
   }
 }

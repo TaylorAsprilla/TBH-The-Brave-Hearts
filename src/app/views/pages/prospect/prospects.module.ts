@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ProspectsRoutingModule } from './prospects.routing';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [AddProspectsComponent, AllProspectsComponent],
@@ -14,6 +15,7 @@ import { BrowserModule } from '@angular/platform-browser';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
     SweetAlert2Module,
     ProspectsRoutingModule,
   ],

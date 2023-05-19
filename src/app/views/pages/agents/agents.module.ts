@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SpinnerModule } from '../../components/spinner/spinner.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [AddAgentsComponent, AllAgentsComponent],
@@ -15,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     BrowserAnimationsModule,
     AgentsRoutingModule,
+    NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
     SpinnerModule,

@@ -6,6 +6,7 @@ import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import {
   AgentFormInterface,
   AgentUpdateFormInterface,
+  ChangePadswordInterface,
   LoadAllAgentsInterface,
 } from 'src/app/core/interfaces/agent.interface';
 import { LoginFormInterface } from 'src/app/core/interfaces/login-form.interface';
@@ -55,6 +56,7 @@ export class AgentService {
             state,
             zip,
             email,
+            dateBirth,
             img,
             role,
             active,
@@ -68,6 +70,7 @@ export class AgentService {
             lastName,
             state,
             email,
+            dateBirth,
             city,
             zip,
             '',
@@ -114,6 +117,7 @@ export class AgentService {
                 agent.lastName,
                 agent.state,
                 agent.email,
+                agent.dateBirth,
                 agent.city,
                 agent.zip,
                 '',
@@ -151,6 +155,14 @@ export class AgentService {
   deleteAgent(agent: AgentModel) {
     return this.httpClient.delete(
       `${base_url}/agents/${agent.uid}`,
+      this.headers
+    );
+  }
+
+  changePassword(changePassword: ChangePadswordInterface) {
+    return this.httpClient.put(
+      `${base_url}/login/changepassword`,
+      changePassword,
       this.headers
     );
   }

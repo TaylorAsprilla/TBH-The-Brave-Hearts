@@ -8,14 +8,12 @@
 ></app-modal-image>
 
 <div class="row profile-body">
-  <!-- left wrapper start -->
-
-  <div class="d-none d-md-block col-md-4 col-xl-3 left-wrapper">
+  <div class="col-md-4 col-xl-3 left-wrapper mb-4">
     <div class="card rounded">
       <div class="card-body">
         <div>
           <img
-            class="wd-70 rounded-circle cursor-pointer"
+            class="wd-70 rounded-circle cursor-pointer img-thumbnail"
             [src]="imageProfile"
             alt="profile"
             (click)="changeImage()"
@@ -23,7 +21,7 @@
           <span class="h4 ms-3 text-dark">{{ firstName }} {{ lastName }}</span>
 
           <div class="d-flex justify-content-end rounded-bottom">
-            <div class="d-none d-md-block">
+            <div>
               <button class="btn btn-primary btn-icon-text">
                 <i class="feather icon-edit btn-icon-prepend"></i> Edit profile
               </button>
@@ -51,223 +49,167 @@
       </div>
     </div>
   </div>
-  <!-- left wrapper end -->
-  <!-- middle wrapper start -->
-  <div class="col-md-6 col-xl-4 middle-wrapper">
-    <div class="row">
-      <div class="col-md-12 grid-margin">
-        <div class="card rounded">
-          <div class="card-body">
-            <h6 class="card-title">Customer</h6>
-            <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-              <div class="d-flex align-items-center hover-pointer">
-                <img
-                  class="img-xs rounded-circle"
-                  src="https://via.placeholder.com/37x37"
-                  alt=""
-                />
-                <div class="ms-2">
-                  <p>Mike Popescu</p>
-                  <p class="tx-11 text-muted">12 Mutual Friends</p>
-                </div>
-              </div>
-              <button class="btn btn-icon">
-                <i class="feather icon-user-plus" ngbTooltip="Connect"></i>
-              </button>
-            </div>
-            <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-              <div class="d-flex align-items-center hover-pointer">
-                <img
-                  class="img-xs rounded-circle"
-                  src="https://via.placeholder.com/37x37"
-                  alt=""
-                />
-                <div class="ms-2">
-                  <p>Mike Popescu</p>
-                  <p class="tx-11 text-muted">12 Mutual Friends</p>
-                </div>
-              </div>
-              <button class="btn btn-icon">
-                <i class="feather icon-user-plus" ngbTooltip="Connect"></i>
-              </button>
-            </div>
-            <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-              <div class="d-flex align-items-center hover-pointer">
-                <img
-                  class="img-xs rounded-circle"
-                  src="https://via.placeholder.com/37x37"
-                  alt=""
-                />
-                <div class="ms-2">
-                  <p>Mike Popescu</p>
-                  <p class="tx-11 text-muted">12 Mutual Friends</p>
-                </div>
-              </div>
-              <button class="btn btn-icon">
-                <i class="feather icon-user-plus" ngbTooltip="Connect"></i>
-              </button>
-            </div>
-            <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-              <div class="d-flex align-items-center hover-pointer">
-                <img
-                  class="img-xs rounded-circle"
-                  src="https://via.placeholder.com/37x37"
-                  alt=""
-                />
-                <div class="ms-2">
-                  <p>Mike Popescu</p>
-                  <p class="tx-11 text-muted">12 Mutual Friends</p>
-                </div>
-              </div>
-              <button class="btn btn-icon">
-                <i class="feather icon-user-plus" ngbTooltip="Connect"></i>
-              </button>
-            </div>
-            <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-              <div class="d-flex align-items-center hover-pointer">
-                <img
-                  class="img-xs rounded-circle"
-                  src="https://via.placeholder.com/37x37"
-                  alt=""
-                />
-                <div class="ms-2">
-                  <p>Mike Popescu</p>
-                  <p class="tx-11 text-muted">12 Mutual Friends</p>
-                </div>
-              </div>
-              <button class="btn btn-icon">
-                <i class="feather icon-user-plus" ngbTooltip="Connect"></i>
-              </button>
-            </div>
-            <div class="d-flex justify-content-between">
-              <div class="d-flex align-items-center hover-pointer">
-                <img
-                  class="img-xs rounded-circle"
-                  src="https://via.placeholder.com/37x37"
-                  alt=""
-                />
-                <div class="ms-2">
-                  <p>Mike Popescu</p>
-                  <p class="tx-11 text-muted">12 Mutual Friends</p>
-                </div>
-              </div>
-              <button class="btn btn-icon">
-                <i class="feather icon-user-plus" ngbTooltip="Connect"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- middle wrapper end -->
-  <!-- right wrapper start -->
+
   <div class="col-md-6 col-xl-5 middle-wrapper">
     <div class="row">
       <div class="col-md-12 grid-margin">
         <div class="card rounded">
           <div class="card-body">
-            <h6 class="card-title">Prospect</h6>
-            <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-              <div class="d-flex align-items-center hover-pointer">
-                <img
-                  class="img-xs rounded-circle"
-                  src="https://via.placeholder.com/37x37"
-                  alt=""
+            <div>
+              <h6 class="card-title">Account Security</h6>
+
+              <div class="input-group mb-5">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  placeholder="Email"
+                  [value]="email"
+                  disabled
                 />
-                <div class="ms-2">
-                  <p>Mike Popescu</p>
-                  <p class="tx-11 text-muted">12 Mutual Friends</p>
-                </div>
+                <button
+                  (click)="updateEmail()"
+                  class="btn btn-primary btn-icon-text"
+                >
+                  <i class="feather icon-edit"></i>
+                </button>
               </div>
-              <button class="btn btn-icon">
-                <i class="feather icon-user-plus" ngbTooltip="Connect"></i>
-              </button>
             </div>
-            <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-              <div class="d-flex align-items-center hover-pointer">
-                <img
-                  class="img-xs rounded-circle"
-                  src="https://via.placeholder.com/37x37"
-                  alt=""
-                />
-                <div class="ms-2">
-                  <p>Mike Popescu</p>
-                  <p class="tx-11 text-muted">12 Mutual Friends</p>
+
+            <div class="mt-2 border-top">
+              <h6 class="card-title mt-4">Password</h6>
+              <form
+                id="agentForm"
+                [formGroup]="changePasswordForm"
+                (ngSubmit)="changePassword()"
+              >
+                <div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="oldPassword"
+                      formControlName="oldPassword"
+                      placeholder="Enter Current Password"
+                      [ngClass]="{
+                        'is-invalid':
+                          isChangePasswordFormFormSubmitted &&
+                          formChangePassword.oldPassword.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="
+                        isChangePasswordFormFormSubmitted &&
+                        formChangePassword.oldPassword.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                    <label
+                      for="oldPassword"
+                      class="form-label fw-light text-secondary"
+                      >Enter current password</label
+                    >
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="newPassword"
+                      formControlName="newPassword"
+                      placeholder="Enter new password"
+                      [ngClass]="{
+                        'is-invalid':
+                          isChangePasswordFormFormSubmitted &&
+                          formChangePassword.newPassword.errors
+                      }"
+                    />
+                    <label
+                      for="newPassword"
+                      class="form-label fw-light text-secondary"
+                      >Enter new password</label
+                    >
+                    <div
+                      *ngIf="
+                        isChangePasswordFormFormSubmitted &&
+                        formChangePassword.newPassword.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                    <div
+                      class="form-text text-danger"
+                      *ngIf="
+                        (formChangePassword.newPassword.hasError('pattern') ||
+                          formChangePassword.newPassword.hasError(
+                            'minlength'
+                          )) &&
+                        formChangePassword.newPassword.touched
+                      "
+                    >
+                      The password must be alphanumeric, have at least one
+                      capital letter and a minimum of 8 digits.
+                    </div>
+                  </div>
+
+                  <div class="form-floating mb-3">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="newPasswordTwo"
+                      formControlName="newPasswordTwo"
+                      placeholder="Enter new password again"
+                      [ngClass]="{
+                        'is-invalid':
+                          isChangePasswordFormFormSubmitted &&
+                          formChangePassword.newPasswordTwo.errors
+                      }"
+                    />
+                    <label
+                      for="newPasswordTwo"
+                      class="form-label fw-light text-secondary"
+                      >Enter new password again</label
+                    >
+
+                    <div *ngIf="invalidPassword()" class="invalid-feedback">
+                      Passwords must be the same
+                    </div>
+                  </div>
+
+                  <div class="mt-3 float-end">
+                    <button class="btn btn-primary btn-icon-text">
+                      Change Password
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <button class="btn btn-icon">
-                <i class="feather icon-user-plus" ngbTooltip="Connect"></i>
-              </button>
-            </div>
-            <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-              <div class="d-flex align-items-center hover-pointer">
-                <img
-                  class="img-xs rounded-circle"
-                  src="https://via.placeholder.com/37x37"
-                  alt=""
-                />
-                <div class="ms-2">
-                  <p>Mike Popescu</p>
-                  <p class="tx-11 text-muted">12 Mutual Friends</p>
-                </div>
-              </div>
-              <button class="btn btn-icon">
-                <i class="feather icon-user-plus" ngbTooltip="Connect"></i>
-              </button>
-            </div>
-            <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-              <div class="d-flex align-items-center hover-pointer">
-                <img
-                  class="img-xs rounded-circle"
-                  src="https://via.placeholder.com/37x37"
-                  alt=""
-                />
-                <div class="ms-2">
-                  <p>Mike Popescu</p>
-                  <p class="tx-11 text-muted">12 Mutual Friends</p>
-                </div>
-              </div>
-              <button class="btn btn-icon">
-                <i class="feather icon-user-plus" ngbTooltip="Connect"></i>
-              </button>
-            </div>
-            <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-              <div class="d-flex align-items-center hover-pointer">
-                <img
-                  class="img-xs rounded-circle"
-                  src="https://via.placeholder.com/37x37"
-                  alt=""
-                />
-                <div class="ms-2">
-                  <p>Mike Popescu</p>
-                  <p class="tx-11 text-muted">12 Mutual Friends</p>
-                </div>
-              </div>
-              <button class="btn btn-icon">
-                <i class="feather icon-user-plus" ngbTooltip="Connect"></i>
-              </button>
-            </div>
-            <div class="d-flex justify-content-between">
-              <div class="d-flex align-items-center hover-pointer">
-                <img
-                  class="img-xs rounded-circle"
-                  src="https://via.placeholder.com/37x37"
-                  alt=""
-                />
-                <div class="ms-2">
-                  <p>Mike Popescu</p>
-                  <p class="tx-11 text-muted">12 Mutual Friends</p>
-                </div>
-              </div>
-              <button class="btn btn-icon">
-                <i class="feather icon-user-plus" ngbTooltip="Connect"></i>
-              </button>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- right wrapper end -->
+
+  <div class="col-md-6 col-xl-4">
+    <div class="row">
+      <div class="col-md-12 grid-margin">
+        <div class="card rounded">
+          <div class="card-body">
+            <h6 class="card-title">Image</h6>
+            <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
+              <img
+                class="cursor-pointer img-thumbnail"
+                [src]="imageProfile"
+                alt="profile"
+                (click)="changeImage()"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

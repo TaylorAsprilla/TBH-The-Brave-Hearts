@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Agent Code</label>
+                <label class="form-label required">Agent Code</label>
                 <input
                   type="number"
                   class="form-control"
@@ -47,7 +47,7 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">First Name</label>
+                <label class="form-label required">First Name</label>
                 <input
                   type="text"
                   class="form-control"
@@ -80,7 +80,7 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Last Name</label>
+                <label class="form-label required">Last Name</label>
                 <input
                   type="text"
                   class="form-control"
@@ -136,16 +136,18 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">State</label>
-                <input
-                  type="text"
-                  class="form-control"
+                <label class="form-label required">State</label>
+                <ng-select
+                  [items]="states"
+                  bindLabel="state"
+                  bindValue="state"
+                  placeholder="type to search"
                   formControlName="state"
-                  placeholder="Enter state"
                   [ngClass]="{
                     'is-invalid': isAgentFormSubmitted && formAgent.state.errors
                   }"
-                />
+                >
+                </ng-select>
                 <div
                   *ngIf="
                     isAgentFormSubmitted && formAgent.state.errors?.required
@@ -153,15 +155,6 @@
                   class="invalid-feedback"
                 >
                   Required
-                </div>
-                <div
-                  class="form-text text-danger"
-                  *ngIf="
-                    formAgent.state.hasError('minlength') &&
-                    formAgent.state.touched
-                  "
-                >
-                  The State does not have the minimum length allowed.
                 </div>
               </div>
             </div>
@@ -180,9 +173,33 @@
           </div>
 
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Email address</label>
+                <label class="form-label required">Date Birth</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  formControlName="dateBirth"
+                  placeholder="Enter dateBirth code"
+                  [ngClass]="{
+                    'is-invalid':
+                      isAgentFormSubmitted && formAgent.dateBirth.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isAgentFormSubmitted && formAgent.dateBirth.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">Email address</label>
                 <input
                   type="email"
                   class="form-control"
@@ -212,9 +229,9 @@
               </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Password</label>
+                <label class="form-label required">Password</label>
                 <input
                   type="password"
                   class="form-control"
