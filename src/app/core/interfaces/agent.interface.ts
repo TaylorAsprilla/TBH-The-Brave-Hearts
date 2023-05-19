@@ -25,3 +25,9 @@ export interface LoadAllAgentsInterface {
   ok: boolean;
   agents: AgentModel[];
 }
+
+export interface ChangePadswordInterface {
+  agentCode: number;
+  oldPassword: string;
+  newPassword: string;
+}

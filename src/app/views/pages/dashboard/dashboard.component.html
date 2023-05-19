@@ -48,108 +48,10 @@
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-baseline">
               <h6 class="card-title mb-0">Customers</h6>
-              <div ngbDropdown class="mb-2">
-                <button
-                  ngbDropdownToggle
-                  class="btn p-0 no-dropdown-toggle-icon"
-                  type="button"
-                  id="dropdownMenuButton"
-                >
-                  <i
-                    class="icon-lg text-muted pb-3px"
-                    data-feather="more-horizontal"
-                    appFeatherIcon
-                  ></i>
-                </button>
-                <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
-                  <a
-                    ngbDropdownItem
-                    class="d-flex align-items-center"
-                    href=""
-                    (click)="(false)"
-                    ><i
-                      data-feather="eye"
-                      appFeatherIcon
-                      class="icon-sm me-2"
-                    ></i>
-                    <span class="">View</span></a
-                  >
-                  <a
-                    ngbDropdownItem
-                    class="d-flex align-items-center"
-                    href=""
-                    (click)="(false)"
-                    ><i
-                      data-feather="edit-2"
-                      appFeatherIcon
-                      class="icon-sm me-2"
-                    ></i>
-                    <span class="">Edit</span></a
-                  >
-                  <a
-                    ngbDropdownItem
-                    class="d-flex align-items-center"
-                    href=""
-                    (click)="(false)"
-                    ><i
-                      data-feather="trash"
-                      appFeatherIcon
-                      class="icon-sm me-2"
-                    ></i>
-                    <span class="">Delete</span></a
-                  >
-                  <a
-                    ngbDropdownItem
-                    class="d-flex align-items-center"
-                    href=""
-                    (click)="(false)"
-                    ><i
-                      data-feather="printer"
-                      appFeatherIcon
-                      class="icon-sm me-2"
-                    ></i>
-                    <span class="">Print</span></a
-                  >
-                  <a
-                    ngbDropdownItem
-                    class="d-flex align-items-center"
-                    href=""
-                    (click)="(false)"
-                    ><i
-                      data-feather="download"
-                      appFeatherIcon
-                      class="icon-sm me-2"
-                    ></i>
-                    <span class="">Download</span></a
-                  >
-                </div>
-              </div>
             </div>
             <div class="row">
               <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">3,897</h3>
-                <div class="d-flex align-items-baseline">
-                  <p class="text-success">
-                    <span>+3.3%</span>
-                    <i
-                      data-feather="arrow-up"
-                      appFeatherIcon
-                      class="icon-sm mb-1"
-                    ></i>
-                  </p>
-                </div>
-              </div>
-              <div class="col-6 col-md-12 col-xl-7">
-                <div class="mt-md-3 mt-xl-0">
-                  <apx-chart
-                    [series]="customersChartOptions.series"
-                    [chart]="customersChartOptions.chart"
-                    [colors]="customersChartOptions.colors"
-                    [xaxis]="customersChartOptions.xaxis"
-                    [stroke]="customersChartOptions.stroke"
-                    [markers]="customersChartOptions.markers"
-                  ></apx-chart>
-                </div>
+                <h3 class="mb-2">{{ customers.length }}</h3>
               </div>
             </div>
           </div>
@@ -532,74 +434,31 @@
           <table class="table table-hover mb-0">
             <thead>
               <tr>
-                <th class="pt-0">#</th>
-                <th class="pt-0">Project Name</th>
-                <th class="pt-0">Start Date</th>
-                <th class="pt-0">Due Date</th>
-                <th class="pt-0">Status</th>
-                <th class="pt-0">Assign</th>
+                <th class="pt-0">Carrier</th>
+                <th class="pt-0">PolicityT ype</th>
+                <th class="pt-0">Monthly</th>
+                <th class="pt-0">Face Amount</th>
+                <th class="pt-0">First Name</th>
+                <th class="pt-0">Last Name</th>
+                <th class="pt-0">Phone</th>
+                <th class="pt-0">Email</th>
+                <th class="pt-0">Date Birth</th>
+                <th class="pt-0">Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mario Mendez</td>
-                <td>01/01/2022</td>
-                <td>26/04/2022</td>
+              <tr *ngFor="let customer of customers">
+                <td>{{ customer.carrier }}</td>
+                <td>{{ customer.policityType }}</td>
+                <td>{{ customer.monthly }}</td>
+                <td>{{ customer.faceAmount }}</td>
+                <td>{{ customer.firstName }}</td>
+                <td>{{ customer.lastName }}</td>
+                <td>{{ customer.phone }}</td>
+                <td>{{ customer.email }}</td>
+                <td>{{ customer.dateBirth | date : "mediumDate" }}</td>
+
                 <td><span class="badge bg-danger">Released</span></td>
-                <td>Leonardo Payne</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Ana Martinez</td>
-                <td>01/01/2022</td>
-                <td>26/04/2022</td>
-                <td><span class="badge bg-success">Review</span></td>
-                <td>Carl Henson</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Juan Carlos Salazar</td>
-                <td>01/05/2022</td>
-                <td>10/09/2022</td>
-                <td><span class="badge bg-info">Pending</span></td>
-                <td>Jensen Combs</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Julia Maria Hernandez</td>
-                <td>01/01/2022</td>
-                <td>31/11/2022</td>
-                <td><span class="badge bg-warning">Work in Progress</span></td>
-                <td>Amiah Burton</td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>Adam lincoln</td>
-                <td>01/01/2022</td>
-                <td>31/12/2022</td>
-                <td>
-                  <span class="badge bg-danger text-white">Coming soon</span>
-                </td>
-                <td>Yaretzi Mayo</td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>Leonardo Palomeque</td>
-                <td>01/01/2022</td>
-                <td>31/12/2022</td>
-                <td><span class="badge bg-primary">Coming soon</span></td>
-                <td>Carl Henson</td>
-              </tr>
-              <tr>
-                <td class="border-bottom">3</td>
-                <td class="border-bottom">Ashley Connor</td>
-                <td class="border-bottom">01/05/2022</td>
-                <td class="border-bottom">10/11/2022</td>
-                <td class="border-bottom">
-                  <span class="badge bg-info">Pending</span>
-                </td>
-                <td class="border-bottom">Jensen Combs</td>
               </tr>
             </tbody>
           </table>

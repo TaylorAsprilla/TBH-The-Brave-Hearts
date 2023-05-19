@@ -136,6 +136,46 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Number</mat-label>
+                  <input
+                  type="text"
+                  class="form-control"
+                  formControlName="state"
+                  placeholder="Enter state"
+                   [matAutocomplete]="autoState"
+                  [ngClass]="{
+                    'is-invalid': isAgentFormSubmitted && formAgent.state.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isAgentFormSubmitted && formAgent.state.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formAgent.state.hasError('minlength') &&
+                    formAgent.state.touched
+                  "
+                >
+                  The State does not have the minimum length allowed.
+                </div>
+              </div>
+                  <mat-autocomplete #autoState="matAutocomplete">
+                    <mat-option
+                      *ngFor="let state of states | async"
+                      [value]="state.state"
+                    >
+                      {{ state.stae }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+
                 <label class="form-label">State</label>
                 <input
                   type="text"
@@ -180,7 +220,31 @@
           </div>
 
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Date Birth</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  formControlName="dateBirth"
+                  placeholder="Enter dateBirth code"
+                  [ngClass]="{
+                    'is-invalid':
+                      isAgentFormSubmitted && formAgent.dateBirth.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isAgentFormSubmitted && formAgent.dateBirth.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
               <div class="mb-3">
                 <label class="form-label">Email address</label>
                 <input
@@ -212,7 +276,7 @@
               </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               <div class="mb-3">
                 <label class="form-label">Password</label>
                 <input
