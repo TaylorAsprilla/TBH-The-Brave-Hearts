@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { FeatherIconModule } from 'src/app/core/feather-icon/feather-icon.module';
+import { FeatherIconModule } from 'src/app/core/directive/feather-icon/feather-icon.module';
 import {
   NgbDropdownModule,
   NgbDatepickerModule,

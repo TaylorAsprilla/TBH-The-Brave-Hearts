@@ -2,7 +2,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FeatherIconModule } from '../../../core/feather-icon/feather-icon.module';
+import { FeatherIconModule } from '../../../core/directive/feather-icon/feather-icon.module';
 
 import {
   NgbAccordionModule,
