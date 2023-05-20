@@ -38,11 +38,11 @@ export const MENU: MenuItem[] = [
           {
             label: 'Add prospects',
             isTitle: false,
-            link: '/prospect/add-prospects',
+            link: `${ROUTE_APP.PROSPECT}/${ROUTE_APP.ADD_PROSPECTS}/${TEXT.NEW}`,
           },
           {
             label: 'All prospects',
-            link: '/prospect/all-prospects',
+            link: `${ROUTE_APP.PROSPECT}/${ROUTE_APP.ALL_PROSPECTS}`,
           },
         ],
       },

@@ -1,4 +1,3 @@
-import { Observable, map, startWith } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
@@ -74,14 +73,14 @@ export class AddAgentsComponent implements OnInit {
   }
 
   createAgent() {
-    this.isAgentFormSubmitted = true;
-
-    const data = this.agentForm.value;
-    data.password = this.formAgent.password.value;
-
     if (this.selectedAgent) {
       this.updateAgent();
     } else {
+      this.isAgentFormSubmitted = true;
+
+      const data = this.agentForm.value;
+      data.password = this.formAgent.password.value;
+
       if (this.agentForm.valid) {
         this.agentService.createAgent(data).subscribe({
           next: (resp: any) => {

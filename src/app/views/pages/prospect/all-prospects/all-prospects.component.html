@@ -17,7 +17,7 @@
         <div class="mb-3">
           <button
             class="btn btn-primary crop mb-2 mb-md-0 feather icon-user-plus"
-            routerLink="/agent/add-agents"
+            (click)="newProspect()"
           >
             Add Prospect
           </button>
@@ -26,8 +26,7 @@
           <table id="dataTableAgentsDos" class="table">
             <thead>
               <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Name</th>
                 <th>Document Type</th>
                 <th>State</th>
                 <th>Email</th>
@@ -42,8 +41,7 @@
               <tr
                 *ngFor="let prospect of prospects; trackBy: trackByProspectId"
               >
-                <td>{{ prospect.firstName }}</td>
-                <td>{{ prospect.lastName }}</td>
+                <td>{{ prospect.firstName }} {{ prospect.lastName }}</td>
                 <td>{{ prospect.documentType }}</td>
                 <td>{{ prospect.state }}</td>
                 <td>{{ prospect.email }}</td>
@@ -65,7 +63,12 @@
                 </td>
 
                 <td>
-                  <button type="button" class="btn btn-primary">
+                  <button
+                    (click)="editAgent(prospect)"
+                    type="button"
+                    class="btn btn-primary"
+                    data-original-title="Edit"
+                  >
                     <i class="feather icon-edit"></i>
                   </button>
                   <button
@@ -75,9 +78,6 @@
                     data-original-title="Delete"
                   >
                     <i class="feather icon-x-square"></i>
-                  </button>
-                  <button type="button" class="btn btn-success">
-                    <i class="feather icon-check-square"></i>
                   </button>
                 </td>
               </tr>
