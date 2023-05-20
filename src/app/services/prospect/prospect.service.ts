@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import {
-  IProspectsResponse,
+  ILoadAllProspectInterface,
+  ILoadAllProspectsInterface,
   ProspectFormInterface,
 } from 'src/app/core/interfaces/prospect.interface';
 import { ProspectModel } from 'src/app/core/models/prospect.model';
@@ -31,12 +32,23 @@ export class ProspectService {
 
   getProspects() {
     return this.httpClient
-      .get<IProspectsResponse>(`${base_url}/prospects`, this.headers)
+      .get<ILoadAllProspectsInterface>(`${base_url}/prospects`, this.headers)
       .pipe(
         map(
           (prospect: { ok: boolean; prospects: ProspectModel[] }) =>
             prospect.prospects
         )
+      );
+  }
+
+  getProspect(id: string) {
+    return this.httpClient
+      .get<ILoadAllProspectInterface>(
+        `${base_url}/prospects/${id}`,
+        this.headers
+      )
+      .pipe(
+        map((resp: { ok: boolean; prospect: ProspectModel }) => resp.prospect)
       );
   }
 

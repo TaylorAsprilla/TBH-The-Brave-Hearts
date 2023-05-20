@@ -25,7 +25,12 @@ export interface ProspectFormInterface {
   status?: string;
 }
 
-export interface IProspectsResponse {
+export interface ILoadAllProspectsInterface {
   ok: boolean;
   prospects: ProspectModel[];
+}
+
+export interface ILoadAllProspectInterface {
+  ok: boolean;
+  prospect: ProspectModel;
 }
