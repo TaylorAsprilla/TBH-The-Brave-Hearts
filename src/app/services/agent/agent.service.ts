@@ -153,7 +153,6 @@ export class AgentService {
   }
 
   updateAgent(agent: AgentModel) {
-    console.log('agente', agent);
     return this.httpClient.put(
       `${base_url}/agents/${agent.uid}`,
       agent,
