@@ -4,19 +4,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { FeatherIconModule } from 'src/app/core/feather-icon/feather-icon.module';
-import { NgbDropdownModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDropdownModule,
+  NgbDatepickerModule,
+} from '@ng-bootstrap/ng-bootstrap';
 
 // Ng-ApexCharts
-import { NgApexchartsModule } from "ng-apexcharts";
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 import { DashboardComponent } from './dashboard.component';
+import { SpinnerModule } from '../../components/spinner/spinner.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent
-  }
-]
+    component: DashboardComponent,
+  },
+];
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -27,7 +31,8 @@ const routes: Routes = [
     FeatherIconModule,
     NgbDropdownModule,
     NgbDatepickerModule,
-    NgApexchartsModule
-  ]
+    NgApexchartsModule,
+    SpinnerModule,
+  ],
 })
-export class DashboardModule { }
+export class DashboardModule {}

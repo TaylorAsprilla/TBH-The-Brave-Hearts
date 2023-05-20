@@ -30,7 +30,7 @@ export class ProspectService {
     };
   }
 
-  getProspects() {
+  getAllProspects() {
     return this.httpClient
       .get<ILoadAllProspectsInterface>(`${base_url}/prospects`, this.headers)
       .pipe(
