@@ -3,7 +3,6 @@ import { environment } from 'src/environments/environment';
 const imageProfile = environment.imageProfile;
 
 export class AgentModel {
-  [x: string]: any;
   constructor(
     public uid: string,
     public agentCode: number,
