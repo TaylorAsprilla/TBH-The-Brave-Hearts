@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { AgentService } from 'src/app/services/agent/agent.service';
+import { ProspectService } from 'src/app/services/prospect/prospect.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { CustomerModel } from 'src/app/core/models/customer.model';
 import { CustomerService } from 'src/app/services/customer/customer.service';
+import { ProspectModel } from 'src/app/core/models/prospect.model';
+import { AgentModel } from 'src/app/core/models/agent.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +14,7 @@ import { CustomerService } from 'src/app/services/customer/customer.service';
   styleUrls: ['./dashboard.component.scss'],
   preserveWhitespaces: true,
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   /**
    * Apex chart
    */
@@ -46,12 +50,24 @@ export class DashboardComponent implements OnInit {
   loading: boolean = false;
 
   customers: CustomerModel[] = [];
+  prospects: ProspectModel[] = [];
+  agents: AgentModel[] = [];
+
   customerSubscription: Subscription;
+  prospectSubscription: Subscription;
+  agentSubscription: Subscription;
 
   constructor(
     private calendar: NgbCalendar,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private prospectService: ProspectService,
+    private agentService: AgentService
   ) {}
+  ngOnDestroy(): void {
+    this.customerSubscription?.unsubscribe();
+    this.prospectSubscription?.unsubscribe();
+    this.agentSubscription?.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.currentDate = this.calendar.getToday();
@@ -69,6 +85,8 @@ export class DashboardComponent implements OnInit {
     }
 
     this.loadCustomers();
+    this.loadProspects();
+    this.loadAgents();
   }
 
   loadCustomers() {
@@ -77,6 +95,26 @@ export class DashboardComponent implements OnInit {
       .getAllCustomers()
       .subscribe((resp) => {
         this.customers = resp.customers;
+        this.loading = false;
+      });
+  }
+
+  loadProspects() {
+    this.loading = true;
+    this.prospectSubscription = this.prospectService
+      .getAllProspects()
+      .subscribe((prospect) => {
+        this.prospects = prospect;
+        this.loading = false;
+      });
+  }
+
+  loadAgents() {
+    this.loading = true;
+    this.agentSubscription = this.agentService
+      .getAllAgents()
+      .subscribe((resp) => {
+        this.agents = resp.agents;
         this.loading = false;
       });
   }
