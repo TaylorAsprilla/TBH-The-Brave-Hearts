@@ -43,25 +43,7 @@ const routes: Routes = [
             (m) => m.AgentsRoutingModule
           ),
       },
-      {
-        path: 'apps',
-        loadChildren: () =>
-          import('./views/pages/apps/apps.module').then((m) => m.AppsModule),
-      },
 
-      {
-        path: 'charts-graphs',
-        loadChildren: () =>
-          import('./views/pages/charts-graphs/charts-graphs.module').then(
-            (m) => m.ChartsGraphsModule
-          ),
-      },
-
-      {
-        path: 'icons',
-        loadChildren: () =>
-          import('./views/pages/icons/icons.module').then((m) => m.IconsModule),
-      },
       {
         path: 'general',
         loadChildren: () =>
