@@ -1,3 +1,11 @@
+interface IProspectAgent {
+  _id: string;
+  agentCode: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
 export class ProspectModel {
   constructor(
     public uid: string,
@@ -7,7 +15,8 @@ export class ProspectModel {
     public email: string,
     public dateBirth: Date,
     public phone: string,
-    public agent: string,
+    public agent: IProspectAgent,
+    public status: string,
     public middleName?: string,
     public state?: string,
     public coupleName?: string,

@@ -7,6 +7,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ProspectsRoutingModule } from './prospects.routing';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SpinnerModule } from '../../components/spinner/spinner.module';
 
 @NgModule({
   declarations: [AddProspectsComponent, AllProspectsComponent],
@@ -18,6 +19,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgSelectModule,
     SweetAlert2Module,
     ProspectsRoutingModule,
+    SpinnerModule,
   ],
 
   exports: [AddProspectsComponent, AllProspectsComponent],

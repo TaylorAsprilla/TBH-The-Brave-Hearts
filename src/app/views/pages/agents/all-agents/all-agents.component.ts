@@ -3,6 +3,9 @@ import { AgentService } from 'src/app/services/agent/agent.service';
 import { Subscription } from 'rxjs';
 import { AgentModel } from 'src/app/core/models/agent.model';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
+import { TEXT } from 'src/app/core/enum/text.enum';
 
 @Component({
   selector: 'app-all-agents',
@@ -15,7 +18,11 @@ export class AllAgentsComponent implements OnInit, OnDestroy, AfterViewInit {
   // dataTableAgents: any;
   loading: boolean = false;
 
-  constructor(private agentService: AgentService) {}
+  get ROUTE_APP() {
+    return ROUTE_APP;
+  }
+
+  constructor(private agentService: AgentService, private router: Router) {}
 
   ngOnDestroy(): void {
     this.agentSubscription?.unsubscribe();
@@ -45,7 +52,9 @@ export class AllAgentsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.agentSubscription = this.agentService
       .getAllAgents()
       .subscribe((resp) => {
-        this.agents = resp.agents;
+        this.agents = resp.agents.filter((agent) => {
+          return agent.active === true;
+        });
         this.loading = false;
       });
   }
@@ -106,5 +115,17 @@ export class AllAgentsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   trackByAgentId(index: number, agent: AgentModel): string {
     return agent.uid;
+  }
+
+  editAgent(agent: AgentModel) {
+    this.router.navigateByUrl(
+      `${ROUTE_APP.AGENT}/${ROUTE_APP.ADD_AGENTS}/${agent.uid}`
+    );
+  }
+
+  newAgent() {
+    this.router.navigateByUrl(
+      `${ROUTE_APP.AGENT}/${ROUTE_APP.ADD_AGENTS}/${TEXT.NEW}`
+    );
   }
 }
