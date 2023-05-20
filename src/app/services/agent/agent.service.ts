@@ -3,10 +3,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
+
 import {
   AgentFormInterface,
   AgentUpdateFormInterface,
   ChangePadswordInterface,
+  LoadAllAgentInterface,
   LoadAllAgentsInterface,
 } from 'src/app/core/interfaces/agent.interface';
 import { LoginFormInterface } from 'src/app/core/interfaces/login-form.interface';
@@ -132,6 +134,12 @@ export class AgentService {
       );
   }
 
+  getAgent(id: string) {
+    return this.httpClient
+      .get<LoadAllAgentInterface>(`${base_url}/agents/${id}`, this.headers)
+      .pipe(map((resp: { ok: boolean; agent: AgentModel }) => resp.agent));
+  }
+
   createAgent(agent: AgentFormInterface) {
     return this.httpClient.post(`${base_url}/agents`, agent, this.headers);
   }
@@ -145,6 +153,7 @@ export class AgentService {
   }
 
   updateAgent(agent: AgentModel) {
+    console.log('agente', agent);
     return this.httpClient.put(
       `${base_url}/agents/${agent.uid}`,
       agent,

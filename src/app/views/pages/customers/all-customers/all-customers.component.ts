@@ -35,7 +35,6 @@ export class AllCustomersComponent implements OnInit, OnDestroy, AfterViewInit {
     this.customerSubscription = this.customerService
       .getAllCustomers()
       .subscribe((resp) => {
-        console.log(resp);
         this.customers = resp.customers;
         this.loading = false;
       });

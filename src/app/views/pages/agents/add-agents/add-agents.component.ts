@@ -10,6 +10,9 @@ import { AgentService } from 'src/app/services/agent/agent.service';
 import Swal from 'sweetalert2';
 import { customAlphabet } from 'nanoid';
 import { StateModel } from 'src/app/core/models/state.model';
+import { AgentModel } from 'src/app/core/models/agent.model';
+import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
+import { TEXT } from 'src/app/core/enum/text.enum';
 
 @Component({
   selector: 'app-add-agents',
@@ -19,8 +22,11 @@ import { StateModel } from 'src/app/core/models/state.model';
 export class AddAgentsComponent implements OnInit {
   agentForm: UntypedFormGroup;
   states: StateModel[] = [];
+  selectedAgent: AgentModel;
 
   isAgentFormSubmitted: Boolean;
+
+  password: boolean = true;
 
   constructor(
     private router: Router,
@@ -32,7 +38,9 @@ export class AddAgentsComponent implements OnInit {
   ngOnInit(): void {
     this.states = this.activatedRoute.snapshot.data['states'];
 
-    console.log(this.states);
+    this.activatedRoute.params.subscribe(({ id }) => {
+      this.getAgentById(id);
+    });
 
     this.createForm();
   }
@@ -71,16 +79,123 @@ export class AddAgentsComponent implements OnInit {
     const data = this.agentForm.value;
     data.password = this.formAgent.password.value;
 
-    if (this.agentForm.valid) {
-      this.agentService.createAgent(data).subscribe({
-        next: (resp: any) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Agent created ',
-            html: `<b> Agent Code: </b> ${resp.agent.agentCode}
+    if (this.selectedAgent) {
+      this.updateAgent();
+    } else {
+      if (this.agentForm.valid) {
+        this.agentService.createAgent(data).subscribe({
+          next: (resp: any) => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Agent created ',
+              html: `<b> Agent Code: </b> ${resp.agent.agentCode}
             <p> ${resp.agent.firstName} ${resp.agent.lastName}</p>`,
+            });
+            this.resetForm();
+          },
+          error: (error: any) => {
+            const errors = error?.error?.errors;
+            const errorList: string[] = [];
+
+            if (errors) {
+              Object.entries(errors).forEach(([key, value]: [string, any]) => {
+                if (value && value['msg']) {
+                  errorList.push('° ' + value['msg'] + '<br>');
+                }
+              });
+            }
+
+            Swal.fire({
+              title: 'Error creating agent',
+              icon: 'error',
+              html: `${
+                errorList.length ? errorList.join('') : error.error.msg
+              }`,
+            });
+          },
+        });
+      }
+    }
+  }
+
+  updateAgent() {
+    const data: AgentModel = {
+      ...this.formAgent.value,
+      uid: this.selectedAgent.uid,
+      agentCode: this.formAgent.agentCode.value,
+      firstName: this.formAgent.firstName.value,
+      lastName: this.formAgent.lastName.value,
+      state: this.formAgent.state.value,
+      email: this.formAgent.email.value,
+      dateBirth: this.formAgent.dateBirth.value,
+      imageUrl: this.selectedAgent.imageUrl,
+    };
+
+    this.agentService.updateAgent(data).subscribe({
+      next: (resp: any) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Updated agent',
+          html: `<b> Agent Code: </b> ${resp.agent.agentCode}
+            <p> ${resp.agent.firstName} ${resp.agent.lastName}</p>`,
+        });
+        this.resetForm();
+        this.router.navigateByUrl(`${ROUTE_APP.AGENT}/${ROUTE_APP.ALL_AGENTS}`);
+      },
+      error: (error: any) => {
+        const errors = error?.error?.errors;
+        const errorList: string[] = [];
+
+        if (errors) {
+          Object.entries(errors).forEach(([key, value]: [string, any]) => {
+            if (value && value['msg']) {
+              errorList.push('° ' + value['msg'] + '<br>');
+            }
           });
-          this.resetForm();
+        }
+
+        Swal.fire({
+          title: 'Error updating agent',
+          icon: 'error',
+          html: `${errorList.length ? errorList.join('') : error.error.msg}`,
+        });
+      },
+    });
+  }
+
+  getAgentById(id: string) {
+    if (id !== TEXT.NEW) {
+      this.password = false;
+      this.agentService.getAgent(id).subscribe({
+        next: (agent) => {
+          const {
+            agentCode,
+            firstName,
+            lastName,
+            city,
+            state,
+            zip,
+            email,
+            dateBirth,
+            password,
+          } = agent;
+          this.selectedAgent = agent;
+
+          const formattedDateBirth = new Date(dateBirth)
+            .toISOString()
+            .split('T')[0];
+
+          this.agentForm.setValue({
+            agentCode,
+            firstName,
+            lastName,
+            city,
+            state,
+            zip,
+            email,
+            dateBirth: formattedDateBirth,
+            password: '',
+          });
         },
         error: (error: any) => {
           const errors = error?.error?.errors;
@@ -95,10 +210,14 @@ export class AddAgentsComponent implements OnInit {
           }
 
           Swal.fire({
-            title: 'Error creating agent',
+            title: 'Error updating agent',
             icon: 'error',
             html: `${errorList.length ? errorList.join('') : error.error.msg}`,
           });
+
+          this.router.navigateByUrl(
+            `${ROUTE_APP.AGENT}/${ROUTE_APP.ALL_AGENTS}`
+          );
         },
       });
     }

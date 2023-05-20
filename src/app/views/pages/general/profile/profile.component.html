@@ -19,14 +19,6 @@
             (click)="changeImage()"
           />
           <span class="h4 ms-3 text-dark">{{ firstName }} {{ lastName }}</span>
-
-          <div class="d-flex justify-content-end rounded-bottom">
-            <div>
-              <button class="btn btn-primary btn-icon-text">
-                <i class="feather icon-edit btn-icon-prepend"></i> Edit profile
-              </button>
-            </div>
-          </div>
         </div>
 
         <div class="mt-3">
@@ -34,8 +26,8 @@
           <p class="text-muted">{{ agentCode }}</p>
         </div>
         <div class="mt-3">
-          <label class="tx-11 fw-bolder mb-0 text-uppercase">Role:</label>
-          <p class="text-muted">{{ role }}</p>
+          <label class="tx-11 fw-bolder mb-0 text-uppercase">Date Birth:</label>
+          <p class="text-muted">{{ dateBirth }}</p>
         </div>
         <div class="mt-3">
           <label class="tx-11 fw-bolder mb-0 text-uppercase">Lives:</label>
@@ -45,6 +37,22 @@
         <div class="mt-3">
           <label class="tx-11 fw-bolder mb-0 text-uppercase">Email:</label>
           <p class="text-muted">{{ email }}</p>
+        </div>
+
+        <div class="mt-3">
+          <label class="tx-11 fw-bolder mb-0 text-uppercase">Role:</label>
+          <p class="text-muted">{{ role }}</p>
+        </div>
+
+        <div class="d-flex justify-content-end rounded-bottom mt-4">
+          <div>
+            <button
+              class="btn btn-primary btn-icon-text"
+              (click)="editProfile()"
+            >
+              <i class="feather icon-edit btn-icon-prepend"></i> Edit profile
+            </button>
+          </div>
         </div>
       </div>
     </div>

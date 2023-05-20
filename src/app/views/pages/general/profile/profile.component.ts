@@ -9,6 +9,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { ChangePadswordInterface } from 'src/app/core/interfaces/agent.interface';
+import { Router } from '@angular/router';
+import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 
 @Component({
   selector: 'app-profile',
@@ -28,15 +30,18 @@ export class ProfileComponent implements OnInit {
   state: string;
   city: string;
   role: string;
-  showModal: boolean = false;
+  dateBirth: Date;
 
   agent: AgentModel;
+
+  showModal: boolean = false;
 
   imageSubscription: Subscription;
 
   constructor(
     private agentService: AgentService,
-    private formBuilder: UntypedFormBuilder
+    private formBuilder: UntypedFormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +55,7 @@ export class ProfileComponent implements OnInit {
   }
 
   agentInformation() {
-    const agent = this.agentService.agent;
+    const agent = this.agent;
 
     this.imageProfile = agent.imageUrl;
     this.firstName = agent.firstName;
@@ -60,6 +65,7 @@ export class ProfileComponent implements OnInit {
     this.state = agent.state;
     this.city = agent.city ? agent.city : '';
     this.role = agent.role ? agent.role : '';
+    this.dateBirth = agent.dateBirth;
   }
 
   createForm() {
@@ -213,5 +219,11 @@ export class ProfileComponent implements OnInit {
         passControlTwo?.setErrors({ noEsIgual: true });
       }
     };
+  }
+
+  editProfile() {
+    this.router.navigateByUrl(
+      `${ROUTE_APP.AGENT}/${ROUTE_APP.ADD_AGENTS}/${this.agent.uid}`
+    );
   }
 }

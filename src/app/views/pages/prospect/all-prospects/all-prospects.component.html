@@ -6,209 +6,95 @@
 </nav>
 
 <div class="row">
-  <div class="col-lg-12 grid-margin stretch-card">
+  <div class="col-md-12 stretch-card">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Prospects</h4>
+        <app-spinner *ngIf="!!loading" [textData]="'Prospects'"></app-spinner>
 
-        <a routerLink="/customer/add-prospects">
+        <h6 class="card-title">Prospects</h6>
+        <span class="float-end badge bg-danger">{{ prospects.length }}</span>
+
+        <div class="mb-3">
           <button
             class="btn btn-primary crop mb-2 mb-md-0 feather icon-user-plus"
+            routerLink="/agent/add-agents"
           >
-            Add prospects
+            Add Prospect
           </button>
-        </a>
-
+        </div>
         <div class="table-responsive">
-          <table class="table table-striped">
+          <table id="dataTableAgentsDos" class="table">
             <thead>
               <tr>
-                <th>User</th>
-                <th>Name</th>
-                <th>Date of Birth</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Document Type</th>
+                <th>State</th>
+                <th>Email</th>
+                <th>Date Birth</th>
                 <th>Phone</th>
-                <th>Salary</th>
-                <th>Start date</th>
-                <th>Actions</th>
+                <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
+
             <tbody>
-              <tr>
-                <td class="py-1">
-                  <img src="assets/images/users/associates.png" alt="image" />
-                </td>
-                <td>Cedric Kelly</td>
-                <td>01/01/2022</td>
-                <td>1 407 123 456 4564</td>
-                <td>$206,850</td>
-                <td>June 21, 2010</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-outline-success mb-1 mb-md-0"
-                  >
-                    Customer
-                  </button>
+              <tr
+                *ngFor="let prospect of prospects; trackBy: trackByProspectId"
+              >
+                <td>{{ prospect.firstName }}</td>
+                <td>{{ prospect.lastName }}</td>
+                <td>{{ prospect.documentType }}</td>
+                <td>{{ prospect.state }}</td>
+                <td>{{ prospect.email }}</td>
+                <td>{{ prospect.dateBirth | date : "mediumDate" }}</td>
+                <td>{{ prospect.phone }}</td>
 
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary mb-1 mb-md-0"
-                  >
-                    More
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="assets/images/users/associates.png" alt="image" />
-                </td>
-                <td>Haley Kennedy</td>
-                <td>01/01/2022</td>
-                <th>1 407 123 456 4564</th>
-                <td>$313,500</td>
-                <td>May 15, 2013</td>
                 <td>
-                  <button
-                    type="button"
-                    class="btn btn-outline-success mb-1 mb-md-0"
+                  <select
+                    class="form-control w140 selectStatus"
+                    [(ngModel)]="prospect.status"
+                    (change)="changeStatus(prospect)"
+                    [ngClass]="statusColors[prospect.status]"
                   >
-                    Customer
-                  </button>
+                    <option value="NEW">New</option>
+                    <option value="PROGRESS">Progress</option>
+                    <option value="NOT_INTERESTED">Not Interested</option>
+                    <option value="CUSTOMER">Customer</option>
+                  </select>
+                </td>
 
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary mb-1 mb-md-0"
-                  >
-                    More
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="assets/images/users/associates.png" alt="image" />
-                </td>
-                <td>Bradley Greer</td>
-                <td>01/01/2022</td>
-                <th>1 407 123 456 4564</th>
-                <td>$132,000</td>
-                <td>Apr 12, 2014</td>
                 <td>
-                  <button
-                    type="button"
-                    class="btn btn-outline-success mb-1 mb-md-0"
-                  >
-                    Customer
+                  <button type="button" class="btn btn-primary">
+                    <i class="feather icon-edit"></i>
                   </button>
-
                   <button
+                    (click)="deleteProspect(prospect)"
                     type="button"
-                    class="btn btn-outline-primary mb-1 mb-md-0"
+                    class="btn btn-danger"
+                    data-original-title="Delete"
                   >
-                    More
+                    <i class="feather icon-x-square"></i>
                   </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="assets/images/users/associates.png" alt="image" />
-                </td>
-                <td>Brenden Wagner</td>
-                <td>01/01/2022</td>
-                <th>1 407 123 456 4564</th>
-                <td>$206,850</td>
-                <td>June 21, 2010</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-outline-success mb-1 mb-md-0"
-                  >
-                    Customer
-                  </button>
-
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary mb-1 mb-md-0"
-                  >
-                    More
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="assets/images/users/associates.png" alt="image" />
-                </td>
-                <td>Bruno Nash</td>
-                <td>01/01/2022</td>
-                <th>1 407 123 456 4564</th>
-                <td>$163,500</td>
-                <td>January 01, 2016</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-outline-success mb-1 mb-md-0"
-                  >
-                    Customer
-                  </button>
-
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary mb-1 mb-md-0"
-                  >
-                    More
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="assets/images/users/associates.png" alt="image" />
-                </td>
-                <td>Sonya Frost</td>
-                <td>01/01/2022</td>
-                <th>1 407 123 456 4564</th>
-                <td>$103,600</td>
-                <td>July 18, 2011</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-outline-success mb-1 mb-md-0"
-                  >
-                    Customer
-                  </button>
-
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary mb-1 mb-md-0"
-                  >
-                    More
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="py-1">
-                  <img src="assets/images/users/associates.png" alt="image" />
-                </td>
-                <td>Zenaida Frank</td>
-                <td>01/01/2022</td>
-                <th>1 407 123 456 4564</th>
-                <td>$313,500</td>
-                <td>March 22, 2013</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-outline-success mb-1 mb-md-0"
-                  >
-                    Customer
-                  </button>
-
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary mb-1 mb-md-0"
-                  >
-                    More
+                  <button type="button" class="btn btn-success">
+                    <i class="feather icon-check-square"></i>
                   </button>
                 </td>
               </tr>
             </tbody>
+            <tfoot>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>

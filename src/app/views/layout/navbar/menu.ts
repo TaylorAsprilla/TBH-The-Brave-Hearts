@@ -1,4 +1,6 @@
+import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { MenuItem } from './menu.model';
+import { TEXT } from 'src/app/core/enum/text.enum';
 
 export const MENU: MenuItem[] = [
   {
@@ -56,11 +58,11 @@ export const MENU: MenuItem[] = [
           {
             label: 'Add agents',
             isTitle: false,
-            link: '/agent/add-agents',
+            link: `${ROUTE_APP.AGENT}/${ROUTE_APP.ADD_AGENTS}/${TEXT.NEW}`,
           },
           {
             label: 'All agents',
-            link: '/agent/all-agents',
+            link: `${ROUTE_APP.AGENT}/${ROUTE_APP.ALL_AGENTS}`,
           },
         ],
       },

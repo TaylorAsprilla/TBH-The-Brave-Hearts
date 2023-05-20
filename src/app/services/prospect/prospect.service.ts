@@ -21,10 +21,6 @@ export class ProspectService {
     return localStorage.getItem('token') || '';
   }
 
-  // get uid(): string {
-  //   return this.agent.uid || '';
-  // }
-
   get headers() {
     return {
       headers: {
@@ -52,34 +48,18 @@ export class ProspectService {
     );
   }
 
-  // updateAgentProfile(agent: AgentUpdateFormInterface) {
-  //   return this.httpClient.put(
-  //     `${base_url}/agents/${this.uid}`,
-  //     agent,
-  //     this.headers
-  //   );
-  // }
+  updateProspect(prospect: ProspectModel) {
+    return this.httpClient.put(
+      `${base_url}/prospects/${prospect.uid}`,
+      prospect,
+      this.headers
+    );
+  }
 
-  // updateAgent(agent: AgentModel) {
-  //   return this.httpClient.put(
-  //     `${base_url}/agents/${agent.uid}`,
-  //     agent,
-  //     this.headers
-  //   );
-  // }
-
-  // deleteAgent(agent: AgentModel) {
-  //   return this.httpClient.delete(
-  //     `${base_url}/agents/${agent.uid}`,
-  //     this.headers
-  //   );
-  // }
-
-  // changePassword(changePassword: ChangePadswordInterface) {
-  //   return this.httpClient.put(
-  //     `${base_url}/login/changepassword`,
-  //     changePassword,
-  //     this.headers
-  //   );
-  // }
+  deleteProspect(prospect: ProspectModel) {
+    return this.httpClient.delete(
+      `${base_url}/prospects/${prospect.uid}`,
+      this.headers
+    );
+  }
 }

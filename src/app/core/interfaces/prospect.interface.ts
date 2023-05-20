@@ -22,6 +22,7 @@ export interface ProspectFormInterface {
   properties?: string;
   otherIncome?: string;
   observations?: string;
+  status?: string;
 }
 
 export interface IProspectsResponse {
