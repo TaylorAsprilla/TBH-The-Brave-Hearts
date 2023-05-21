@@ -5,12 +5,14 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
 import {
   DropzoneConfigInterface,
   DropzoneDirective,
 } from 'ngx-dropzone-wrapper';
+import { StateModel } from 'src/app/core/models/state.model';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -25,6 +27,7 @@ export class AddCustomersComponent implements OnInit {
   medicalForm: UntypedFormGroup;
   additionalQuestionForm: UntypedFormGroup;
   bankInformationForm: UntypedFormGroup;
+  referralsForm: UntypedFormGroup;
   documentForm: UntypedFormGroup;
 
   islifePolicyFormSubmitted: Boolean;
@@ -33,6 +36,7 @@ export class AddCustomersComponent implements OnInit {
   isMedicalFormFormSubmitted: Boolean;
   isAdditionalQuestionFormSubmitted: Boolean;
   isBankInformationFormSubmitted: Boolean;
+  isReferralsFormSubmitted: Boolean;
   isDocumentFormSubmitted: Boolean;
 
   public config: DropzoneConfigInterface = {
@@ -43,17 +47,26 @@ export class AddCustomersComponent implements OnInit {
     cancelReset: null,
   };
 
+  states: StateModel[] = [];
+
   @ViewChild(DropzoneDirective, { static: false })
   directiveRef?: DropzoneDirective;
 
   @ViewChild('lifePolicy') lifePolicy: BaseWizardComponent;
 
-  constructor(public formBuilder: UntypedFormBuilder) {}
+  constructor(
+    public formBuilder: UntypedFormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.states = this.activatedRoute.snapshot.data['states'];
+
     this.createForm();
     this.addBeneficiary();
     this.addContigentBeneficiary();
+    this.addReferrals();
   }
 
   createForm() {
@@ -80,10 +93,8 @@ export class AddCustomersComponent implements OnInit {
       documentNumber: ['', [Validators.required, Validators.minLength(3)]],
       maritalStatus: ['', [Validators.required]],
       dateBirth: ['', [Validators.required]],
-
       countryBirth: ['', [Validators.minLength(3), Validators.required]],
       cityBirth: ['', [Validators.minLength(3), Validators.required]],
-
       gender: ['', [Validators.required]],
       weight: ['', [Validators.required]],
       height: ['', [Validators.required]],
@@ -104,22 +115,22 @@ export class AddCustomersComponent implements OnInit {
     });
 
     this.medicalForm = this.formBuilder.group({
-      doctorName: ['', [Validators.minLength(2), Validators.required]],
-      doctorOfficeLocation: ['', [Validators.minLength(2)]],
+      doctorName: ['', [Validators.required]],
+      doctorOfficeLocation: ['', []],
       officePhoneNumber: ['', []],
       lastVisit: ['', [Validators.required]],
-      reasonForVisit: ['', [Validators.minLength(2)]],
-      outcomeOfVisit: ['', [Validators.minLength(3)]],
+      reasonForVisit: ['', []],
+      outcomeOfVisit: ['', []],
       smoker: ['', [Validators.required]],
-      medicalCondition: ['', [Validators.minLength(3)]],
-      whenItWasDiagnosed: ['', [Validators.minLength(3)]],
-      medications: ['', [Validators.minLength(3)]],
-      dosage: ['', [Validators.minLength(3)]],
-      additionalInformation: ['', [Validators.minLength(3)]],
-      isFatherAlive: ['', []],
+      medicalCondition: ['', []],
+      whenItWasDiagnosed: ['', []],
+      medications: ['', []],
+      dosage: ['', []],
+      additionalInformation: ['', []],
+      isFatherAlive: ['', [Validators.required]],
       fatherAge: ['', []],
       deceasedFather: ['', []],
-      isMotherAlive: ['', []],
+      isMotherAlive: ['', [Validators.required]],
       motherAge: ['', []],
       deceasedMother: ['', []],
     });
@@ -139,6 +150,10 @@ export class AddCustomersComponent implements OnInit {
       accountNumber: ['', [Validators.required]],
       routingNumber: ['', [Validators.required]],
       notes: ['', []],
+    });
+
+    this.referralsForm = this.formBuilder.group({
+      referrals: this.formBuilder.array([]),
     });
 
     this.documentForm = this.formBuilder.group({
@@ -188,11 +203,15 @@ export class AddCustomersComponent implements OnInit {
     return this.bankInformationForm.controls;
   }
 
+  get formAdditionalQuestion() {
+    return this.additionalQuestionForm.controls;
+  }
+
   get formDocument() {
     return this.documentForm.controls;
   }
 
-  get beneficiaries() {
+  get formBeneficiaries() {
     return this.beneficiaryForm.get('beneficiaries') as FormArray;
   }
 
@@ -200,6 +219,10 @@ export class AddCustomersComponent implements OnInit {
     return this.contigentBeneficiaryForm.get(
       'contigentBeneficiaries'
     ) as FormArray;
+  }
+
+  get referrals() {
+    return this.referralsForm.get('referrals') as FormArray;
   }
 
   formLifePolicySubmit() {
@@ -214,7 +237,6 @@ export class AddCustomersComponent implements OnInit {
 
   beneficiaryFormSubmittedSubmit() {
     // if (this.beneficiaryForm.valid) {
-
     this.lifePolicy.goToNextStep();
     // }
     this.isBeneficiaryFormSubmitted = true;
@@ -245,6 +267,15 @@ export class AddCustomersComponent implements OnInit {
     this.isAdditionalQuestionFormSubmitted = true;
   }
 
+  referralsFormSubmittedSubmit() {
+    console.log('entró');
+
+    // if (this.referralsForm.valid) {
+    this.lifePolicy.goToNextStep();
+    // }
+    this.isReferralsFormSubmitted = true;
+  }
+
   bankInformationFormSubmittedSubmit() {
     console.log('entró');
 
@@ -255,12 +286,17 @@ export class AddCustomersComponent implements OnInit {
   }
 
   submitForm() {
+    if (this.documentForm.valid) {
+      this.isDocumentFormSubmitted = true;
+    }
+
     this.lifePolicyForm.value;
     this.beneficiaryForm.value;
     this.contigentBeneficiaryForm.value;
     this.medicalForm.value;
     this.additionalQuestionForm.value;
     this.bankInformationForm.value;
+    this.referralsForm.value;
     this.documentForm.value;
 
     console.log(
@@ -270,6 +306,7 @@ export class AddCustomersComponent implements OnInit {
       this.medicalForm.value,
       this.additionalQuestionForm.value,
       this.bankInformationForm.value,
+      this.referralsForm.value,
       this.documentForm.value
     );
 
@@ -283,7 +320,7 @@ export class AddCustomersComponent implements OnInit {
   }
 
   addBeneficiary() {
-    this.beneficiaries.push(
+    this.formBeneficiaries.push(
       this.formBuilder.group({
         firstName: ['', [Validators.required]],
         middleName: ['', [Validators.minLength(3)]],
@@ -308,22 +345,29 @@ export class AddCustomersComponent implements OnInit {
   addContigentBeneficiary() {
     this.contigentBeneficiaries.push(
       this.formBuilder.group({
-        firstName: ['', []],
-        middleName: ['', [Validators.minLength(3)]],
-        lastName: ['', [Validators.minLength(3), Validators.required]],
+        firstName: ['', [Validators.required]],
+        middleName: ['', []],
+        lastName: ['', [, Validators.required]],
 
-        relationshipToInsured: [
-          '',
-          [Validators.minLength(3), Validators.required],
-        ],
+        relationshipToInsured: ['', [, Validators.required]],
         phone: ['', [Validators.required]],
-        email: [
-          '',
-          [Validators.required, Validators.email, Validators.minLength(3)],
-        ],
+        email: ['', [Validators.email]],
         dateBirth: [''],
         ss: [''],
         share: [''],
+      })
+    );
+  }
+
+  addReferrals() {
+    this.referrals.push(
+      this.formBuilder.group({
+        firstName: ['', [Validators.required]],
+        middleName: ['', []],
+        lastName: ['', []],
+        relationshipToInsured: ['', [Validators.required]],
+        phone: ['', []],
+        email: ['', [Validators.email]],
       })
     );
   }

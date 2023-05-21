@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddCustomersComponent } from './add-customers/add-customers.component';
 import { AllCustomersComponent } from './all-customers/all-customers.component';
+import { StateResolver } from 'src/app/core/resolvers/state/state.resolver';
 
 const routes: Routes = [
   {
     path: 'add-customers',
     component: AddCustomersComponent,
+    resolve: { states: StateResolver },
   },
   {
     path: 'all-customers',
