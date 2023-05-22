@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 import { ICreateCustomer } from 'src/app/core/interfaces/customer.interface';
 import {
   CustomerModel,
-  LoadAllCustomersInterface,
+  ILoadAllCustomer,
+  ILoadAllCustomers,
 } from 'src/app/core/models/customer.model';
 import { environment } from 'src/environments/environment';
 
@@ -34,10 +36,18 @@ export class CustomerService {
   }
 
   getAllCustomers() {
-    return this.httpClient.get<LoadAllCustomersInterface>(
+    return this.httpClient.get<ILoadAllCustomers>(
       `${base_url}/customers/all`,
       this.headers
     );
+  }
+
+  getCustomer(id: string) {
+    return this.httpClient
+      .get<ILoadAllCustomer>(`${base_url}/customers/${id}`, this.headers)
+      .pipe(
+        map((resp: { ok: boolean; customer: CustomerModel }) => resp.customer)
+      );
   }
 
   createCustomer(customer: ICreateCustomer) {
@@ -50,7 +60,7 @@ export class CustomerService {
 
   updateCustomer(customer: CustomerModel) {
     return this.httpClient.put(
-      `${base_url}/customers/${this.uid}`,
+      `${base_url}/customers/${customer.uid}`,
       customer,
       this.headers
     );

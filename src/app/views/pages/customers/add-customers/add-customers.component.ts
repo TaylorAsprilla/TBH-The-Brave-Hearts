@@ -14,6 +14,7 @@ import {
   DropzoneDirective,
 } from 'ngx-dropzone-wrapper';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
+import { TEXT } from 'src/app/core/enum/text.enum';
 import { ICreateCustomer } from 'src/app/core/interfaces/customer.interface';
 import { StateModel } from 'src/app/core/models/state.model';
 import { FileUploadService } from 'src/app/services/fileUpload/file-upload.service';
@@ -34,7 +35,7 @@ export class AddCustomersComponent implements OnInit {
   referralsForm: UntypedFormGroup;
   documentForm: UntypedFormGroup;
 
-  islifePolicyFormSubmitted: Boolean;
+  isLifePolicyFormSubmitted: Boolean;
   isBeneficiaryFormSubmitted: Boolean;
   isContigentBeneficiaryFormSubmitted: Boolean;
   isMedicalFormFormSubmitted: Boolean;
@@ -176,20 +177,13 @@ export class AddCustomersComponent implements OnInit {
       mbBase: ['', []],
     });
 
-    this.islifePolicyFormSubmitted = false;
+    this.isLifePolicyFormSubmitted = false;
     this.isBeneficiaryFormSubmitted = false;
     this.isContigentBeneficiaryFormSubmitted = false;
     this.isMedicalFormFormSubmitted = false;
     this.isAdditionalQuestionFormSubmitted = false;
     this.isBankInformationFormSubmitted = false;
     this.isDocumentFormSubmitted = false;
-  }
-
-  /**
-   * Wizard finish function
-   */
-  finishFunction() {
-    console.log('this.validationForm1.value,', this.lifePolicyForm.value);
   }
 
   /**
@@ -234,11 +228,10 @@ export class AddCustomersComponent implements OnInit {
   }
 
   formLifePolicySubmit() {
-    console.log(this.lifePolicyForm);
     if (this.lifePolicyForm.valid) {
       this.lifePolicy.goToNextStep();
     }
-    this.islifePolicyFormSubmitted = true;
+    this.isLifePolicyFormSubmitted = true;
   }
 
   beneficiaryFormSubmittedSubmit() {
@@ -296,17 +289,6 @@ export class AddCustomersComponent implements OnInit {
       this.referralsForm.valid,
       this.documentForm.valid)
     ) {
-      console.log(
-        this.lifePolicyForm.value,
-        this.beneficiaryForm.value,
-        this.contigentBeneficiaryForm.value,
-        this.medicalForm.value,
-        this.additionalQuestionForm.value,
-        this.bankInformationForm.value,
-        this.referralsForm.value,
-        this.documentForm.value
-      );
-
       let data = Object.assign(
         this.lifePolicyForm.value,
         this.beneficiaryForm.value,
@@ -348,8 +330,6 @@ export class AddCustomersComponent implements OnInit {
           document: data.document,
         },
       };
-
-      console.log('data', information);
 
       this.customerService.createCustomer(information).subscribe({
         next: (resp: any) => {
@@ -454,6 +434,12 @@ export class AddCustomersComponent implements OnInit {
     this.fileUploadService
       .uploadFile(file)
       .subscribe((res) => console.log(res));
+  }
+
+  cancelEdit() {
+    this.router.navigateByUrl(
+      `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ALL_CUSTOMERS}`
+    );
   }
 
   clearForm() {

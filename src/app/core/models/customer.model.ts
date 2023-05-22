@@ -2,9 +2,14 @@ import { environment } from 'src/environments/environment';
 
 const imageProfile = environment.imageProfile;
 
-export interface LoadAllCustomersInterface {
+export interface ILoadAllCustomers {
   ok: boolean;
   customers: CustomerModel[];
+}
+
+export interface ILoadAllCustomer {
+  ok: boolean;
+  customer: CustomerModel;
 }
 
 export class CustomerModel {
@@ -19,6 +24,7 @@ export class CustomerModel {
     public maritalStatus: string,
     public dateBirth: Date,
     public documentNumber: string,
+    public documentType: string,
     public countryBirth: string,
     public cityBirth: string,
     public gender: string,
@@ -26,8 +32,6 @@ export class CustomerModel {
     public height: string,
     public employerName: string,
     public annualIncome: string,
-    public active: string,
-    public createdAt: Date,
     public agent: string,
     public middleName?: string,
     public addressLine2?: string,
@@ -37,7 +41,9 @@ export class CustomerModel {
     public timeEmployed?: string,
     public householdIncome?: string,
     public householdNetWorth?: string,
-    public img?: string
+    public img?: string,
+    public active?: string,
+    public createdAt?: Date
   ) {}
 
   get imageUrl() {

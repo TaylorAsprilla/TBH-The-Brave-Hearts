@@ -61,7 +61,7 @@ export class AllCustomersComponent implements OnInit, OnDestroy, AfterViewInit {
 
   editCustomer(customer: CustomerModel) {
     this.router.navigateByUrl(
-      `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ADD_CUSTOMERS}/${customer.uid}`
+      `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.EDIT_CUSTOMERS}/${customer.uid}`
     );
   }
   deleteCustomer(customer: CustomerModel) {}

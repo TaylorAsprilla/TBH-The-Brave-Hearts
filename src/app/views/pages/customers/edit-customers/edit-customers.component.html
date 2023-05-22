@@ -1,0 +1,688 @@
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-center">Edit Customer</h5>
+
+        <form
+          class="forms-sample"
+          (ngSubmit)="editCustomer()"
+          [formGroup]="customerForm"
+        >
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">First Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="firstName"
+                  placeholder="Enter first name"
+                  [ngClass]="{
+                    'is-invalid':
+                      isCustomerFormSubmitted && formCustomer.firstName.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isCustomerFormSubmitted &&
+                    formCustomer.firstName.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formCustomer.firstName.hasError('minlength') &&
+                    formCustomer.firstName.touched
+                  "
+                >
+                  The first name does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Middle Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter middle name"
+                  formControlName="middleName"
+                />
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formCustomer.middleName.hasError('minlength') &&
+                    formCustomer.middleName.touched
+                  "
+                >
+                  The middle name does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">Last Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter last name"
+                  formControlName="lastName"
+                  placeholder="Last name"
+                  [ngClass]="{
+                    'is-invalid':
+                      isCustomerFormSubmitted && formCustomer.lastName.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isCustomerFormSubmitted &&
+                    formCustomer.lastName.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formCustomer.lastName.hasError('minlength') &&
+                    formCustomer.lastName.touched
+                  "
+                >
+                  The last name does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row -->
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label required">Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Street Address Line"
+                  formControlName="address"
+                  [ngClass]="{
+                    'is-invalid':
+                      isCustomerFormSubmitted && formCustomer.address.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isCustomerFormSubmitted &&
+                    formCustomer.address.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formCustomer.address.hasError('minlength') &&
+                    formCustomer.address.touched
+                  "
+                >
+                  The address does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Street Address Line 2"
+                  formControlName="addressLine2"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Row -->
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter city"
+                  formControlName="city"
+                />
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formCustomer.city.hasError('minlength') &&
+                    formCustomer.city.touched
+                  "
+                >
+                  The city does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+            <!-- Col -->
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">State</label>
+                <ng-select
+                  [items]="states"
+                  bindLabel="state"
+                  bindValue="state"
+                  placeholder="type to search"
+                  formControlName="state"
+                  [ngClass]="{
+                    'is-invalid':
+                      isCustomerFormSubmitted && formCustomer.state.errors
+                  }"
+                >
+                </ng-select>
+                <div
+                  *ngIf="
+                    isCustomerFormSubmitted &&
+                    formCustomer.state.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+              </div>
+            </div>
+            <!-- Col -->
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Zip</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter zip code"
+                  formControlName="zipCode"
+                />
+              </div>
+            </div>
+            <!-- Col -->
+          </div>
+          <!-- Row -->
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">Phone</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="(000) 000 00 00"
+                  prefix="+7 "
+                  mask="(000) 000 00 00"
+                  formControlName="phone"
+                  [ngClass]="{
+                    'is-invalid':
+                      isCustomerFormSubmitted && formCustomer.phone.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isCustomerFormSubmitted &&
+                    formCustomer.phone.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-8">
+              <div class="mb-3">
+                <label class="form-label required">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Enter email"
+                  formControlName="email"
+                  [ngClass]="{
+                    'is-invalid':
+                      isCustomerFormSubmitted && formCustomer.email.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isCustomerFormSubmitted &&
+                    formCustomer.email.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+
+                <div
+                  *ngIf="
+                    formCustomer.email.hasError('email') &&
+                    formCustomer.email.touched
+                  "
+                  class="invalid-feedback"
+                >
+                  The value entered does not correspond to an email.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">SS / ITIN # </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="documentNumber"
+                  [ngClass]="{
+                    'is-invalid':
+                      isCustomerFormSubmitted &&
+                      formCustomer.documentNumber.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isCustomerFormSubmitted &&
+                    formCustomer.documentNumber.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formCustomer.documentNumber.hasError('minlength') &&
+                    formCustomer.documentNumber.touched
+                  "
+                >
+                  The document number does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label for="documentType" class="form-label required"
+                  >Document Type
+                </label>
+                <select
+                  class="form-select"
+                  id="documentType"
+                  formControlName="documentType"
+                  [ngClass]="{
+                    'is-invalid':
+                      isCustomerFormSubmitted &&
+                      formCustomer.documentType.errors
+                  }"
+                >
+                  <option selected disabled>Select Type</option>
+                  <option value="SS">SS</option>
+                  <option value="ITIN">ITIN</option>
+                </select>
+                <div
+                  *ngIf="
+                    isCustomerFormSubmitted &&
+                    formCustomer.documentType.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label for="maritalStatus" class="form-label required"
+                  >Marital Status
+                </label>
+                <select
+                  class="form-select"
+                  id="maritalStatus"
+                  formControlName="maritalStatus"
+                  [ngClass]="{
+                    'is-invalid':
+                      isCustomerFormSubmitted &&
+                      formCustomer.maritalStatus.errors
+                  }"
+                >
+                  <option selected disabled>Select Type</option>
+                  <option>Single</option>
+                  <option>Married</option>
+                  <option>Discorced</option>
+                  <option>Widow</option>
+                </select>
+                <div
+                  *ngIf="
+                    isCustomerFormSubmitted &&
+                    formCustomer.maritalStatus.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">Date of Birth</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  placeholder="Date of Birth"
+                  formControlName="dateBirth"
+                  [ngClass]="{
+                    'is-invalid':
+                      isCustomerFormSubmitted && formCustomer.dateBirth.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isCustomerFormSubmitted &&
+                    formCustomer.dateBirth.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required"
+                  >Country / State of Birth</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="countryBirth"
+                  [ngClass]="{
+                    'is-invalid':
+                      isCustomerFormSubmitted &&
+                      formCustomer.countryBirth.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isCustomerFormSubmitted &&
+                    formCustomer.countryBirth.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formCustomer.countryBirth.hasError('minlength') &&
+                    formCustomer.countryBirth.touched
+                  "
+                >
+                  The Country birth does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">City of Birth</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="cityBirth"
+                  [ngClass]="{
+                    'is-invalid':
+                      isCustomerFormSubmitted && formCustomer.cityBirth.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isCustomerFormSubmitted &&
+                    formCustomer.cityBirth.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+                <div
+                  class="form-text text-danger"
+                  *ngIf="
+                    formCustomer.cityBirth.hasError('minlength') &&
+                    formCustomer.cityBirth.touched
+                  "
+                >
+                  The City birth does not have the minimum length allowed.
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label for="gender" class="form-label required"
+                    >Gender
+                  </label>
+                  <select
+                    class="form-select"
+                    id="gender"
+                    formControlName="gender"
+                    [ngClass]="{
+                      'is-invalid':
+                        isCustomerFormSubmitted && formCustomer.gender.errors
+                    }"
+                  >
+                    <option selected disabled>Select the gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                  </select>
+                  <div
+                    *ngIf="
+                      isCustomerFormSubmitted &&
+                      formCustomer.gender.errors?.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Required
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label class="form-label required">Weight</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="weight"
+                    [ngClass]="{
+                      'is-invalid':
+                        isCustomerFormSubmitted && formCustomer.weight.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      isCustomerFormSubmitted &&
+                      formCustomer.weight.errors?.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Required
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label class="form-label required">Height</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="height"
+                    [ngClass]="{
+                      'is-invalid':
+                        isCustomerFormSubmitted && formCustomer.height.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      isCustomerFormSubmitted &&
+                      formCustomer.height.errors?.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label class="form-label required">Employer Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="employerName"
+                    [ngClass]="{
+                      'is-invalid':
+                        isCustomerFormSubmitted &&
+                        formCustomer.employerName.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      isCustomerFormSubmitted &&
+                      formCustomer.employerName.errors?.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Required
+                  </div>
+                  <div
+                    class="form-text text-danger"
+                    *ngIf="
+                      formCustomer.employerName.hasError('minlength') &&
+                      formCustomer.employerName.touched
+                    "
+                  >
+                    The employer name does not have the minimum length allowed.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label class="form-label">Occupation</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="occupation"
+                  />
+                  <div
+                    class="form-text text-danger"
+                    *ngIf="
+                      formCustomer.occupation.hasError('minlength') &&
+                      formCustomer.occupation.touched
+                    "
+                  >
+                    The occupation does not have the minimum length allowed.
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-4">
+                  <label for="timeEmployed" class="form-label required"
+                    >Time Employed
+                  </label>
+                  <select
+                    class="form-select"
+                    id="timeEmployed"
+                    formControlName="timeEmployed"
+                  >
+                    <option selected disabled>Please Select</option>
+                    <option>Less than 6 months</option>
+                    <option>More than 6 months</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label class="form-label required">Annual Income</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    formControlName="annualIncome"
+                    [ngClass]="{
+                      'is-invalid':
+                        isCustomerFormSubmitted &&
+                        formCustomer.annualIncome.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      isCustomerFormSubmitted &&
+                      formCustomer.annualIncome.errors?.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Required
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label class="form-label">Household Income</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    formControlName="householdIncome"
+                  />
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label class="form-label">Household net worth</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    formControlName="householdNetWorth"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mt-2">
+            <button class="btn btn-danger" (click)="cancelEdit()">
+              Cancel
+            </button>
+            <button class="btn btn-primary mx-1" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

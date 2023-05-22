@@ -10,9 +10,9 @@ export interface ProspectFormInterface {
   agent: string;
   middleName?: string;
   state?: string;
-  coupleName?: string;
-  couplesOccupation?: string;
-  coupleIncome?: string;
+  partner?: string;
+  occupation?: string;
+  householdIncome?: string;
   children?: string;
   childrenAge?: string;
   childrenOccupation?: string;

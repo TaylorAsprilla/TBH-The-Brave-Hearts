@@ -10,9 +10,10 @@ import { CustomersRoutingModule } from './customers.routing';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { SpinnerModule } from '../../components/spinner/spinner.module';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { EditCustomersComponent } from './edit-customers/edit-customers.component';
 
 @NgModule({
-  declarations: [AllCustomersComponent, AddCustomersComponent],
+  declarations: [AllCustomersComponent, AddCustomersComponent, EditCustomersComponent],
   imports: [
     CommonModule,
     CustomersRoutingModule,

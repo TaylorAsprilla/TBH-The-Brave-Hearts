@@ -10,4 +10,5 @@ export enum ROUTE_APP {
   ALL_AGENTS = 'all-agents',
   ADD_PROSPECTS = 'add-prospects',
   ALL_PROSPECTS = 'all-prospects',
+  EDIT_CUSTOMERS = 'edit-customers',
 }

@@ -7,6 +7,8 @@ import { CustomerModel } from 'src/app/core/models/customer.model';
 import { CustomerService } from 'src/app/services/customer/customer.service';
 import { ProspectModel } from 'src/app/core/models/prospect.model';
 import { AgentModel } from 'src/app/core/models/agent.model';
+import { PolicyService } from 'src/app/services/policy/policy.service';
+import { PolicyModel } from 'src/app/core/models/policy.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -52,24 +54,32 @@ export class DashboardComponent implements OnInit, OnDestroy {
   customers: CustomerModel[] = [];
   prospects: ProspectModel[] = [];
   agents: AgentModel[] = [];
+  policy: PolicyModel[] = [];
+
+  nameAgents: string;
 
   customerSubscription: Subscription;
   prospectSubscription: Subscription;
   agentSubscription: Subscription;
+  policySubcription: Subscription;
 
   constructor(
     private calendar: NgbCalendar,
     private customerService: CustomerService,
     private prospectService: ProspectService,
-    private agentService: AgentService
+    private agentService: AgentService,
+    private policyService: PolicyService
   ) {}
   ngOnDestroy(): void {
     this.customerSubscription?.unsubscribe();
     this.prospectSubscription?.unsubscribe();
     this.agentSubscription?.unsubscribe();
+    this.policySubcription?.unsubscribe();
   }
 
   ngOnInit(): void {
+    this.nameAgents =
+      this.agentService.agent.firstName + this.agentService.agent.lastName;
     this.currentDate = this.calendar.getToday();
 
     this.customersChartOptions = getCustomerseChartOptions(this.obj);
@@ -87,6 +97,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.loadCustomers();
     this.loadProspects();
     this.loadAgents();
+    this.loadPolicy();
   }
 
   loadCustomers() {
@@ -115,6 +126,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .getAllAgents()
       .subscribe((resp) => {
         this.agents = resp.agents;
+        this.loading = false;
+      });
+  }
+
+  loadPolicy() {
+    this.loading = true;
+    this.policySubcription = this.policyService
+      .getAllPolicy()
+      .subscribe((resp) => {
+        this.policy = resp.policy;
         this.loading = false;
       });
   }

@@ -14,6 +14,7 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { AgentsModule } from './views/pages/agents/agents.module';
 import { CustomersModule } from './views/pages/customers/customers.module';
 import { ProspectsModule } from './views/pages/prospect/prospects.module';
+import { PolicyModule } from './views/pages/policy/policy.module';
 
 @NgModule({
   declarations: [AppComponent, ErrorPageComponent],
@@ -25,6 +26,7 @@ import { ProspectsModule } from './views/pages/prospect/prospects.module';
     AgentsModule,
     CustomersModule,
     ProspectsModule,
+    PolicyModule,
   ],
   providers: [
     AuthGuard,

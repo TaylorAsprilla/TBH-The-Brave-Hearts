@@ -31,7 +31,7 @@ export class PolicyService {
 
   getAllPolicy() {
     return this.httpClient.get<ILoadAllPolicy>(
-      `${base_url}/policy/all`,
+      `${base_url}/policy`,
       this.headers
     );
   }

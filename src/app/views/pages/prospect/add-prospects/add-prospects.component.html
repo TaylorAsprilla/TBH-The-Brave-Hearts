@@ -115,7 +115,6 @@
                   <option selected disabled>Select the Document Type</option>
                   <option value="SS">SS</option>
                   <option value="ITIN">ITIN</option>
-                  <option value="Drivers License">Drivers License</option>
                 </select>
                 <div
                   *ngIf="
@@ -255,33 +254,33 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Couple Name</label>
+                <label class="form-label">Partner</label>
                 <input
                   type="text"
                   class="form-control"
-                  formControlName="coupleName"
+                  formControlName="partner"
                 />
               </div>
             </div>
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Couples Occupation</label>
+                <label class="form-label">Occupation</label>
                 <input
                   type="text"
                   class="form-control"
-                  formControlName="couplesOccupation"
+                  formControlName="occupation"
                 />
               </div>
             </div>
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Couple Income</label>
+                <label class="form-label">Household Income</label>
                 <input
                   type="text"
                   class="form-control"
-                  formControlName="coupleIncome"
+                  formControlName="householdIncome"
                 />
               </div>
             </div>
@@ -402,7 +401,10 @@
             </div>
           </div>
 
-          <div class="d-flex justify-content-center mt-2">
+          <div class="d-flex justify-content-end mt-2">
+            <button class="btn btn-danger mx-1" (click)="cancelEdit()">
+              Cancel
+            </button>
             <button class="btn btn-primary" type="submit">Submit</button>
           </div>
         </form>
