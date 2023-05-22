@@ -1,6 +1,9 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataTable } from 'simple-datatables';
+import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
+import { TEXT } from 'src/app/core/enum/text.enum';
 import { CustomerModel } from 'src/app/core/models/customer.model';
 import { CustomerService } from 'src/app/services/customer/customer.service';
 
@@ -15,7 +18,10 @@ export class AllCustomersComponent implements OnInit, OnDestroy, AfterViewInit {
   dataTableCustomers: any;
   loading: boolean = false;
 
-  constructor(private customerService: CustomerService) {}
+  constructor(
+    private customerService: CustomerService,
+    private router: Router
+  ) {}
 
   ngOnDestroy(): void {
     this.customerSubscription?.unsubscribe();
@@ -47,5 +53,22 @@ export class AllCustomersComponent implements OnInit, OnDestroy, AfterViewInit {
     if (tableElement) {
       this.dataTableCustomers = new DataTable(tableElement, options);
     }
+  }
+
+  trackByCustomerId(index: number, customer: CustomerModel): string {
+    return customer.uid;
+  }
+
+  editCustomer(customer: CustomerModel) {
+    this.router.navigateByUrl(
+      `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ADD_CUSTOMERS}/${customer.uid}`
+    );
+  }
+  deleteCustomer(customer: CustomerModel) {}
+
+  newCustomer() {
+    this.router.navigateByUrl(
+      `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ADD_CUSTOMERS}/${TEXT.NEW}`
+    );
   }
 }

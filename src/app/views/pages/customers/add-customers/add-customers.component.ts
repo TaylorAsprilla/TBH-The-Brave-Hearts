@@ -1,3 +1,4 @@
+import { CustomerService } from './../../../../services/customer/customer.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormArray,
@@ -12,7 +13,10 @@ import {
   DropzoneConfigInterface,
   DropzoneDirective,
 } from 'ngx-dropzone-wrapper';
+import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
+import { ICreateCustomer } from 'src/app/core/interfaces/customer.interface';
 import { StateModel } from 'src/app/core/models/state.model';
+import { FileUploadService } from 'src/app/services/fileUpload/file-upload.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -47,6 +51,8 @@ export class AddCustomersComponent implements OnInit {
     cancelReset: null,
   };
 
+  fileTmp: any;
+
   states: StateModel[] = [];
 
   @ViewChild(DropzoneDirective, { static: false })
@@ -57,7 +63,9 @@ export class AddCustomersComponent implements OnInit {
   constructor(
     public formBuilder: UntypedFormBuilder,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private fileUploadService: FileUploadService,
+    private router: Router,
+    private customerService: CustomerService
   ) {}
 
   ngOnInit(): void {
@@ -226,97 +234,155 @@ export class AddCustomersComponent implements OnInit {
   }
 
   formLifePolicySubmit() {
-    // TODO Validación del formulario Life Policy
-    console.log('entró');
-    // if (this.validationForm1.valid) {
-
-    this.lifePolicy.goToNextStep();
-    // }
+    console.log(this.lifePolicyForm);
+    if (this.lifePolicyForm.valid) {
+      this.lifePolicy.goToNextStep();
+    }
     this.islifePolicyFormSubmitted = true;
   }
 
   beneficiaryFormSubmittedSubmit() {
-    // if (this.beneficiaryForm.valid) {
-    this.lifePolicy.goToNextStep();
-    // }
+    if (this.beneficiaryForm.valid) {
+      this.lifePolicy.goToNextStep();
+    }
     this.isBeneficiaryFormSubmitted = true;
   }
 
   contigentBeneficiaryFormSubmittedSubmit() {
-    // if (this.contigentBeneficiaryForm.valid) {
-    this.lifePolicy.goToNextStep();
-    // }
+    if (this.contigentBeneficiaryForm.valid) {
+      this.lifePolicy.goToNextStep();
+    }
     this.isContigentBeneficiaryFormSubmitted = true;
   }
 
   medicalFormSubmittedSubmit() {
-    console.log('entró');
-
-    // if (this.medicalForm.valid) {
-    this.lifePolicy.goToNextStep();
-    // }
+    if (this.medicalForm.valid) {
+      this.lifePolicy.goToNextStep();
+    }
     this.isMedicalFormFormSubmitted = true;
   }
 
   additionalQuestionFormSubmittedSubmit() {
-    console.log('entró');
-
-    // if (this.additionalQuestionForm.valid) {
-    this.lifePolicy.goToNextStep();
-    // }
+    if (this.additionalQuestionForm.valid) {
+      this.lifePolicy.goToNextStep();
+    }
     this.isAdditionalQuestionFormSubmitted = true;
   }
 
   referralsFormSubmittedSubmit() {
-    console.log('entró');
-
-    // if (this.referralsForm.valid) {
-    this.lifePolicy.goToNextStep();
-    // }
+    if (this.referralsForm.valid) {
+      this.lifePolicy.goToNextStep();
+    }
     this.isReferralsFormSubmitted = true;
   }
 
   bankInformationFormSubmittedSubmit() {
-    console.log('entró');
-
-    // if (this.bankInformationForm.valid) {
-    this.lifePolicy.goToNextStep();
-    // }
+    if (this.bankInformationForm.valid) {
+      this.lifePolicy.goToNextStep();
+    }
     this.isBankInformationFormSubmitted = true;
   }
 
   submitForm() {
-    if (this.documentForm.valid) {
-      this.isDocumentFormSubmitted = true;
+    this.isDocumentFormSubmitted = true;
+
+    if (
+      (this.lifePolicyForm.valid,
+      this.beneficiaryForm.valid,
+      this.contigentBeneficiaryForm.valid,
+      this.medicalForm.valid,
+      this.additionalQuestionForm.valid,
+      this.bankInformationForm.valid,
+      this.referralsForm.valid,
+      this.documentForm.valid)
+    ) {
+      console.log(
+        this.lifePolicyForm.value,
+        this.beneficiaryForm.value,
+        this.contigentBeneficiaryForm.value,
+        this.medicalForm.value,
+        this.additionalQuestionForm.value,
+        this.bankInformationForm.value,
+        this.referralsForm.value,
+        this.documentForm.value
+      );
+
+      let data = Object.assign(
+        this.lifePolicyForm.value,
+        this.beneficiaryForm.value,
+        this.contigentBeneficiaryForm.value,
+        this.medicalForm.value,
+        this.additionalQuestionForm.value,
+        this.bankInformationForm.value,
+        this.referralsForm.value,
+        this.documentForm.value
+      );
+
+      // TODO Mapear bien la información de medical, beneficiaries, contingentBeneficiary
+      const information: ICreateCustomer = {
+        customer: this.lifePolicyForm.value,
+        policy: {
+          carrier: data.carrier,
+          policyType: data.policyType,
+          monthly: data.monthly,
+          faceAmount: data.faceAmount,
+          beneficiaries: [data.beneficiaries],
+          contingentBeneficiary: [data.contingentBeneficiary],
+          medical: data.medical,
+          additionalQuestions: {
+            criminalRecord: data.criminalRecord,
+            pleadedGuilty: data.pleadedGuilty,
+            anotherLife: data.anotherLife,
+            appliedForLife: data.appliedForLife,
+            participateSport: data.participateSport,
+            involved: data.involved,
+          },
+          bankInformation: {
+            draftPaymentDate: data.draftPaymentDate,
+            bank: data.bank,
+            accountNumber: data.accountNumber,
+            routingNumber: data.routingNumber,
+            notes: data.notes,
+          },
+          referrals: [data.referrals],
+          document: data.document,
+        },
+      };
+
+      console.log('data', information);
+
+      this.customerService.createCustomer(information).subscribe({
+        next: (resp: any) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Customer created',
+            html: `<b> Customer Name: </b> ${resp.customer.firstName} ${resp.customer.lastName}`,
+          });
+          this.clearForm();
+          this.router.navigateByUrl(
+            `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ALL_CUSTOMERS}`
+          );
+        },
+        error: (error: any) => {
+          const errors = error?.error?.errors;
+          const errorList: string[] = [];
+
+          if (errors) {
+            Object.entries(errors).forEach(([key, value]: [string, any]) => {
+              if (value && value['msg']) {
+                errorList.push('° ' + value['msg'] + '<br>');
+              }
+            });
+          }
+
+          Swal.fire({
+            title: 'Error creating customer',
+            icon: 'error',
+            html: `${errorList.length ? errorList.join('') : error.error.msg}`,
+          });
+        },
+      });
     }
-
-    this.lifePolicyForm.value;
-    this.beneficiaryForm.value;
-    this.contigentBeneficiaryForm.value;
-    this.medicalForm.value;
-    this.additionalQuestionForm.value;
-    this.bankInformationForm.value;
-    this.referralsForm.value;
-    this.documentForm.value;
-
-    console.log(
-      this.lifePolicyForm.value,
-      this.beneficiaryForm.value,
-      this.contigentBeneficiaryForm.value,
-      this.medicalForm.value,
-      this.additionalQuestionForm.value,
-      this.bankInformationForm.value,
-      this.referralsForm.value,
-      this.documentForm.value
-    );
-
-    this.clearForm();
-
-    Swal.fire({
-      icon: 'success',
-      title: 'Form sent successfully',
-      timer: 3500,
-    });
   }
 
   addBeneficiary() {
@@ -372,13 +438,32 @@ export class AddCustomersComponent implements OnInit {
     );
   }
 
+  getFile($event: any) {
+    const [file] = $event.target.files;
+
+    this.fileTmp = {
+      fileRaw: file,
+      fileName: file.name,
+    };
+  }
+
+  sendFile(): void {
+    const file = new FormData();
+    file.append('myFile', this.fileTmp.fileRaw, this.fileTmp.fileName);
+
+    this.fileUploadService
+      .uploadFile(file)
+      .subscribe((res) => console.log(res));
+  }
+
   clearForm() {
-    this.lifePolicyForm.reset(),
-      this.beneficiaryForm.reset(),
-      this.contigentBeneficiaryForm.reset(),
-      this.medicalForm.reset(),
-      this.additionalQuestionForm.reset(),
-      this.bankInformationForm.reset(),
-      this.documentForm.reset();
+    this.lifePolicyForm.reset();
+    this.beneficiaryForm.reset();
+    this.contigentBeneficiaryForm.reset();
+    this.medicalForm.reset();
+    this.additionalQuestionForm.reset();
+    this.bankInformationForm.reset();
+    this.documentForm.reset();
+    this.referrals.reset();
   }
 }

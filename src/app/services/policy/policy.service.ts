@@ -1,19 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ICreateCustomer } from 'src/app/core/interfaces/customer.interface';
-import {
-  CustomerModel,
-  LoadAllCustomersInterface,
-} from 'src/app/core/models/customer.model';
+import { ILoadAllPolicy, PolicyModel } from 'src/app/core/models/policy.model';
 import { environment } from 'src/environments/environment';
 
 const base_url = environment.base_url;
 @Injectable({
   providedIn: 'root',
 })
-export class CustomerService {
-  public customer: CustomerModel;
+export class PolicyService {
+  public policy: PolicyModel;
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
@@ -22,7 +18,7 @@ export class CustomerService {
   }
 
   get uid(): string {
-    return this.customer.uid || '';
+    return this.policy.uid || '';
   }
 
   get headers() {
@@ -33,25 +29,21 @@ export class CustomerService {
     };
   }
 
-  getAllCustomers() {
-    return this.httpClient.get<LoadAllCustomersInterface>(
-      `${base_url}/customers/all`,
+  getAllPolicy() {
+    return this.httpClient.get<ILoadAllPolicy>(
+      `${base_url}/policy/all`,
       this.headers
     );
   }
 
-  createCustomer(customer: ICreateCustomer) {
-    return this.httpClient.post(
-      `${base_url}/customers`,
-      customer,
-      this.headers
-    );
+  createPolicy(policy: PolicyModel) {
+    return this.httpClient.post(`${base_url}/policy`, policy, this.headers);
   }
 
-  updateCustomer(customer: CustomerModel) {
+  updateCustomer(policy: PolicyModel) {
     return this.httpClient.put(
-      `${base_url}/customers/${this.uid}`,
-      customer,
+      `${base_url}/policy/${this.uid}`,
+      policy,
       this.headers
     );
   }
