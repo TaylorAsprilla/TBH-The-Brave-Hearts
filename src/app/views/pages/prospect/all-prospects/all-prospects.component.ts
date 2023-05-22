@@ -126,7 +126,7 @@ export class AllProspectsComponent implements OnInit {
     return prospect.uid;
   }
 
-  editAgent(prospect: ProspectModel) {
+  editProspect(prospect: ProspectModel) {
     this.router.navigateByUrl(
       `${ROUTE_APP.PROSPECT}/${ROUTE_APP.ADD_PROSPECTS}/${prospect.uid}`
     );

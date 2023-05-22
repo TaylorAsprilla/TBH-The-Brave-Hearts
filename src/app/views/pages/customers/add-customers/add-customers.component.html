@@ -2280,6 +2280,7 @@
                         type="file"
                         id="idPhoto"
                         formControlName="idPhoto"
+                        (change)="getFile($event)"
                       />
                     </div>
                   </div>
@@ -2331,13 +2332,13 @@
                       [ngClass]="{
                         'is-invalid':
                           isDocumentFormSubmitted &&
-                          formMedical.primaryAgentName.errors
+                          formDocument.primaryAgentName.errors
                       }"
                     />
                     <div
                       *ngIf="
                         isDocumentFormSubmitted &&
-                        formMedical.primaryAgentName.errors?.required
+                        formDocument.primaryAgentName.errors?.required
                       "
                       class="invalid-feedback"
                     >
@@ -2356,7 +2357,7 @@
                       [ngClass]="{
                         'is-invalid':
                           isDocumentFormSubmitted &&
-                          formMedical.percentage1.errors
+                          formDocument.percentage1.errors
                       }"
                     >
                       <option selected disabled>Please select</option>
@@ -2368,7 +2369,7 @@
                     <div
                       *ngIf="
                         isDocumentFormSubmitted &&
-                        formMedical.percentage1.errors?.required
+                        formDocument.percentage1.errors?.required
                       "
                       class="invalid-feedback"
                     >
