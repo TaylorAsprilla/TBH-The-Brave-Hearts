@@ -22,7 +22,7 @@
                       formControlName="carrier"
                       [ngClass]="{
                         'is-invalid':
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.carrier.errors
                       }"
                     >
@@ -35,7 +35,7 @@
                     </select>
                     <div
                       *ngIf="
-                        islifePolicyFormSubmitted &&
+                        isLifePolicyFormSubmitted &&
                         formLifePolicy.carrier.errors?.required
                       "
                       class="invalid-feedback"
@@ -56,7 +56,7 @@
                       formControlName="policityType"
                       [ngClass]="{
                         'is-invalid':
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.policityType.errors
                       }"
                     >
@@ -75,7 +75,7 @@
 
                     <div
                       *ngIf="
-                        islifePolicyFormSubmitted &&
+                        isLifePolicyFormSubmitted &&
                         formLifePolicy.policityType.errors?.required
                       "
                       class="invalid-feedback"
@@ -96,13 +96,13 @@
                       formControlName="monthly"
                       [ngClass]="{
                         'is-invalid':
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.monthly.errors
                       }"
                     />
                     <div
                       *ngIf="
-                        islifePolicyFormSubmitted &&
+                        isLifePolicyFormSubmitted &&
                         formLifePolicy.monthly.errors?.required
                       "
                       class="invalid-feedback"
@@ -123,13 +123,13 @@
                       formControlName="faceAmount"
                       [ngClass]="{
                         'is-invalid':
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.faceAmount.errors
                       }"
                     />
                     <div
                       *ngIf="
-                        islifePolicyFormSubmitted &&
+                        isLifePolicyFormSubmitted &&
                         formLifePolicy.faceAmount.errors?.required
                       "
                       class="invalid-feedback"
@@ -150,13 +150,13 @@
                         placeholder="Enter first name"
                         [ngClass]="{
                           'is-invalid':
-                            islifePolicyFormSubmitted &&
+                            isLifePolicyFormSubmitted &&
                             formLifePolicy.firstName.errors
                         }"
                       />
                       <div
                         *ngIf="
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.firstName.errors?.required
                         "
                         class="invalid-feedback"
@@ -212,13 +212,13 @@
                         placeholder="Last name"
                         [ngClass]="{
                           'is-invalid':
-                            islifePolicyFormSubmitted &&
+                            isLifePolicyFormSubmitted &&
                             formLifePolicy.lastName.errors
                         }"
                       />
                       <div
                         *ngIf="
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.lastName.errors?.required
                         "
                         class="invalid-feedback"
@@ -253,13 +253,13 @@
                       formControlName="address"
                       [ngClass]="{
                         'is-invalid':
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.address.errors
                       }"
                     />
                     <div
                       *ngIf="
-                        islifePolicyFormSubmitted &&
+                        isLifePolicyFormSubmitted &&
                         formLifePolicy.address.errors?.required
                       "
                       class="invalid-feedback"
@@ -324,14 +324,14 @@
                       formControlName="state"
                       [ngClass]="{
                         'is-invalid':
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.state.errors
                       }"
                     >
                     </ng-select>
                     <div
                       *ngIf="
-                        islifePolicyFormSubmitted &&
+                        isLifePolicyFormSubmitted &&
                         formLifePolicy.state.errors?.required
                       "
                       class="invalid-feedback"
@@ -369,13 +369,13 @@
                       formControlName="phone"
                       [ngClass]="{
                         'is-invalid':
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.phone.errors
                       }"
                     />
                     <div
                       *ngIf="
-                        islifePolicyFormSubmitted &&
+                        isLifePolicyFormSubmitted &&
                         formLifePolicy.phone.errors?.required
                       "
                       class="invalid-feedback"
@@ -395,13 +395,13 @@
                       formControlName="email"
                       [ngClass]="{
                         'is-invalid':
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.email.errors
                       }"
                     />
                     <div
                       *ngIf="
-                        islifePolicyFormSubmitted &&
+                        isLifePolicyFormSubmitted &&
                         formLifePolicy.email.errors?.required
                       "
                       class="invalid-feedback"
@@ -432,13 +432,13 @@
                       formControlName="documentNumber"
                       [ngClass]="{
                         'is-invalid':
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.documentNumber.errors
                       }"
                     />
                     <div
                       *ngIf="
-                        islifePolicyFormSubmitted &&
+                        isLifePolicyFormSubmitted &&
                         formLifePolicy.documentNumber.errors?.required
                       "
                       class="invalid-feedback"
@@ -472,7 +472,7 @@
                       formControlName="documentType"
                       [ngClass]="{
                         'is-invalid':
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.documentType.errors
                       }"
                     >
@@ -482,7 +482,7 @@
                     </select>
                     <div
                       *ngIf="
-                        islifePolicyFormSubmitted &&
+                        isLifePolicyFormSubmitted &&
                         formLifePolicy.documentType.errors?.required
                       "
                       class="invalid-feedback"
@@ -503,7 +503,7 @@
                       formControlName="maritalStatus"
                       [ngClass]="{
                         'is-invalid':
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.maritalStatus.errors
                       }"
                     >
@@ -515,7 +515,7 @@
                     </select>
                     <div
                       *ngIf="
-                        islifePolicyFormSubmitted &&
+                        isLifePolicyFormSubmitted &&
                         formLifePolicy.maritalStatus.errors?.required
                       "
                       class="invalid-feedback"
@@ -535,13 +535,13 @@
                       formControlName="dateBirth"
                       [ngClass]="{
                         'is-invalid':
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.dateBirth.errors
                       }"
                     />
                     <div
                       *ngIf="
-                        islifePolicyFormSubmitted &&
+                        isLifePolicyFormSubmitted &&
                         formLifePolicy.dateBirth.errors?.required
                       "
                       class="invalid-feedback"
@@ -562,13 +562,13 @@
                       formControlName="countryBirth"
                       [ngClass]="{
                         'is-invalid':
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.countryBirth.errors
                       }"
                     />
                     <div
                       *ngIf="
-                        islifePolicyFormSubmitted &&
+                        isLifePolicyFormSubmitted &&
                         formLifePolicy.countryBirth.errors?.required
                       "
                       class="invalid-feedback"
@@ -599,13 +599,13 @@
                       formControlName="cityBirth"
                       [ngClass]="{
                         'is-invalid':
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.cityBirth.errors
                       }"
                     />
                     <div
                       *ngIf="
-                        islifePolicyFormSubmitted &&
+                        isLifePolicyFormSubmitted &&
                         formLifePolicy.cityBirth.errors?.required
                       "
                       class="invalid-feedback"
@@ -638,7 +638,7 @@
                         formControlName="gender"
                         [ngClass]="{
                           'is-invalid':
-                            islifePolicyFormSubmitted &&
+                            isLifePolicyFormSubmitted &&
                             formLifePolicy.gender.errors
                         }"
                       >
@@ -649,7 +649,7 @@
                       </select>
                       <div
                         *ngIf="
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.gender.errors?.required
                         "
                         class="invalid-feedback"
@@ -668,13 +668,13 @@
                         formControlName="weight"
                         [ngClass]="{
                           'is-invalid':
-                            islifePolicyFormSubmitted &&
+                            isLifePolicyFormSubmitted &&
                             formLifePolicy.weight.errors
                         }"
                       />
                       <div
                         *ngIf="
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.weight.errors?.required
                         "
                         class="invalid-feedback"
@@ -693,13 +693,13 @@
                         formControlName="height"
                         [ngClass]="{
                           'is-invalid':
-                            islifePolicyFormSubmitted &&
+                            isLifePolicyFormSubmitted &&
                             formLifePolicy.height.errors
                         }"
                       />
                       <div
                         *ngIf="
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.height.errors?.required
                         "
                         class="invalid-feedback"
@@ -720,13 +720,13 @@
                         formControlName="employerName"
                         [ngClass]="{
                           'is-invalid':
-                            islifePolicyFormSubmitted &&
+                            isLifePolicyFormSubmitted &&
                             formLifePolicy.employerName.errors
                         }"
                       />
                       <div
                         *ngIf="
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.employerName.errors?.required
                         "
                         class="invalid-feedback"
@@ -797,13 +797,13 @@
                         formControlName="annualIncome"
                         [ngClass]="{
                           'is-invalid':
-                            islifePolicyFormSubmitted &&
+                            isLifePolicyFormSubmitted &&
                             formLifePolicy.annualIncome.errors
                         }"
                       />
                       <div
                         *ngIf="
-                          islifePolicyFormSubmitted &&
+                          isLifePolicyFormSubmitted &&
                           formLifePolicy.annualIncome.errors?.required
                         "
                         class="invalid-feedback"
@@ -838,6 +838,9 @@
               </div>
 
               <div class="d-flex justify-content-center mt-2">
+                <button class="btn btn-danger mx-1" (click)="cancelEdit()">
+                  Cancel
+                </button>
                 <button class="btn btn-primary" type="submit">Continue</button>
               </div>
             </form>

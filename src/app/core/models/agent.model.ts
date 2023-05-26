@@ -24,7 +24,7 @@ export class AgentModel {
     if (this.img) {
       return `${imageProfile}/agents/${this.img}`;
     } else {
-      return `${imageProfile}/agents/no-file.png`;
+      return `${imageProfile}/agents/no-file.jpg`;
     }
   }
 }

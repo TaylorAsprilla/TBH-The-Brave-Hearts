@@ -23,7 +23,7 @@ export class AddProspectsComponent implements OnInit {
   states: StateModel[] = [];
   selectedProspect: ProspectModel;
 
-  isprospectFormSubmitted = false;
+  isprospectFormSubmitted: Boolean = false;
 
   constructor(
     public formBuilder: UntypedFormBuilder,
@@ -55,9 +55,9 @@ export class AddProspectsComponent implements OnInit {
       dateBirth: ['', [Validators.required, Validators.minLength(3)]],
       phone: ['', [Validators.minLength(7), Validators.required]],
       state: ['', Validators.required],
-      coupleName: [''],
-      couplesOccupation: [''],
-      coupleIncome: [''],
+      partner: [''],
+      occupation: [''],
+      householdIncome: [''],
       children: ['No'],
       childrenAge: [''],
       childrenOccupation: [''],
@@ -132,9 +132,9 @@ export class AddProspectsComponent implements OnInit {
       phone: this.formProspect.phone.value,
       middleName: this.formProspect.middleName.value,
       state: this.formProspect.state.value,
-      coupleName: this.formProspect.coupleName.value,
-      couplesOccupation: this.formProspect.couplesOccupation.value,
-      coupleIncome: this.formProspect.coupleIncome.value,
+      partner: this.formProspect.partner.value,
+      occupation: this.formProspect.occupation.value,
+      householdIncome: this.formProspect.householdIncome.value,
       children: this.formProspect.children.value,
       childrenAge: this.formProspect.childrenAge.value,
       childrenOccupation: this.formProspect.childrenOccupation.value,
@@ -195,9 +195,9 @@ export class AddProspectsComponent implements OnInit {
             status,
             middleName,
             state,
-            coupleName,
-            couplesOccupation,
-            coupleIncome,
+            partner,
+            occupation,
+            householdIncome,
             children,
             childrenAge,
             childrenOccupation,
@@ -223,9 +223,9 @@ export class AddProspectsComponent implements OnInit {
             phone,
             middleName,
             state,
-            coupleName,
-            couplesOccupation,
-            coupleIncome,
+            partner,
+            occupation,
+            householdIncome,
             children,
             childrenAge,
             childrenOccupation,
@@ -261,6 +261,10 @@ export class AddProspectsComponent implements OnInit {
         },
       });
     }
+  }
+
+  cancelEdit() {
+    this.router.navigateByUrl(`${ROUTE_APP.AGENT}/${ROUTE_APP.ALL_AGENTS}`);
   }
 
   resetForm() {

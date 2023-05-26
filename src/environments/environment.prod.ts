@@ -2,6 +2,6 @@
 
 export const environment = {
   production: true,
-  base_url: 'http://localhost:3000/api',
-  imageProfile: 'http://localhost:3000/api/uploads',
+  base_url: 'http://thebravehearsts.us/api',
+  imageProfile: 'https://david-vera.com/assets/images',
 };
