@@ -50,7 +50,7 @@ export class CustomerModel {
     if (this.img) {
       return `${imageProfile}/customers/${this.img}`;
     } else {
-      return `${imageProfile}/customers/no-file.png`;
+      return `${imageProfile}/customers/no-file.jpg`;
     }
   }
 }
