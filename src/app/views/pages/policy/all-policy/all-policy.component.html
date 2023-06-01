@@ -1,1 +1,71 @@
-<p>all-policy works!</p>
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Policy</a></li>
+    <li class="breadcrumb-item active" aria-current="page">All Policy</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <app-spinner *ngIf="!!loading" [textData]="'Policy'"></app-spinner>
+
+        <h6 class="card-title">Policy</h6>
+        <span class="float-end badge bg-danger">{{ policies.length }}</span>
+
+        <div class="table-responsive">
+          <table id="dataTableAgentsDos" class="table">
+            <thead>
+              <tr>
+                <th>Carrier</th>
+                <th>PolicyType</th>
+                <th>Monthly</th>
+                <th>Face Amount</th>
+                <th>Customer</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let policy of policies; trackBy: trackByPolicyId">
+                <td>{{ policy.carrier }}</td>
+                <td>{{ policy.policyType }}</td>
+                <td>{{ policy.monthly }}</td>
+                <td>{{ policy.faceAmount }}</td>
+                <td>
+                  {{ policy.customer.firstName }}
+                  {{ policy.customer.lastName }}
+                </td>
+
+                <td>
+                  <button
+                    (click)="editPolicy(policy)"
+                    type="button"
+                    class="btn btn-primary"
+                    data-original-title="Edit"
+                  >
+                    <i class="feather icon-edit"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

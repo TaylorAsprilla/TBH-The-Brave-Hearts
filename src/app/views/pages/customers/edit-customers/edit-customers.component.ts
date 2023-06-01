@@ -129,7 +129,7 @@ export class EditCustomersComponent implements OnInit {
             zipCode,
             phone,
             email,
-            documentType,
+            documentType: documentType ? documentType : '',
             documentNumber,
             maritalStatus,
             dateBirth: formattedDateBirth,

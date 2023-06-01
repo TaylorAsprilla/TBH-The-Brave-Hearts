@@ -14,7 +14,6 @@ import {
   DropzoneDirective,
 } from 'ngx-dropzone-wrapper';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
-import { TEXT } from 'src/app/core/enum/text.enum';
 import { ICreateCustomer } from 'src/app/core/interfaces/customer.interface';
 import { StateModel } from 'src/app/core/models/state.model';
 import { FileUploadService } from 'src/app/services/fileUpload/file-upload.service';

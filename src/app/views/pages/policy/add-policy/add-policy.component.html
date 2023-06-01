@@ -1,1 +1,1741 @@
-<p>add-policy works!</p>
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <aw-wizard #policy>
+          <aw-wizard-step stepTitle="step 1">
+            <div class="d-flex justify-content-end">
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="editCustomer(selectCustomer)"
+                data-original-title="Edit"
+              >
+                <i class="feather icon-edit"></i>
+              </button>
+            </div>
+            <div *ngIf="!!selectCustomer" class="container mt-4">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="card mb-4">
+                    <div class="card-header bg-primary"></div>
+                    <div class="card-body fs-4">
+                      <p>
+                        <b>Name:</b> {{ selectCustomer.firstName }}
+                        {{ selectCustomer.middleName }}
+                        {{ selectCustomer.lastName }}
+                      </p>
+                      <p>
+                        <b>SS / ITIN #:</b>
+                        {{ selectCustomer.documentNumber }}
+                      </p>
+                      <p>
+                        <b>Document Type:</b>
+                        {{ selectCustomer.documentType }}
+                      </p>
+                      <p><b>Email:</b> {{ selectCustomer.email }}</p>
+                      <p>
+                        <b>Address:</b> {{ selectCustomer.address }}
+                        {{ selectCustomer.addressLine2 }}
+                      </p>
+                      <p><b>City:</b> {{ selectCustomer.city }}</p>
+                      <p>
+                        <b>State:</b>
+                        {{ selectCustomer.state }}
+                      </p>
+                      <p>
+                        <b>Zip:</b>
+                        {{ selectCustomer.zipCode }}
+                      </p>
+                      <p><b>Phone:</b> {{ selectCustomer.phone }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="card mb-4">
+                    <div class="card-header bg-primary"></div>
+                    <div class="card-body fs-4">
+                      <p>
+                        <b>Marital Status:</b>
+                        {{ selectCustomer.maritalStatus }}
+                      </p>
+                      <p>
+                        <b>Date of Birth:</b>
+                        {{ selectCustomer.dateBirth | date : "mediumDate" }}
+                      </p>
+
+                      <p>
+                        <b>Country / State of Birth:</b>
+                        {{ selectCustomer.countryBirth }}
+                      </p>
+                      <p>
+                        <b>City of Birth:</b> {{ selectCustomer.cityBirth }}
+                      </p>
+                      <p><b>Gender:</b> {{ selectCustomer.gender }}</p>
+                      <p><b>Weight:</b> {{ selectCustomer.weight }}</p>
+                      <p><b>Height:</b> {{ selectCustomer.height }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="card mb-4">
+                    <div class="card-header bg-primary"></div>
+                    <div class="card-body fs-4">
+                      <p>
+                        <b>Employer Name:</b>
+                        {{ selectCustomer.employerName }}
+                      </p>
+                      <p><b>Occupation:</b> {{ selectCustomer.occupation }}</p>
+                      <p>
+                        <b>Time Employed:</b>
+                        {{ selectCustomer.timeEmployed }}
+                      </p>
+
+                      <p>
+                        <b>Annual Income:</b>
+                        {{ selectCustomer.annualIncome }}
+                      </p>
+                      <p>
+                        <b>Household Income:</b>
+                        {{ selectCustomer.householdIncome }}
+                      </p>
+                      <p>
+                        <b>Household net worth:</b>
+                        {{ selectCustomer.householdNetWorth }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-center mt-5">
+                <button class="btn btn-danger mx-1" (click)="cancelEdit()">
+                  Cancel
+                </button>
+                <button class="btn btn-primary" (click)="nextPolicy()">
+                  Continue
+                </button>
+              </div>
+            </div>
+          </aw-wizard-step>
+
+          <!-- ##################### FORM Beneficiaries ####################### -->
+          <aw-wizard-step stepTitle="step 2">
+            <div class="tittleForm">Beneficiaries</div>
+            <form
+              (ngSubmit)="beneficiaryFormSubmittedSubmit()"
+              [formGroup]="beneficiaryForm"
+            >
+              <div
+                class="border-bottom border-success mb-4"
+                formArrayName="beneficiaries"
+                *ngFor="
+                  let beneficiary of formBeneficiaries.controls;
+                  let i = index
+                "
+              >
+                <h6>
+                  <span class="badge bg-primary">{{ i + 1 }}</span>
+                </h6>
+                <ng-container [formGroupName]="i">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label required">First Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="firstName"
+                          placeholder="Enter first name"
+                          [ngClass]="{
+                            'is-invalid':
+                              isBeneficiaryFormSubmitted &&
+                              beneficiary?.get('firstName')?.errors?.required
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isBeneficiaryFormSubmitted &&
+                            beneficiary?.get('firstName')?.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          Required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label">Middle Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter middle name"
+                          formControlName="middleName"
+                          [ngClass]="{
+                            'is-invalid':
+                              isBeneficiaryFormSubmitted &&
+                              beneficiary?.get('middleName')?.errors?.minlength
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isBeneficiaryFormSubmitted &&
+                            beneficiary?.get('middleName')?.errors?.minlength
+                          "
+                          class="invalid-feedback"
+                        >
+                          Minimum length required is 3
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label required">Last Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter last name"
+                          formControlName="lastName"
+                          [ngClass]="{
+                            'is-invalid':
+                              isBeneficiaryFormSubmitted &&
+                              (beneficiary?.get('lastName')?.errors
+                                ?.minlength ||
+                                beneficiary?.get('lastName')?.errors?.required)
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isBeneficiaryFormSubmitted &&
+                            (beneficiary?.get('lastName')?.errors?.minlength ||
+                              beneficiary?.get('lastName')?.errors?.required)
+                          "
+                          class="invalid-feedback"
+                        >
+                          Required. Minimum length required is 3.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label required"
+                          >Relationship to insured</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="relationshipToInsured"
+                          [ngClass]="{
+                            'is-invalid':
+                              isBeneficiaryFormSubmitted &&
+                              (beneficiary?.get('relationshipToInsured')?.errors
+                                ?.minlength ||
+                                beneficiary?.get('relationshipToInsured')
+                                  ?.errors?.required)
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isBeneficiaryFormSubmitted &&
+                            (beneficiary?.get('relationshipToInsured')?.errors
+                              ?.minlength ||
+                              beneficiary?.get('relationshipToInsured')?.errors
+                                ?.required)
+                          "
+                          class="invalid-feedback"
+                        >
+                          Required. Minimum length required is 3.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label required">Phone</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="(000) 000 00 00"
+                          prefix="+7 "
+                          mask="(000) 000 00 00"
+                          formControlName="phone"
+                          [ngClass]="{
+                            'is-invalid':
+                              isBeneficiaryFormSubmitted &&
+                              beneficiary?.get('phone')?.errors?.required
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isBeneficiaryFormSubmitted &&
+                            beneficiary?.get('phone')?.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          Required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label for="email" class="form-label required"
+                          >Email</label
+                        >
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="email"
+                          formControlName="email"
+                          placeholder="Email"
+                          [ngClass]="{
+                            'is-invalid':
+                              isBeneficiaryFormSubmitted &&
+                              (beneficiary?.get('email')?.errors?.required ||
+                                beneficiary?.get('email')?.errors?.email ||
+                                beneficiary?.get('email')?.errors?.minlength)
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isBeneficiaryFormSubmitted &&
+                            beneficiary?.get('email')?.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          Required
+                        </div>
+                        <div
+                          *ngIf="
+                            isBeneficiaryFormSubmitted &&
+                            beneficiary?.get('email')?.errors?.email
+                          "
+                          class="invalid-feedback"
+                        >
+                          Invalid email
+                        </div>
+                        <div
+                          *ngIf="
+                            isBeneficiaryFormSubmitted &&
+                            beneficiary?.get('email')?.errors?.minlength
+                          "
+                          class="invalid-feedback"
+                        >
+                          Minimum length required is 3
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label">Date of Birth</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          formControlName="dateBirth"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label">SS</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="ss"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label">Share</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="share"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+
+              <div class="row float-end mb-5">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                  <button
+                    class="btn btn-primary"
+                    type="button"
+                    (click)="addBeneficiary()"
+                  >
+                    <i class="feather icon-plus-square"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="d-flex justify-content-center mt-5">
+                  <button
+                    class="btn btn-secondary me-2"
+                    type="button"
+                    awPreviousStep
+                  >
+                    Back
+                  </button>
+                  <button class="btn btn-primary" type="submit">
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </form>
+          </aw-wizard-step>
+
+          <!-- ##################### FORM Contigent Beneficiaries ####################### -->
+
+          <aw-wizard-step stepTitle="step 3">
+            <div class="tittleForm">Contingent Beneficiary</div>
+            <form
+              (ngSubmit)="contigentBeneficiaryFormSubmittedSubmit()"
+              [formGroup]="contigentBeneficiaryForm"
+            >
+              <div
+                class="border-bottom border-success mb-4"
+                formArrayName="contigentBeneficiaries"
+                *ngFor="
+                  let contigentBeneficiary of contigentBeneficiaries.controls;
+                  let i = index
+                "
+              >
+                <h6>
+                  <span class="badge bg-primary">{{ i + 1 }}</span>
+                </h6>
+                <ng-container formGroupName="{{ i }}">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label required">First Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="firstName"
+                          placeholder="Enter first name"
+                          [ngClass]="{
+                            'is-invalid':
+                              isContigentBeneficiaryFormSubmitted &&
+                              contigentBeneficiary?.get('firstName')?.errors
+                                ?.required
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isContigentBeneficiaryFormSubmitted &&
+                            contigentBeneficiary?.get('firstName')?.errors
+                              ?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          Required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label">Middle Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter middle name"
+                          formControlName="middleName"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label required">Last Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter last name"
+                          formControlName="lastName"
+                          placeholder="Last name"
+                          [ngClass]="{
+                            'is-invalid':
+                              isContigentBeneficiaryFormSubmitted &&
+                              contigentBeneficiary?.get('lastName')?.errors
+                                ?.required
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isContigentBeneficiaryFormSubmitted &&
+                            contigentBeneficiary?.get('lastName')?.errors
+                              ?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          Required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label required"
+                          >Relationship to insured</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="relationshipToInsured"
+                          [ngClass]="{
+                            'is-invalid':
+                              isContigentBeneficiaryFormSubmitted &&
+                              contigentBeneficiary?.get('relationshipToInsured')
+                                ?.errors?.required
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isContigentBeneficiaryFormSubmitted &&
+                            contigentBeneficiary?.get('relationshipToInsured')
+                              ?.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          Required.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label required">Phone</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="(000) 000 00 00"
+                          prefix="+7 "
+                          mask="(000) 000 00 00"
+                          formControlName="phone"
+                          [ngClass]="{
+                            'is-invalid':
+                              isContigentBeneficiaryFormSubmitted &&
+                              contigentBeneficiary?.get('phone')?.errors
+                                ?.required
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isContigentBeneficiaryFormSubmitted &&
+                            contigentBeneficiary?.get('phone')?.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          Required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="email"
+                          formControlName="email"
+                          placeholder="Email"
+                          [ngClass]="{
+                            'is-invalid':
+                              isContigentBeneficiaryFormSubmitted &&
+                              (contigentBeneficiary?.get('email')?.errors
+                                ?.required ||
+                                contigentBeneficiary?.get('email')?.errors
+                                  ?.email ||
+                                contigentBeneficiary?.get('email')?.errors
+                                  ?.minlength)
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isContigentBeneficiaryFormSubmitted &&
+                            contigentBeneficiary?.get('email')?.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          Required
+                        </div>
+                        <div
+                          *ngIf="
+                            isContigentBeneficiaryFormSubmitted &&
+                            contigentBeneficiary?.get('email')?.errors?.email
+                          "
+                          class="invalid-feedback"
+                        >
+                          Invalid email
+                        </div>
+                        <div
+                          *ngIf="
+                            isContigentBeneficiaryFormSubmitted &&
+                            contigentBeneficiary?.get('email')?.errors
+                              ?.minlength
+                          "
+                          class="invalid-feedback"
+                        >
+                          Minimum length required is 3
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label">Date of Birth</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          placeholder="Date of Birth"
+                          formControlName="dateBirth"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label">SS</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="ss"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label required">Share</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="share"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+
+              <div class="row float-end mb-5">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                  <button
+                    class="btn btn-primary"
+                    type="button"
+                    (click)="addContigentBeneficiary()"
+                  >
+                    <i class="feather icon-plus-square"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="d-flex justify-content-center mt-5">
+                  <button
+                    class="btn btn-secondary me-2"
+                    type="button"
+                    awPreviousStep
+                  >
+                    Back
+                  </button>
+                  <button class="btn btn-primary" type="submit">
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </form>
+          </aw-wizard-step>
+
+          <!-- ##################### FORM Medical ######################## -->
+
+          <aw-wizard-step stepTitle="step 4">
+            <div class="tittleForm">Medical</div>
+            <form
+              (ngSubmit)="medicalFormSubmittedSubmit()"
+              [formGroup]="medicalForm"
+            >
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label required">Doctor's Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="doctorName"
+                      placeholder="Enter Doctor Name"
+                      [ngClass]="{
+                        'is-invalid':
+                          isMedicalFormFormSubmitted &&
+                          formMedical.doctorName.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="
+                        isMedicalFormFormSubmitted &&
+                        formMedical.doctorName.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label">Doctor's Office Location</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="doctorOfficeLocation"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label">Office Phone Number</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="officePhoneNumber"
+                      placeholder="(000) 000 00 00"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label required">Last Visit</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="lastVisit"
+                      [ngClass]="{
+                        'is-invalid':
+                          isMedicalFormFormSubmitted &&
+                          formMedical.lastVisit.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="
+                        isMedicalFormFormSubmitted &&
+                        formMedical.lastVisit.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label"> Reason for visit</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="reasonForVisit"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label for="email" class="form-label"
+                      >Outcome of visit</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="outcomeOfVisit"
+                      formControlName="outcomeOfVisit"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label required">Smoker</label>
+                    <select
+                      class="form-select"
+                      id="smoker"
+                      formControlName="smoker"
+                      [ngClass]="{
+                        'is-invalid':
+                          isMedicalFormFormSubmitted &&
+                          formMedical.smoker.errors
+                      }"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                    <div
+                      *ngIf="
+                        isMedicalFormFormSubmitted &&
+                        formMedical.smoker.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label">Medical Condition</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="medicalCondition"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label">When it was diagnosed</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="whenItWasDiagnosed"
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label"> Dosage</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="dosage"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="mb-3">
+                      <label class="form-label"> Additional information </label>
+                      <textarea
+                        name="textarea"
+                        class="form-control"
+                        formControlName="additionalInformation"
+                        rows="10"
+                        cols="30"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label required">Is father alive</label>
+                      <select
+                        class="form-select"
+                        id="isFatherAlive"
+                        formControlName="isFatherAlive"
+                        [ngClass]="{
+                          'is-invalid':
+                            isMedicalFormFormSubmitted &&
+                            formMedical.isFatherAlive.errors
+                        }"
+                      >
+                        <option selected disabled>Please select</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select>
+                      <div
+                        *ngIf="
+                          isMedicalFormFormSubmitted &&
+                          formMedical.isFatherAlive.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Required
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label"> Father's age</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        formControlName="fatherAge"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label"> Cause of deceased</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="deceasedFather"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label required">Is mother alive</label>
+                      <select
+                        class="form-select"
+                        id="isMotherAlive"
+                        formControlName="isMotherAlive"
+                        [ngClass]="{
+                          'is-invalid':
+                            isMedicalFormFormSubmitted &&
+                            formMedical.isMotherAlive.errors
+                        }"
+                      >
+                        <option selected disabled>Please select</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select>
+                      <div
+                        *ngIf="
+                          isMedicalFormFormSubmitted &&
+                          formMedical.isMotherAlive.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Required
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label">Mother's age</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        formControlName="motherAge"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label"> Cause of deceased</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="deceasedMother"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="d-flex justify-content-center mt-5">
+                  <button
+                    class="btn btn-secondary me-2"
+                    type="button"
+                    awPreviousStep
+                  >
+                    Back
+                  </button>
+                  <button class="btn btn-primary" type="submit">
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </form>
+          </aw-wizard-step>
+
+          <!-- ##################### Additional Questions ######################## -->
+
+          <aw-wizard-step stepTitle="step 5">
+            <div class="tittleForm">Additional Questions</div>
+            <form
+              (ngSubmit)="additionalQuestionFormSubmittedSubmit()"
+              [formGroup]="additionalQuestionForm"
+            >
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label required">Criminal record</label>
+                    <select
+                      class="form-select"
+                      id="criminalRecord"
+                      formControlName="criminalRecord"
+                      [ngClass]="{
+                        'is-invalid':
+                          isAdditionalQuestionFormSubmitted &&
+                          formAdditionalQuestion.criminalRecord.errors
+                      }"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>
+                        Yes (Please provide additional information in notes)
+                      </option>
+                      <option>No</option>
+                    </select>
+                    <div
+                      *ngIf="
+                        isAdditionalQuestionFormSubmitted &&
+                        formAdditionalQuestion.criminalRecord.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >During the last 5 years have you pleaded guilty to or
+                      been convicted of any moving vehicle violation or DUI or
+                      have you had a suspended license?</label
+                    >
+                    <select
+                      class="form-select"
+                      id="pleadedGuilty"
+                      formControlName="pleadedGuilty"
+                      [ngClass]="{
+                        'is-invalid':
+                          isAdditionalQuestionFormSubmitted &&
+                          formAdditionalQuestion.pleadedGuilty.errors
+                      }"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>
+                        Yes (Please provide additional information in notes)
+                      </option>
+                      <option>No</option>
+                    </select>
+                    <div
+                      *ngIf="
+                        isAdditionalQuestionFormSubmitted &&
+                        formAdditionalQuestion.pleadedGuilty.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Do you have another life insurance at this time?
+                      Excluding any from employer</label
+                    >
+                    <select
+                      class="form-select"
+                      id="anotherLife"
+                      formControlName="anotherLife"
+                      [ngClass]="{
+                        'is-invalid':
+                          isAdditionalQuestionFormSubmitted &&
+                          formAdditionalQuestion.anotherLife.errors
+                      }"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>
+                        Yes (Please provide additional information in notes)
+                      </option>
+                      <option>No</option>
+                    </select>
+                    <div
+                      *ngIf="
+                        isAdditionalQuestionFormSubmitted &&
+                        formAdditionalQuestion.anotherLife.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Have you ever applied for life, health, or disability
+                      insurance or reinstatement of same, which was declined,
+                      postponed, rated or modified in any way?</label
+                    >
+                    <select
+                      class="form-select"
+                      id="appliedForLife"
+                      formControlName="appliedForLife"
+                      [ngClass]="{
+                        'is-invalid':
+                          isAdditionalQuestionFormSubmitted &&
+                          formAdditionalQuestion.appliedForLife.errors
+                      }"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>
+                        Yes (Please provide additional information in notes)
+                      </option>
+                      <option>No</option>
+                    </select>
+                    <div
+                      *ngIf="
+                        isAdditionalQuestionFormSubmitted &&
+                        formAdditionalQuestion.appliedForLife.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Do you participate in any motor sport, automobile,
+                      motorcycle, boat or marathon racing; scuba, skin, sport or
+                      sky diving;sports in which you compete against other
+                      individuals; parachuting; or hang gliding; BASE (parachute
+                      jumping from buildings, Antennas, Spans (bridges) or
+                      Earth) or bungee cord jumping; big game hunting; mountain
+                      climbing; caveexploring; rodeos or snowmobiling</label
+                    >
+                    <select
+                      class="form-select"
+                      id="participateSport"
+                      formControlName="participateSport"
+                      [ngClass]="{
+                        'is-invalid':
+                          isAdditionalQuestionFormSubmitted &&
+                          formAdditionalQuestion.participateSport.errors
+                      }"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>
+                        Yes (Please provide additional information in notes)
+                      </option>
+                      <option>No</option>
+                    </select>
+                    <div
+                      *ngIf="
+                        isAdditionalQuestionFormSubmitted &&
+                        formAdditionalQuestion.participateSport.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Have you been or are you currently involved in any
+                      bankruptcy proceedings that have not been
+                      discharged?</label
+                    >
+                    <select
+                      class="form-select"
+                      id="involved"
+                      formControlName="involved"
+                      [ngClass]="{
+                        'is-invalid':
+                          isAdditionalQuestionFormSubmitted &&
+                          formAdditionalQuestion.involved.errors
+                      }"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>
+                        Yes (Please provide additional information in notes)
+                      </option>
+                      <option>No</option>
+                    </select>
+                    <div
+                      *ngIf="
+                        isAdditionalQuestionFormSubmitted &&
+                        formAdditionalQuestion.involved.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="d-flex justify-content-center mt-5">
+                  <button
+                    class="btn btn-secondary me-2"
+                    type="button"
+                    awPreviousStep
+                  >
+                    Back
+                  </button>
+                  <button class="btn btn-primary" type="submit">
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </form>
+          </aw-wizard-step>
+
+          <!-- ##################### Bank Information ######################## -->
+
+          <aw-wizard-step stepTitle="step 6">
+            <div class="tittleForm">Banck Information</div>
+            <form
+              (ngSubmit)="bankInformationFormSubmittedSubmit()"
+              [formGroup]="bankInformationForm"
+            >
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Draft payment date</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="draftPaymentDate"
+                      [ngClass]="{
+                        'is-invalid':
+                          isBankInformationFormSubmitted &&
+                          formBankInformation.draftPaymentDate.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="
+                        isBankInformationFormSubmitted &&
+                        formBankInformation.draftPaymentDate.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Bank/Credit Union name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="bank"
+                      [ngClass]="{
+                        'is-invalid':
+                          isBankInformationFormSubmitted &&
+                          formBankInformation.bank.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="
+                        isBankInformationFormSubmitted &&
+                        formBankInformation.bank.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label class="form-label required">Account Number</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="accountNumber"
+                        [ngClass]="{
+                          'is-invalid':
+                            isBankInformationFormSubmitted &&
+                            formBankInformation.accountNumber.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="
+                          isBankInformationFormSubmitted &&
+                          formBankInformation.accountNumber.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Required
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label class="form-label required">Routing Number</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="routingNumber"
+                        [ngClass]="{
+                          'is-invalid':
+                            isBankInformationFormSubmitted &&
+                            formBankInformation.routingNumber.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="
+                          isBankInformationFormSubmitted &&
+                          formBankInformation.routingNumber.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="mb-3">
+                      <label class="form-label">Notes</label>
+                      <textarea
+                        name="textarea"
+                        class="form-control"
+                        formControlName="notes"
+                        rows="10"
+                        cols="30"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="d-flex justify-content-center mt-5">
+                  <button
+                    class="btn btn-secondary me-2"
+                    type="button"
+                    awPreviousStep
+                  >
+                    Back
+                  </button>
+                  <button class="btn btn-primary" type="submit">
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </form>
+          </aw-wizard-step>
+
+          <!-- ##################### FORM Referrals ####################### -->
+
+          <aw-wizard-step stepTitle="step 2">
+            <div class="tittleForm">Referrals</div>
+            <form
+              (ngSubmit)="referralsFormSubmittedSubmit()"
+              [formGroup]="referralsForm"
+            >
+              <div
+                class="border-bottom border-success mb-4"
+                formArrayName="referrals"
+                *ngFor="let referral of referrals.controls; let i = index"
+              >
+                <h6>
+                  <span class="badge bg-primary">{{ i + 1 }}</span>
+                </h6>
+                <ng-container formGroupName="{{ i }}">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label required">First Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="firstName"
+                          placeholder="Enter first name"
+                          [ngClass]="{
+                            'is-invalid':
+                              isReferralsFormSubmitted &&
+                              referral?.get('firstName')?.errors?.required
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isReferralsFormSubmitted &&
+                            referral?.get('firstName')?.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          Required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label">Middle Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter middle name"
+                          formControlName="middleName"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label">Last Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter last name"
+                          formControlName="lastName"
+                          placeholder="Last name"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label required"
+                          >Relationship to insured</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="relationshipToInsured"
+                          [ngClass]="{
+                            'is-invalid':
+                              isReferralsFormSubmitted &&
+                              referral?.get('relationshipToInsured')?.errors
+                                ?.required
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isReferralsFormSubmitted &&
+                            referral?.get('relationshipToInsured')?.errors
+                              ?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          Required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label class="form-label">Phone</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="(000) 000 00 00"
+                          prefix="+7 "
+                          mask="(000) 000 00 00"
+                          formControlName="phone"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="email"
+                          formControlName="email"
+                          placeholder="Email"
+                          [ngClass]="{
+                            'is-invalid':
+                              isReferralsFormSubmitted &&
+                              referral?.get('email')?.errors?.email
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isReferralsFormSubmitted &&
+                            referral?.get('relationshipToInsured')?.errors
+                              ?.email
+                          "
+                          class="invalid-feedback"
+                        >
+                          Email invalid
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+
+              <div class="row float-end mb-5">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                  <button
+                    class="btn btn-primary"
+                    type="button"
+                    (click)="addReferrals()"
+                  >
+                    <i class="feather icon-plus-square"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="d-flex justify-content-center mt-5">
+                  <button
+                    class="btn btn-secondary me-2"
+                    type="button"
+                    awPreviousStep
+                  >
+                    Back
+                  </button>
+                  <button class="btn btn-primary" type="submit">
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </form>
+          </aw-wizard-step>
+
+          <aw-wizard-step stepTitle="step 7">
+            <div class="tittleForm">Documents</div>
+            <form (ngSubmit)="submitForm()" [formGroup]="documentForm">
+              <div class="row">
+                <div class="col-md-4 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h6 class="card-title">Photo ID</h6>
+
+                      <input
+                        type="file"
+                        id="idPhoto"
+                        formControlName="idPhoto"
+                        (change)="getFile($event)"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h6 class="card-title">
+                        Please upload any other necessary document
+                      </h6>
+
+                      <input
+                        type="file"
+                        id="document1"
+                        formControlName="document1"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h6 class="card-title">
+                        Please upload any other necessary document
+                      </h6>
+
+                      <input
+                        type="file"
+                        id="document2"
+                        formControlName="document2"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label required"
+                      >Primary Agent's Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="primaryAgentName"
+                      [ngClass]="{
+                        'is-invalid':
+                          isDocumentFormSubmitted &&
+                          formDocument.primaryAgentName.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="
+                        isDocumentFormSubmitted &&
+                        formDocument.primaryAgentName.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label required">%</label>
+                    <select
+                      class="form-select"
+                      id="percentage1"
+                      formControlName="percentage1"
+                      [ngClass]="{
+                        'is-invalid':
+                          isDocumentFormSubmitted &&
+                          formDocument.percentage1.errors
+                      }"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>100</option>
+                      <option>75</option>
+                      <option>50</option>
+                      <option>25</option>
+                    </select>
+                    <div
+                      *ngIf="
+                        isDocumentFormSubmitted &&
+                        formDocument.percentage1.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label">Secondary Agent's Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="secondaryAgentName"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label">%</label>
+                    <select
+                      class="form-select"
+                      id="percentage2"
+                      formControlName="percentage2"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>100</option>
+                      <option>75</option>
+                      <option>50</option>
+                      <option>25</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label"
+                      >Field Training Agent's name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="fieldTrainingAgent"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label">MB Base</label>
+                    <select
+                      class="form-select"
+                      id="mbBase"
+                      formControlName="mbBase"
+                    >
+                      <option selected disabled>Please select</option>
+                      <option>TBH</option>
+                      <option>DHT</option>
+                      <option>NGC</option>
+                      <option>TPT</option>
+                      <option>TTP</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="d-flex justify-content-center mt-5">
+                  <button
+                    class="btn btn-secondary me-2"
+                    type="button"
+                    awPreviousStep
+                  >
+                    Back
+                  </button>
+                  <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+              </div>
+            </form>
+          </aw-wizard-step>
+        </aw-wizard>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,7 +13,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { EditCustomersComponent } from './edit-customers/edit-customers.component';
 
 @NgModule({
-  declarations: [AllCustomersComponent, AddCustomersComponent, EditCustomersComponent],
+  declarations: [
+    AllCustomersComponent,
+    AddCustomersComponent,
+    EditCustomersComponent,
+  ],
   imports: [
     CommonModule,
     CustomersRoutingModule,
