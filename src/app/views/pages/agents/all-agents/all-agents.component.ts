@@ -113,6 +113,60 @@ export class AllAgentsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
+  moreInfo(agent: AgentModel) {
+    const dateOfBirth = agent.dateBirth;
+    const formattedDateOfBirth = new Date(dateOfBirth).toLocaleDateString(
+      'en-US'
+    );
+
+    Swal.fire({
+      title: 'Info Customer',
+      showCloseButton: true,
+      html: `<div class="row">
+            <div class="col-md-12 text-start">
+              <table class="table">
+                <tbody>
+                <tr>
+                    <th>Name:</th>
+                    <td>${agent.firstName} ${agent.lastName}</td>
+                  </tr>
+                  <tr>
+                  <tr>
+                    <th>Agent Code:</th>
+                    <td>${agent.agentCode}</td>
+                  </tr>
+                   <tr>
+                    <th>Email:</th>
+                    <td>${agent.email}</td>
+                  </tr>
+                  <tr>
+                  <th>Date of Birth:</th>
+                  <td>${formattedDateOfBirth}</td>
+                </tr>
+                  <tr>
+                    <th>State:</th>
+                    <td>${agent.state}</td>
+                  </tr>
+                  <tr>
+                    <th>City:</th>
+                    <td>${agent.city}</td>
+                  </tr>
+                  <tr>
+                    <th>Zip:</th>
+                    <td>${agent.zip}</td>
+                  </tr>
+                  <tr>
+                  <th>Role:</th>
+                  <td>${agent.role}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>`,
+      icon: 'info',
+    });
+  }
+
   trackByAgentId(index: number, agent: AgentModel): string {
     return agent.uid;
   }

@@ -1,3 +1,4 @@
+import { PolicyRoutingModule } from './views/pages/policy/policy.routing';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BaseComponent } from './views/layout/base/base.component';
@@ -44,7 +45,13 @@ const routes: Routes = [
             (m) => m.AgentsRoutingModule
           ),
       },
-
+      {
+        path: 'policy',
+        loadChildren: () =>
+          import('./views/pages/policy/policy.routing').then(
+            (m) => m.PolicyRoutingModule
+          ),
+      },
       {
         path: 'general',
         loadChildren: () =>

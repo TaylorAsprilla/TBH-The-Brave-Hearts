@@ -76,13 +76,8 @@ export const MENU: MenuItem[] = [
       {
         subMenuItems: [
           {
-            label: 'Add policy',
-            isTitle: false,
-            link: `${ROUTE_APP.PROSPECT}/${ROUTE_APP.ADD_PROSPECTS}/${TEXT.NEW}`,
-          },
-          {
             label: 'All policy',
-            link: `${ROUTE_APP.PROSPECT}/${ROUTE_APP.ALL_PROSPECTS}`,
+            link: `${ROUTE_APP.POLICY}/${ROUTE_APP.ALL_POLICY}`,
           },
         ],
       },

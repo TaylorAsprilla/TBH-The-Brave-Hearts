@@ -11,6 +11,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { AgentService } from 'src/app/services/agent/agent.service';
+import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
+import { AgentModel } from 'src/app/core/models/agent.model';
 
 @Component({
   selector: 'app-navbar',
@@ -24,6 +26,7 @@ export class NavbarComponent implements OnInit {
   firstName: string;
   lastName: string;
   agentCode: number;
+  agent: AgentModel;
 
   /**
    * Fixed header menu on scroll
@@ -50,6 +53,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.menuItems = MENU;
+    this.agent = this.agentService.agent;
 
     /**
      * closing the header menu after route change in tablet/mobile devices
@@ -92,12 +96,16 @@ export class NavbarComponent implements OnInit {
   }
 
   agentInformation() {
-    const agent = this.agentService.agent;
+    this.imageProfile = this.agent.imageUrl;
+    this.firstName = this.agent.firstName;
+    this.lastName = this.agent.lastName;
+    this.email = this.agent.email;
+    this.agentCode = this.agent.agentCode;
+  }
 
-    this.imageProfile = agent.imageUrl;
-    this.firstName = agent.firstName;
-    this.lastName = agent.lastName;
-    this.email = agent.email;
-    this.agentCode = agent.agentCode;
+  editProfile() {
+    this.router.navigateByUrl(
+      `/${ROUTE_APP.AGENT}/${ROUTE_APP.ADD_AGENTS}/${this.agent.uid}`
+    );
   }
 }

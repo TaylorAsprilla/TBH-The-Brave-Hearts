@@ -137,4 +137,98 @@ export class AllProspectsComponent implements OnInit {
       `${ROUTE_APP.PROSPECT}/${ROUTE_APP.ADD_PROSPECTS}/${TEXT.NEW}`
     );
   }
+
+  moreInfo(prospect: ProspectModel) {
+    const dateOfBirth = prospect.dateBirth;
+    const formattedDateOfBirth = new Date(dateOfBirth).toLocaleDateString(
+      'en-US'
+    );
+
+    Swal.fire({
+      title: 'Info Prospect',
+      showCloseButton: true,
+      html: `<div class="row">
+            <div class="col-md-12 text-start">
+              <table class="table">
+                <tbody>
+                <tr>
+                    <th>Name:</th>
+                    <td>${prospect.firstName} ${prospect.middleName} ${prospect.lastName}</td>
+                  </tr>
+                    <tr>
+                  <th>Email:</th>
+                  <td>${prospect.email}</td>
+                </tr>
+                <tr>
+                    <th>Phone:</th>
+                    <td>${prospect.phone}</td>
+                  </tr>
+                  <tr>
+                    <th>State:</th>
+                    <td>${prospect.state}</td>
+                  </tr>
+
+                  <tr>
+                    <th>Document Type:</th>
+                    <td>${prospect.documentType}</td>
+                  </tr>
+                <tr>
+                  <th>Date Birth:</th>
+                  <td>${formattedDateOfBirth}</td>
+                </tr>
+                <tr>
+                  <th>Partner:</th>
+                  <td>${prospect.partner}</td>
+                </tr>
+                <tr>
+                  <th>Occupation:</th>
+                  <td>${prospect.occupation}</td>
+                </tr>
+                 <tr>
+                  <th>Household Income:</th>
+                  <td>${prospect.householdIncome}</td>
+                </tr>
+                <tr>
+                  <th>Children:</th>
+                  <td>${prospect.children}</td>
+                </tr>
+                <tr>
+                  <th>Children Age:</th>
+                  <td>${prospect.childrenAge}</td>
+                </tr>
+                <tr>
+                  <th>Children Occupation:</th>
+                  <td>${prospect.childrenOccupation}</td>
+                </tr>
+                <tr>
+                  <th>Retirement Plans:</th>
+                  <td>${prospect.retirementPlans}</td>
+                </tr>
+                <tr>
+                  <th>Life Insurance:</th>
+                  <td>${prospect.lifeInsurance}</td>
+                </tr>
+                <tr>
+                  <th>Discretionary Income:</th>
+                  <td>${prospect.discretionaryIncome}</td>
+                </tr>
+                <tr>
+                  <th>Properties:</th>
+                  <td>${prospect.properties}</td>
+                </tr>
+                <tr>
+                  <th>Other Income:</th>
+                  <td>${prospect.otherIncome}</td>
+                </tr>
+                <tr>
+                  <th>Observations:</th>
+                  <td>${prospect.observations}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>`,
+      icon: 'info',
+    });
+  }
 }

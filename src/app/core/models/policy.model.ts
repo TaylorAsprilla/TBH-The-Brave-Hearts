@@ -1,63 +1,14 @@
-export interface IBeneficiary {
-  firstName: string;
-  middleName?: string;
-  lastName: string;
-  relationshipToInsured: string;
-  phone: string;
-  email: string;
-  dateBirth?: Date;
-  ss?: string;
-  share?: string;
-}
-
-export interface IMedical {
-  doctorName: string;
-  doctorOfficeLocation?: string;
-  officePhoneNumber?: string;
-  lastVisit: string;
-  reasonForVisit?: string;
-  outcomeOfVisit?: string;
-  smoker: string;
-  medicalCondition?: string;
-  whenItWasDiagnosed?: string;
-  dosage?: string;
-  additionalInformation?: string;
-  isFatherAlive: string;
-  fatherAge?: string;
-  deceasedFather?: string;
-  isMotherAlive: string;
-  motherAge?: string;
-  deceasedMother?: string;
-}
-
-export interface IReferral {
-  firstName: string;
-  middleName?: string;
-  lastName: string;
-  relationshipToInsured: string;
-  phone?: string;
-  email?: string;
-}
-
-export interface IDocument {
-  idPhoto?: string;
-  document1?: string;
-  document2?: string;
-  primaryAgentName: string;
-  percentage1: string;
-  secondaryAgentName?: string;
-  percentage2?: string;
-  fieldTrainingAgent?: string;
-  mdBase?: string;
-}
-
-export interface ILoadAllPolicy {
-  ok: boolean;
-  policy: PolicyModel[];
-}
+import { ICustomerPolicy } from '../interfaces/customer.interface';
+import {
+  IBeneficiary,
+  IDocument,
+  IMedical,
+  IReferral,
+} from '../interfaces/policy.interface';
 
 export class PolicyModel {
   constructor(
+    public uid: string,
     public carrier: string,
     public policyType: string,
     public monthly: string,
@@ -81,11 +32,10 @@ export class PolicyModel {
       notes?: string;
     },
     public referrals: IReferral[],
-    public document: Document,
-    public uid?: string,
+    public document: IDocument,
+    public customer: ICustomerPolicy,
     public active?: boolean,
     public createdAt?: Date,
-    public agent?: string,
-    public customer?: string
+    public agent?: string
   ) {}
 }

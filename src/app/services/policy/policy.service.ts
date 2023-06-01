@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ILoadAllPolicy, PolicyModel } from 'src/app/core/models/policy.model';
+import {
+  ILoadAllPolicy,
+  IPolicy,
+} from 'src/app/core/interfaces/policy.interface';
+import { PolicyModel } from 'src/app/core/models/policy.model';
 import { environment } from 'src/environments/environment';
 
 const base_url = environment.base_url;
@@ -36,7 +40,7 @@ export class PolicyService {
     );
   }
 
-  createPolicy(policy: PolicyModel) {
+  createPolicy(policy: IPolicy) {
     return this.httpClient.post(`${base_url}/policy`, policy, this.headers);
   }
 

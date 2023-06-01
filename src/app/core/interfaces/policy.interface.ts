@@ -1,0 +1,91 @@
+import { PolicyModel } from '../models/policy.model';
+import { ICustomerPolicy } from './customer.interface';
+
+export interface IBeneficiary {
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+  relationshipToInsured: string;
+  phone: string;
+  email: string;
+  dateBirth?: Date;
+  ss?: string;
+  share?: string;
+}
+
+export interface IMedical {
+  doctorName: string;
+  doctorOfficeLocation?: string;
+  officePhoneNumber?: string;
+  lastVisit: string;
+  reasonForVisit?: string;
+  outcomeOfVisit?: string;
+  smoker: string;
+  medicalCondition?: string;
+  whenItWasDiagnosed?: string;
+  dosage?: string;
+  additionalInformation?: string;
+  isFatherAlive: string;
+  fatherAge?: string;
+  deceasedFather?: string;
+  isMotherAlive: string;
+  motherAge?: string;
+  deceasedMother?: string;
+}
+
+export interface IReferral {
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+  relationshipToInsured: string;
+  phone?: string;
+  email?: string;
+}
+
+export interface IDocument {
+  idPhoto?: string;
+  document1?: string;
+  document2?: string;
+  primaryAgentName: string;
+  percentage1: string;
+  secondaryAgentName?: string;
+  percentage2?: string;
+  fieldTrainingAgent?: string;
+  mdBase?: string;
+}
+
+export interface ILoadAllPolicy {
+  ok: boolean;
+  policy: PolicyModel[];
+}
+
+export interface IPolicy {
+  carrier: string;
+  policyType: string;
+  monthly: string;
+  faceAmount: string;
+  beneficiaries: IBeneficiary[];
+  contingentBeneficiary: IBeneficiary[];
+  medical: IMedical;
+  additionalQuestions: {
+    criminalRecord: string;
+    pleadedGuilty: string;
+    anotherLife: string;
+    appliedForLife: string;
+    participateSport: string;
+    involved: string;
+  };
+  bankInformation: {
+    draftPaymentDate: string;
+    bank: string;
+    accountNumber: number;
+    routingNumber: number;
+    notes?: string;
+  };
+  referrals: IReferral[];
+  document: IDocument;
+  active?: boolean;
+  createdAt?: Date;
+  agent?: string;
+  customer?: string;
+}
