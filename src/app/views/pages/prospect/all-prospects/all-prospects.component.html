@@ -71,14 +71,6 @@
                   >
                     <i class="feather icon-edit"></i>
                   </button>
-                  <button
-                    (click)="deleteProspect(prospect)"
-                    type="button"
-                    class="btn btn-danger"
-                    data-original-title="Delete"
-                  >
-                    <i class="feather icon-x-square"></i>
-                  </button>
 
                   <button
                     (click)="moreInfo(prospect)"
@@ -87,6 +79,24 @@
                     data-original-title="Info"
                   >
                     <i class="feather icon-info"></i>
+                  </button>
+
+                  <button
+                    (click)="newCustomer(prospect)"
+                    type="button"
+                    class="btn btn-success"
+                    data-original-title="Customer"
+                  >
+                    <i class="feather icon-plus-square"></i>
+                  </button>
+
+                  <button
+                    (click)="deleteProspect(prospect)"
+                    type="button"
+                    class="btn btn-danger"
+                    data-original-title="Delete"
+                  >
+                    <i class="feather icon-x-square"></i>
                   </button>
                 </td>
               </tr>

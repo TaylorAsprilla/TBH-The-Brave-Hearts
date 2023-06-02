@@ -270,6 +270,7 @@
                   <th class="pt-0">Phone</th>
                   <th class="pt-0">Email</th>
                   <th class="pt-0">Status</th>
+                  <th class="pt-0">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -278,6 +279,21 @@
                   <td>{{ prospect.phone }}</td>
                   <td>{{ prospect.email }}</td>
                   <td>{{ prospect.status }}</td>
+                  <td>
+                    <span
+                      class="badge bg-info pointer"
+                      (click)="moreInfoProspect(prospect)"
+                      >More info</span
+                    >
+                  </td>
+
+                  <td>
+                    <span
+                      class="badge bg-primary pointer"
+                      (click)="salesPolicy(prospect)"
+                      >Sales Policy</span
+                    >
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -384,7 +400,13 @@
                 <td>{{ customer.email }}</td>
                 <td>{{ customer.dateBirth | date : "mediumDate" }}</td>
 
-                <td><span class="badge bg-danger">Released</span></td>
+                <td>
+                  <span
+                    class="badge bg-info pointer"
+                    (click)="moreInfoCustomer(customer)"
+                    >More info</span
+                  >
+                </td>
               </tr>
             </tbody>
           </table>

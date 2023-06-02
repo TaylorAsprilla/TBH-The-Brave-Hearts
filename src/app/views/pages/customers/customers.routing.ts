@@ -14,6 +14,11 @@ const routes: Routes = [
     resolve: { states: StateResolver },
   },
   {
+    path: `${ROUTE_APP.ADD_CUSTOMERS}/:${TEXT.RUTA}/:${TEXT.ID}`,
+    component: AddCustomersComponent,
+    resolve: { states: StateResolver },
+  },
+  {
     path: `${ROUTE_APP.ALL_CUSTOMERS}`,
     component: AllCustomersComponent,
   },

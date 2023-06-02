@@ -1,5 +1,6 @@
+import { ProspectService } from './../../../../services/prospect/prospect.service';
 import { CustomerService } from './../../../../services/customer/customer.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
   FormArray,
   UntypedFormBuilder,
@@ -9,22 +10,21 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
-import {
-  DropzoneConfigInterface,
-  DropzoneDirective,
-} from 'ngx-dropzone-wrapper';
+
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { ICreateCustomer } from 'src/app/core/interfaces/customer.interface';
 import { StateModel } from 'src/app/core/models/state.model';
 import { FileUploadService } from 'src/app/services/fileUpload/file-upload.service';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
+import { TEXT } from 'src/app/core/enum/text.enum';
 
 @Component({
   selector: 'app-add-customers',
   templateUrl: './add-customers.component.html',
   styleUrls: ['./add-customers.component.scss'],
 })
-export class AddCustomersComponent implements OnInit {
+export class AddCustomersComponent implements OnInit, OnDestroy {
   lifePolicyForm: UntypedFormGroup;
   beneficiaryForm: UntypedFormGroup;
   contigentBeneficiaryForm: UntypedFormGroup;
@@ -43,20 +43,11 @@ export class AddCustomersComponent implements OnInit {
   isReferralsFormSubmitted: Boolean;
   isDocumentFormSubmitted: Boolean;
 
-  public config: DropzoneConfigInterface = {
-    clickable: true,
-    maxFiles: 1,
-    autoReset: null,
-    errorReset: null,
-    cancelReset: null,
-  };
-
-  fileTmp: any;
-
   states: StateModel[] = [];
 
-  @ViewChild(DropzoneDirective, { static: false })
-  directiveRef?: DropzoneDirective;
+  previousUrl: string;
+
+  routerSubscription: Subscription;
 
   @ViewChild('lifePolicy') lifePolicy: BaseWizardComponent;
 
@@ -65,16 +56,27 @@ export class AddCustomersComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private fileUploadService: FileUploadService,
     private router: Router,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private prospectService: ProspectService
   ) {}
 
   ngOnInit(): void {
     this.states = this.activatedRoute.snapshot.data['states'];
 
+    this.activatedRoute.params.subscribe(({ ruta, id }) => {
+      if (ruta === ROUTE_APP.PROSPECT) {
+        this.getProspectById(id);
+      }
+    });
+
     this.createForm();
     this.addBeneficiary();
     this.addContigentBeneficiary();
     this.addReferrals();
+  }
+
+  ngOnDestroy(): void {
+    this.routerSubscription?.unsubscribe();
   }
 
   createForm() {
@@ -417,22 +419,84 @@ export class AddCustomersComponent implements OnInit {
     );
   }
 
-  getFile($event: any) {
-    const [file] = $event.target.files;
+  getProspectById(id: string) {
+    if (id !== TEXT.NEW) {
+      this.prospectService.getProspect(id).subscribe({
+        next: (prospect) => {
+          const {
+            firstName,
+            lastName,
+            documentType,
+            email,
+            dateBirth,
+            phone,
+            middleName,
+            state,
+            occupation,
+            householdIncome,
+          } = prospect;
 
-    this.fileTmp = {
-      fileRaw: file,
-      fileName: file.name,
-    };
-  }
+          const formattedDateBirth = new Date(dateBirth)
+            .toISOString()
+            .split('T')[0];
 
-  sendFile(): void {
-    const file = new FormData();
-    file.append('myFile', this.fileTmp.fileRaw, this.fileTmp.fileName);
+          this.lifePolicyForm.setValue({
+            carrier: '',
+            policityType: '',
+            monthly: '',
+            faceAmount: '',
+            firstName: firstName,
+            middleName: middleName,
+            lastName: lastName,
+            address: '',
+            addressLine2: '',
+            city: '',
+            state: state,
+            zipCode: '',
+            phone: phone,
+            phoneType: '',
+            email: email,
+            documentType: documentType,
+            documentNumber: '',
+            maritalStatus: '',
+            dateBirth: formattedDateBirth,
+            countryBirth: '',
+            cityBirth: '',
+            gender: '',
+            weight: '',
+            height: '',
+            employerName: '',
+            occupation: occupation,
+            timeEmployed: '',
+            annualIncome: '',
+            householdIncome: householdIncome,
+            householdNetWorth: '',
+          });
+        },
+        error: (error: any) => {
+          const errors = error?.error?.errors;
+          const errorList: string[] = [];
 
-    this.fileUploadService
-      .uploadFile(file)
-      .subscribe((res) => console.log(res));
+          if (errors) {
+            Object.entries(errors).forEach(([key, value]: [string, any]) => {
+              if (value && value['msg']) {
+                errorList.push('° ' + value['msg'] + '<br>');
+              }
+            });
+          }
+
+          Swal.fire({
+            title: 'Error updating agent',
+            icon: 'error',
+            html: `${errorList.length ? errorList.join('') : error.error.msg}`,
+          });
+
+          this.router.navigateByUrl(
+            `${ROUTE_APP.AGENT}/${ROUTE_APP.ALL_AGENTS}`
+          );
+        },
+      });
+    }
   }
 
   cancelEdit() {
