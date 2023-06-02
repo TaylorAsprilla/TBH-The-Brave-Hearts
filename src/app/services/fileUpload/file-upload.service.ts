@@ -26,7 +26,7 @@ export class FileUploadService {
 
   async updateImage(file: File, type: UserType, id: string) {
     try {
-      const url = `${imageProfile}/${type}/${id}`;
+      const url = `${base_url}/uploads/${type}/${id}`;
       const formData = new FormData();
 
       formData.append('image', file);
@@ -51,9 +51,5 @@ export class FileUploadService {
       console.log(error);
       return false;
     }
-  }
-
-  uploadFile(body: FormData): Observable<any> {
-    return this.hsttpClient.post(`${base_url}/uploadFile`, body, this.headers);
   }
 }

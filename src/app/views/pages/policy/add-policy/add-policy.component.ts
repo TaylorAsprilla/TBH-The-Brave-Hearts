@@ -404,26 +404,6 @@ export class AddPolicyComponent implements OnInit {
     );
   }
 
-  //TODO Implementar la carga de archivos
-
-  getFile($event: any) {
-    const [file] = $event.target.files;
-
-    this.fileTmp = {
-      fileRaw: file,
-      fileName: file.name,
-    };
-  }
-
-  sendFile(): void {
-    const file = new FormData();
-    file.append('myFile', this.fileTmp.fileRaw, this.fileTmp.fileName);
-
-    this.fileUploadService
-      .uploadFile(file)
-      .subscribe((res) => console.log(res));
-  }
-
   getCustomerById(id: string) {
     if (id !== TEXT.NEW) {
       this.customerService.getCustomer(id).subscribe({

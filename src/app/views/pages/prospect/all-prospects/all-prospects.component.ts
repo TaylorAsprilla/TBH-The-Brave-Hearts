@@ -138,6 +138,12 @@ export class AllProspectsComponent implements OnInit {
     );
   }
 
+  newCustomer(prospect: ProspectModel) {
+    this.router.navigateByUrl(
+      `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ADD_CUSTOMERS}/${ROUTE_APP.PROSPECT}/${prospect.uid}`
+    );
+  }
+
   moreInfo(prospect: ProspectModel) {
     const dateOfBirth = prospect.dateBirth;
     const formattedDateOfBirth = new Date(dateOfBirth).toLocaleDateString(
