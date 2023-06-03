@@ -121,8 +121,158 @@
             </div>
           </aw-wizard-step>
 
-          <!-- ##################### FORM Beneficiaries ####################### -->
           <aw-wizard-step stepTitle="step 2">
+            <div class="tittleForm">Life Policy</div>
+            <form
+              class="forms-sample"
+              (ngSubmit)="formLifePolicySubmit()"
+              [formGroup]="lifePolicyForm"
+            >
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="mb-3">
+                    <label for="carrier" class="form-label required"
+                      >Carrier</label
+                    >
+                    <select
+                      class="form-select"
+                      id="carrier"
+                      formControlName="carrier"
+                      [ngClass]="{
+                        'is-invalid':
+                          isLifePolicyFormSubmitted &&
+                          formLifePolicy.carrier.errors
+                      }"
+                    >
+                      <option selected disabled>Select the Carrier</option>
+                      <option>ANICO</option>
+                      <option>NLG</option>
+                      <option>Matual Of Omaha</option>
+                      <option>Foresters</option>
+                      <option>Other</option>
+                    </select>
+                    <div
+                      *ngIf="
+                        isLifePolicyFormSubmitted &&
+                        formLifePolicy.carrier.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="mb-3">
+                    <label for="Policy Type" class="form-label required"
+                      >Policy Type</label
+                    >
+                    <select
+                      class="form-select"
+                      id="policyType"
+                      formControlName="policyType"
+                      [ngClass]="{
+                        'is-invalid':
+                          isLifePolicyFormSubmitted &&
+                          formLifePolicy.policyType.errors
+                      }"
+                    >
+                      >
+                      <option selected disabled>Select the Policy Type</option>
+                      <option>10 - YR TERM</option>
+                      <option>15 - YR TERM</option>
+                      <option>20 - YR TERM</option>
+                      <option>30 - YR TERM</option>
+                      <option>IUL</option>
+                      <option>ROP</option>
+                      <option>Wole Life</option>
+                      <option>Final Expense</option>
+                      <option>ART</option>
+                    </select>
+
+                    <div
+                      *ngIf="
+                        isLifePolicyFormSubmitted &&
+                        formLifePolicy.policyType.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="mb-3">
+                    <label class="form-label required">Monthly</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Enter Monthly"
+                      id="monthly"
+                      formControlName="monthly"
+                      [ngClass]="{
+                        'is-invalid':
+                          isLifePolicyFormSubmitted &&
+                          formLifePolicy.monthly.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="
+                        isLifePolicyFormSubmitted &&
+                        formLifePolicy.monthly.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="mb-3">
+                    <label class="form-label required">Face Amount</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Face Amount"
+                      id="faceAmount"
+                      formControlName="faceAmount"
+                      [ngClass]="{
+                        'is-invalid':
+                          isLifePolicyFormSubmitted &&
+                          formLifePolicy.faceAmount.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="
+                        isLifePolicyFormSubmitted &&
+                        formLifePolicy.faceAmount.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-center mt-5">
+                <button
+                  class="btn btn-secondary me-2"
+                  type="button"
+                  awPreviousStep
+                >
+                  Back
+                </button>
+                <button class="btn btn-primary" type="submit">Continue</button>
+              </div>
+            </form>
+          </aw-wizard-step>
+
+          <!-- ##################### FORM Beneficiaries ####################### -->
+          <aw-wizard-step stepTitle="step 3">
             <div class="tittleForm">Beneficiaries</div>
             <form
               (ngSubmit)="beneficiaryFormSubmittedSubmit()"
@@ -402,7 +552,7 @@
 
           <!-- ##################### FORM Contigent Beneficiaries ####################### -->
 
-          <aw-wizard-step stepTitle="step 3">
+          <aw-wizard-step stepTitle="step 4">
             <div class="tittleForm">Contingent Beneficiary</div>
             <form
               (ngSubmit)="contigentBeneficiaryFormSubmittedSubmit()"
@@ -671,7 +821,7 @@
 
           <!-- ##################### FORM Medical ######################## -->
 
-          <aw-wizard-step stepTitle="step 4">
+          <aw-wizard-step stepTitle="step 5">
             <div class="tittleForm">Medical</div>
             <form
               (ngSubmit)="medicalFormSubmittedSubmit()"
@@ -985,7 +1135,7 @@
 
           <!-- ##################### Additional Questions ######################## -->
 
-          <aw-wizard-step stepTitle="step 5">
+          <aw-wizard-step stepTitle="step 6">
             <div class="tittleForm">Additional Questions</div>
             <form
               (ngSubmit)="additionalQuestionFormSubmittedSubmit()"
@@ -1225,7 +1375,7 @@
 
           <!-- ##################### Bank Information ######################## -->
 
-          <aw-wizard-step stepTitle="step 6">
+          <aw-wizard-step stepTitle="step 7">
             <div class="tittleForm">Banck Information</div>
             <form
               (ngSubmit)="bankInformationFormSubmittedSubmit()"
@@ -1372,7 +1522,7 @@
 
           <!-- ##################### FORM Referrals ####################### -->
 
-          <aw-wizard-step stepTitle="step 2">
+          <aw-wizard-step stepTitle="step 8">
             <div class="tittleForm">Referrals</div>
             <form
               (ngSubmit)="referralsFormSubmittedSubmit()"
@@ -1545,7 +1695,7 @@
             </form>
           </aw-wizard-step>
 
-          <aw-wizard-step stepTitle="step 7">
+          <aw-wizard-step stepTitle="step 9">
             <div class="tittleForm">Documents</div>
             <form (ngSubmit)="submitForm()" [formGroup]="documentForm">
               <div class="row">
@@ -1558,6 +1708,7 @@
                         type="file"
                         id="idPhoto"
                         formControlName="idPhoto"
+                        (change)="onIdPhotoChange($event)"
                       />
                     </div>
                   </div>
@@ -1574,6 +1725,7 @@
                         type="file"
                         id="document1"
                         formControlName="document1"
+                        (change)="onDocument1Change($event)"
                       />
                     </div>
                   </div>
@@ -1590,6 +1742,7 @@
                         type="file"
                         id="document2"
                         formControlName="document2"
+                        (change)="onDocument2Change($event)"
                       />
                     </div>
                   </div>

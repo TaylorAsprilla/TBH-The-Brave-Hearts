@@ -7,10 +7,6 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
-import {
-  DropzoneConfigInterface,
-  DropzoneDirective,
-} from 'ngx-dropzone-wrapper';
 import { StateModel } from 'src/app/core/models/state.model';
 import { CustomerService } from 'src/app/services/customer/customer.service';
 import { FileUploadService } from 'src/app/services/fileUpload/file-upload.service';
@@ -20,6 +16,7 @@ import { TEXT } from 'src/app/core/enum/text.enum';
 import { CustomerModel } from 'src/app/core/models/customer.model';
 import { PolicyService } from 'src/app/services/policy/policy.service';
 import { IPolicy } from 'src/app/core/interfaces/policy.interface';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-add-policy',
@@ -27,6 +24,7 @@ import { IPolicy } from 'src/app/core/interfaces/policy.interface';
   styleUrls: ['./add-policy.component.scss'],
 })
 export class AddPolicyComponent implements OnInit {
+  lifePolicyForm: UntypedFormGroup;
   beneficiaryForm: UntypedFormGroup;
   contigentBeneficiaryForm: UntypedFormGroup;
   medicalForm: UntypedFormGroup;
@@ -35,6 +33,7 @@ export class AddPolicyComponent implements OnInit {
   referralsForm: UntypedFormGroup;
   documentForm: UntypedFormGroup;
 
+  isLifePolicyFormSubmitted: Boolean;
   isBeneficiaryFormSubmitted: Boolean;
   isContigentBeneficiaryFormSubmitted: Boolean;
   isMedicalFormFormSubmitted: Boolean;
@@ -43,21 +42,12 @@ export class AddPolicyComponent implements OnInit {
   isReferralsFormSubmitted: Boolean;
   isDocumentFormSubmitted: Boolean;
 
-  public config: DropzoneConfigInterface = {
-    clickable: true,
-    maxFiles: 1,
-    autoReset: null,
-    errorReset: null,
-    cancelReset: null,
-  };
-
-  fileTmp: any;
-
   states: StateModel[] = [];
   selectCustomer: CustomerModel;
 
-  @ViewChild(DropzoneDirective, { static: false })
-  directiveRef?: DropzoneDirective;
+  idPhotoFile: File;
+  document1File: File;
+  document2File: File;
 
   @ViewChild('policy') policy: BaseWizardComponent;
 
@@ -84,6 +74,13 @@ export class AddPolicyComponent implements OnInit {
   }
 
   createForm() {
+    this.lifePolicyForm = this.formBuilder.group({
+      carrier: ['', [Validators.required]],
+      policyType: ['', [Validators.required]],
+      monthly: ['', [Validators.required]],
+      faceAmount: ['', [Validators.required]],
+    });
+
     this.beneficiaryForm = this.formBuilder.group({
       beneficiaries: this.formBuilder.array([]),
     });
@@ -146,6 +143,7 @@ export class AddPolicyComponent implements OnInit {
       mbBase: ['', []],
     });
 
+    this.isLifePolicyFormSubmitted = false;
     this.isBeneficiaryFormSubmitted = false;
     this.isContigentBeneficiaryFormSubmitted = false;
     this.isMedicalFormFormSubmitted = false;
@@ -157,6 +155,10 @@ export class AddPolicyComponent implements OnInit {
   /**
    * Returns form
    */
+
+  get formLifePolicy() {
+    return this.lifePolicyForm.controls;
+  }
 
   get formBeneficiary() {
     return this.beneficiaryForm.controls;
@@ -192,8 +194,27 @@ export class AddPolicyComponent implements OnInit {
     return this.referralsForm.get('referrals') as FormArray;
   }
 
+  onIdPhotoChange(event: any) {
+    this.idPhotoFile = event.target.files[0];
+  }
+
+  onDocument1Change(event: any) {
+    this.document1File = event.target.files[0];
+  }
+
+  onDocument2Change(event: any) {
+    this.document2File = event.target.files[0];
+  }
+
   nextPolicy() {
     this.policy.goToNextStep();
+  }
+
+  formLifePolicySubmit() {
+    if (this.lifePolicyForm.valid) {
+      this.policy.goToNextStep();
+    }
+    this.isLifePolicyFormSubmitted = true;
   }
 
   beneficiaryFormSubmittedSubmit() {
@@ -242,15 +263,17 @@ export class AddPolicyComponent implements OnInit {
     this.isDocumentFormSubmitted = true;
 
     if (
-      (this.beneficiaryForm.valid,
-      this.contigentBeneficiaryForm.valid,
-      this.medicalForm.valid,
-      this.additionalQuestionForm.valid,
-      this.bankInformationForm.valid,
-      this.referralsForm.valid,
-      this.documentForm.valid)
+      this.lifePolicyForm.valid &&
+      this.beneficiaryForm.valid &&
+      this.contigentBeneficiaryForm.valid &&
+      this.medicalForm.valid &&
+      this.additionalQuestionForm.valid &&
+      this.bankInformationForm.valid &&
+      this.referralsForm.valid &&
+      this.documentForm.valid
     ) {
       let data = Object.assign(
+        this.lifePolicyForm.value,
         this.beneficiaryForm.value,
         this.contigentBeneficiaryForm.value,
         this.medicalForm.value,
@@ -260,8 +283,7 @@ export class AddPolicyComponent implements OnInit {
         this.documentForm.value
       );
 
-      // TODO Mapear bien la información de medical, beneficiaries, contingentBeneficiary
-      const information: IPolicy = {
+      const policyData: IPolicy = {
         carrier: data.carrier,
         policyType: data.policyType,
         monthly: data.monthly,
@@ -317,37 +339,51 @@ export class AddPolicyComponent implements OnInit {
         customer: this.selectCustomer.uid,
       };
 
-      this.policyService.createPolicy(information).subscribe({
-        next: (resp: any) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Policy created',
-          });
-          console.log('Respuesta', resp);
-          this.clearForm();
-          this.router.navigateByUrl(
-            `${ROUTE_APP.POLICY}/${ROUTE_APP.ALL_POLICY}`
-          );
-        },
-        error: (error: any) => {
-          const errors = error?.error?.errors;
-          const errorList: string[] = [];
-
-          if (errors) {
-            Object.entries(errors).forEach(([key, value]: [string, any]) => {
-              if (value && value['msg']) {
-                errorList.push('° ' + value['msg'] + '<br>');
-              }
+      this.policyService
+        .createPolicy(policyData)
+        .pipe(
+          switchMap((resp: any) => {
+            return this.fileUploadService.uploadDocuments(
+              resp.policy.uid,
+              this.idPhotoFile,
+              this.document1File,
+              this.document2File
+            );
+          })
+        )
+        .subscribe({
+          next: (response) => {
+            Swal.fire({
+              icon: 'success',
+              title: `Policy created `,
             });
-          }
 
-          Swal.fire({
-            title: 'Error creating policy',
-            icon: 'error',
-            html: `${errorList.length ? errorList.join('') : error.error.msg}`,
-          });
-        },
-      });
+            this.clearForm();
+            this.router.navigateByUrl(
+              `${ROUTE_APP.POLICY}/${ROUTE_APP.ALL_POLICY}`
+            );
+          },
+          error: (error) => {
+            const errors = error?.error?.errors;
+            const errorList: string[] = [];
+
+            if (errors) {
+              Object.entries(errors).forEach(([key, value]: [string, any]) => {
+                if (value && value['msg']) {
+                  errorList.push('° ' + value['msg'] + '<br>');
+                }
+              });
+            }
+
+            Swal.fire({
+              title: 'Error creating policy',
+              icon: 'error',
+              html: `${
+                errorList.length ? errorList.join('') : error.error.msg
+              }`,
+            });
+          },
+        });
     }
   }
 
@@ -357,7 +393,6 @@ export class AddPolicyComponent implements OnInit {
         firstName: ['', [Validators.required]],
         middleName: ['', [Validators.minLength(3)]],
         lastName: ['', [Validators.minLength(3), Validators.required]],
-
         relationshipToInsured: [
           '',
           [Validators.minLength(3), Validators.required],
@@ -380,7 +415,6 @@ export class AddPolicyComponent implements OnInit {
         firstName: ['', [Validators.required]],
         middleName: ['', []],
         lastName: ['', [, Validators.required]],
-
         relationshipToInsured: ['', [, Validators.required]],
         phone: ['', [Validators.required]],
         email: ['', [Validators.email]],
