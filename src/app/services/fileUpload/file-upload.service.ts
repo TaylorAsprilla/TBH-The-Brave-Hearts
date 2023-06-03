@@ -10,7 +10,7 @@ const base_url = environment.base_url;
   providedIn: 'root',
 })
 export class FileUploadService {
-  constructor(private hsttpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
   get token(): string {
     return localStorage.getItem('token') || '';
@@ -51,5 +51,23 @@ export class FileUploadService {
       console.log(error);
       return false;
     }
+  }
+
+  uploadDocuments(
+    policyId: any,
+    idPhoto: File,
+    document1: File,
+    document2: File
+  ) {
+    const formData = new FormData();
+    formData.append('idPhoto', idPhoto);
+    formData.append('document1', document1);
+    formData.append('document2', document2);
+
+    return this.httpClient.post(
+      `${base_url}/uploads/documents/${policyId}`,
+      formData,
+      this.headers
+    );
   }
 }

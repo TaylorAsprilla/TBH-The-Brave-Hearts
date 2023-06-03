@@ -54,7 +54,6 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
   constructor(
     public formBuilder: UntypedFormBuilder,
     private activatedRoute: ActivatedRoute,
-    private fileUploadService: FileUploadService,
     private router: Router,
     private customerService: CustomerService,
     private prospectService: ProspectService
