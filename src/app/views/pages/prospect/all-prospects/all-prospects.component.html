@@ -22,24 +22,114 @@
             Add Prospect
           </button>
         </div>
+        <div class="mb-3">
+          <!-- Input de Searh -->
+          <input
+            type="search"
+            class="form-control"
+            placeholder="Search"
+            (input)="filterProspects(busqueda.value)"
+            #busqueda
+          />
+        </div>
         <div class="table-responsive">
-          <table id="dataTableAgentsDos" class="table">
+          <table class="table">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Document Type</th>
-                <th>State</th>
-                <th>Email</th>
-                <th>Date Birth</th>
-                <th>Phone</th>
-                <th>Status</th>
+                <th (click)="sortCustomersBy('firstName')">
+                  Name
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'firstName' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'firstName' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortCustomersBy('documentType')">
+                  Document Type
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'documentType' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'documentType' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortCustomersBy('state')">
+                  State
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'state' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'state' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortCustomersBy('email')">
+                  Email
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'email' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'email' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortCustomersBy('dateBirth')">
+                  Date Birth
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'dateBirth' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'dateBirth' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortCustomersBy('phone')">
+                  Phone
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'phone' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'phone' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortCustomersBy('status')">
+                  Status
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'status' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'status' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
                 <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
               <tr
-                *ngFor="let prospect of prospects; trackBy: trackByProspectId"
+                *ngFor="
+                  let prospect of filteredProspects;
+                  trackBy: trackByProspectId
+                "
               >
                 <td>{{ prospect.firstName }} {{ prospect.lastName }}</td>
                 <td>{{ prospect.documentType }}</td>
@@ -103,15 +193,14 @@
             </tbody>
             <tfoot>
               <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th>NAME</th>
+                <th>DOCUMENT TYPE</th>
+                <th>STATE</th>
+                <th>EMAIL</th>
+                <th>DATE BIRTH</th>
+                <th>PHONE</th>
+                <th>STATUS</th>
+                <th>ACTION</th>
               </tr>
             </tfoot>
           </table>

@@ -12,11 +12,14 @@ import { TEXT } from 'src/app/core/enum/text.enum';
   templateUrl: './all-agents.component.html',
   styleUrls: ['./all-agents.component.scss'],
 })
-export class AllAgentsComponent implements OnInit, OnDestroy, AfterViewInit {
+export class AllAgentsComponent implements OnInit, OnDestroy {
   agentSubscription: Subscription;
   agents: AgentModel[] = [];
-  // dataTableAgents: any;
   loading: boolean = false;
+
+  filteredAgents: AgentModel[] = [];
+  orderField: string = 'firstName';
+  orderType: 'asc' | 'desc' = 'asc';
 
   get ROUTE_APP() {
     return ROUTE_APP;
@@ -24,28 +27,12 @@ export class AllAgentsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private agentService: AgentService, private router: Router) {}
 
-  ngOnDestroy(): void {
-    this.agentSubscription?.unsubscribe();
-    // this.dataTableAgents?.destroy();
-  }
-
   ngOnInit(): void {
     this.loadAgents();
-    // const dataTable = new DataTable('#dataTableAgentsDos');
   }
-
-  ngAfterViewInit() {
-    // this.initializeTable();
+  ngOnDestroy(): void {
+    this.agentSubscription?.unsubscribe();
   }
-
-  // initializeTable() {
-  //   const options = { searchable: true, fixedHeight: true };
-  //   const tableElement = document.getElementById('dataTableAgents');
-
-  //   if (tableElement) {
-  //     this.dataTableAgents = new DataTable(tableElement, options);
-  //   }
-  // }
 
   loadAgents() {
     this.loading = true;
@@ -55,6 +42,7 @@ export class AllAgentsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.agents = resp.agents.filter((agent) => {
           return agent.active === true;
         });
+        this.filteredAgents = this.agents;
         this.loading = false;
       });
   }
@@ -181,5 +169,47 @@ export class AllAgentsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.router.navigateByUrl(
       `${ROUTE_APP.AGENT}/${ROUTE_APP.ADD_AGENTS}/${TEXT.NEW}`
     );
+  }
+
+  filterAgents(value: string) {
+    if (value) {
+      this.filteredAgents = this.agents.filter((agent: AgentModel) => {
+        return (
+          agent.agentCode
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase()) ||
+          agent.firstName.toLowerCase().includes(value.toLowerCase()) ||
+          agent.lastName.toLowerCase().includes(value.toLowerCase()) ||
+          agent.state?.toLowerCase().includes(value.toLowerCase()) ||
+          agent.email.toLowerCase().includes(value.toLowerCase()) ||
+          agent.city?.toLowerCase().includes(value.toLowerCase()) ||
+          agent.zip?.toLowerCase().includes(value.toLowerCase()) ||
+          agent.role?.toLowerCase().includes(value.toLowerCase()) ||
+          agent.dateBirth?.toString().includes(value.toLowerCase())
+        );
+      });
+    } else {
+      this.filteredAgents = this.agents;
+    }
+  }
+
+  sortAgentBy(field: string) {
+    if (field === this.orderField) {
+      this.orderType = this.orderType === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.orderField = field;
+      this.orderType = 'asc';
+    }
+
+    this.filteredAgents.sort((a: any, b: any) => {
+      if (a[field] < b[field]) {
+        return this.orderType === 'asc' ? -1 : 1;
+      } else if (a[field] > b[field]) {
+        return this.orderType === 'asc' ? 1 : -1;
+      } else {
+        return 0;
+      }
+    });
   }
 }

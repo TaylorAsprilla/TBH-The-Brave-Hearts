@@ -42,7 +42,7 @@ export class CustomerModel {
     public householdIncome?: string,
     public householdNetWorth?: string,
     public img?: string,
-    public active?: string,
+    public active?: boolean,
     public createdAt?: Date
   ) {}
 

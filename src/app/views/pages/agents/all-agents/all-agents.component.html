@@ -22,25 +22,121 @@
             Add Agents
           </button>
         </div>
+        <div class="mb-3">
+          <!-- Input de Searh -->
+          <input
+            type="search"
+            class="form-control"
+            placeholder="Search"
+            (input)="filterAgents(busqueda.value)"
+            #busqueda
+          />
+        </div>
         <div class="table-responsive">
-          <table id="dataTableAgentsDos" class="table">
+          <table class="table">
             <thead>
               <tr>
                 <th>Img</th>
-                <th>Agent Code</th>
-                <th>Name</th>
-                <th>dateBirth</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Zip</th>
-                <th>Email</th>
-                <th>Role</th>
+                <th (click)="sortAgentBy('agentCode')">
+                  Agent Code
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'agentCode' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'agentCode' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortAgentBy('firstName')">
+                  Name
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'firstName' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'firstName' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortAgentBy('dateBirth')">
+                  dateBirth
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'dateBirth' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'dateBirth' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortAgentBy('city')">
+                  City
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'city' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'city' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortAgentBy('state')">
+                  State
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'state' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'state' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortAgentBy('zip')">
+                  Zip<i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'zip' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'zip' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortAgentBy('email')">
+                  Email<i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'email' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'email' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortAgentBy('agentCode')">
+                  Role
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'role' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'role' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
                 <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
-              <tr *ngFor="let agent of agents; trackBy: trackByAgentId">
+              <tr *ngFor="let agent of filteredAgents; trackBy: trackByAgentId">
                 <td>
                   <img
                     [src]="agent.imageUrl"

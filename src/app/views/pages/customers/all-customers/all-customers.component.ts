@@ -39,7 +39,9 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
     this.customerSubscription = this.customerService
       .getAllCustomers()
       .subscribe((resp) => {
-        this.customers = resp.customers;
+        this.customers = resp.customers.filter((customer) => {
+          return customer.active === true;
+        });
         this.filteredCustomers = resp.customers;
         this.loading = false;
       });
@@ -196,7 +198,6 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
 
   filterCustomers(value: string) {
     if (value) {
-      // Realizar el filtrado de los clientes según el valor proporcionado
       this.filteredCustomers = this.customers.filter(
         (customer: CustomerModel) => {
           return (

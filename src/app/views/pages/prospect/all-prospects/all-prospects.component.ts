@@ -25,17 +25,22 @@ export class AllProspectsComponent implements OnInit {
     CUSTOMER: 'green',
   };
 
+  filteredProspects: ProspectModel[] = [];
+
+  orderField: string = 'firstName';
+  orderType: 'asc' | 'desc' = 'asc';
+
   constructor(
     private prospectService: ProspectService,
     private router: Router
   ) {}
 
-  ngOnDestroy(): void {
-    this.prospectSubscription?.unsubscribe();
-  }
-
   ngOnInit(): void {
     this.loadProspects();
+  }
+
+  ngOnDestroy(): void {
+    this.prospectSubscription?.unsubscribe();
   }
 
   loadProspects() {
@@ -46,6 +51,8 @@ export class AllProspectsComponent implements OnInit {
         this.prospects = prospet.filter((prospet) => {
           return prospet.active === true;
         });
+
+        this.filteredProspects = this.prospects;
         this.loading = false;
       });
   }
@@ -235,6 +242,44 @@ export class AllProspectsComponent implements OnInit {
             </div>
           </div>`,
       icon: 'info',
+    });
+  }
+
+  filterProspects(value: string) {
+    if (value) {
+      this.filteredProspects = this.prospects.filter(
+        (prospect: ProspectModel) => {
+          return (
+            prospect.firstName.toLowerCase().includes(value.toLowerCase()) ||
+            prospect.lastName.toLowerCase().includes(value.toLowerCase()) ||
+            prospect.state?.toLowerCase().includes(value.toLowerCase()) ||
+            prospect.email.toLowerCase().includes(value.toLowerCase()) ||
+            prospect.phone.toLowerCase().includes(value.toLowerCase()) ||
+            prospect.status.toLowerCase().includes(value.toLowerCase())
+          );
+        }
+      );
+    } else {
+      this.filteredProspects = this.prospects;
+    }
+  }
+
+  sortCustomersBy(field: string) {
+    if (field === this.orderField) {
+      this.orderType = this.orderType === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.orderField = field;
+      this.orderType = 'asc';
+    }
+
+    this.filteredProspects.sort((a: any, b: any) => {
+      if (a[field] < b[field]) {
+        return this.orderType === 'asc' ? -1 : 1;
+      } else if (a[field] > b[field]) {
+        return this.orderType === 'asc' ? 1 : -1;
+      } else {
+        return 0;
+      }
     });
   }
 }
