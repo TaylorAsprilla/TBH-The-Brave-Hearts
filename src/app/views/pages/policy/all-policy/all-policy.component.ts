@@ -46,4 +46,6 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
       `${ROUTE_APP.POLICY}/${ROUTE_APP.ADD_POLICY}/${policy.uid}`
     );
   }
+
+  moreInfo(policy: PolicyModel) {}
 }

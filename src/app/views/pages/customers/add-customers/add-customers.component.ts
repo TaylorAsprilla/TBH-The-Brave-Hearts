@@ -16,8 +16,9 @@ import { ICreateCustomer } from 'src/app/core/interfaces/customer.interface';
 import { StateModel } from 'src/app/core/models/state.model';
 import { FileUploadService } from 'src/app/services/fileUpload/file-upload.service';
 import Swal from 'sweetalert2';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { TEXT } from 'src/app/core/enum/text.enum';
+import { CustomerModel } from 'src/app/core/models/customer.model';
 
 @Component({
   selector: 'app-add-customers',
@@ -47,6 +48,9 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
 
   previousUrl: string;
 
+  idPhotoFile: File;
+  document1File: File;
+  document2File: File;
   routerSubscription: Subscription;
 
   @ViewChild('lifePolicy') lifePolicy: BaseWizardComponent;
@@ -56,7 +60,8 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private customerService: CustomerService,
-    private prospectService: ProspectService
+    private prospectService: ProspectService,
+    private fileUploadService: FileUploadService
   ) {}
 
   ngOnInit(): void {
@@ -81,7 +86,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
   createForm() {
     this.lifePolicyForm = this.formBuilder.group({
       carrier: ['', [Validators.required]],
-      policityType: ['', [Validators.required]],
+      policyType: ['', [Validators.required]],
       monthly: ['', [Validators.required]],
       faceAmount: ['', [Validators.required]],
       firstName: ['', [Validators.minLength(2), Validators.required]],
@@ -276,7 +281,20 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
     this.isBankInformationFormSubmitted = true;
   }
 
+  onIdPhotoChange(event: any) {
+    this.idPhotoFile = event.target.files[0];
+  }
+
+  onDocument1Change(event: any) {
+    this.document1File = event.target.files[0];
+  }
+
+  onDocument2Change(event: any) {
+    this.document2File = event.target.files[0];
+  }
+
   submitForm() {
+    let customerCreate: CustomerModel;
     this.isDocumentFormSubmitted = true;
 
     if (
@@ -331,37 +349,54 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
         },
       };
 
-      this.customerService.createCustomer(information).subscribe({
-        next: (resp: any) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Customer created',
-            html: `<b> Customer Name: </b> ${resp.customer.firstName} ${resp.customer.lastName}`,
-          });
-          this.clearForm();
-          this.router.navigateByUrl(
-            `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ALL_CUSTOMERS}`
-          );
-        },
-        error: (error: any) => {
-          const errors = error?.error?.errors;
-          const errorList: string[] = [];
-
-          if (errors) {
-            Object.entries(errors).forEach(([key, value]: [string, any]) => {
-              if (value && value['msg']) {
-                errorList.push('° ' + value['msg'] + '<br>');
-              }
+      this.customerService
+        .createCustomer(information)
+        .pipe(
+          switchMap((resp: any) => {
+            customerCreate = resp.customer;
+            console.log('customerService', resp);
+            return this.fileUploadService.uploadDocuments(
+              resp.policy.uid,
+              this.idPhotoFile,
+              this.document1File,
+              this.document2File
+            );
+          })
+        )
+        .subscribe({
+          next: (resp: any) => {
+            console.log('File Upload', resp);
+            Swal.fire({
+              icon: 'success',
+              title: 'Customer created',
+              html: `<b> Customer Name: </b> ${customerCreate.firstName} ${customerCreate.lastName}`,
             });
-          }
+            this.clearForm();
+            this.router.navigateByUrl(
+              `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ALL_CUSTOMERS}`
+            );
+          },
+          error: (error: any) => {
+            const errors = error?.error?.errors;
+            const errorList: string[] = [];
 
-          Swal.fire({
-            title: 'Error creating customer',
-            icon: 'error',
-            html: `${errorList.length ? errorList.join('') : error.error.msg}`,
-          });
-        },
-      });
+            if (errors) {
+              Object.entries(errors).forEach(([key, value]: [string, any]) => {
+                if (value && value['msg']) {
+                  errorList.push('° ' + value['msg'] + '<br>');
+                }
+              });
+            }
+
+            Swal.fire({
+              title: 'Error creating customer',
+              icon: 'error',
+              html: `${
+                errorList.length ? errorList.join('') : error.error.msg
+              }`,
+            });
+          },
+        });
     }
   }
 

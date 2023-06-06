@@ -40,27 +40,24 @@
 
                 <td>
                   <button
-                    (click)="editPolicy(policy)"
+                    (click)="moreInfo(policy)"
                     type="button"
-                    class="btn btn-primary"
-                    data-original-title="Edit"
+                    class="btn btn-info"
+                    data-original-title="Info"
                   >
-                    <i class="feather icon-edit"></i>
+                    <i class="feather icon-info"></i>
                   </button>
                 </td>
               </tr>
             </tbody>
             <tfoot>
               <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th>Carrier</th>
+                <th>PolicyType</th>
+                <th>Monthly</th>
+                <th>Face Amount</th>
+                <th>Customer</th>
+                <th>Action</th>
               </tr>
             </tfoot>
           </table>
