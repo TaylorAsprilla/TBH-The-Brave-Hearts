@@ -47,8 +47,8 @@ export class AllProspectsComponent implements OnInit {
     this.loading = true;
     this.prospectSubscription = this.prospectService
       .getAllProspects()
-      .subscribe((prospet) => {
-        this.prospects = prospet.filter((prospet) => {
+      .subscribe((prospect) => {
+        this.prospects = prospect.filter((prospet) => {
           return prospet.active === true;
         });
 

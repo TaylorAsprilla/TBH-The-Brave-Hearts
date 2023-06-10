@@ -11,6 +11,7 @@ import { PolicyModel } from 'src/app/core/models/policy.model';
 import Swal from 'sweetalert2';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { Router } from '@angular/router';
+import { TEXT } from 'src/app/core/enum/text.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,6 +26,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   prospects: ProspectModel[] = [];
   agents: AgentModel[] = [];
   policy: PolicyModel[] = [];
+
+  totalCustomers: number;
+  totalAgents: number;
+  totalProspects: number;
+  totalPolicy: number;
 
   nameAgents: string;
 
@@ -48,8 +54,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.nameAgents =
-      this.agentService.agent.firstName + this.agentService.agent.lastName;
+    this.nameAgents = `${this.agentService.agent.firstName} ${this.agentService.agent.lastName}`;
 
     this.loadCustomers();
     this.loadProspects();
@@ -62,7 +67,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.customerSubscription = this.customerService
       .getAllCustomers()
       .subscribe((resp) => {
-        this.customers = resp.customers;
+        this.customers = resp.customers
+          .filter((customer) => customer.active === true)
+          .slice(-10);
+
+        this.totalCustomers = resp.customers.filter(
+          (customer) => customer.active === true
+        ).length;
+
         this.loading = false;
       });
   }
@@ -72,7 +84,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.prospectSubscription = this.prospectService
       .getAllProspects()
       .subscribe((prospect) => {
-        this.prospects = prospect;
+        this.prospects = prospect
+          .filter((prospect) => prospect.active === true)
+          .slice(-10);
+
+        this.totalProspects = prospect.filter(
+          (prospect) => prospect.active === true
+        ).length;
+
         this.loading = false;
       });
   }
@@ -82,7 +101,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.agentSubscription = this.agentService
       .getAllAgents()
       .subscribe((resp) => {
-        this.agents = resp.agents;
+        this.agents = resp.agents
+          .filter((agent) => agent.active === true)
+          .slice(-10);
+
+        this.totalAgents = resp.agents.filter(
+          (agent) => agent.active === true
+        ).length;
+
         this.loading = false;
       });
   }
@@ -92,7 +118,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.policySubcription = this.policyService
       .getAllPolicy()
       .subscribe((resp) => {
-        this.policy = resp.policy;
+        this.policy = resp.policy
+          .filter((policy) => policy.active === true)
+          .slice(-10);
+
+        this.totalPolicy = resp.policy.filter(
+          (policy) => policy.active === true
+        ).length;
+
         this.loading = false;
       });
   }
@@ -211,6 +244,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
+  addPolicy(customer: CustomerModel) {
+    Swal.fire({
+      title: 'Policy!',
+      html: `Do you want to add a policy to the client <b>${customer.firstName} ${customer.lastName}</b>`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, add a policy',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl(
+          `${ROUTE_APP.POLICY}/${ROUTE_APP.ADD_POLICY}/${customer.uid}`
+        );
+      }
+    });
+  }
+
   moreInfoProspect(prospect: ProspectModel) {
     const dateOfBirth = prospect.dateBirth;
     const formattedDateOfBirth = new Date(dateOfBirth).toLocaleDateString(
@@ -308,6 +359,94 @@ export class DashboardComponent implements OnInit, OnDestroy {
   salesPolicy(prospect: ProspectModel) {
     this.router.navigateByUrl(
       `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ADD_CUSTOMERS}/${ROUTE_APP.PROSPECT}/${prospect.uid}`
+    );
+  }
+
+  linkAllAgents() {
+    this.router.navigateByUrl(`${ROUTE_APP.AGENT}/${ROUTE_APP.ALL_AGENTS}`);
+  }
+
+  linkNewAgent() {
+    this.router.navigateByUrl(
+      `${ROUTE_APP.AGENT}/${ROUTE_APP.ADD_AGENTS}/${TEXT.NEW}`
+    );
+  }
+
+  moreInfoAgent(agent: AgentModel) {
+    const dateOfBirth = agent.dateBirth;
+    const formattedDateOfBirth = new Date(dateOfBirth).toLocaleDateString(
+      'en-US'
+    );
+
+    Swal.fire({
+      title: 'Info Agent',
+      showCloseButton: true,
+      html: `<div class="row">
+            <div class="col-md-12 text-start">
+              <table class="table">
+                <tbody>
+                <tr>
+                    <th>Name:</th>
+                    <td>${agent.firstName} ${agent.lastName}</td>
+                  </tr>
+                  <tr>
+                  <tr>
+                    <th>Agent Code:</th>
+                    <td>${agent.agentCode}</td>
+                  </tr>
+                   <tr>
+                    <th>Email:</th>
+                    <td>${agent.email}</td>
+                  </tr>
+                  <tr>
+                  <th>Date of Birth:</th>
+                  <td>${formattedDateOfBirth}</td>
+                </tr>
+                  <tr>
+                    <th>State:</th>
+                    <td>${agent.state}</td>
+                  </tr>
+                  <tr>
+                    <th>City:</th>
+                    <td>${agent.city}</td>
+                  </tr>
+                  <tr>
+                    <th>Zip:</th>
+                    <td>${agent.zip}</td>
+                  </tr>
+                  <tr>
+                  <th>Role:</th>
+                  <td>${agent.role}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>`,
+      icon: 'info',
+    });
+  }
+
+  linkAllProspects() {
+    this.router.navigateByUrl(
+      `${ROUTE_APP.PROSPECT}/${ROUTE_APP.ALL_PROSPECTS}`
+    );
+  }
+
+  linkNewProspect() {
+    this.router.navigateByUrl(
+      `${ROUTE_APP.PROSPECT}/${ROUTE_APP.ADD_PROSPECTS}/${TEXT.NEW}`
+    );
+  }
+
+  linkAllCustomers() {
+    this.router.navigateByUrl(
+      `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ALL_CUSTOMERS}`
+    );
+  }
+
+  linkNewCustomers() {
+    this.router.navigateByUrl(
+      `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ADD_CUSTOMERS}/${TEXT.NEW}`
     );
   }
 }
