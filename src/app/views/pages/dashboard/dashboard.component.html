@@ -17,7 +17,7 @@
             </div>
             <div class="row">
               <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">{{ customers.length }}</h3>
+                <h3 class="mb-2">{{ totalCustomers }}</h3>
               </div>
             </div>
           </div>
@@ -31,7 +31,7 @@
             </div>
             <div class="row">
               <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">{{ agents.length }}</h3>
+                <h3 class="mb-2">{{ totalAgents }}</h3>
               </div>
             </div>
           </div>
@@ -45,7 +45,7 @@
             </div>
             <div class="row">
               <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">{{ prospects.length }}</h3>
+                <h3 class="mb-2">{{ totalProspects }}</h3>
               </div>
             </div>
           </div>
@@ -60,7 +60,7 @@
             </div>
             <div class="row">
               <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">{{ policy.length }}</h3>
+                <h3 class="mb-2">{{ totalPolicy }}</h3>
               </div>
             </div>
           </div>
@@ -99,58 +99,20 @@
               <a
                 ngbDropdownItem
                 class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
+                (click)="linkAllAgents()"
                 ><i data-feather="eye" appFeatherIcon class="icon-sm me-2"></i>
-                <span class="">View</span></a
+                <span class="">All Agents</span></a
               >
               <a
                 ngbDropdownItem
                 class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
+                (click)="linkNewAgent()"
                 ><i
                   data-feather="edit-2"
                   appFeatherIcon
                   class="icon-sm me-2"
                 ></i>
-                <span class="">Edit</span></a
-              >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
-                ><i
-                  data-feather="trash"
-                  appFeatherIcon
-                  class="icon-sm me-2"
-                ></i>
-                <span class="">Delete</span></a
-              >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
-                ><i
-                  data-feather="printer"
-                  appFeatherIcon
-                  class="icon-sm me-2"
-                ></i>
-                <span class="">Print</span></a
-              >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
-                ><i
-                  data-feather="download"
-                  appFeatherIcon
-                  class="icon-sm me-2"
-                ></i>
-                <span class="">Download</span></a
+                <span class="">New Agent</span></a
               >
             </div>
           </div>
@@ -171,7 +133,7 @@
               </div>
               <div class="w-100">
                 <div class="d-flex justify-content-between">
-                  <h6 class="text-body mb-2">
+                  <h6 class="text-body mb-2" (click)="moreInfoAgent(agent)">
                     {{ agent.firstName }} {{ agent.lastName }}
                   </h6>
                 </div>
@@ -205,58 +167,20 @@
               <a
                 ngbDropdownItem
                 class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
+                (click)="linkAllProspects()"
                 ><i data-feather="eye" appFeatherIcon class="icon-sm me-2"></i>
-                <span class="">View</span></a
+                <span class="">All Prospects</span></a
               >
               <a
                 ngbDropdownItem
                 class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
+                (click)="linkNewProspect()"
                 ><i
                   data-feather="edit-2"
                   appFeatherIcon
                   class="icon-sm me-2"
                 ></i>
-                <span class="">Edit</span></a
-              >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
-                ><i
-                  data-feather="trash"
-                  appFeatherIcon
-                  class="icon-sm me-2"
-                ></i>
-                <span class="">Delete</span></a
-              >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
-                ><i
-                  data-feather="printer"
-                  appFeatherIcon
-                  class="icon-sm me-2"
-                ></i>
-                <span class="">Print</span></a
-              >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
-                ><i
-                  data-feather="download"
-                  appFeatherIcon
-                  class="icon-sm me-2"
-                ></i>
-                <span class="">Download</span></a
+                <span class="">New Prospect</span></a
               >
             </div>
           </div>
@@ -275,17 +199,12 @@
               </thead>
               <tbody>
                 <tr *ngFor="let prospect of prospects">
-                  <td>{{ prospect.firstName }} {{ prospect.lastName }}</td>
+                  <td (click)="moreInfoProspect(prospect)" class="pointer">
+                    {{ prospect.firstName }} {{ prospect.lastName }}
+                  </td>
                   <td>{{ prospect.phone }}</td>
                   <td>{{ prospect.email }}</td>
                   <td>{{ prospect.status }}</td>
-                  <td>
-                    <span
-                      class="badge bg-info pointer"
-                      (click)="moreInfoProspect(prospect)"
-                      >More info</span
-                    >
-                  </td>
 
                   <td>
                     <span
@@ -324,58 +243,20 @@
               <a
                 ngbDropdownItem
                 class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
+                (click)="linkAllCustomers()"
                 ><i data-feather="eye" appFeatherIcon class="icon-sm me-2"></i>
-                <span class="">View</span></a
+                <span class="">All Customers</span></a
               >
               <a
                 ngbDropdownItem
                 class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
+                (click)="linkNewCustomers()"
                 ><i
                   data-feather="edit-2"
                   appFeatherIcon
                   class="icon-sm me-2"
                 ></i>
-                <span class="">Edit</span></a
-              >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
-                ><i
-                  data-feather="trash"
-                  appFeatherIcon
-                  class="icon-sm me-2"
-                ></i>
-                <span class="">Delete</span></a
-              >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
-                ><i
-                  data-feather="printer"
-                  appFeatherIcon
-                  class="icon-sm me-2"
-                ></i>
-                <span class="">Print</span></a
-              >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
-                ><i
-                  data-feather="download"
-                  appFeatherIcon
-                  class="icon-sm me-2"
-                ></i>
-                <span class="">Download</span></a
+                <span class="">New Customers</span></a
               >
             </div>
           </div>
@@ -384,8 +265,7 @@
           <table class="table table-hover mb-0">
             <thead>
               <tr>
-                <th class="pt-0">First Name</th>
-                <th class="pt-0">Last Name</th>
+                <th class="pt-0">Name</th>
                 <th class="pt-0">Phone</th>
                 <th class="pt-0">Email</th>
                 <th class="pt-0">Date Birth</th>
@@ -394,17 +274,18 @@
             </thead>
             <tbody>
               <tr *ngFor="let customer of customers">
-                <td>{{ customer.firstName }}</td>
-                <td>{{ customer.lastName }}</td>
+                <td (click)="moreInfoCustomer(customer)" class="pointer">
+                  {{ customer.firstName }} {{ customer.lastName }}
+                </td>
                 <td>{{ customer.phone }}</td>
                 <td>{{ customer.email }}</td>
                 <td>{{ customer.dateBirth | date : "mediumDate" }}</td>
 
                 <td>
                   <span
-                    class="badge bg-info pointer"
-                    (click)="moreInfoCustomer(customer)"
-                    >More info</span
+                    class="badge bg-primary pointer"
+                    (click)="addPolicy(customer)"
+                    >New Policy</span
                   >
                 </td>
               </tr>

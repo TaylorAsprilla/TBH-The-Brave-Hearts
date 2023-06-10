@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AgentService } from 'src/app/services/agent/agent.service';
 import { Subscription } from 'rxjs';
 import { AgentModel } from 'src/app/core/models/agent.model';
@@ -108,7 +108,7 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
     );
 
     Swal.fire({
-      title: 'Info Customer',
+      title: 'Info Agent',
       showCloseButton: true,
       html: `<div class="row">
             <div class="col-md-12 text-start">

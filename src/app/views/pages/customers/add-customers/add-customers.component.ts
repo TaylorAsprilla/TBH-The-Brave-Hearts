@@ -318,7 +318,6 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
         this.documentForm.value
       );
 
-      // TODO Mapear bien la información de medical, beneficiaries, contingentBeneficiary
       const information: ICreateCustomer = {
         customer: this.lifePolicyForm.value,
         policy: {
