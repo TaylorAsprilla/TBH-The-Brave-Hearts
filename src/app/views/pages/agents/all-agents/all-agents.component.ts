@@ -18,7 +18,7 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
   loading: boolean = false;
 
   filteredAgents: AgentModel[] = [];
-  orderField: string = 'firstName';
+  orderField: string = 'agentCode';
   orderType: 'asc' | 'desc' = 'asc';
 
   get ROUTE_APP() {

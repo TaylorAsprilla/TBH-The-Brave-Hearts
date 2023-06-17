@@ -190,10 +190,62 @@
             <table class="table table-hover mb-0">
               <thead>
                 <tr>
-                  <th class="pt-0">Name</th>
-                  <th class="pt-0">Phone</th>
-                  <th class="pt-0">Email</th>
-                  <th class="pt-0">Status</th>
+                  <th class="pt-0" (click)="sortProspectBy('firstName')">
+                    Name
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderFieldProspect === 'firstName' &&
+                          orderTypeProspect === 'asc',
+                        'icon-arrow-down':
+                          orderFieldProspect === 'firstName' &&
+                          orderTypeProspect === 'desc'
+                      }"
+                    ></i>
+                  </th>
+                  <th class="pt-0" (click)="sortProspectBy('phone')">
+                    Phone
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderFieldProspect === 'phone' &&
+                          orderTypeProspect === 'asc',
+                        'icon-arrow-down':
+                          orderFieldProspect === 'phone' &&
+                          orderTypeProspect === 'desc'
+                      }"
+                    ></i>
+                  </th>
+                  <th class="pt-0" (click)="sortProspectBy('email')">
+                    Email
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderFieldProspect === 'email' &&
+                          orderTypeProspect === 'asc',
+                        'icon-arrow-down':
+                          orderFieldProspect === 'email' &&
+                          orderTypeProspect === 'desc'
+                      }"
+                    ></i>
+                  </th>
+                  <th class="pt-0" (click)="sortProspectBy('status')">
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderFieldProspect === 'status' &&
+                          orderTypeProspect === 'asc',
+                        'icon-arrow-down':
+                          orderFieldProspect === 'status' &&
+                          orderTypeProspect === 'desc'
+                      }"
+                    ></i>
+                    Status
+                  </th>
                   <th class="pt-0">Action</th>
                 </tr>
               </thead>
@@ -265,9 +317,48 @@
           <table class="table table-hover mb-0">
             <thead>
               <tr>
-                <th class="pt-0">Name</th>
-                <th class="pt-0">Phone</th>
-                <th class="pt-0">Email</th>
+                <th class="pt-0" (click)="sortCustomerBy('firstName')">
+                  Name
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderFieldCustomer === 'firstName' &&
+                        orderTypeCustomer === 'asc',
+                      'icon-arrow-down':
+                        orderFieldCustomer === 'firstName' &&
+                        orderTypeCustomer === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th class="pt-0" (click)="sortCustomerBy('phone')">
+                  Phone
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderFieldCustomer === 'phone' &&
+                        orderTypeCustomer === 'asc',
+                      'icon-arrow-down':
+                        orderFieldCustomer === 'phone' &&
+                        orderTypeCustomer === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th class="pt-0" (click)="sortCustomerBy('email')">
+                  Email
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderFieldCustomer === 'email' &&
+                        orderTypeCustomer === 'asc',
+                      'icon-arrow-down':
+                        orderFieldCustomer === 'email' &&
+                        orderTypeCustomer === 'desc'
+                    }"
+                  ></i>
+                </th>
                 <th class="pt-0">Date Birth</th>
                 <th class="pt-0">Action</th>
               </tr>
