@@ -93,7 +93,7 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
       showCloseButton: true,
       html: `<div class="row">
             <div class="col-md-12 text-start">
-              <table class="table">
+              <table class="table table-hover">
                 <tbody>
                 <tr>
                     <th>Name:</th>

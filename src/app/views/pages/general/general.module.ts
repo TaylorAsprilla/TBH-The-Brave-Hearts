@@ -11,7 +11,6 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 
 import { GeneralComponent } from './general.component';
-import { BlankComponent } from './blank/blank.component';
 import { FaqComponent } from './faq/faq.component';
 import { ProfileComponent } from './profile/profile.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -27,10 +26,7 @@ const routes: Routes = [
         redirectTo: 'blank-page',
         pathMatch: 'full',
       },
-      {
-        path: 'blank-page',
-        component: BlankComponent,
-      },
+
       {
         path: 'faq',
         component: FaqComponent,
@@ -45,12 +41,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    GeneralComponent,
-    BlankComponent,
-    FaqComponent,
-    ProfileComponent,
-  ],
+  declarations: [GeneralComponent, FaqComponent, ProfileComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
