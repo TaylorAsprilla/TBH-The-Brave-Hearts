@@ -14,7 +14,9 @@ import { PolicyService } from 'src/app/services/policy/policy.service';
 export class AllPolicyComponent implements OnInit, OnDestroy {
   policySubscription: Subscription;
   policies: PolicyModel[] = [];
-  dataTablePolicy: any;
+
+  filteredPolicies: PolicyModel[] = [];
+
   loading: boolean = false;
 
   constructor(private policyService: PolicyService, private router: Router) {}
@@ -32,7 +34,11 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
     this.policySubscription = this.policyService
       .getAllPolicy()
       .subscribe((resp) => {
-        this.policies = resp.policy;
+        this.policies = resp.policy.filter((policy) => {
+          return policy.active === true;
+        });
+
+        this.filteredPolicies = this.policies;
         this.loading = false;
       });
   }
@@ -48,4 +54,19 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
   }
 
   moreInfo(policy: PolicyModel) {}
+
+  filterPolicity(value: string) {
+    if (value) {
+      this.filteredPolicies = this.policies.filter((policy: PolicyModel) => {
+        return (
+          policy.carrier.toLowerCase().includes(value.toLowerCase()) ||
+          policy.policyType.toLowerCase().includes(value.toLowerCase()) ||
+          policy.monthly.toLowerCase().includes(value.toLowerCase()) ||
+          policy.faceAmount.toLowerCase().includes(value.toLowerCase())
+        );
+      });
+    } else {
+      this.filteredPolicies = this.policies;
+    }
+  }
 }

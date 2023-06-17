@@ -18,7 +18,7 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
   loading: boolean = false;
 
   filteredAgents: AgentModel[] = [];
-  orderField: string = 'firstName';
+  orderField: string = 'agentCode';
   orderType: 'asc' | 'desc' = 'asc';
 
   get ROUTE_APP() {
@@ -112,7 +112,7 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
       showCloseButton: true,
       html: `<div class="row">
             <div class="col-md-12 text-start">
-              <table class="table">
+              <table class="table table-hover">
                 <tbody>
                 <tr>
                     <th>Name:</th>

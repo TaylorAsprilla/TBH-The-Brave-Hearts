@@ -34,6 +34,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   nameAgents: string;
 
+  filteredProspects: ProspectModel[] = [];
+  orderFieldProspect: string = 'firstName';
+  orderTypeProspect: 'asc' | 'desc' = 'asc';
+
+  filteredCustomer: CustomerModel[] = [];
+  orderFieldCustomer: string = 'firstName';
+  orderTypeCustomer: 'asc' | 'desc' = 'asc';
+
   customerSubscription: Subscription;
   prospectSubscription: Subscription;
   agentSubscription: Subscription;
@@ -71,6 +79,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
           .filter((customer) => customer.active === true)
           .slice(-10);
 
+        this.filteredCustomer = this.customers;
+
         this.totalCustomers = resp.customers.filter(
           (customer) => customer.active === true
         ).length;
@@ -87,6 +97,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.prospects = prospect
           .filter((prospect) => prospect.active === true)
           .slice(-10);
+
+        this.filteredProspects = this.prospects;
 
         this.totalProspects = prospect.filter(
           (prospect) => prospect.active === true
@@ -141,7 +153,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       showCloseButton: true,
       html: `<div class="row">
             <div class="col-md-12 text-start">
-              <table class="table">
+              <table class="table table-hover">
                 <tbody>
                 <tr>
                     <th>Name:</th>
@@ -273,7 +285,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       showCloseButton: true,
       html: `<div class="row">
             <div class="col-md-12 text-start">
-              <table class="table">
+              <table class="table table-hover">
                 <tbody>
                 <tr>
                     <th>Name:</th>
@@ -383,7 +395,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       showCloseButton: true,
       html: `<div class="row">
             <div class="col-md-12 text-start">
-              <table class="table">
+              <table class="table table-hover">
                 <tbody>
                 <tr>
                     <th>Name:</th>
@@ -423,6 +435,46 @@ export class DashboardComponent implements OnInit, OnDestroy {
             </div>
           </div>`,
       icon: 'info',
+    });
+  }
+
+  sortProspectBy(field: string) {
+    if (field === this.orderFieldProspect) {
+      this.orderTypeProspect =
+        this.orderTypeProspect === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.orderFieldProspect = field;
+      this.orderTypeProspect = 'asc';
+    }
+
+    this.filteredProspects.sort((a: any, b: any) => {
+      if (a[field] < b[field]) {
+        return this.orderTypeProspect === 'asc' ? -1 : 1;
+      } else if (a[field] > b[field]) {
+        return this.orderTypeProspect === 'asc' ? 1 : -1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  sortCustomerBy(field: string) {
+    if (field === this.orderFieldCustomer) {
+      this.orderTypeCustomer =
+        this.orderTypeCustomer === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.orderFieldCustomer = field;
+      this.orderTypeCustomer = 'asc';
+    }
+
+    this.filteredCustomer.sort((a: any, b: any) => {
+      if (a[field] < b[field]) {
+        return this.orderTypeCustomer === 'asc' ? -1 : 1;
+      } else if (a[field] > b[field]) {
+        return this.orderTypeCustomer === 'asc' ? 1 : -1;
+      } else {
+        return 0;
+      }
     });
   }
 
