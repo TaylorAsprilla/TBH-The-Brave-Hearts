@@ -59,20 +59,33 @@
                   The Agent Code does not have the minimum length allowed.
                 </div>
               </div>
+
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  formControlName="password"
-                  id="password"
-                  autocomplete="current-password"
-                  placeholder="Password"
-                  [ngClass]="{
-                    'is-invalid':
-                      isLoginFormSubmitted && formLogin.password.errors
-                  }"
-                />
+                <div class="input-group">
+                  <input
+                    type="{{ showPassword ? 'text' : 'password' }}"
+                    class="form-control"
+                    formControlName="password"
+                    id="password"
+                    autocomplete="current-password"
+                    placeholder="Password"
+                    [ngClass]="{
+                      'is-invalid':
+                        isLoginFormSubmitted && formLogin.password.errors
+                    }"
+                  />
+
+                  <span
+                    class="input-group-text"
+                    (click)="togglePasswordVisibility()"
+                  >
+                    <i
+                      class="feather"
+                      [ngClass]="showPassword ? 'icon-eye' : 'icon-eye-off'"
+                    ></i>
+                  </span>
+                </div>
                 <div
                   *ngIf="
                     isLoginFormSubmitted && formLogin.password.errors?.required
