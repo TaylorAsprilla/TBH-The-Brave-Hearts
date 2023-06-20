@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 import {
+  ILoadAllPolicies,
   ILoadAllPolicy,
   IPolicy,
 } from 'src/app/core/interfaces/policy.interface';
@@ -34,10 +36,16 @@ export class PolicyService {
   }
 
   getAllPolicy() {
-    return this.httpClient.get<ILoadAllPolicy>(
+    return this.httpClient.get<ILoadAllPolicies>(
       `${base_url}/policy`,
       this.headers
     );
+  }
+
+  getPolicy(id: string) {
+    return this.httpClient
+      .get<ILoadAllPolicy>(`${base_url}/policy/${id}`, this.headers)
+      .pipe(map((resp: { ok: boolean; policy: PolicyModel }) => resp.policy));
   }
 
   createPolicy(policy: IPolicy) {

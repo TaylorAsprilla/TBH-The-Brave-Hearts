@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   loginForm: UntypedFormGroup;
 
   isLoginFormSubmitted: Boolean;
+  showPassword: boolean = false;
 
   returnUrl: any;
 
@@ -100,5 +101,9 @@ export class LoginComponent implements OnInit {
         });
       },
     });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

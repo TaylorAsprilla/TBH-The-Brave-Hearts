@@ -1,5 +1,4 @@
 import { CustomerModel } from '../models/customer.model';
-import { PolicyModel } from '../models/policy.model';
 import { IPolicy } from './policy.interface';
 
 export interface ICreateCustomer {
@@ -8,7 +7,7 @@ export interface ICreateCustomer {
 }
 
 export interface ICustomerPolicy {
-  uid: string;
+  _id: string;
   firstName: string;
   lastName: string;
   email: string;

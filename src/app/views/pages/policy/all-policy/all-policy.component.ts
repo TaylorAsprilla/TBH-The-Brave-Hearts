@@ -62,11 +62,32 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
           policy.carrier.toLowerCase().includes(value.toLowerCase()) ||
           policy.policyType.toLowerCase().includes(value.toLowerCase()) ||
           policy.monthly.toLowerCase().includes(value.toLowerCase()) ||
-          policy.faceAmount.toLowerCase().includes(value.toLowerCase())
+          policy.faceAmount.toLowerCase().includes(value.toLowerCase()) ||
+          policy.customer.firstName
+            .toLowerCase()
+            .includes(value.toLowerCase()) ||
+          policy.customer.lastName.toLowerCase().includes(value.toLowerCase())
         );
       });
     } else {
       this.filteredPolicies = this.policies;
     }
+  }
+
+  navigateWithQueryParams(idPolicy: string) {
+    const queryParams = {
+      idPolicy,
+    };
+
+    const url = `${ROUTE_APP.POLICY}/${ROUTE_APP.ADD_POLICY}`;
+
+    this.router
+      .navigate([url], { queryParams })
+      .then(() => {
+        console.log('Navegación exitosa', url);
+      })
+      .catch((error) => {
+        console.error('Error en la navegación:', error);
+      });
   }
 }

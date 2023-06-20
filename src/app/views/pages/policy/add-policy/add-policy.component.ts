@@ -15,8 +15,13 @@ import Swal from 'sweetalert2';
 import { TEXT } from 'src/app/core/enum/text.enum';
 import { CustomerModel } from 'src/app/core/models/customer.model';
 import { PolicyService } from 'src/app/services/policy/policy.service';
-import { IPolicy } from 'src/app/core/interfaces/policy.interface';
-import { switchMap } from 'rxjs';
+import {
+  IBeneficiary,
+  IPolicy,
+  IcontingentBeneficiary,
+} from 'src/app/core/interfaces/policy.interface';
+import { Observable, switchMap } from 'rxjs';
+import { PolicyModel } from 'src/app/core/models/policy.model';
 
 @Component({
   selector: 'app-add-policy',
@@ -44,10 +49,16 @@ export class AddPolicyComponent implements OnInit {
 
   states: StateModel[] = [];
   selectCustomer: CustomerModel;
+  selectPolicy: PolicyModel;
+
+  customerId: string;
+  policyId: string;
 
   idPhotoFile: File;
   document1File: File;
   document2File: File;
+
+  isDisabled: boolean = false;
 
   @ViewChild('policy') policy: BaseWizardComponent;
 
@@ -64,21 +75,34 @@ export class AddPolicyComponent implements OnInit {
     this.states = this.activatedRoute.snapshot.data['states'];
 
     this.activatedRoute.params.subscribe(({ id }) => {
-      this.getCustomerById(id);
+      if (id) {
+        this.customerId = id;
+        this.getCustomerById(this.customerId);
+      }
+    });
+
+    this.activatedRoute.queryParams.subscribe(({ idPolicy }) => {
+      if (idPolicy) {
+        this.policyId = idPolicy;
+        this.isDisabled = true;
+        this.getPolicyAndCustomer(this.policyId);
+      }
     });
 
     this.createForm();
-    this.addBeneficiary();
-    this.addContigentBeneficiary();
-    this.addReferrals();
+    if (!this.policyId) {
+      this.addBeneficiary();
+      this.addContigentBeneficiary();
+      this.addReferrals();
+    }
   }
 
   createForm() {
     this.lifePolicyForm = this.formBuilder.group({
-      carrier: ['', [Validators.required]],
-      policyType: ['', [Validators.required]],
-      monthly: ['', [Validators.required]],
-      faceAmount: ['', [Validators.required]],
+      carrier: [{ value: '', disabled: false }, [Validators.required]],
+      policyType: [{ value: '', disabled: false }, [Validators.required]],
+      monthly: [{ value: '', disabled: false }, [Validators.required]],
+      faceAmount: [{ value: '', disabled: false }, [Validators.required]],
     });
 
     this.beneficiaryForm = this.formBuilder.group({
@@ -90,41 +114,41 @@ export class AddPolicyComponent implements OnInit {
     });
 
     this.medicalForm = this.formBuilder.group({
-      doctorName: ['', [Validators.required]],
-      doctorOfficeLocation: ['', []],
-      officePhoneNumber: ['', []],
-      lastVisit: ['', [Validators.required]],
-      reasonForVisit: ['', []],
-      outcomeOfVisit: ['', []],
-      smoker: ['', [Validators.required]],
-      medicalCondition: ['', []],
-      whenItWasDiagnosed: ['', []],
-      medications: ['', []],
-      dosage: ['', []],
-      additionalInformation: ['', []],
-      isFatherAlive: ['', [Validators.required]],
-      fatherAge: ['', []],
-      deceasedFather: ['', []],
-      isMotherAlive: ['', [Validators.required]],
-      motherAge: ['', []],
-      deceasedMother: ['', []],
+      doctorName: [{ value: '', disabled: false }, [Validators.required]],
+      doctorOfficeLocation: [{ value: '', disabled: false }, []],
+      officePhoneNumber: [{ value: '', disabled: false }, []],
+      lastVisit: [{ value: '', disabled: false }, [Validators.required]],
+      reasonForVisit: [{ value: '', disabled: false }, []],
+      outcomeOfVisit: [{ value: '', disabled: false }, []],
+      smoker: [{ value: '', disabled: false }, [Validators.required]],
+      medicalCondition: [{ value: '', disabled: false }, []],
+      whenItWasDiagnosed: [{ value: '', disabled: false }, []],
+      medications: [{ value: '', disabled: false }, []],
+      dosage: [{ value: '', disabled: false }, []],
+      additionalInformation: [{ value: '', disabled: false }, []],
+      isFatherAlive: [{ value: '', disabled: false }, [Validators.required]],
+      fatherAge: [{ value: '', disabled: false }, []],
+      deceasedFather: [{ value: '', disabled: false }, []],
+      isMotherAlive: [{ value: '', disabled: false }, [Validators.required]],
+      motherAge: [{ value: '', disabled: false }, []],
+      deceasedMother: [{ value: '', disabled: false }, []],
     });
 
     this.additionalQuestionForm = this.formBuilder.group({
-      criminalRecord: ['', [Validators.required]],
-      pleadedGuilty: ['', [Validators.required]],
-      anotherLife: ['', [Validators.required]],
-      appliedForLife: ['', [Validators.required]],
-      participateSport: ['', [Validators.required]],
-      involved: ['', [Validators.required]],
+      criminalRecord: [{ value: '', disabled: false }, [Validators.required]],
+      pleadedGuilty: [{ value: '', disabled: false }, [Validators.required]],
+      anotherLife: [{ value: '', disabled: false }, [Validators.required]],
+      appliedForLife: [{ value: '', disabled: false }, [Validators.required]],
+      participateSport: [{ value: '', disabled: false }, [Validators.required]],
+      involved: [{ value: '', disabled: false }, [Validators.required]],
     });
 
     this.bankInformationForm = this.formBuilder.group({
-      draftPaymentDate: ['', [Validators.required]],
-      bank: ['', [Validators.required]],
-      accountNumber: ['', [Validators.required]],
-      routingNumber: ['', [Validators.required]],
-      notes: ['', []],
+      draftPaymentDate: [{ value: '', disabled: false }, [Validators.required]],
+      bank: [{ value: '', disabled: false }, [Validators.required]],
+      accountNumber: [{ value: '', disabled: false }, [Validators.required]],
+      routingNumber: [{ value: '', disabled: false }, [Validators.required]],
+      notes: [{ value: '', disabled: false }, []],
     });
 
     this.referralsForm = this.formBuilder.group({
@@ -132,17 +156,21 @@ export class AddPolicyComponent implements OnInit {
     });
 
     this.documentForm = this.formBuilder.group({
-      idPhoto: ['', []],
-      document1: ['', []],
-      document2: ['', []],
-      primaryAgentName: ['', [Validators.required]],
-      percentage1: ['', [Validators.required]],
-      secondaryAgentName: ['', []],
-      percentage2: ['', []],
-      fieldTrainingAgent: ['', []],
-      mbBase: ['', []],
+      idPhoto: [{ value: '', disabled: false }, []],
+      document1: [{ value: '', disabled: false }, []],
+      document2: [{ value: '', disabled: false }, []],
+      primaryAgentName: [{ value: '', disabled: false }, [Validators.required]],
+      percentage1: [{ value: '', disabled: false }, [Validators.required]],
+      secondaryAgentName: [{ value: '', disabled: false }, []],
+      percentage2: [{ value: '', disabled: false }, []],
+      fieldTrainingAgent: [{ value: '', disabled: false }, []],
+      mbBase: [{ value: '', disabled: false }, []],
     });
 
+    this.isSubmitted();
+  }
+
+  isSubmitted() {
     this.isLifePolicyFormSubmitted = false;
     this.isBeneficiaryFormSubmitted = false;
     this.isContigentBeneficiaryFormSubmitted = false;
@@ -259,91 +287,279 @@ export class AddPolicyComponent implements OnInit {
     this.isBankInformationFormSubmitted = true;
   }
 
+  addBeneficiary() {
+    this.formBeneficiaries.push(
+      this.formBuilder.group({
+        firstName: [{ value: '', disabled: false }, [Validators.required]],
+        middleName: [{ value: '', disabled: false }, [Validators.minLength(3)]],
+        lastName: [
+          { value: '', disabled: false },
+          [Validators.minLength(3), Validators.required],
+        ],
+        relationshipToInsured: [
+          { value: '', disabled: false },
+          [Validators.minLength(3), Validators.required],
+        ],
+        phone: [{ value: '', disabled: false }, [Validators.required]],
+        email: [
+          { value: '', disabled: false },
+          [Validators.required, Validators.email, Validators.minLength(3)],
+        ],
+        dateBirth: [{ value: '', disabled: false }],
+        ss: [{ value: '', disabled: false }],
+        share: [{ value: '', disabled: false }],
+      })
+    );
+  }
+
+  addContigentBeneficiary() {
+    this.contigentBeneficiaries.push(
+      this.formBuilder.group({
+        firstName: [{ value: '', disabled: false }, [Validators.required]],
+        middleName: [{ value: '', disabled: false }, []],
+        lastName: [{ value: '', disabled: false }, [, Validators.required]],
+        relationshipToInsured: [
+          { value: '', disabled: false },
+          [, Validators.required],
+        ],
+        phone: [{ value: '', disabled: false }, [Validators.required]],
+        email: [{ value: '', disabled: false }, [Validators.email]],
+        dateBirth: [{ value: '', disabled: false }],
+        ss: [{ value: '', disabled: false }],
+        share: [{ value: '', disabled: false }],
+      })
+    );
+  }
+
+  addReferrals() {
+    this.referrals.push(
+      this.formBuilder.group({
+        firstName: [{ value: '', disabled: false }, [Validators.required]],
+        middleName: [{ value: '', disabled: false }, []],
+        lastName: [{ value: '', disabled: false }, []],
+        relationshipToInsured: [
+          { value: '', disabled: false },
+          [Validators.required],
+        ],
+        phone: [{ value: '', disabled: false }, []],
+        email: [{ value: '', disabled: false }, [Validators.email]],
+      })
+    );
+  }
+
+  getCustomerById(id: string) {
+    if (id !== TEXT.NEW) {
+      this.customerService.getCustomer(id).subscribe({
+        next: (customer) => {
+          this.selectCustomer = customer;
+        },
+        error: (error: any) => {
+          const errors = error?.error?.errors;
+          const errorList: string[] = [];
+
+          if (errors) {
+            Object.entries(errors).forEach(([key, value]: [string, any]) => {
+              if (value && value['msg']) {
+                errorList.push('° ' + value['msg'] + '<br>');
+              }
+            });
+          }
+
+          Swal.fire({
+            title: 'Failed to search for customer',
+            icon: 'error',
+            html: `${errorList.length ? errorList.join('') : error.error.msg}`,
+          });
+
+          this.router.navigateByUrl(
+            `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ALL_CUSTOMERS}`
+          );
+        },
+      });
+    }
+  }
+
+  getPolicyAndCustomer(policyId: string) {
+    this.policyService.getPolicy(policyId).subscribe({
+      next: (policy) => {
+        this.selectPolicy = policy;
+        if (this.selectPolicy) {
+          this.getCustomerById(this.selectPolicy.customer._id);
+          this.populateLifePolicyForm(policy);
+          this.populateBeneficiariesForm(policy);
+          this.populateContingentBeneficiariesForm(policy);
+          this.populateMedicalForm(policy);
+          this.populateAdditionalQuestionForm(policy);
+          this.populateBankInformationForm(policy);
+          this.populateReferralsForm(policy);
+          this.populateDocumentForm(policy);
+        }
+      },
+
+      error: (error: any) => {
+        this.handleError(error);
+      },
+    });
+  }
+
+  populateLifePolicyForm(policy: PolicyModel) {
+    const { carrier, policyType, monthly, faceAmount } = policy;
+    this.lifePolicyForm.patchValue({
+      carrier,
+      policyType,
+      monthly,
+      faceAmount,
+    });
+  }
+
+  populateBeneficiariesForm(policy: PolicyModel) {
+    const beneficiaries = policy?.beneficiaries;
+    if (beneficiaries) {
+      beneficiaries.forEach((beneficiary) => {
+        this.formBeneficiaries.push(this.createBeneficiaryGroup(beneficiary));
+      });
+    }
+  }
+
+  createBeneficiaryGroup(beneficiary: IBeneficiary) {
+    return this.formBuilder.group({
+      firstName: [beneficiary.firstName],
+      middleName: [beneficiary.middleName],
+      lastName: [beneficiary.lastName],
+      relationshipToInsured: [beneficiary.relationshipToInsured],
+      phone: [beneficiary.phone],
+      email: [beneficiary.email],
+      dateBirth: [beneficiary.dateBirth],
+      ss: [beneficiary.ss],
+      share: [beneficiary.share],
+    });
+  }
+
+  populateContingentBeneficiariesForm(policy: PolicyModel) {
+    const contingentBeneficiaries = policy?.contingentBeneficiary;
+    if (contingentBeneficiaries) {
+      contingentBeneficiaries.forEach((contingentBeneficiary) => {
+        this.contigentBeneficiaries.push(
+          this.createContingentBeneficiaryGroup(contingentBeneficiary)
+        );
+      });
+    }
+  }
+
+  createContingentBeneficiaryGroup(
+    contingentBeneficiary: IcontingentBeneficiary
+  ) {
+    return this.formBuilder.group({
+      firstName: [contingentBeneficiary.firstName],
+      middleName: [contingentBeneficiary.middleName],
+      lastName: [contingentBeneficiary.lastName],
+      relationshipToInsured: [contingentBeneficiary.relationshipToInsured],
+      phone: [contingentBeneficiary.phone],
+      email: [contingentBeneficiary.email],
+      dateBirth: [contingentBeneficiary.dateBirth],
+      ss: [contingentBeneficiary.ss],
+      share: [contingentBeneficiary.share],
+    });
+  }
+
+  populateMedicalForm(policy: PolicyModel) {
+    const medicalData = policy?.medical;
+    if (medicalData) {
+      this.medicalForm.patchValue({
+        doctorName: medicalData.doctorName,
+        doctorOfficeLocation: medicalData.doctorOfficeLocation,
+        officePhoneNumber: medicalData.officePhoneNumber,
+        lastVisit: medicalData.lastVisit,
+        reasonForVisit: medicalData.reasonForVisit,
+        outcomeOfVisit: medicalData.outcomeOfVisit,
+        smoker: medicalData.smoker,
+        medicalCondition: medicalData.medicalCondition,
+        whenItWasDiagnosed: medicalData.whenItWasDiagnosed,
+        medications: '',
+        dosage: medicalData.dosage,
+        additionalInformation: medicalData.additionalInformation,
+        isFatherAlive: medicalData.isFatherAlive,
+        fatherAge: medicalData.fatherAge,
+        deceasedFather: medicalData.deceasedFather,
+        isMotherAlive: medicalData.isMotherAlive,
+        motherAge: medicalData.motherAge,
+        deceasedMother: medicalData.deceasedMother,
+      });
+    }
+  }
+
+  populateAdditionalQuestionForm(policy: PolicyModel) {
+    const additionalQuestionsData = policy?.additionalQuestions;
+    if (additionalQuestionsData) {
+      this.additionalQuestionForm.patchValue({
+        criminalRecord: additionalQuestionsData.criminalRecord,
+        pleadedGuilty: additionalQuestionsData.pleadedGuilty,
+        anotherLife: additionalQuestionsData.anotherLife,
+        appliedForLife: additionalQuestionsData.appliedForLife,
+        participateSport: additionalQuestionsData.participateSport,
+        involved: additionalQuestionsData.involved,
+      });
+    }
+  }
+
+  populateBankInformationForm(policy: PolicyModel) {
+    const bankInformationData = policy?.bankInformation;
+    if (bankInformationData) {
+      this.bankInformationForm.patchValue({
+        draftPaymentDate: bankInformationData.draftPaymentDate,
+        bank: bankInformationData.bank,
+        accountNumber: bankInformationData.accountNumber,
+        routingNumber: bankInformationData.routingNumber,
+        notes: bankInformationData.notes,
+      });
+    }
+  }
+
+  populateReferralsForm(policy: PolicyModel) {
+    const referralsData = policy?.referrals;
+    if (referralsData) {
+      referralsData.forEach((referral) => {
+        this.referrals.push(
+          this.formBuilder.group({
+            firstName: [referral.firstName],
+            middleName: [referral.middleName],
+            lastName: [referral.lastName],
+            relationshipToInsured: [referral.relationshipToInsured],
+            phone: [referral.phone],
+            email: [referral.email],
+          })
+        );
+      });
+    }
+  }
+
+  populateDocumentForm(policy: PolicyModel) {
+    const documentData = policy?.document;
+    if (documentData) {
+      this.documentForm.patchValue({
+        idPhoto: '',
+        document1: '',
+        document2: '',
+        primaryAgentName: documentData.primaryAgentName,
+        percentage1: documentData.percentage1,
+        secondaryAgentName: documentData.secondaryAgentName,
+        percentage2: documentData.percentage2,
+        fieldTrainingAgent: documentData.fieldTrainingAgent,
+        mbBase: documentData.mbBase,
+      });
+    }
+  }
+
   submitForm() {
     this.isDocumentFormSubmitted = true;
 
-    if (
-      this.lifePolicyForm.valid &&
-      this.beneficiaryForm.valid &&
-      this.contigentBeneficiaryForm.valid &&
-      this.medicalForm.valid &&
-      this.additionalQuestionForm.valid &&
-      this.bankInformationForm.valid &&
-      this.referralsForm.valid &&
-      this.documentForm.valid
-    ) {
-      let data = Object.assign(
-        this.lifePolicyForm.value,
-        this.beneficiaryForm.value,
-        this.contigentBeneficiaryForm.value,
-        this.medicalForm.value,
-        this.additionalQuestionForm.value,
-        this.bankInformationForm.value,
-        this.referralsForm.value,
-        this.documentForm.value
-      );
+    if (this.isFormValid()) {
+      const policyData = this.getPolicyData();
 
-      const policyData: IPolicy = {
-        carrier: data.carrier,
-        policyType: data.policyType,
-        monthly: data.monthly,
-        faceAmount: data.faceAmount,
-        beneficiaries: data.beneficiaries,
-        contingentBeneficiary: data.contingentBeneficiary,
-        medical: {
-          doctorName: data.doctorName,
-          doctorOfficeLocation: data.doctorOfficeLocation,
-          officePhoneNumber: data.officePhoneNumber,
-          lastVisit: data.lastVisit,
-          reasonForVisit: data.reasonForVisit,
-          outcomeOfVisit: data.outcomeOfVisit,
-          smoker: data.smoker,
-          medicalCondition: data.medicalCondition,
-          whenItWasDiagnosed: data.whenItWasDiagnosed,
-          dosage: data.dosage,
-          additionalInformation: data.additionalInformation,
-          isFatherAlive: data.isFatherAlive,
-          fatherAge: data.fatherAge,
-          deceasedFather: data.deceasedFather,
-          isMotherAlive: data.isMotherAlive,
-          motherAge: data.motherAge,
-          deceasedMother: data.deceasedMother,
-        },
-        additionalQuestions: {
-          criminalRecord: data.criminalRecord,
-          pleadedGuilty: data.pleadedGuilty,
-          anotherLife: data.anotherLife,
-          appliedForLife: data.appliedForLife,
-          participateSport: data.participateSport,
-          involved: data.involved,
-        },
-        bankInformation: {
-          draftPaymentDate: data.draftPaymentDate,
-          bank: data.bank,
-          accountNumber: data.accountNumber,
-          routingNumber: data.routingNumber,
-          notes: data.notes,
-        },
-        referrals: data.referrals,
-        document: {
-          idPhoto: data.idPhoto,
-          document1: data.document1,
-          document2: data.document2,
-          primaryAgentName: data.primaryAgentName,
-          percentage1: data.percentage1,
-          secondaryAgentName: data.secondaryAgentName,
-          percentage2: data.percentage2,
-          fieldTrainingAgent: data.fieldTrainingAgent,
-          mdBase: data.mdBase,
-        },
-        customer: this.selectCustomer.uid,
-      };
-
-      this.policyService
-        .createPolicy(policyData)
+      this.createPolicy(policyData)
         .pipe(
           switchMap((resp: any) => {
-            return this.fileUploadService.uploadDocuments(
+            return this.uploadDocuments(
               resp.policy.uid,
               this.idPhotoFile,
               this.document1File,
@@ -387,87 +603,127 @@ export class AddPolicyComponent implements OnInit {
     }
   }
 
-  addBeneficiary() {
-    this.formBeneficiaries.push(
-      this.formBuilder.group({
-        firstName: ['', [Validators.required]],
-        middleName: ['', [Validators.minLength(3)]],
-        lastName: ['', [Validators.minLength(3), Validators.required]],
-        relationshipToInsured: [
-          '',
-          [Validators.minLength(3), Validators.required],
-        ],
-        phone: ['', [Validators.required]],
-        email: [
-          '',
-          [Validators.required, Validators.email, Validators.minLength(3)],
-        ],
-        dateBirth: [''],
-        ss: [''],
-        share: [''],
-      })
+  isFormValid(): boolean {
+    return (
+      this.lifePolicyForm.valid &&
+      this.beneficiaryForm.valid &&
+      this.contigentBeneficiaryForm.valid &&
+      this.medicalForm.valid &&
+      this.additionalQuestionForm.valid &&
+      this.bankInformationForm.valid &&
+      this.referralsForm.valid &&
+      this.documentForm.valid
     );
   }
 
-  addContigentBeneficiary() {
-    this.contigentBeneficiaries.push(
-      this.formBuilder.group({
-        firstName: ['', [Validators.required]],
-        middleName: ['', []],
-        lastName: ['', [, Validators.required]],
-        relationshipToInsured: ['', [, Validators.required]],
-        phone: ['', [Validators.required]],
-        email: ['', [Validators.email]],
-        dateBirth: [''],
-        ss: [''],
-        share: [''],
-      })
+  getPolicyData(): IPolicy {
+    const data = {
+      ...this.lifePolicyForm.value,
+      ...this.beneficiaryForm.value,
+      ...this.contigentBeneficiaryForm.value,
+      ...this.medicalForm.value,
+      ...this.additionalQuestionForm.value,
+      ...this.bankInformationForm.value,
+      ...this.referralsForm.value,
+      ...this.documentForm.value,
+    };
+
+    const policyData: IPolicy = {
+      carrier: data.carrier,
+      policyType: data.policyType,
+      monthly: data.monthly,
+      faceAmount: data.faceAmount,
+      beneficiaries: data.beneficiaries,
+      contingentBeneficiary: data.contigentBeneficiaries,
+      medical: {
+        doctorName: data.doctorName,
+        doctorOfficeLocation: data.doctorOfficeLocation,
+        officePhoneNumber: data.officePhoneNumber,
+        lastVisit: data.lastVisit,
+        reasonForVisit: data.reasonForVisit,
+        outcomeOfVisit: data.outcomeOfVisit,
+        smoker: data.smoker,
+        medicalCondition: data.medicalCondition,
+        whenItWasDiagnosed: data.whenItWasDiagnosed,
+        dosage: data.dosage,
+        additionalInformation: data.additionalInformation,
+        isFatherAlive: data.isFatherAlive,
+        fatherAge: data.fatherAge,
+        deceasedFather: data.deceasedFather,
+        isMotherAlive: data.isMotherAlive,
+        motherAge: data.motherAge,
+        deceasedMother: data.deceasedMother,
+      },
+      additionalQuestions: {
+        criminalRecord: data.criminalRecord,
+        pleadedGuilty: data.pleadedGuilty,
+        anotherLife: data.anotherLife,
+        appliedForLife: data.appliedForLife,
+        participateSport: data.participateSport,
+        involved: data.involved,
+      },
+      bankInformation: {
+        draftPaymentDate: data.draftPaymentDate,
+        bank: data.bank,
+        accountNumber: data.accountNumber,
+        routingNumber: data.routingNumber,
+        notes: data.notes,
+      },
+      referrals: data.referrals,
+      document: {
+        idPhoto: data.idPhoto,
+        document1: data.document1,
+        document2: data.document2,
+        primaryAgentName: data.primaryAgentName,
+        percentage1: data.percentage1,
+        secondaryAgentName: data.secondaryAgentName,
+        percentage2: data.percentage2,
+        fieldTrainingAgent: data.fieldTrainingAgent,
+        mbBase: data.mbBase,
+      },
+      customer: this.selectCustomer.uid,
+    };
+
+    return policyData;
+  }
+
+  createPolicy(policyData: IPolicy): Observable<any> {
+    return this.policyService.createPolicy(policyData);
+  }
+
+  uploadDocuments(
+    policyId: string,
+    idPhotoFile: File,
+    document1File: File,
+    document2File: File
+  ): Observable<any> {
+    return this.fileUploadService.uploadDocuments(
+      policyId,
+      idPhotoFile,
+      document1File,
+      document2File
     );
   }
 
-  addReferrals() {
-    this.referrals.push(
-      this.formBuilder.group({
-        firstName: ['', [Validators.required]],
-        middleName: ['', []],
-        lastName: ['', []],
-        relationshipToInsured: ['', [Validators.required]],
-        phone: ['', []],
-        email: ['', [Validators.email]],
-      })
-    );
-  }
+  handleError(error: any) {
+    const errors = error?.error?.errors;
+    const errorList: string[] = [];
 
-  getCustomerById(id: string) {
-    if (id !== TEXT.NEW) {
-      this.customerService.getCustomer(id).subscribe({
-        next: (customer) => {
-          this.selectCustomer = customer;
-        },
-        error: (error: any) => {
-          const errors = error?.error?.errors;
-          const errorList: string[] = [];
-
-          if (errors) {
-            Object.entries(errors).forEach(([key, value]: [string, any]) => {
-              if (value && value['msg']) {
-                errorList.push('° ' + value['msg'] + '<br>');
-              }
-            });
-          }
-
-          Swal.fire({
-            title: 'Error updating agent',
-            icon: 'error',
-            html: `${errorList.length ? errorList.join('') : error.error.msg}`,
-          });
-
-          this.router.navigateByUrl(
-            `${ROUTE_APP.AGENT}/${ROUTE_APP.ALL_AGENTS}`
-          );
-        },
+    if (errors) {
+      Object.entries(errors).forEach(([key, value]: [string, any]) => {
+        if (value && value['msg']) {
+          errorList.push('° ' + value['msg'] + '<br>');
+        }
       });
     }
+
+    Swal.fire({
+      title: 'Failed to search for customer',
+      icon: 'error',
+      html: `${errorList.length ? errorList.join('') : error.error.msg}`,
+    });
+
+    this.router.navigateByUrl(`${ROUTE_APP.POLICY}/${ROUTE_APP.ALL_POLICY}`);
   }
 
   editCustomer(customer: CustomerModel) {

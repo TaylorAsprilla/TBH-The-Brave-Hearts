@@ -13,6 +13,18 @@ export interface IBeneficiary {
   share?: string;
 }
 
+export interface IcontingentBeneficiary {
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+  relationshipToInsured: string;
+  phone: string;
+  email: string;
+  dateBirth?: Date;
+  ss?: string;
+  share?: string;
+}
+
 export interface IMedical {
   doctorName: string;
   doctorOfficeLocation?: string;
@@ -51,12 +63,17 @@ export interface IDocument {
   secondaryAgentName?: string;
   percentage2?: string;
   fieldTrainingAgent?: string;
-  mdBase?: string;
+  mbBase?: string;
+}
+
+export interface ILoadAllPolicies {
+  ok: boolean;
+  policy: PolicyModel[];
 }
 
 export interface ILoadAllPolicy {
   ok: boolean;
-  policy: PolicyModel[];
+  policy: PolicyModel;
 }
 
 export interface IPolicy {

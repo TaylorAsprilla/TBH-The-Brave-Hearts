@@ -4,6 +4,7 @@ import {
   IDocument,
   IMedical,
   IReferral,
+  IcontingentBeneficiary,
 } from '../interfaces/policy.interface';
 
 export class PolicyModel {
@@ -14,7 +15,7 @@ export class PolicyModel {
     public monthly: string,
     public faceAmount: string,
     public beneficiaries: IBeneficiary[],
-    public contingentBeneficiary: IBeneficiary[],
+    public contingentBeneficiary: IcontingentBeneficiary[],
     public medical: IMedical,
     public additionalQuestions: {
       criminalRecord: string;

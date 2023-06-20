@@ -13,6 +13,11 @@ const routes: Routes = [
     resolve: { states: StateResolver },
   },
   {
+    path: `${ROUTE_APP.ADD_POLICY}`,
+    component: AddPolicyComponent,
+    resolve: { states: StateResolver },
+  },
+  {
     path: `${ROUTE_APP.ALL_POLICY}`,
     component: AllPolicyComponent,
   },
