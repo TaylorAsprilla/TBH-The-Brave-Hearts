@@ -353,7 +353,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
         .pipe(
           switchMap((resp: any) => {
             customerCreate = resp.customer;
-            console.log('customerService', resp);
+
             return this.fileUploadService.uploadDocuments(
               resp.policy.uid,
               this.idPhotoFile,
@@ -364,7 +364,6 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
         )
         .subscribe({
           next: (resp: any) => {
-            console.log('File Upload', resp);
             Swal.fire({
               icon: 'success',
               title: 'Customer created',

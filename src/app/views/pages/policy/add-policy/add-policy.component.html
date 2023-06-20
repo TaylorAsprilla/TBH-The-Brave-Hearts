@@ -1881,7 +1881,13 @@
                   >
                     Back
                   </button>
-                  <button class="btn btn-primary" type="submit">Submit</button>
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    [disabled]="isDisabled"
+                  >
+                    Submit
+                  </button>
                 </div>
               </div>
             </form>

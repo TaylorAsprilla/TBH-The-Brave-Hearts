@@ -34,7 +34,7 @@
                 <th>Monthly</th>
                 <th>Face Amount</th>
                 <th>Customer</th>
-                <th>Action</th>
+                <th>View</th>
               </tr>
             </thead>
 
@@ -62,12 +62,12 @@
 
                 <td>
                   <button
-                    (click)="moreInfo(policy)"
+                    (click)="navigateWithQueryParams(policy.uid)"
                     type="button"
-                    class="btn btn-info"
-                    data-original-title="Info"
+                    class="btn btn-primary"
+                    data-original-title="See Policy"
                   >
-                    <i class="feather icon-info"></i>
+                    <i class="feather icon-eye"></i>
                   </button>
                 </td>
               </tr>
@@ -79,7 +79,7 @@
                 <th>Monthly</th>
                 <th>Face Amount</th>
                 <th>Customer</th>
-                <th>Action</th>
+                <th>View</th>
               </tr>
             </tfoot>
           </table>
