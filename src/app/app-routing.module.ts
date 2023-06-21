@@ -59,6 +59,13 @@ const routes: Routes = [
             (m) => m.GeneralModule
           ),
       },
+      {
+        path: 'searches',
+        loadChildren: () =>
+          import('./views/pages/searches/searches.routing').then(
+            (m) => m.SearchesRoutingModule
+          ),
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
     ],

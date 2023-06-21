@@ -108,4 +108,14 @@ export class NavbarComponent implements OnInit {
       `/${ROUTE_APP.AGENT}/${ROUTE_APP.ADD_AGENTS}/${this.agent.uid}`
     );
   }
+
+  search(value: string) {
+    if (value.length === 0) {
+      this.router.navigateByUrl('dashboard');
+    } else {
+      this.router.navigateByUrl(
+        `/${ROUTE_APP.SEARCHES}/${ROUTE_APP.SEARCH}/${value}`
+      );
+    }
+  }
 }

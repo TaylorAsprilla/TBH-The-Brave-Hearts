@@ -81,13 +81,6 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
 
     const url = `${ROUTE_APP.POLICY}/${ROUTE_APP.ADD_POLICY}`;
 
-    this.router
-      .navigate([url], { queryParams })
-      .then(() => {
-        console.log('Navegación exitosa', url);
-      })
-      .catch((error) => {
-        console.error('Error en la navegación:', error);
-      });
+    this.router.navigate([url], { queryParams });
   }
 }

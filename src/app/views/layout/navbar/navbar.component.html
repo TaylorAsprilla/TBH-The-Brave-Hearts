@@ -11,7 +11,7 @@
           TBH <span class="subtitle">THE BRAVE HEARTS</span>
         </a>
 
-        <form class="search-form">
+        <form class="search-form" (submit)="search(txtValue.value)">
           <div class="input-group">
             <div class="input-group-text">
               <i class="feather icon-search"></i>
@@ -21,6 +21,7 @@
               class="form-control"
               id="navbarForm"
               placeholder="Search here..."
+              #txtValue
             />
           </div>
         </form>

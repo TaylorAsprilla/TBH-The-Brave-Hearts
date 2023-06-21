@@ -14,4 +14,6 @@ export enum ROUTE_APP {
   ADD_POLICY = 'add-policy',
   ALL_POLICY = 'all-policy',
   POLICY = 'policy',
+  SEARCH = 'search',
+  SEARCHES = 'searches',
 }
