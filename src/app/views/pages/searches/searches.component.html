@@ -1,0 +1,144 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Search</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-4 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h3>Prospects</h3>
+
+        <div *ngIf="prospects.length === 0" class="alert alert-secondary mt-3">
+          <h4 class="alert-heading">
+            There are no prospects with the search value
+          </h4>
+        </div>
+
+        <div *ngIf="prospects.length > 0" class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>State</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                *ngFor="let prospect of prospects"
+                (click)="openProspect(prospect)"
+                class="pointer"
+              >
+                <td>{{ prospect.firstName }} {{ prospect.lastName }}</td>
+                <td>{{ prospect.state }}</td>
+                <td>{{ prospect.email }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>NAME</th>
+                <th>STATE</th>
+                <th>EMAIL</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h3>Customers</h3>
+
+        <div *ngIf="customers.length === 0" class="alert alert-secondary mt-3">
+          <h4 class="alert-heading">
+            There are no Customers with the search value
+          </h4>
+        </div>
+
+        <div *ngIf="customers.length > 0" class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>State</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                *ngFor="let customer of customers"
+                (click)="openCustomer(customer)"
+                class="pointer"
+              >
+                <td>{{ customer.firstName }} {{ customer.lastName }}</td>
+                <td>{{ customer.state }}</td>
+                <td>{{ customer.email }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>NAME</th>
+                <th>STATE</th>
+                <th>EMAIL</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h3>Policy</h3>
+
+        <div *ngIf="policies.length === 0" class="alert alert-secondary mt-3">
+          <h4 class="alert-heading">
+            There are no policies with the search value
+          </h4>
+        </div>
+
+        <div *ngIf="policies.length > 0" class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Carrier</th>
+                <th>Policy Type</th>
+                <th>Monthly</th>
+                <th>Face Amount</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                *ngFor="let policy of policies"
+                (click)="openPolicy(policy.uid)"
+                class="pointer"
+              >
+                <td>{{ policy.carrier }}</td>
+                <td>{{ policy.policyType }}</td>
+                <td>{{ policy.monthly }}</td>
+                <td>{{ policy.faceAmount }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Carrier</th>
+                <th>Policy Type</th>
+                <th>Monthly</th>
+                <th>Face Amount</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

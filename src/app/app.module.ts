@@ -15,6 +15,7 @@ import { AgentsModule } from './views/pages/agents/agents.module';
 import { CustomersModule } from './views/pages/customers/customers.module';
 import { ProspectsModule } from './views/pages/prospect/prospects.module';
 import { PolicyModule } from './views/pages/policy/policy.module';
+import { SearchesModule } from './views/pages/searches/searches.module';
 
 @NgModule({
   declarations: [AppComponent, ErrorPageComponent],
@@ -27,6 +28,7 @@ import { PolicyModule } from './views/pages/policy/policy.module';
     CustomersModule,
     ProspectsModule,
     PolicyModule,
+    SearchesModule,
   ],
   providers: [
     AuthGuard,
