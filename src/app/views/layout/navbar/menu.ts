@@ -104,11 +104,6 @@ export const MENU: MenuItem[] = [
       {
         subMenuItems: [
           {
-            label: 'Search',
-            isTitle: false,
-            link: '',
-          },
-          {
             label: 'Report',
             link: '',
           },
