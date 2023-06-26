@@ -5,6 +5,7 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 import { HasRoleGuard } from './core/guard/has-role.guard';
 import { ROL } from './views/layout/navbar/menu.model';
+import { ROUTE_APP } from './core/enum/router-app.enum';
 
 const routes: Routes = [
   {
@@ -40,13 +41,6 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'agent',
-        loadChildren: () =>
-          import('./views/pages/agents/agents.routing').then(
-            (m) => m.AgentsRoutingModule
-          ),
-      },
-      {
         path: 'policy',
 
         loadChildren: () =>
@@ -69,15 +63,15 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'administrator',
+        path: ROUTE_APP.ADMINISTRATOR,
         canLoad: [HasRoleGuard],
         canActivate: [HasRoleGuard],
         data: {
           allowedRoles: [ROL.ADMINISTRATOR],
         },
         loadChildren: () =>
-          import('./views/pages/searches/searches.routing').then(
-            (m) => m.SearchesRoutingModule
+          import('./views/pages/administrator/administrator.routing').then(
+            (m) => m.AdministratorRoutingModule
           ),
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
