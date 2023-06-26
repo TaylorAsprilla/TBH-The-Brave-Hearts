@@ -82,42 +82,8 @@
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-baseline mb-2">
           <h6 class="card-title mb-0">Agents</h6>
-          <div ngbDropdown class="mb-2">
-            <button
-              ngbDropdownToggle
-              class="btn p-0 no-dropdown-toggle-icon"
-              type="button"
-              id="dropdownMenuButton6"
-            >
-              <i
-                class="icon-lg text-muted pb-3px"
-                data-feather="more-horizontal"
-                appFeatherIcon
-              ></i>
-            </button>
-            <div ngbDropdownMenu aria-labelledby="dropdownMenuButton6">
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                (click)="linkAllAgents()"
-                ><i data-feather="eye" appFeatherIcon class="icon-sm me-2"></i>
-                <span class="">All Agents</span></a
-              >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                (click)="linkNewAgent()"
-                ><i
-                  data-feather="edit-2"
-                  appFeatherIcon
-                  class="icon-sm me-2"
-                ></i>
-                <span class="">New Agent</span></a
-              >
-            </div>
-          </div>
         </div>
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column mt-4">
           <div *ngFor="let agent of agents">
             <a
               href=""
@@ -184,6 +150,13 @@
               >
             </div>
           </div>
+        </div>
+        <div
+          *ngIf="prospects.length == 0"
+          class="alert alert-primary"
+          role="alert"
+        >
+          There are no prospects registered under your agent code
         </div>
         <div class="d-flex flex-column">
           <div class="table-responsive">
@@ -312,6 +285,13 @@
               >
             </div>
           </div>
+        </div>
+        <div
+          *ngIf="customers.length == 0"
+          class="alert alert-primary"
+          role="alert"
+        >
+          There are no customers registered under your agent code
         </div>
         <div class="table-responsive">
           <table class="table table-hover mb-0">
