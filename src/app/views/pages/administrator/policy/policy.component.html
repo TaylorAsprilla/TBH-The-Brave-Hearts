@@ -1,0 +1,98 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Policy</a></li>
+    <li class="breadcrumb-item active" aria-current="page">All Policy</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <app-spinner *ngIf="!!loading" [textData]="'Policy'"></app-spinner>
+
+        <h6 class="card-title">Policy</h6>
+        <span class="float-end badge bg-danger">{{ policies.length }}</span>
+
+        <div class="mb-3 mt-5">
+          <!-- Input de Searh -->
+          <input
+            type="search"
+            class="form-control"
+            placeholder="Search"
+            (input)="filterPolicity(busqueda.value)"
+            #busqueda
+          />
+        </div>
+
+        <div
+          *ngIf="policies.length == 0"
+          class="alert alert-primary"
+          role="alert"
+        >
+          There are no policies registered under your agent code
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Carrier</th>
+                <th>PolicyType</th>
+                <th>Monthly</th>
+                <th>Face Amount</th>
+                <th>Customer</th>
+                <th>View</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                *ngFor="
+                  let policy of filteredPolicies;
+                  trackBy: trackByPolicyId
+                "
+              >
+                <td>{{ policy.carrier }}</td>
+                <td>{{ policy.policyType }}</td>
+                <td>
+                  {{ policy.monthly | currency : "USD" : "symbol" : "1.0-2" }}
+                </td>
+                <td>
+                  {{
+                    policy.faceAmount | currency : "USD" : "symbol" : "1.0-2"
+                  }}
+                </td>
+                <td>
+                  {{ policy.customer.firstName }}
+                  {{ policy.customer.lastName }}
+                </td>
+
+                <td>
+                  <button
+                    (click)="navigateWithQueryParams(policy.uid)"
+                    type="button"
+                    class="btn btn-primary"
+                    data-original-title="See Policy"
+                  >
+                    <i class="feather icon-eye"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Carrier</th>
+                <th>PolicyType</th>
+                <th>Monthly</th>
+                <th>Face Amount</th>
+                <th>Customer</th>
+                <th>View</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

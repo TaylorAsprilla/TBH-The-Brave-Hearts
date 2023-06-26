@@ -1,4 +1,5 @@
 export enum ROUTE_APP {
+  ADMINISTRATOR = 'administrator',
   AUTH_LOGIN = '/auth/login',
   LOGIN = 'login',
   AGENT = 'agent',
