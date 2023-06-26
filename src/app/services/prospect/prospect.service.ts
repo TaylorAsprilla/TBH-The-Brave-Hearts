@@ -41,6 +41,20 @@ export class ProspectService {
       );
   }
 
+  getAllProspectsForAgents(idAgent: string) {
+    return this.httpClient
+      .get<ILoadAllProspectsInterface>(
+        `${base_url}/prospects/all/${idAgent}`,
+        this.headers
+      )
+      .pipe(
+        map(
+          (prospect: { ok: boolean; prospects: ProspectModel[] }) =>
+            prospect.prospects
+        )
+      );
+  }
+
   getProspect(id: string) {
     return this.httpClient
       .get<ILoadAllProspectInterface>(

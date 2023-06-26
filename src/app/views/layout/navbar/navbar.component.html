@@ -98,103 +98,110 @@
       <!--- Menu -->
       <ul class="nav page-navigation">
         <ng-container *ngFor="let item of menuItems">
-          <li
-            class="nav-item"
-            [routerLinkActive]="['active']"
-            *ngIf="!item.isMegaMenu"
-          >
-            <a
-              class="nav-link"
-              [routerLink]="item.link"
-              *ngIf="!hasItems(item)"
+          <ng-container *appShowForRoles="item.role">
+            <li
+              class="nav-item"
+              [routerLinkActive]="['active']"
+              *ngIf="!item.isMegaMenu"
             >
-              <i
-                class="link-icon"
-                [attr.data-feather]="item.icon"
-                appFeatherIcon
-                *ngIf="item.icon"
-              ></i>
-              <span class="menu-title">{{ item.label }}</span>
-            </a>
-            <a
-              href="javascript:void(0);"
-              class="nav-link"
-              *ngIf="hasItems(item)"
+              <a
+                class="nav-link"
+                [routerLink]="item.link"
+                *ngIf="!hasItems(item)"
+              >
+                <i
+                  class="link-icon"
+                  [attr.data-feather]="item.icon"
+                  appFeatherIcon
+                  *ngIf="item.icon"
+                ></i>
+                <span class="menu-title">{{ item.label }}</span>
+              </a>
+              <a
+                href="javascript:void(0);"
+                class="nav-link"
+                *ngIf="hasItems(item)"
+              >
+                <i
+                  class="link-icon"
+                  [attr.data-feather]="item.icon"
+                  appFeatherIcon
+                  *ngIf="item.icon"
+                ></i>
+                <span class="menu-title">{{ item.label }}</span>
+                <i class="link-arrow"></i>
+              </a>
+              <div class="submenu" *ngIf="hasItems(item)">
+                <ul class="submenu-item" *ngFor="let subMenu of item.subMenus">
+                  <ng-container
+                    *ngFor="let subMenuItem of subMenu.subMenuItems"
+                  >
+                    <li class="category-heading" *ngIf="subMenuItem.isTitle">
+                      {{ subMenuItem.label }}
+                    </li>
+
+                    <li class="nav-item" *ngIf="!subMenuItem.isTitle">
+                      <a
+                        class="nav-link"
+                        [routerLinkActive]="['active']"
+                        [routerLink]="subMenuItem.link"
+                        >{{ subMenuItem.label }}</a
+                      >
+                      <span
+                        class="badge bg-{{ subMenuItem.badge.variant }}"
+                        *ngIf="subMenuItem.badge"
+                        >{{ subMenuItem.badge.text }}</span
+                      >
+                    </li>
+                  </ng-container>
+                </ul>
+              </div>
+            </li>
+
+            <li
+              class="nav-item mega-menu"
+              [routerLinkActive]="['active']"
+              *ngIf="item.isMegaMenu"
             >
-              <i
-                class="link-icon"
-                [attr.data-feather]="item.icon"
-                appFeatherIcon
-                *ngIf="item.icon"
-              ></i>
-              <span class="menu-title">{{ item.label }}</span>
-              <i class="link-arrow"></i>
-            </a>
-            <div class="submenu" *ngIf="hasItems(item)">
-              <ul class="submenu-item" *ngFor="let subMenu of item.subMenus">
-                <ng-container *ngFor="let subMenuItem of subMenu.subMenuItems">
-                  <li class="category-heading" *ngIf="subMenuItem.isTitle">
-                    {{ subMenuItem.label }}
-                  </li>
-
-                  <li class="nav-item" *ngIf="!subMenuItem.isTitle">
-                    <a
-                      class="nav-link"
-                      [routerLinkActive]="['active']"
-                      [routerLink]="subMenuItem.link"
-                      >{{ subMenuItem.label }}</a
-                    >
-                    <span
-                      class="badge bg-{{ subMenuItem.badge.variant }}"
-                      *ngIf="subMenuItem.badge"
-                      >{{ subMenuItem.badge.text }}</span
-                    >
-                  </li>
-                </ng-container>
-              </ul>
-            </div>
-          </li>
-
-          <li
-            class="nav-item mega-menu"
-            [routerLinkActive]="['active']"
-            *ngIf="item.isMegaMenu"
-          >
-            <a href="javascript:void(0);" class="nav-link">
-              <i
-                class="link-icon"
-                [attr.data-feather]="item.icon"
-                appFeatherIcon
-                *ngIf="item.icon"
-              ></i>
-              <span class="menu-title">{{ item.label }}</span>
-              <i class="link-arrow"></i>
-            </a>
-            <div class="submenu">
-              <div class="row">
-                <div class="col-md-3" *ngFor="let subMenu of item.subMenus">
-                  <ul class="submenu-item">
-                    <ng-container
-                      *ngFor="let subMenuItem of subMenu.subMenuItems"
-                    >
-                      <li class="category-heading" *ngIf="subMenuItem.isTitle">
-                        {{ subMenuItem.label }}
-                      </li>
-
-                      <li class="nav-item" *ngIf="!subMenuItem.isTitle">
-                        <a
-                          class="nav-link"
-                          [routerLinkActive]="['active']"
-                          [routerLink]="subMenuItem.link"
-                          >{{ subMenuItem.label }}</a
+              <a href="javascript:void(0);" class="nav-link">
+                <i
+                  class="link-icon"
+                  [attr.data-feather]="item.icon"
+                  appFeatherIcon
+                  *ngIf="item.icon"
+                ></i>
+                <span class="menu-title">{{ item.label }}</span>
+                <i class="link-arrow"></i>
+              </a>
+              <div class="submenu">
+                <div class="row">
+                  <div class="col-md-3" *ngFor="let subMenu of item.subMenus">
+                    <ul class="submenu-item">
+                      <ng-container
+                        *ngFor="let subMenuItem of subMenu.subMenuItems"
+                      >
+                        <li
+                          class="category-heading"
+                          *ngIf="subMenuItem.isTitle"
                         >
-                      </li>
-                    </ng-container>
-                  </ul>
+                          {{ subMenuItem.label }}
+                        </li>
+
+                        <li class="nav-item" *ngIf="!subMenuItem.isTitle">
+                          <a
+                            class="nav-link"
+                            [routerLinkActive]="['active']"
+                            [routerLink]="subMenuItem.link"
+                            >{{ subMenuItem.label }}</a
+                          >
+                        </li>
+                      </ng-container>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-          </li>
+            </li>
+          </ng-container>
         </ng-container>
 
         <!-- <li class="nav-item">

@@ -42,6 +42,13 @@ export class CustomerService {
     );
   }
 
+  getAllCustomersForAgents(idAgent: string) {
+    return this.httpClient.get<ILoadAllCustomers>(
+      `${base_url}/customers/all/${idAgent}`,
+      this.headers
+    );
+  }
+
   getCustomer(id: string) {
     return this.httpClient
       .get<ILoadAllCustomer>(`${base_url}/customers/${id}`, this.headers)

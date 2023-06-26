@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { TEXT } from 'src/app/core/enum/text.enum';
+import { AgentModel } from 'src/app/core/models/agent.model';
 import { CustomerModel } from 'src/app/core/models/customer.model';
+import { AgentService } from 'src/app/services/agent/agent.service';
 import { CustomerService } from 'src/app/services/customer/customer.service';
 import Swal from 'sweetalert2';
 
@@ -17,12 +19,14 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
   customers: CustomerModel[] = [];
   loading: boolean = false;
   filteredCustomers: CustomerModel[] = [];
+  agent: AgentModel;
 
   orderField: string = 'firstName';
   orderType: 'asc' | 'desc' = 'asc';
 
   constructor(
     private customerService: CustomerService,
+    private agentService: AgentService,
     private router: Router
   ) {}
 
@@ -31,13 +35,14 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.agent = this.agentService.agent;
     this.loadCustomers();
   }
 
   loadCustomers() {
     this.loading = true;
     this.customerSubscription = this.customerService
-      .getAllCustomers()
+      .getAllCustomersForAgents(this.agent.uid)
       .subscribe((resp) => {
         this.customers = resp.customers.filter((customer) => {
           return customer.active === true;

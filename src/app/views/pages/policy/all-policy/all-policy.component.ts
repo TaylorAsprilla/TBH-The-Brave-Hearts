@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
-import { IPolicy } from 'src/app/core/interfaces/policy.interface';
+import { AgentModel } from 'src/app/core/models/agent.model';
 import { PolicyModel } from 'src/app/core/models/policy.model';
+import { AgentService } from 'src/app/services/agent/agent.service';
 import { PolicyService } from 'src/app/services/policy/policy.service';
 
 @Component({
@@ -14,25 +15,31 @@ import { PolicyService } from 'src/app/services/policy/policy.service';
 export class AllPolicyComponent implements OnInit, OnDestroy {
   policySubscription: Subscription;
   policies: PolicyModel[] = [];
+  agent: AgentModel;
 
   filteredPolicies: PolicyModel[] = [];
 
   loading: boolean = false;
 
-  constructor(private policyService: PolicyService, private router: Router) {}
+  constructor(
+    private policyService: PolicyService,
+    private agentService: AgentService,
+    private router: Router
+  ) {}
 
   ngOnDestroy(): void {
     this.policySubscription?.unsubscribe();
   }
 
   ngOnInit(): void {
+    this.agent = this.agentService.agent;
     this.loadPolicy();
   }
 
   loadPolicy() {
     this.loading = true;
     this.policySubscription = this.policyService
-      .getAllPolicy()
+      .getAllPolicyForAgents(this.agent.uid)
       .subscribe((resp) => {
         this.policies = resp.policy.filter((policy) => {
           return policy.active === true;
@@ -52,8 +59,6 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
       `${ROUTE_APP.POLICY}/${ROUTE_APP.ADD_POLICY}/${policy.uid}`
     );
   }
-
-  moreInfo(policy: PolicyModel) {}
 
   filterPolicity(value: string) {
     if (value) {

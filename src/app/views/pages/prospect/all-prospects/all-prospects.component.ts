@@ -1,3 +1,4 @@
+import { AgentService } from 'src/app/services/agent/agent.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -6,6 +7,7 @@ import { TEXT } from 'src/app/core/enum/text.enum';
 import { ProspectModel } from 'src/app/core/models/prospect.model';
 import { ProspectService } from 'src/app/services/prospect/prospect.service';
 import Swal from 'sweetalert2';
+import { AgentModel } from 'src/app/core/models/agent.model';
 
 @Component({
   selector: 'app-all-prospects',
@@ -15,6 +17,7 @@ import Swal from 'sweetalert2';
 export class AllProspectsComponent implements OnInit {
   prospectSubscription: Subscription;
   prospects: ProspectModel[] = [];
+  agent: AgentModel;
 
   loading: boolean = false;
 
@@ -32,10 +35,12 @@ export class AllProspectsComponent implements OnInit {
 
   constructor(
     private prospectService: ProspectService,
+    private agentService: AgentService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.agent = this.agentService.agent;
     this.loadProspects();
   }
 
@@ -46,7 +51,7 @@ export class AllProspectsComponent implements OnInit {
   loadProspects() {
     this.loading = true;
     this.prospectSubscription = this.prospectService
-      .getAllProspects()
+      .getAllProspectsForAgents(this.agent.uid)
       .subscribe((prospect) => {
         this.prospects = prospect.filter((prospet) => {
           return prospet.active === true;

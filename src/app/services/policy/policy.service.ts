@@ -42,6 +42,13 @@ export class PolicyService {
     );
   }
 
+  getAllPolicyForAgents(idAgent: string) {
+    return this.httpClient.get<ILoadAllPolicies>(
+      `${base_url}/policy/all/${idAgent}`,
+      this.headers
+    );
+  }
+
   getPolicy(id: string) {
     return this.httpClient
       .get<ILoadAllPolicy>(`${base_url}/policy/${id}`, this.headers)

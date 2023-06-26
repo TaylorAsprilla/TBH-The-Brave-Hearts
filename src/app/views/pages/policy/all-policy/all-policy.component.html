@@ -25,6 +25,14 @@
           />
         </div>
 
+        <div
+          *ngIf="policies.length == 0"
+          class="alert alert-primary"
+          role="alert"
+        >
+          There are no policies registered under your agent code
+        </div>
+
         <div class="table-responsive">
           <table class="table table-hover">
             <thead>
