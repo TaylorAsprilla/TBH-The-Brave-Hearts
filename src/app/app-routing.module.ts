@@ -56,7 +56,6 @@ const routes: Routes = [
       },
       {
         path: 'general',
-        canLoad: [HasRoleGuard],
         loadChildren: () =>
           import('./views/pages/general/general.module').then(
             (m) => m.GeneralModule
