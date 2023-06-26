@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   totalProspects: number;
   totalPolicy: number;
 
+  agent: AgentModel;
   nameAgents: string;
 
   filteredProspects: ProspectModel[] = [];
@@ -62,7 +63,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.nameAgents = `${this.agentService.agent.firstName} ${this.agentService.agent.lastName}`;
+    this.agent = this.agentService.agent;
+    this.nameAgents = `${this.agent.firstName} ${this.agent.lastName}`;
 
     this.loadCustomers();
     this.loadProspects();
@@ -73,7 +75,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   loadCustomers() {
     this.loading = true;
     this.customerSubscription = this.customerService
-      .getAllCustomers()
+      .getAllCustomersForAgents(this.agent.uid)
       .subscribe((resp) => {
         this.customers = resp.customers
           .filter((customer) => customer.active === true)
@@ -92,7 +94,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   loadProspects() {
     this.loading = true;
     this.prospectSubscription = this.prospectService
-      .getAllProspects()
+      .getAllProspectsForAgents(this.agent.uid)
       .subscribe((prospect) => {
         this.prospects = prospect
           .filter((prospect) => prospect.active === true)
@@ -128,7 +130,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   loadPolicy() {
     this.loading = true;
     this.policySubcription = this.policyService
-      .getAllPolicy()
+      .getAllPolicyForAgents(this.agent.uid)
       .subscribe((resp) => {
         this.policy = resp.policy
           .filter((policy) => policy.active === true)

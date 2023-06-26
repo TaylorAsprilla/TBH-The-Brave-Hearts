@@ -1,4 +1,3 @@
-
 export interface MenuItem {
   id?: number;
   label?: string;
@@ -6,10 +5,11 @@ export interface MenuItem {
   link?: string;
   subMenus?: SubMenus[];
   isMegaMenu?: boolean;
+  role: ROL[];
 }
 
 export interface SubMenus {
-  subMenuItems?: SubMenuItems[]
+  subMenuItems?: SubMenuItems[];
 }
 
 export interface SubMenuItems {
@@ -21,5 +21,10 @@ export interface SubMenuItems {
 
 export interface Badge {
   variant?: string;
-  text?: string
+  text?: string;
+}
+
+export enum ROL {
+  ADMINISTRATOR = 'ADMIN_ROLE',
+  USER = 'USER_ROLE',
 }

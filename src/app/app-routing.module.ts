@@ -1,9 +1,10 @@
-import { PolicyRoutingModule } from './views/pages/policy/policy.routing';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BaseComponent } from './views/layout/base/base.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
+import { HasRoleGuard } from './core/guard/has-role.guard';
+import { ROL } from './views/layout/navbar/menu.model';
 
 const routes: Routes = [
   {
@@ -47,6 +48,7 @@ const routes: Routes = [
       },
       {
         path: 'policy',
+
         loadChildren: () =>
           import('./views/pages/policy/policy.routing').then(
             (m) => m.PolicyRoutingModule
@@ -61,6 +63,18 @@ const routes: Routes = [
       },
       {
         path: 'searches',
+        loadChildren: () =>
+          import('./views/pages/searches/searches.routing').then(
+            (m) => m.SearchesRoutingModule
+          ),
+      },
+      {
+        path: 'administrator',
+        canLoad: [HasRoleGuard],
+        canActivate: [HasRoleGuard],
+        data: {
+          allowedRoles: [ROL.ADMINISTRATOR],
+        },
         loadChildren: () =>
           import('./views/pages/searches/searches.routing').then(
             (m) => m.SearchesRoutingModule
