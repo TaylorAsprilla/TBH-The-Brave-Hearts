@@ -39,7 +39,7 @@ export class PolicyComponent implements OnInit {
   loadPolicy() {
     this.loading = true;
     this.policySubscription = this.policyService
-      .getAllPolicyForAgents(this.agent.uid)
+      .getAllPolicy()
       .subscribe((resp) => {
         this.policies = resp.policy.filter((policy) => {
           return policy.active === true;

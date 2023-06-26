@@ -51,7 +51,7 @@ export class ProspectsComponent implements OnInit, OnDestroy {
   loadProspects() {
     this.loading = true;
     this.prospectSubscription = this.prospectService
-      .getAllProspectsForAgents(this.agent.uid)
+      .getAllProspects()
       .subscribe((prospect) => {
         this.prospects = prospect.filter((prospet) => {
           return prospet.active === true;
