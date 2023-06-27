@@ -35,3 +35,10 @@ export interface ChangePadswordInterface {
   oldPassword: string;
   newPassword: string;
 }
+
+export interface IAgentPolicy {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+}

@@ -6,6 +6,7 @@ import { AgentModel } from 'src/app/core/models/agent.model';
 import { PolicyModel } from 'src/app/core/models/policy.model';
 import { AgentService } from 'src/app/services/agent/agent.service';
 import { PolicyService } from 'src/app/services/policy/policy.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-all-policy',
@@ -20,6 +21,10 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
   filteredPolicies: PolicyModel[] = [];
 
   loading: boolean = false;
+
+  photoIdUrl: string = environment.photoId;
+  documentOneUrl: string = environment.documentOne;
+  documentTwoUrl: string = environment.documentTwo;
 
   constructor(
     private policyService: PolicyService,

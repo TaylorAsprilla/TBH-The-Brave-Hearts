@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { AgentModel } from 'src/app/core/models/agent.model';
 import { PolicyModel } from 'src/app/core/models/policy.model';
 import { AgentService } from 'src/app/services/agent/agent.service';
 import { PolicyService } from 'src/app/services/policy/policy.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-policy',
@@ -21,18 +22,17 @@ export class PolicyComponent implements OnInit {
 
   loading: boolean = false;
 
-  constructor(
-    private policyService: PolicyService,
-    private agentService: AgentService,
-    private router: Router
-  ) {}
+  photoIdUrl: string = environment.photoId;
+  documentOneUrl: string = environment.documentOne;
+  documentTwoUrl: string = environment.documentTwo;
+
+  constructor(private policyService: PolicyService, private router: Router) {}
 
   ngOnDestroy(): void {
     this.policySubscription?.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.agent = this.agentService.agent;
     this.loadPolicy();
   }
 

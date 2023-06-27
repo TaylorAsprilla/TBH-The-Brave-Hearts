@@ -42,6 +42,8 @@
                 <th>Monthly</th>
                 <th>Face Amount</th>
                 <th>Customer</th>
+                <th>Document</th>
+                <th>Agent</th>
                 <th>View</th>
               </tr>
             </thead>
@@ -69,6 +71,35 @@
                 </td>
 
                 <td>
+                  <p>
+                    <a
+                      [href]="photoIdUrl + policy?.document?.idPhoto"
+                      target="_blank"
+                      >Photo Id</a
+                    >
+                  </p>
+                  <p>
+                    <a
+                      [href]="documentOneUrl + policy?.document?.document1"
+                      target="_blank"
+                      >Document One</a
+                    >
+                  </p>
+                  <p>
+                    <a
+                      [href]="documentTwoUrl + policy?.document?.document2"
+                      target="_blank"
+                      >Document Two</a
+                    >
+                  </p>
+                </td>
+
+                <td>
+                  {{ policy?.agent?.firstName }}
+                  {{ policy?.agent?.lastName }}
+                </td>
+
+                <td>
                   <button
                     (click)="navigateWithQueryParams(policy.uid)"
                     type="button"
@@ -87,6 +118,8 @@
                 <th>Monthly</th>
                 <th>Face Amount</th>
                 <th>Customer</th>
+                <th>Document</th>
+                <th>Agent</th>
                 <th>View</th>
               </tr>
             </tfoot>
