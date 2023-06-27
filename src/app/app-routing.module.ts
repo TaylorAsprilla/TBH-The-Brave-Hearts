@@ -69,6 +69,7 @@ const routes: Routes = [
         data: {
           allowedRoles: [ROL.ADMINISTRATOR],
         },
+
         loadChildren: () =>
           import('./views/pages/administrator/administrator.routing').then(
             (m) => m.AdministratorRoutingModule

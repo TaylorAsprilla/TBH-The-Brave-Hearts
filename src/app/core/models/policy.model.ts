@@ -1,3 +1,4 @@
+import { IAgentPolicy } from '../interfaces/agent.interface';
 import { ICustomerPolicy } from '../interfaces/customer.interface';
 import {
   IBeneficiary,
@@ -37,6 +38,6 @@ export class PolicyModel {
     public customer: ICustomerPolicy,
     public active?: boolean,
     public createdAt?: Date,
-    public agent?: string
+    public agent?: IAgentPolicy
   ) {}
 }

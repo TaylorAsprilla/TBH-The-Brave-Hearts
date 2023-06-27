@@ -26,17 +26,15 @@ export class CustomersComponent implements OnInit, OnDestroy {
 
   constructor(
     private customerService: CustomerService,
-    private agentService: AgentService,
     private router: Router
   ) {}
 
-  ngOnDestroy(): void {
-    this.customerSubscription?.unsubscribe();
+  ngOnInit(): void {
+    this.loadCustomers();
   }
 
-  ngOnInit(): void {
-    this.agent = this.agentService.agent;
-    this.loadCustomers();
+  ngOnDestroy(): void {
+    this.customerSubscription?.unsubscribe();
   }
 
   loadCustomers() {

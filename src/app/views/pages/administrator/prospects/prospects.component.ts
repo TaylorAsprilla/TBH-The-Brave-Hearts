@@ -5,7 +5,6 @@ import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { TEXT } from 'src/app/core/enum/text.enum';
 import { AgentModel } from 'src/app/core/models/agent.model';
 import { ProspectModel } from 'src/app/core/models/prospect.model';
-import { AgentService } from 'src/app/services/agent/agent.service';
 import { ProspectService } from 'src/app/services/prospect/prospect.service';
 import Swal from 'sweetalert2';
 
@@ -35,12 +34,10 @@ export class ProspectsComponent implements OnInit, OnDestroy {
 
   constructor(
     private prospectService: ProspectService,
-    private agentService: AgentService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.agent = this.agentService.agent;
     this.loadProspects();
   }
 

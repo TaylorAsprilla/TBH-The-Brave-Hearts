@@ -8,28 +8,33 @@ import { ProspectsComponent } from './prospects/prospects.component';
 import { TEXT } from 'src/app/core/enum/text.enum';
 import { AddAgentsComponent } from './agents/add-agents/add-agents.component';
 import { StateResolver } from 'src/app/core/resolvers/state/state.resolver';
+import { AgentResolver } from 'src/app/core/resolvers/agent/agent.resolver';
 
 const routes: Routes = [
   {
     path: `${ROUTE_APP.ALL_CUSTOMERS}`,
     component: CustomersComponent,
+    resolve: { agent: AgentResolver },
   },
   {
     path: `${ROUTE_APP.ALL_POLICY}`,
     component: PolicyComponent,
+    resolve: { agent: AgentResolver },
   },
   {
     path: `${ROUTE_APP.ALL_PROSPECTS}`,
     component: ProspectsComponent,
+    resolve: { agent: AgentResolver },
   },
   {
     path: `${ROUTE_APP.ADD_AGENTS}/:${TEXT.ID}`,
     component: AddAgentsComponent,
-    resolve: { states: StateResolver },
+    resolve: { states: StateResolver, agent: AgentResolver },
   },
   {
     path: `${ROUTE_APP.ALL_AGENTS}`,
     component: AllAgentsComponent,
+    resolve: { agent: AgentResolver },
   },
 ];
 
