@@ -167,7 +167,7 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
 
   newAgent() {
     this.router.navigateByUrl(
-      `${ROUTE_APP.AGENT}/${ROUTE_APP.ADD_AGENTS}/${TEXT.NEW}`
+      `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ADD_AGENTS}/${TEXT.NEW}`
     );
   }
 

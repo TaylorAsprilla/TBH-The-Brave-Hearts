@@ -14,6 +14,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 
 import { DashboardComponent } from './dashboard.component';
 import { SpinnerModule } from '../../components/spinner/spinner.module';
+import { ShowForRolesModule } from 'src/app/core/directive/showForRoles/show-for-roles.module';
 
 const routes: Routes = [
   {
@@ -33,6 +34,7 @@ const routes: Routes = [
     NgbDatepickerModule,
     NgApexchartsModule,
     SpinnerModule,
+    ShowForRolesModule,
   ],
 })
 export class DashboardModule {}

@@ -29,6 +29,7 @@
             <div class="d-flex justify-content-between align-items-baseline">
               <h6 class="card-title mb-0">Agents</h6>
             </div>
+
             <div class="row">
               <div class="col-6 col-md-12 col-xl-5">
                 <h3 class="mb-2">{{ totalAgents }}</h3>
@@ -82,7 +83,15 @@
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-baseline mb-2">
           <h6 class="card-title mb-0">Agents</h6>
+          <button
+            class="btn btn-primary crop mb-2 mb-md-0 feather icon-user-plus"
+            (click)="newAgent()"
+            *appShowForRoles="[ROL.ADMINISTRATOR]"
+          >
+            Add Agents
+          </button>
         </div>
+
         <div class="d-flex flex-column mt-4">
           <div *ngFor="let agent of agents">
             <a

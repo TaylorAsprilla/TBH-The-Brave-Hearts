@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { Router } from '@angular/router';
 import { TEXT } from 'src/app/core/enum/text.enum';
+import { ROL } from '../../layout/navbar/menu.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -47,6 +48,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   prospectSubscription: Subscription;
   agentSubscription: Subscription;
   policySubcription: Subscription;
+
+  get ROL() {
+    return ROL;
+  }
 
   constructor(
     private customerService: CustomerService,
@@ -501,6 +506,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   linkNewCustomers() {
     this.router.navigateByUrl(
       `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ADD_CUSTOMERS}/${TEXT.NEW}`
+    );
+  }
+
+  newAgent() {
+    this.router.navigateByUrl(
+      `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ADD_AGENTS}/${TEXT.NEW}`
     );
   }
 }
