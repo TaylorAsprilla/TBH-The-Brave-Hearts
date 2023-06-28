@@ -5,9 +5,11 @@ import { AuthComponent } from './auth.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthRoutingModule } from './auth.routing';
+import { RecoverAccountComponent } from './recover-account/recover-account.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
 
 @NgModule({
-  declarations: [LoginComponent, AuthComponent],
+  declarations: [LoginComponent, AuthComponent, RecoverAccountComponent, NewPasswordComponent],
   imports: [
     CommonModule,
     FormsModule,

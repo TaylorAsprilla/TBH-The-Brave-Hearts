@@ -3,6 +3,9 @@
     <div class="card">
       <div class="row">
         <div class="col-md-4 pe-md-0">
+          <div class="d-block d-sm-none mt-4 text-center">
+            <img src="assets/images/logo-mobile.png" width="50%" />
+          </div>
           <div
             class="auth-side-wrapper"
             [ngStyle]="{
@@ -114,7 +117,11 @@
                 <label class="form-check-label" for="authCheck">
                   Remember me
                 </label>
+                <a [routerLink]="ROUTE_APP.RECOVER_ACCOUNT">
+                  <span class="float-end pointer"> Forgot Password</span></a
+                >
               </div>
+
               <div>
                 <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0">
                   Login

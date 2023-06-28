@@ -5,6 +5,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { AgentService } from 'src/app/services/agent/agent.service';
 import Swal from 'sweetalert2';
 
@@ -20,6 +21,10 @@ export class LoginComponent implements OnInit {
   showPassword: boolean = false;
 
   returnUrl: any;
+
+  get ROUTE_APP() {
+    return ROUTE_APP;
+  }
 
   constructor(
     private router: Router,
