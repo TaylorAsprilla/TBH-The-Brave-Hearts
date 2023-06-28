@@ -1,0 +1,59 @@
+<div class="row w-100 mx-0 auth-page">
+  <div class="col-md-8 col-xl-6 mx-auto">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-4 pe-md-0">
+          <div class="d-block d-sm-none mt-4 text-center">
+            <img src="assets/images/logo-mobile.png" width="50%" />
+          </div>
+          <div
+            class="auth-side-wrapper"
+            [ngStyle]="{
+              'background-image': 'url(assets/images/logo.png)'
+            }"
+          ></div>
+        </div>
+        <div class="col-md-8 ps-md-0">
+          <div class="auth-form-wrapper px-4 py-5">
+            <a routerLink="." class="nobleui-logo d-block mb-2"
+              >PHP<span> Agency</span></a
+            >
+            <a routerLink="." class="nobleui-logo d-block mb-2"
+              >TBH<span> THE BRAVE HEARTS</span></a
+            >
+            <h5 class="mb-4 fw-bold">Recover Account.</h5>
+            <form
+              class="forms-sample"
+              id="accountForm"
+              autocomplete="off"
+              [formGroup]="accountForm"
+              (ngSubmit)="recoverAccount()"
+            >
+              <div class="mb-3">
+                <label for="user" class="form-label">Agent Code</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="agentCode"
+                  id="user"
+                  placeholder="Agent Code"
+                />
+              </div>
+
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  [routerLink]="ROUTE_APP.AUTH_LOGIN"
+                >
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

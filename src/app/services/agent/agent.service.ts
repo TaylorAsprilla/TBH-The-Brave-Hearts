@@ -167,11 +167,28 @@ export class AgentService {
     );
   }
 
+  forgotPassword(agentCode: string) {
+    return this.httpClient.put(`${base_url}/login/forgotpassword`, agentCode);
+  }
+
   changePassword(changePassword: ChangePadswordInterface) {
     return this.httpClient.put(
       `${base_url}/login/changepassword`,
       changePassword,
       this.headers
+    );
+  }
+
+  createNewPassword(newPassword: string, token: string) {
+    console.log('newPassword', newPassword);
+    return this.httpClient.put(
+      `${base_url}/login/createPassword`,
+      { newPassword: newPassword },
+      {
+        headers: {
+          'x-reset': token,
+        },
+      }
     );
   }
 }
