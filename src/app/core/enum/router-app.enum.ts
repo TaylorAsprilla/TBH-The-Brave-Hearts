@@ -19,4 +19,5 @@ export enum ROUTE_APP {
   SEARCH = 'search',
   SEARCHES = 'searches',
   RECOVER_ACCOUNT = '../recover-account',
+  REPORTS = 'reports',
 }

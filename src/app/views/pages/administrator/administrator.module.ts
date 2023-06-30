@@ -12,6 +12,7 @@ import { AddAgentsComponent } from './agents/add-agents/add-agents.component';
 import { AllAgentsComponent } from './agents/all-agents/all-agents.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
+import { ReportsComponent } from './reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     CustomersComponent,
     PolicyComponent,
     ProspectsComponent,
+    ReportsComponent,
   ],
   imports: [
     CommonModule,
