@@ -105,7 +105,7 @@ export const MENU: MenuItem[] = [
         subMenuItems: [
           {
             label: 'Report',
-            link: '',
+            link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.REPORTS}`,
           },
         ],
       },

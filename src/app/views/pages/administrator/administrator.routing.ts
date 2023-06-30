@@ -9,20 +9,21 @@ import { TEXT } from 'src/app/core/enum/text.enum';
 import { AddAgentsComponent } from './agents/add-agents/add-agents.component';
 import { StateResolver } from 'src/app/core/resolvers/state/state.resolver';
 import { AgentResolver } from 'src/app/core/resolvers/agent/agent.resolver';
+import { ReportsComponent } from './reports/reports.component';
 
 const routes: Routes = [
   {
-    path: `${ROUTE_APP.ALL_CUSTOMERS}`,
+    path: ROUTE_APP.ALL_CUSTOMERS,
     component: CustomersComponent,
     resolve: { agent: AgentResolver },
   },
   {
-    path: `${ROUTE_APP.ALL_POLICY}`,
+    path: ROUTE_APP.ALL_POLICY,
     component: PolicyComponent,
     resolve: { agent: AgentResolver },
   },
   {
-    path: `${ROUTE_APP.ALL_PROSPECTS}`,
+    path: ROUTE_APP.ALL_PROSPECTS,
     component: ProspectsComponent,
     resolve: { agent: AgentResolver },
   },
@@ -32,9 +33,13 @@ const routes: Routes = [
     resolve: { states: StateResolver, agent: AgentResolver },
   },
   {
-    path: `${ROUTE_APP.ALL_AGENTS}`,
+    path: ROUTE_APP.ALL_AGENTS,
     component: AllAgentsComponent,
     resolve: { agent: AgentResolver },
+  },
+  {
+    path: ROUTE_APP.REPORTS,
+    component: ReportsComponent,
   },
 ];
 
