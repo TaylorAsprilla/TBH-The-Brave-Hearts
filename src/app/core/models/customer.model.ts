@@ -12,6 +12,14 @@ export interface ILoadAllCustomer {
   customer: CustomerModel;
 }
 
+interface ICustomerAgent {
+  _id: string;
+  agentCode: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
 export class CustomerModel {
   constructor(
     public uid: string,
@@ -32,7 +40,7 @@ export class CustomerModel {
     public height: string,
     public employerName: string,
     public annualIncome: string,
-    public agent: string,
+    public agent: ICustomerAgent,
     public middleName?: string,
     public addressLine2?: string,
     public city?: string,
