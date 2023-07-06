@@ -257,7 +257,11 @@ export class ProspectsComponent implements OnInit, OnDestroy {
             prospect.state?.toLowerCase().includes(value.toLowerCase()) ||
             prospect.email.toLowerCase().includes(value.toLowerCase()) ||
             prospect.phone.toLowerCase().includes(value.toLowerCase()) ||
-            prospect.status.toLowerCase().includes(value.toLowerCase())
+            prospect.status.toLowerCase().includes(value.toLowerCase()) ||
+            prospect.agent.firstName
+              .toLowerCase()
+              .includes(value.toLowerCase()) ||
+            prospect.agent.lastName.toLowerCase().includes(value.toLowerCase())
           );
         }
       );
@@ -267,6 +271,7 @@ export class ProspectsComponent implements OnInit, OnDestroy {
   }
 
   sortCustomersBy(field: string) {
+    console.log(field);
     if (field === this.orderField) {
       this.orderType = this.orderType === 'asc' ? 'desc' : 'asc';
     } else {

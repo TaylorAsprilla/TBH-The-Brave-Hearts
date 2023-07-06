@@ -129,6 +129,8 @@
                     }"
                   ></i>
                 </th>
+
+                <th>Agent</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -159,6 +161,10 @@
                     <option value="NOT_INTERESTED">Not Interested</option>
                     <option value="CUSTOMER">Customer</option>
                   </select>
+                </td>
+
+                <td>
+                  {{ prospect.agent.firstName }} {{ prospect.agent.lastName }}
                 </td>
 
                 <td>
@@ -209,6 +215,7 @@
                 <th>DATE BIRTH</th>
                 <th>PHONE</th>
                 <th>STATUS</th>
+                <th>AGENT</th>
                 <th>ACTION</th>
               </tr>
             </tfoot>

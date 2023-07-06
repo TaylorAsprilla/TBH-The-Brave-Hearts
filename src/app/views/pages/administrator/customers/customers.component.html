@@ -116,6 +116,7 @@
                     }"
                   ></i>
                 </th>
+                <th>Agent</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -133,6 +134,9 @@
                 <td>{{ customer.email }}</td>
                 <td>{{ customer.dateBirth | date : "mediumDate" }}</td>
                 <td>{{ customer.phone }}</td>
+                <td>
+                  {{ customer.agent.firstName }} {{ customer.agent.lastName }}
+                </td>
 
                 <td>
                   <button
@@ -173,6 +177,7 @@
                 <th>EMAIL</th>
                 <th>DATE BIRTH</th>
                 <th>PHONE</th>
+                <th>AGENT</th>
                 <th>ACTION</th>
               </tr>
             </tfoot>

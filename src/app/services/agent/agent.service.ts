@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, map, of, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 
 import {
@@ -130,6 +130,11 @@ export class AgentService {
               )
           );
           return { ...resp, agents };
+        }),
+        catchError((error: any) => {
+          console.log('An error occurred');
+          console.warn(error);
+          return throwError('Custom error');
         })
       );
   }
@@ -180,7 +185,6 @@ export class AgentService {
   }
 
   createNewPassword(newPassword: string, token: string) {
-    console.log('newPassword', newPassword);
     return this.httpClient.put(
       `${base_url}/login/createPassword`,
       { newPassword: newPassword },
