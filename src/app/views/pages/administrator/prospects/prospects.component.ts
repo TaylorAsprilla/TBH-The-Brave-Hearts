@@ -271,7 +271,6 @@ export class ProspectsComponent implements OnInit, OnDestroy {
   }
 
   sortCustomersBy(field: string) {
-    console.log(field);
     if (field === this.orderField) {
       this.orderType = this.orderType === 'asc' ? 'desc' : 'asc';
     } else {
