@@ -7,9 +7,7 @@ import {
   Router,
   RouterStateSnapshot,
   UrlSegment,
-  UrlTree,
 } from '@angular/router';
-import { Observable, map } from 'rxjs';
 import { AgentService } from 'src/app/services/agent/agent.service';
 import { AgentModel } from '../models/agent.model';
 import { ROUTE_APP } from '../enum/router-app.enum';
