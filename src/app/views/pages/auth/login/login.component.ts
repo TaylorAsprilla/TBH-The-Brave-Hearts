@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   isLoginFormSubmitted: Boolean;
   showPassword: boolean = false;
 
-  returnUrl: any;
+  returnUrl: string;
 
   get ROUTE_APP() {
     return ROUTE_APP;

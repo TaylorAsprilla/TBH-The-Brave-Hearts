@@ -264,7 +264,9 @@ export class AddProspectsComponent implements OnInit {
   }
 
   cancelEdit() {
-    this.router.navigateByUrl(`${ROUTE_APP.AGENT}/${ROUTE_APP.ALL_AGENTS}`);
+    this.router.navigateByUrl(
+      `${ROUTE_APP.PROSPECT}/${ROUTE_APP.ALL_PROSPECTS}`
+    );
   }
 
   resetForm() {
