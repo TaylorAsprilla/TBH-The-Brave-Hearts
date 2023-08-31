@@ -1,3 +1,4 @@
+import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import { AgentService } from 'src/app/services/agent/agent.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -8,6 +9,10 @@ import { ProspectModel } from 'src/app/core/models/prospect.model';
 import { ProspectService } from 'src/app/services/prospect/prospect.service';
 import Swal from 'sweetalert2';
 import { AgentModel } from 'src/app/core/models/agent.model';
+import {
+  statusColors,
+  statusOptions,
+} from 'src/environments/configuration/data-utils';
 
 @Component({
   selector: 'app-all-prospects',
@@ -21,22 +26,18 @@ export class AllProspectsComponent implements OnInit {
 
   loading: boolean = false;
 
-  statusColors: { [key: string]: string } = {
-    NEW: 'blue',
-    PROGRESS: 'orange',
-    NOT_INTERESTED: 'red',
-    CUSTOMER: 'green',
-  };
+  statusOptions: any = statusOptions;
+  statusColors = statusColors;
 
   filteredProspects: ProspectModel[] = [];
-
   orderField: string = 'firstName';
   orderType: 'asc' | 'desc' = 'asc';
 
   constructor(
     private prospectService: ProspectService,
     private agentService: AgentService,
-    private router: Router
+    private router: Router,
+    private exporterService: ExporterService
   ) {}
 
   ngOnInit(): void {
@@ -256,9 +257,9 @@ export class AllProspectsComponent implements OnInit {
         (prospect: ProspectModel) => {
           return (
             prospect.firstName.toLowerCase().includes(value.toLowerCase()) ||
-            prospect.lastName.toLowerCase().includes(value.toLowerCase()) ||
+            prospect.lastName?.toLowerCase().includes(value.toLowerCase()) ||
             prospect.state?.toLowerCase().includes(value.toLowerCase()) ||
-            prospect.email.toLowerCase().includes(value.toLowerCase()) ||
+            prospect.email?.toLowerCase().includes(value.toLowerCase()) ||
             prospect.phone.toLowerCase().includes(value.toLowerCase()) ||
             prospect.status.toLowerCase().includes(value.toLowerCase())
           );
@@ -286,5 +287,16 @@ export class AllProspectsComponent implements OnInit {
         return 0;
       }
     });
+  }
+
+  exportAsXLSX(): void {
+    this.exporterService.exportToExcel(this.prospects, 'Data_prospects');
+  }
+
+  exportAsXLSXFiltered(): void {
+    this.exporterService.exportToExcel(
+      this.filteredProspects,
+      'Data_prospects_filtered'
+    );
   }
 }

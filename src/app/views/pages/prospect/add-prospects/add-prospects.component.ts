@@ -46,14 +46,11 @@ export class AddProspectsComponent implements OnInit {
     this.prospectForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       middleName: ['', [Validators.minLength(3)]],
-      lastName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.minLength(3)]],
       documentType: [''],
-      email: [
-        '',
-        [Validators.required, Validators.email, Validators.minLength(3)],
-      ],
+      email: ['', [Validators.email, Validators.minLength(3)]],
       dateBirth: [''],
-      phone: ['', [Validators.minLength(7)]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       state: [''],
       partner: [''],
       occupation: [''],

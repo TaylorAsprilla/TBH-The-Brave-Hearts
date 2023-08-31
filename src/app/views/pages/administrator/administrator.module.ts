@@ -13,6 +13,7 @@ import { AllAgentsComponent } from './agents/all-agents/all-agents.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
 import { ReportsComponent } from './reports/reports.component';
+import { ExporterService } from 'src/app/services/exporter/exporter.service';
 
 @NgModule({
   declarations: [
@@ -35,5 +36,6 @@ import { ReportsComponent } from './reports/reports.component';
     HttpClientModule,
   ],
   exports: [CustomersComponent, PolicyComponent, ProspectsComponent],
+  providers: [ExporterService],
 })
 export class AdministratorModule {}

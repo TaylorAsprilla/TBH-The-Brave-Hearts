@@ -7,6 +7,7 @@ import { AgentModel } from 'src/app/core/models/agent.model';
 import { CustomerModel } from 'src/app/core/models/customer.model';
 import { AgentService } from 'src/app/services/agent/agent.service';
 import { CustomerService } from 'src/app/services/customer/customer.service';
+import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -27,7 +28,8 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
   constructor(
     private customerService: CustomerService,
     private agentService: AgentService,
-    private router: Router
+    private router: Router,
+    private exporterService: ExporterService
   ) {}
 
   ngOnDestroy(): void {
@@ -243,5 +245,16 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
         return 0;
       }
     });
+  }
+
+  exportAsXLSX(): void {
+    this.exporterService.exportToExcel(this.customers, 'Data_customers');
+  }
+
+  exportAsXLSXFiltered(): void {
+    this.exporterService.exportToExcel(
+      this.filteredCustomers,
+      'Data_customers_filtered'
+    );
   }
 }
