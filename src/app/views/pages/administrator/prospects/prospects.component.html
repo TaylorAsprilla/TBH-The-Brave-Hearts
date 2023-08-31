@@ -156,10 +156,12 @@
                     (change)="changeStatus(prospect)"
                     [ngClass]="statusColors[prospect.status]"
                   >
-                    <option value="NEW">New</option>
-                    <option value="PROGRESS">Progress</option>
-                    <option value="NOT_INTERESTED">Not Interested</option>
-                    <option value="CUSTOMER">Customer</option>
+                    <option
+                      *ngFor="let status of statusOptions"
+                      [value]="status.value"
+                    >
+                      {{ status.name }}
+                    </option>
                   </select>
                 </td>
 

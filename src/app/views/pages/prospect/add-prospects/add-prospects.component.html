@@ -66,25 +66,12 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label required">Last Name </label>
+                <label class="form-label">Last Name </label>
                 <input
                   type="text"
                   class="form-control"
                   formControlName="lastName"
-                  [ngClass]="{
-                    'is-invalid':
-                      isprospectFormSubmitted && formProspect.lastName.errors
-                  }"
                 />
-                <div
-                  *ngIf="
-                    isprospectFormSubmitted &&
-                    formProspect.lastName.errors?.required
-                  "
-                  class="invalid-feedback"
-                >
-                  Required
-                </div>
 
                 <div
                   class="form-text text-danger"
@@ -100,7 +87,9 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label for="carrier" class="form-label">Document Type</label>
+                <label for="carrier" class="form-label"
+                  >Document Type (SS/ITIN)</label
+                >
                 <select class="form-select" formControlName="documentType">
                   <option selected disabled>Select the Document Type</option>
                   <option value="SS">SS</option>
@@ -111,26 +100,13 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label required">Email</label>
+                <label class="form-label">Email</label>
                 <input
                   type="email"
                   class="form-control"
                   placeholder="Enter email"
                   formControlName="email"
-                  [ngClass]="{
-                    'is-invalid':
-                      isprospectFormSubmitted && formProspect.email.errors
-                  }"
                 />
-                <div
-                  *ngIf="
-                    isprospectFormSubmitted &&
-                    formProspect.email.errors?.required
-                  "
-                  class="invalid-feedback"
-                >
-                  Required
-                </div>
 
                 <div
                   *ngIf="
@@ -158,24 +134,26 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Phone</label>
+                <label class="form-label required">Phone</label>
                 <input
                   type="text"
                   class="form-control"
                   placeholder="(000) 000 00 00"
-                  prefix="+7 "
-                  mask="(000) 000 00 00"
                   formControlName="phone"
+                  [ngClass]="{
+                    'is-invalid':
+                      isprospectFormSubmitted && formProspect.phone.errors
+                  }"
                 />
 
                 <div
-                  class="form-text text-danger"
                   *ngIf="
-                    formProspect.phone?.hasError('minlength') &&
-                    formProspect.phone?.touched
+                    isprospectFormSubmitted &&
+                    formProspect.phone.errors?.pattern
                   "
+                  class="invalid-feedback"
                 >
-                  The phone does not have the minimum length allowed.
+                  Please enter a valid US phone number format: (123) 456-7890
                 </div>
               </div>
             </div>
@@ -229,7 +207,7 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label required">Children</label>
+                <label class="form-label">Children</label>
                 <div class="form-check">
                   <input
                     class="form-check-input"

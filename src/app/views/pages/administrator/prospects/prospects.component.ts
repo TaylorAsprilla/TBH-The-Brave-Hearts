@@ -6,6 +6,10 @@ import { TEXT } from 'src/app/core/enum/text.enum';
 import { AgentModel } from 'src/app/core/models/agent.model';
 import { ProspectModel } from 'src/app/core/models/prospect.model';
 import { ProspectService } from 'src/app/services/prospect/prospect.service';
+import {
+  statusColors,
+  statusOptions,
+} from 'src/environments/configuration/data-utils';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,12 +24,8 @@ export class ProspectsComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
 
-  statusColors: { [key: string]: string } = {
-    NEW: 'blue',
-    PROGRESS: 'orange',
-    NOT_INTERESTED: 'red',
-    CUSTOMER: 'green',
-  };
+  statusOptions: any = statusOptions;
+  statusColors = statusColors;
 
   filteredProspects: ProspectModel[] = [];
 
@@ -253,9 +253,9 @@ export class ProspectsComponent implements OnInit, OnDestroy {
         (prospect: ProspectModel) => {
           return (
             prospect.firstName.toLowerCase().includes(value.toLowerCase()) ||
-            prospect.lastName.toLowerCase().includes(value.toLowerCase()) ||
+            prospect.lastName?.toLowerCase().includes(value?.toLowerCase()) ||
             prospect.state?.toLowerCase().includes(value.toLowerCase()) ||
-            prospect.email.toLowerCase().includes(value.toLowerCase()) ||
+            prospect.email?.toLowerCase().includes(value?.toLowerCase()) ||
             prospect.phone.toLowerCase().includes(value.toLowerCase()) ||
             prospect.status.toLowerCase().includes(value.toLowerCase()) ||
             prospect.agent.firstName

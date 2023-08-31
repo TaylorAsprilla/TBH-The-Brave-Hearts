@@ -2,11 +2,11 @@ import { ProspectModel } from '../models/prospect.model';
 
 export interface ProspectFormInterface {
   firstName: string;
-  lastName: string;
+  lastName?: string;
   documentType?: string;
-  email: string;
+  email?: string;
   dateBirth?: Date;
-  phone?: string;
+  phone: string;
   agent: string;
   middleName?: string;
   state?: string;
