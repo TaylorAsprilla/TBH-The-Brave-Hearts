@@ -5,8 +5,8 @@ import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { TEXT } from 'src/app/core/enum/text.enum';
 import { AgentModel } from 'src/app/core/models/agent.model';
 import { CustomerModel } from 'src/app/core/models/customer.model';
-import { AgentService } from 'src/app/services/agent/agent.service';
 import { CustomerService } from 'src/app/services/customer/customer.service';
+import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -26,6 +26,7 @@ export class CustomersComponent implements OnInit, OnDestroy {
 
   constructor(
     private customerService: CustomerService,
+    private exporterService: ExporterService,
     private router: Router
   ) {}
 
@@ -241,5 +242,16 @@ export class CustomersComponent implements OnInit, OnDestroy {
         return 0;
       }
     });
+  }
+
+  exportAsXLSX(): void {
+    this.exporterService.exportToExcel(this.customers, 'Data_customers_admin');
+  }
+
+  exportAsXLSXFiltered(): void {
+    this.exporterService.exportToExcel(
+      this.filteredCustomers,
+      'Data_customers_filtered_admin'
+    );
   }
 }

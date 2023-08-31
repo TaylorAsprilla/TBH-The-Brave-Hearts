@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { TEXT } from 'src/app/core/enum/text.enum';
+import { ExporterService } from 'src/app/services/exporter/exporter.service';
 
 @Component({
   selector: 'app-all-agents',
@@ -25,7 +26,11 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
     return ROUTE_APP;
   }
 
-  constructor(private agentService: AgentService, private router: Router) {}
+  constructor(
+    private agentService: AgentService,
+    private exporterService: ExporterService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadAgents();
@@ -211,5 +216,16 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
         return 0;
       }
     });
+  }
+
+  exportAsXLSX(): void {
+    this.exporterService.exportToExcel(this.agents, 'Data_agents_admin');
+  }
+
+  exportAsXLSXFiltered(): void {
+    this.exporterService.exportToExcel(
+      this.filteredAgents,
+      'Data_agents_filtered_admin'
+    );
   }
 }

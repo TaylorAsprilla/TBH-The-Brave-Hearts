@@ -5,6 +5,7 @@ import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { AgentModel } from 'src/app/core/models/agent.model';
 import { PolicyModel } from 'src/app/core/models/policy.model';
 import { AgentService } from 'src/app/services/agent/agent.service';
+import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import { PolicyService } from 'src/app/services/policy/policy.service';
 import { environment } from 'src/environments/environment';
 
@@ -29,6 +30,7 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
   constructor(
     private policyService: PolicyService,
     private agentService: AgentService,
+    private exporterService: ExporterService,
     private router: Router
   ) {}
 
@@ -92,5 +94,16 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
     const url = `${ROUTE_APP.POLICY}/${ROUTE_APP.ADD_POLICY}`;
 
     this.router.navigate([url], { queryParams });
+  }
+
+  exportAsXLSX(): void {
+    this.exporterService.exportToExcel(this.policies, 'Data_policies');
+  }
+
+  exportAsXLSXFiltered(): void {
+    this.exporterService.exportToExcel(
+      this.filteredPolicies,
+      'Data_policies_filtered'
+    );
   }
 }

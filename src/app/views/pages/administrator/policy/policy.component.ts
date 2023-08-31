@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { AgentModel } from 'src/app/core/models/agent.model';
 import { PolicyModel } from 'src/app/core/models/policy.model';
-import { AgentService } from 'src/app/services/agent/agent.service';
+import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import { PolicyService } from 'src/app/services/policy/policy.service';
 import { environment } from 'src/environments/environment';
 
@@ -26,7 +26,11 @@ export class PolicyComponent implements OnInit {
   documentOneUrl: string = environment.documentOne;
   documentTwoUrl: string = environment.documentTwo;
 
-  constructor(private policyService: PolicyService, private router: Router) {}
+  constructor(
+    private policyService: PolicyService,
+    private exporterService: ExporterService,
+    private router: Router
+  ) {}
 
   ngOnDestroy(): void {
     this.policySubscription?.unsubscribe();
@@ -87,5 +91,16 @@ export class PolicyComponent implements OnInit {
     const url = `${ROUTE_APP.POLICY}/${ROUTE_APP.ADD_POLICY}`;
 
     this.router.navigate([url], { queryParams });
+  }
+
+  exportAsXLSX(): void {
+    this.exporterService.exportToExcel(this.policies, 'Data_policies_admin');
+  }
+
+  exportAsXLSXFiltered(): void {
+    this.exporterService.exportToExcel(
+      this.filteredPolicies,
+      'Data_policies_filtered_admin'
+    );
   }
 }

@@ -8,6 +8,7 @@ import { ProspectsRoutingModule } from './prospects.routing';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SpinnerModule } from '../../components/spinner/spinner.module';
+import { ExporterService } from 'src/app/services/exporter/exporter.service';
 
 @NgModule({
   declarations: [AddProspectsComponent, AllProspectsComponent],
@@ -21,7 +22,7 @@ import { SpinnerModule } from '../../components/spinner/spinner.module';
     ProspectsRoutingModule,
     SpinnerModule,
   ],
-
+  providers: [ExporterService],
   exports: [AddProspectsComponent, AllProspectsComponent],
 })
 export class ProspectsModule {}

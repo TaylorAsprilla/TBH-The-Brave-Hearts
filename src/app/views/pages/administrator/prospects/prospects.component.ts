@@ -5,6 +5,7 @@ import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { TEXT } from 'src/app/core/enum/text.enum';
 import { AgentModel } from 'src/app/core/models/agent.model';
 import { ProspectModel } from 'src/app/core/models/prospect.model';
+import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import { ProspectService } from 'src/app/services/prospect/prospect.service';
 import {
   statusColors,
@@ -34,6 +35,7 @@ export class ProspectsComponent implements OnInit, OnDestroy {
 
   constructor(
     private prospectService: ProspectService,
+    private exporterService: ExporterService,
     private router: Router
   ) {}
 
@@ -287,5 +289,16 @@ export class ProspectsComponent implements OnInit, OnDestroy {
         return 0;
       }
     });
+  }
+
+  exportAsXLSX(): void {
+    this.exporterService.exportToExcel(this.prospects, 'Data_prospects_admin');
+  }
+
+  exportAsXLSXFiltered(): void {
+    this.exporterService.exportToExcel(
+      this.filteredProspects,
+      'Data_prospects_filtered_admin'
+    );
   }
 }

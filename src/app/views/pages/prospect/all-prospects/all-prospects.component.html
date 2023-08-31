@@ -12,7 +12,19 @@
         <app-spinner *ngIf="!!loading" [textData]="'Prospects'"></app-spinner>
 
         <h6 class="card-title">Prospects</h6>
+
         <span class="float-end badge bg-danger">{{ prospects.length }}</span>
+
+        <button
+          class="btn btn-info float-end mx-2"
+          (click)="exportAsXLSXFiltered()"
+        >
+          <i class="feather icon-download"></i> Filtered
+        </button>
+
+        <button class="btn btn-light float-end" (click)="exportAsXLSX()">
+          <i class="feather icon-download"></i> Export
+        </button>
 
         <div class="mb-3">
           <button

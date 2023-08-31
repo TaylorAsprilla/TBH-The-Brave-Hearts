@@ -11,6 +11,7 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { SpinnerModule } from '../../components/spinner/spinner.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { EditCustomersComponent } from './edit-customers/edit-customers.component';
+import { ExporterService } from 'src/app/services/exporter/exporter.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { EditCustomersComponent } from './edit-customers/edit-customers.componen
     SpinnerModule,
     NgSelectModule,
   ],
-
   exports: [AllCustomersComponent, AddCustomersComponent],
+  providers: [ExporterService],
 })
 export class CustomersModule {}

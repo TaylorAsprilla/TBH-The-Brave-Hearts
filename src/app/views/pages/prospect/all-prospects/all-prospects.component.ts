@@ -1,3 +1,4 @@
+import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import { AgentService } from 'src/app/services/agent/agent.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -35,7 +36,8 @@ export class AllProspectsComponent implements OnInit {
   constructor(
     private prospectService: ProspectService,
     private agentService: AgentService,
-    private router: Router
+    private router: Router,
+    private exporterService: ExporterService
   ) {}
 
   ngOnInit(): void {
@@ -285,5 +287,16 @@ export class AllProspectsComponent implements OnInit {
         return 0;
       }
     });
+  }
+
+  exportAsXLSX(): void {
+    this.exporterService.exportToExcel(this.prospects, 'Data_prospects');
+  }
+
+  exportAsXLSXFiltered(): void {
+    this.exporterService.exportToExcel(
+      this.filteredProspects,
+      'Data_prospects_filtered'
+    );
   }
 }
