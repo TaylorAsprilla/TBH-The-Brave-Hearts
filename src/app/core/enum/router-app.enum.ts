@@ -6,6 +6,7 @@ export enum ROUTE_APP {
   AGENT = 'agent',
   PROSPECT = 'prospect',
   CUSTOMER = 'customer',
+  GENERAL = 'general',
   ADD_CUSTOMERS = 'add-customers',
   ALL_CUSTOMERS = 'all-customers',
   ADD_AGENTS = 'add-agents',
