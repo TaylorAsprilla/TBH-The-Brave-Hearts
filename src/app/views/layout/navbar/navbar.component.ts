@@ -105,7 +105,7 @@ export class NavbarComponent implements OnInit {
 
   editProfile() {
     this.router.navigateByUrl(
-      `/${ROUTE_APP.AGENT}/${ROUTE_APP.ADD_AGENTS}/${this.agent.uid}`
+      `${ROUTE_APP.GENERAL}/${ROUTE_APP.ADD_AGENTS}/${this.agent.uid}`
     );
   }
 

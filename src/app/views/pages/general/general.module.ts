@@ -15,6 +15,11 @@ import { FaqComponent } from './faq/faq.component';
 import { ProfileComponent } from './profile/profile.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ModalImageModule } from '../../components/modal-image/modal-image.module';
+import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
+import { TEXT } from 'src/app/core/enum/text.enum';
+import { AddAgentsComponent } from '../administrator/agents/add-agents/add-agents.component';
+import { StateResolver } from 'src/app/core/resolvers/state/state.resolver';
+import { AgentResolver } from 'src/app/core/resolvers/agent/agent.resolver';
 
 const routes: Routes = [
   {
@@ -35,6 +40,11 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+      },
+      {
+        path: `${ROUTE_APP.ADD_AGENTS}/:${TEXT.ID}`,
+        component: AddAgentsComponent,
+        resolve: { states: StateResolver, agent: AgentResolver },
       },
     ],
   },
