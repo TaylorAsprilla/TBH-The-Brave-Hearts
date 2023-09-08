@@ -10,6 +10,66 @@
           [formGroup]="prospectForm"
         >
           <div class="row">
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label required">Phone</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="(000) 000 00 00"
+                  formControlName="phone"
+                  [ngClass]="{
+                    'is-invalid':
+                      isprospectFormSubmitted && formProspect.phone.errors
+                  }"
+                />
+
+                <div
+                  *ngIf="
+                    isprospectFormSubmitted &&
+                    formProspect.phone.errors?.pattern
+                  "
+                  class="invalid-feedback"
+                >
+                  Please enter a valid US phone number format: (123) 456-7890
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Enter email"
+                  formControlName="email"
+                  [ngClass]="{
+                    'is-invalid':
+                      isprospectFormSubmitted && formProspect.email.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    isprospectFormSubmitted &&
+                    formProspect.email.errors?.required
+                  "
+                  class="invalid-feedback"
+                >
+                  Required
+                </div>
+                <div
+                  *ngIf="
+                    formProspect.email.hasError('email') &&
+                    formProspect.email.touched
+                  "
+                  class="invalid-feedback"
+                >
+                  The value entered does not correspond to an email.
+                </div>
+              </div>
+            </div>
+
             <div class="col-sm-4">
               <div class="mb-3">
                 <label class="form-label required">First Name</label>
@@ -46,26 +106,6 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Middle Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="middleName"
-                />
-                <div
-                  class="form-text text-danger"
-                  *ngIf="
-                    formProspect.middleName?.hasError('minlength') &&
-                    formProspect.middleName?.touched
-                  "
-                >
-                  The Middle Name does not have the minimum length allowed.
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="mb-3">
                 <label class="form-label">Last Name </label>
                 <input
                   type="text"
@@ -87,116 +127,6 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label for="carrier" class="form-label"
-                  >Document Type (SS/ITIN)</label
-                >
-                <select class="form-select" formControlName="documentType">
-                  <option selected disabled>Select the Document Type</option>
-                  <option value="SS">SS</option>
-                  <option value="ITIN">ITIN</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="mb-3">
-                <label class="form-label required">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  placeholder="Enter email"
-                  formControlName="email"
-                  [ngClass]="{
-                    'is-invalid':
-                      isprospectFormSubmitted && formProspect.email.errors
-                  }"
-                />
-                <div
-                  *ngIf="
-                    isprospectFormSubmitted &&
-                    formProspect.email.errors?.required
-                  "
-                  class="invalid-feedback"
-                >
-                  Required
-                </div>
-                <div
-                  *ngIf="
-                    formProspect.email.hasError('email') &&
-                    formProspect.email.touched
-                  "
-                  class="invalid-feedback"
-                >
-                  The value entered does not correspond to an email.
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="mb-3">
-                <label class="form-label">Date of Birth</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  placeholder="Date of Birth"
-                  formControlName="dateBirth"
-                />
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="mb-3">
-                <label class="form-label required">Phone</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="(000) 000 00 00"
-                  formControlName="phone"
-                  [ngClass]="{
-                    'is-invalid':
-                      isprospectFormSubmitted && formProspect.phone.errors
-                  }"
-                />
-
-                <div
-                  *ngIf="
-                    isprospectFormSubmitted &&
-                    formProspect.phone.errors?.pattern
-                  "
-                  class="invalid-feedback"
-                >
-                  Please enter a valid US phone number format: (123) 456-7890
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="mb-3">
-                <label class="form-label">State</label>
-                <ng-select
-                  [items]="states"
-                  bindLabel="state"
-                  bindValue="state"
-                  placeholder="type to search"
-                  formControlName="state"
-                >
-                </ng-select>
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="mb-3">
-                <label class="form-label">Partner</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="partner"
-                />
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="mb-3">
                 <label class="form-label">Occupation</label>
                 <input
                   type="text"
@@ -208,65 +138,50 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Household Income</label>
+                <label class="form-label">Couple's Name</label>
                 <input
                   type="text"
                   class="form-control"
-                  formControlName="householdIncome"
+                  formControlName="couplesName"
                 />
               </div>
             </div>
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Children</label>
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    id="children1"
-                    formControlName="children"
-                    value="Yes"
-                  />
-                  <label class="form-check-label" for="children1"> Yes </label>
-                </div>
-                <div class="form-check">
-                  <input
-                    type="radio"
-                    class="form-check-input"
-                    id="children2"
-                    formControlName="children"
-                    value="No"
-                    checked
-                  />
-                  <label class="form-check-label" for="children2"> No </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="mb-3">
-                <label class="form-label">Children Age</label>
+                <label class="form-label">Couple's Last Name</label>
                 <input
                   type="text"
                   class="form-control"
-                  formControlName="childrenAge"
+                  formControlName="couplesLastName"
                 />
               </div>
             </div>
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Children Occupation</label>
+                <label class="form-label">Couple's Occupation</label>
                 <input
                   type="text"
                   class="form-control"
-                  formControlName="childrenOccupation"
+                  formControlName="couplesOccupation"
                 />
               </div>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-3">
+              <div class="mb-3">
+                <label class="form-label">Children </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="children"
+                  placeholder="(Age, Occupation, Sex)"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-3">
               <div class="mb-3">
                 <label class="form-label">Retirement Plans</label>
                 <input
@@ -277,7 +192,7 @@
               </div>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-3">
               <div class="mb-3">
                 <label class="form-label">Life Insurance</label>
                 <input
@@ -288,35 +203,58 @@
               </div>
             </div>
 
-            <div class="col-sm-4">
-              <div class="mb-3">
-                <label class="form-label">Discretionary Income</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="discretionaryIncome"
-                />
-              </div>
-            </div>
-
-            <div class="col-sm-4">
+            <div class="col-sm-3">
               <div class="mb-3">
                 <label class="form-label">Properties</label>
                 <input
                   type="text"
                   class="form-control"
                   formControlName="properties"
+                  placeholder="Houses/properties (How many)"
                 />
               </div>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-3">
               <div class="mb-3">
-                <label class="form-label">Other Income</label>
+                <label class="form-label">Income 1</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="income1"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <div class="mb-3">
+                <label class="form-label">Income 2</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="income2"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <div class="mb-3">
+                <label class="form-label">Income 3</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="income3"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <div class="mb-3">
+                <label class="form-label">Surplus Income</label>
                 <input
                   type="text"
                   class="form-control"
-                  formControlName="otherIncome"
+                  formControlName="surplusIncome"
                 />
               </div>
             </div>

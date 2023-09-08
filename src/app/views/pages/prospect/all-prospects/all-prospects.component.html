@@ -69,30 +69,7 @@
                     }"
                   ></i>
                 </th>
-                <th (click)="sortCustomersBy('documentType')">
-                  Document Type
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'documentType' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'documentType' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th (click)="sortCustomersBy('state')">
-                  State
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'state' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'state' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
+
                 <th (click)="sortCustomersBy('email')">
                   Email
                   <i
@@ -105,18 +82,6 @@
                     }"
                   ></i>
                 </th>
-                <th (click)="sortCustomersBy('dateBirth')">
-                  Date Birth
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'dateBirth' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'dateBirth' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
                 <th (click)="sortCustomersBy('phone')">
                   Phone
                   <i
@@ -126,6 +91,18 @@
                         orderField === 'phone' && orderType === 'asc',
                       'icon-arrow-down':
                         orderField === 'phone' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortCustomersBy('occupation')">
+                  Occupation
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'occupation' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'occupation' && orderType === 'desc'
                     }"
                   ></i>
                 </th>
@@ -153,11 +130,9 @@
                 "
               >
                 <td>{{ prospect.firstName }} {{ prospect.lastName }}</td>
-                <td>{{ prospect.documentType }}</td>
-                <td>{{ prospect.state }}</td>
                 <td>{{ prospect.email }}</td>
-                <td>{{ prospect.dateBirth | date : "mediumDate" }}</td>
                 <td>{{ prospect.phone }}</td>
+                <td>{{ prospect.occupation }}</td>
 
                 <td>
                   <select
@@ -179,8 +154,9 @@
                   <button
                     (click)="editProspect(prospect)"
                     type="button"
-                    class="btn btn-primary"
+                    class="btn btn-primary mx-1"
                     data-original-title="Edit"
+                    title="Edit"
                   >
                     <i class="feather icon-edit"></i>
                   </button>
@@ -188,8 +164,9 @@
                   <button
                     (click)="moreInfo(prospect)"
                     type="button"
-                    class="btn btn-info"
+                    class="btn btn-info mx-1"
                     data-original-title="Info"
+                    title="Info"
                   >
                     <i class="feather icon-info"></i>
                   </button>
@@ -197,8 +174,9 @@
                   <button
                     (click)="newCustomer(prospect)"
                     type="button"
-                    class="btn btn-success"
+                    class="btn btn-success mx-1"
                     data-original-title="Customer"
+                    title="New Customer"
                   >
                     <i class="feather icon-plus-square"></i>
                   </button>
@@ -208,6 +186,7 @@
                     type="button"
                     class="btn btn-danger"
                     data-original-title="Delete"
+                    title="Delete"
                   >
                     <i class="feather icon-x-square"></i>
                   </button>
@@ -217,11 +196,9 @@
             <tfoot>
               <tr>
                 <th>NAME</th>
-                <th>DOCUMENT TYPE</th>
-                <th>STATE</th>
                 <th>EMAIL</th>
-                <th>DATE BIRTH</th>
                 <th>PHONE</th>
+                <th>OCCUPATION</th>
                 <th>STATUS</th>
                 <th>ACTION</th>
               </tr>

@@ -158,11 +158,6 @@ export class AllProspectsComponent implements OnInit {
   }
 
   moreInfo(prospect: ProspectModel) {
-    const dateOfBirth = prospect.dateBirth;
-    const formattedDateOfBirth = new Date(dateOfBirth).toLocaleDateString(
-      'en-US'
-    );
-
     Swal.fire({
       title: 'Info Prospect',
       showCloseButton: true,
@@ -172,7 +167,7 @@ export class AllProspectsComponent implements OnInit {
                 <tbody>
                 <tr>
                     <th>Name:</th>
-                    <td>${prospect.firstName} ${prospect.middleName} ${prospect.lastName}</td>
+                    <td>${prospect.firstName} ${prospect.lastName}</td>
                   </tr>
                     <tr>
                   <th>Email:</th>
@@ -181,43 +176,26 @@ export class AllProspectsComponent implements OnInit {
                 <tr>
                     <th>Phone:</th>
                     <td>${prospect.phone}</td>
-                  </tr>
-                  <tr>
-                    <th>State:</th>
-                    <td>${prospect.state}</td>
-                  </tr>
-
-                  <tr>
-                    <th>Document Type:</th>
-                    <td>${prospect.documentType}</td>
-                  </tr>
-                <tr>
-                  <th>Date Birth:</th>
-                  <td>${formattedDateOfBirth}</td>
-                </tr>
-                <tr>
-                  <th>Partner:</th>
-                  <td>${prospect.partner}</td>
                 </tr>
                 <tr>
                   <th>Occupation:</th>
                   <td>${prospect.occupation}</td>
                 </tr>
-                 <tr>
-                  <th>Household Income:</th>
-                  <td>${prospect.householdIncome}</td>
+                <tr>
+                  <th>Couples Name:</th>
+                  <td>${prospect.couplesName}</td>
+                </tr>
+                <tr>
+                  <th>Couples LastName:</th>
+                  <td>${prospect.couplesLastName}</td>
+                </tr>
+                <tr>
+                  <th>Couples Occupation:</th>
+                  <td>${prospect.couplesOccupation}</td>
                 </tr>
                 <tr>
                   <th>Children:</th>
                   <td>${prospect.children}</td>
-                </tr>
-                <tr>
-                  <th>Children Age:</th>
-                  <td>${prospect.childrenAge}</td>
-                </tr>
-                <tr>
-                  <th>Children Occupation:</th>
-                  <td>${prospect.childrenOccupation}</td>
                 </tr>
                 <tr>
                   <th>Retirement Plans:</th>
@@ -228,16 +206,24 @@ export class AllProspectsComponent implements OnInit {
                   <td>${prospect.lifeInsurance}</td>
                 </tr>
                 <tr>
-                  <th>Discretionary Income:</th>
-                  <td>${prospect.discretionaryIncome}</td>
-                </tr>
-                <tr>
                   <th>Properties:</th>
                   <td>${prospect.properties}</td>
                 </tr>
                 <tr>
-                  <th>Other Income:</th>
-                  <td>${prospect.otherIncome}</td>
+                  <th>Income 1:</th>
+                  <td>${prospect.income1}</td>
+                </tr>
+                <tr>
+                  <th>Income 2:</th>
+                  <td>${prospect.income2}</td>
+                </tr>
+                <tr>
+                  <th>Income 3:</th>
+                  <td>${prospect.income3}</td>
+                </tr>
+                <tr>
+                  <th>Surplus Income:</th>
+                  <td>${prospect.surplusIncome}</td>
                 </tr>
                 <tr>
                   <th>Observations:</th>
@@ -258,7 +244,6 @@ export class AllProspectsComponent implements OnInit {
           return (
             prospect.firstName.toLowerCase().includes(value.toLowerCase()) ||
             prospect.lastName?.toLowerCase().includes(value.toLowerCase()) ||
-            prospect.state?.toLowerCase().includes(value.toLowerCase()) ||
             prospect.email?.toLowerCase().includes(value.toLowerCase()) ||
             prospect.phone.toLowerCase().includes(value.toLowerCase()) ||
             prospect.status.toLowerCase().includes(value.toLowerCase())

@@ -44,180 +44,175 @@
             #busqueda
           />
         </div>
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Img</th>
-                <th (click)="sortAgentBy('agentCode')">
-                  Agent Code
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'agentCode' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'agentCode' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th (click)="sortAgentBy('firstName')">
-                  Name
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'firstName' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'firstName' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th (click)="sortAgentBy('dateBirth')">
-                  dateBirth
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'dateBirth' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'dateBirth' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th (click)="sortAgentBy('city')">
-                  City
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'city' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'city' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th (click)="sortAgentBy('state')">
-                  State
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'state' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'state' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th (click)="sortAgentBy('zip')">
-                  Zip<i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'zip' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'zip' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th (click)="sortAgentBy('email')">
-                  Email<i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'email' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'email' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th (click)="sortAgentBy('role')">
-                  Role
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'role' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'role' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th>Action</th>
-              </tr>
-            </thead>
+        <div class="d-flex justify-content-center">
+          <div class="table-responsive">
+            <table class="table table-hover mx-auto">
+              <thead>
+                <tr>
+                  <th>Img</th>
+                  <th (click)="sortAgentBy('agentCode')">
+                    Agent Code
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderField === 'agentCode' && orderType === 'asc',
+                        'icon-arrow-down':
+                          orderField === 'agentCode' && orderType === 'desc'
+                      }"
+                    ></i>
+                  </th>
+                  <th (click)="sortAgentBy('firstName')">
+                    Name
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderField === 'firstName' && orderType === 'asc',
+                        'icon-arrow-down':
+                          orderField === 'firstName' && orderType === 'desc'
+                      }"
+                    ></i>
+                  </th>
+                  <th (click)="sortAgentBy('dateBirth')">
+                    dateBirth
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderField === 'dateBirth' && orderType === 'asc',
+                        'icon-arrow-down':
+                          orderField === 'dateBirth' && orderType === 'desc'
+                      }"
+                    ></i>
+                  </th>
+                  <th (click)="sortAgentBy('city')">
+                    City
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderField === 'city' && orderType === 'asc',
+                        'icon-arrow-down':
+                          orderField === 'city' && orderType === 'desc'
+                      }"
+                    ></i>
+                  </th>
+                  <th (click)="sortAgentBy('state')">
+                    State
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderField === 'state' && orderType === 'asc',
+                        'icon-arrow-down':
+                          orderField === 'state' && orderType === 'desc'
+                      }"
+                    ></i>
+                  </th>
+                  <th (click)="sortAgentBy('email')">
+                    Email<i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderField === 'email' && orderType === 'asc',
+                        'icon-arrow-down':
+                          orderField === 'email' && orderType === 'desc'
+                      }"
+                    ></i>
+                  </th>
+                  <th (click)="sortAgentBy('role')">
+                    Role
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderField === 'role' && orderType === 'asc',
+                        'icon-arrow-down':
+                          orderField === 'role' && orderType === 'desc'
+                      }"
+                    ></i>
+                  </th>
+                  <th>Action</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              <tr *ngFor="let agent of filteredAgents; trackBy: trackByAgentId">
-                <td>
-                  <img
-                    [src]="agent.imageUrl"
-                    [alt]="agent.firstName"
-                    class="rounded-circle img-xs"
-                  />
-                </td>
-                <td>{{ agent.agentCode }}</td>
-                <td>{{ agent.firstName }} {{ agent.lastName }}</td>
-                <td>{{ agent.dateBirth | date : "mediumDate" }}</td>
-                <td>{{ agent.city }}</td>
-                <td>{{ agent.state }}</td>
-                <td>{{ agent.zip }}</td>
-                <td>{{ agent.email }}</td>
-                <td>
-                  <select
-                    class="form-control w140"
-                    [(ngModel)]="agent.role"
-                    (change)="changeRole(agent)"
-                  >
-                    <option value="ADMIN_ROLE">Admin</option>
-                    <option value="USER_ROLE">User</option>
-                  </select>
-                </td>
+              <tbody>
+                <tr
+                  *ngFor="let agent of filteredAgents; trackBy: trackByAgentId"
+                >
+                  <td>
+                    <img
+                      [src]="agent.imageUrl"
+                      [alt]="agent.firstName"
+                      class="rounded-circle img-xs"
+                    />
+                  </td>
+                  <td>{{ agent.agentCode }}</td>
+                  <td>{{ agent.firstName }} {{ agent.lastName }}</td>
+                  <td>{{ agent.dateBirth | date : "mediumDate" }}</td>
+                  <td>{{ agent.city }}</td>
+                  <td>{{ agent.state }}</td>
 
-                <td>
-                  <button
-                    (click)="editAgent(agent)"
-                    type="button"
-                    class="btn btn-primary"
-                    data-original-title="Edit"
-                  >
-                    <i class="feather icon-edit"></i>
-                  </button>
+                  <td>{{ agent.email }}</td>
+                  <td>
+                    <select
+                      class="form-control w140"
+                      [(ngModel)]="agent.role"
+                      (change)="changeRole(agent)"
+                    >
+                      <option value="ADMIN_ROLE">Admin</option>
+                      <option value="USER_ROLE">User</option>
+                    </select>
+                  </td>
 
-                  <button
-                    (click)="deleteAgent(agent)"
-                    type="button"
-                    class="btn btn-danger"
-                    data-original-title="Delete"
-                  >
-                    <i class="feather icon-x-square"></i>
-                  </button>
+                  <td>
+                    <button
+                      (click)="editAgent(agent)"
+                      type="button"
+                      class="btn btn-primary mx-1"
+                      data-original-title="Edit"
+                      title="Edit"
+                    >
+                      <i class="feather icon-edit"></i>
+                    </button>
 
-                  <button
-                    (click)="moreInfo(agent)"
-                    type="button"
-                    class="btn btn-info"
-                    data-original-title="Info"
-                  >
-                    <i class="feather icon-info"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </tfoot>
-          </table>
+                    <button
+                      (click)="moreInfo(agent)"
+                      type="button"
+                      class="btn btn-info mx-1"
+                      data-original-title="Info"
+                      title="Info Agent"
+                    >
+                      <i class="feather icon-info"></i>
+                    </button>
+
+                    <button
+                      (click)="deleteAgent(agent)"
+                      type="button"
+                      class="btn btn-danger mx-1"
+                      data-original-title="Delete"
+                      title="Delete"
+                    >
+                      <i class="feather icon-x-square"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
       </div>
     </div>

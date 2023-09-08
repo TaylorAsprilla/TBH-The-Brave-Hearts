@@ -17,11 +17,16 @@
         <button
           class="btn btn-info float-end mx-2"
           (click)="exportAsXLSXFiltered()"
+          title="Export Filtered Policies"
         >
           <i class="feather icon-download"></i> Filtered
         </button>
 
-        <button class="btn btn-light float-end" (click)="exportAsXLSX()">
+        <button
+          class="btn btn-light float-end"
+          (click)="exportAsXLSX()"
+          title="Export all Policies"
+        >
           <i class="feather icon-download"></i> Export
         </button>
 
@@ -116,6 +121,7 @@
                     type="button"
                     class="btn btn-primary"
                     data-original-title="See Policy"
+                    title="See Policy"
                   >
                     <i class="feather icon-eye"></i>
                   </button>

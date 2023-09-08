@@ -17,11 +17,16 @@
         <button
           class="btn btn-info float-end mx-2"
           (click)="exportAsXLSXFiltered()"
+          title="Export Filtered Customer"
         >
           <i class="feather icon-download"></i> Filtered
         </button>
 
-        <button class="btn btn-light float-end" (click)="exportAsXLSX()">
+        <button
+          class="btn btn-light float-end"
+          (click)="exportAsXLSX()"
+          title="Export all Customer"
+        >
           <i class="feather icon-download"></i> Export
         </button>
 
@@ -149,8 +154,9 @@
                   <button
                     (click)="editCustomer(customer)"
                     type="button"
-                    class="btn btn-primary"
+                    class="btn btn-primary mx-1"
                     data-original-title="Edit"
+                    title="Edit"
                   >
                     <i class="feather icon-edit"></i>
                   </button>
@@ -158,8 +164,9 @@
                   <button
                     (click)="addPolicy(customer)"
                     type="button"
-                    class="btn btn-success"
+                    class="btn btn-success mx-1"
                     data-original-title="Add Policy"
+                    title="Add Policy"
                   >
                     <i class="feather icon-plus-square"></i>
                   </button>
@@ -167,8 +174,9 @@
                   <button
                     (click)="moreInfo(customer)"
                     type="button"
-                    class="btn btn-info"
+                    class="btn btn-info mx-1"
                     data-original-title="Info"
+                    title="Info"
                   >
                     <i class="feather icon-info"></i>
                   </button>
