@@ -52,187 +52,165 @@
           There are no prospects registered under your agent code
         </div>
 
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th (click)="sortCustomersBy('firstName')">
-                  Name
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'firstName' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'firstName' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th (click)="sortCustomersBy('documentType')">
-                  Document Type
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'documentType' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'documentType' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th (click)="sortCustomersBy('state')">
-                  State
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'state' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'state' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th (click)="sortCustomersBy('email')">
-                  Email
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'email' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'email' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th (click)="sortCustomersBy('dateBirth')">
-                  Date Birth
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'dateBirth' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'dateBirth' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th (click)="sortCustomersBy('phone')">
-                  Phone
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'phone' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'phone' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th (click)="sortCustomersBy('status')">
-                  Status
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderField === 'status' && orderType === 'asc',
-                      'icon-arrow-down':
-                        orderField === 'status' && orderType === 'desc'
-                    }"
-                  ></i>
-                </th>
+        <div class="d-flex justify-content-center">
+          <div class="table-responsive">
+            <table class="table table-hover mx-auto">
+              <thead>
+                <tr>
+                  <th (click)="sortCustomersBy('firstName')">
+                    Name
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderField === 'firstName' && orderType === 'asc',
+                        'icon-arrow-down':
+                          orderField === 'firstName' && orderType === 'desc'
+                      }"
+                    ></i>
+                  </th>
+                  <th (click)="sortCustomersBy('email')">
+                    Email
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderField === 'email' && orderType === 'asc',
+                        'icon-arrow-down':
+                          orderField === 'email' && orderType === 'desc'
+                      }"
+                    ></i>
+                  </th>
+                  <th (click)="sortCustomersBy('phone')">
+                    Phone
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderField === 'phone' && orderType === 'asc',
+                        'icon-arrow-down':
+                          orderField === 'phone' && orderType === 'desc'
+                      }"
+                    ></i>
+                  </th>
+                  <th (click)="sortCustomersBy('occupation')">
+                    Occupation
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderField === 'occupation' && orderType === 'asc',
+                        'icon-arrow-down':
+                          orderField === 'occupation' && orderType === 'desc'
+                      }"
+                    ></i>
+                  </th>
+                  <th (click)="sortCustomersBy('status')">
+                    Status
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderField === 'status' && orderType === 'asc',
+                        'icon-arrow-down':
+                          orderField === 'status' && orderType === 'desc'
+                      }"
+                    ></i>
+                  </th>
 
-                <th>Agent</th>
-                <th>Action</th>
-              </tr>
-            </thead>
+                  <th>Agent</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              <tr
-                *ngFor="
-                  let prospect of filteredProspects;
-                  trackBy: trackByProspectId
-                "
-              >
-                <td>{{ prospect.firstName }} {{ prospect.lastName }}</td>
-                <td>{{ prospect.documentType }}</td>
-                <td>{{ prospect.state }}</td>
-                <td>{{ prospect.email }}</td>
-                <td>{{ prospect.dateBirth | date : "mediumDate" }}</td>
-                <td>{{ prospect.phone }}</td>
+              <tbody>
+                <tr
+                  *ngFor="
+                    let prospect of filteredProspects;
+                    trackBy: trackByProspectId
+                  "
+                >
+                  <td>{{ prospect.firstName }} {{ prospect.lastName }}</td>
+                  <td>{{ prospect.email }}</td>
+                  <td>{{ prospect.phone }}</td>
+                  <td>{{ prospect.occupation }}</td>
 
-                <td>
-                  <select
-                    class="form-control w140 selectStatus"
-                    [(ngModel)]="prospect.status"
-                    (change)="changeStatus(prospect)"
-                    [ngClass]="statusColors[prospect.status]"
-                  >
-                    <option
-                      *ngFor="let status of statusOptions"
-                      [value]="status.value"
+                  <td>
+                    <select
+                      class="form-control w140 selectStatus"
+                      [(ngModel)]="prospect.status"
+                      (change)="changeStatus(prospect)"
+                      [ngClass]="statusColors[prospect.status]"
                     >
-                      {{ status.name }}
-                    </option>
-                  </select>
-                </td>
+                      <option
+                        *ngFor="let status of statusOptions"
+                        [value]="status.value"
+                      >
+                        {{ status.name }}
+                      </option>
+                    </select>
+                  </td>
 
-                <td>
-                  {{ prospect.agent.firstName }} {{ prospect.agent.lastName }}
-                </td>
+                  <td>
+                    {{ prospect.agent.firstName }} {{ prospect.agent.lastName }}
+                  </td>
 
-                <td>
-                  <button
-                    (click)="editProspect(prospect)"
-                    type="button"
-                    class="btn btn-primary"
-                    data-original-title="Edit"
-                  >
-                    <i class="feather icon-edit"></i>
-                  </button>
+                  <td>
+                    <button
+                      (click)="editProspect(prospect)"
+                      type="button"
+                      class="btn btn-primary mx-1"
+                      data-original-title="Edit"
+                      title="Edit"
+                    >
+                      <i class="feather icon-edit"></i>
+                    </button>
 
-                  <button
-                    (click)="moreInfo(prospect)"
-                    type="button"
-                    class="btn btn-info"
-                    data-original-title="Info"
-                  >
-                    <i class="feather icon-info"></i>
-                  </button>
+                    <button
+                      (click)="moreInfo(prospect)"
+                      type="button"
+                      class="btn btn-info mx-1"
+                      data-original-title="Info"
+                      title="Info"
+                    >
+                      <i class="feather icon-info"></i>
+                    </button>
 
-                  <button
-                    (click)="newCustomer(prospect)"
-                    type="button"
-                    class="btn btn-success"
-                    data-original-title="Customer"
-                  >
-                    <i class="feather icon-plus-square"></i>
-                  </button>
+                    <button
+                      (click)="newCustomer(prospect)"
+                      type="button"
+                      class="btn btn-success mx-1"
+                      data-original-title="Customer"
+                      title="new Customer"
+                    >
+                      <i class="feather icon-plus-square"></i>
+                    </button>
 
-                  <button
-                    (click)="deleteProspect(prospect)"
-                    type="button"
-                    class="btn btn-danger"
-                    data-original-title="Delete"
-                  >
-                    <i class="feather icon-x-square"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <th>NAME</th>
-                <th>DOCUMENT TYPE</th>
-                <th>STATE</th>
-                <th>EMAIL</th>
-                <th>DATE BIRTH</th>
-                <th>PHONE</th>
-                <th>STATUS</th>
-                <th>AGENT</th>
-                <th>ACTION</th>
-              </tr>
-            </tfoot>
-          </table>
+                    <button
+                      (click)="deleteProspect(prospect)"
+                      type="button"
+                      class="btn btn-danger mx-1"
+                      data-original-title="Delete"
+                      title="Delete"
+                    >
+                      <i class="feather icon-x-square"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>NAME</th>
+                  <th>EMAIL</th>
+                  <th>OCCUPATION</th>
+                  <th>PHONE</th>
+                  <th>STATUS</th>
+                  <th>AGENT</th>
+                  <th>ACTION</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
       </div>
     </div>

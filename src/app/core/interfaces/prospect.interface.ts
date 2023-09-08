@@ -1,28 +1,25 @@
 import { ProspectModel } from '../models/prospect.model';
 
 export interface ProspectFormInterface {
+  uid: string;
   firstName: string;
-  lastName?: string;
-  documentType?: string;
-  email?: string;
-  dateBirth?: Date;
   phone: string;
-  agent: string;
-  middleName?: string;
-  state?: string;
-  partner?: string;
+  status: string;
+  lastName?: string;
+  email?: string;
   occupation?: string;
-  householdIncome?: string;
+  couplesName?: string;
+  couplesLastName?: string;
+  couplesOccupation?: string;
   children?: string;
-  childrenAge?: string;
-  childrenOccupation?: string;
   retirementPlans?: string;
   lifeInsurance?: string;
-  discretionaryIncome?: string;
   properties?: string;
-  otherIncome?: string;
+  income1?: string;
+  income2?: string;
+  income3?: string;
+  surplusIncome?: string;
   observations?: string;
-  status?: string;
 }
 
 export interface ILoadAllProspectsInterface {
