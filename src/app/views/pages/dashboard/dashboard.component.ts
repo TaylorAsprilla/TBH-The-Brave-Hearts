@@ -306,7 +306,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                   <td>${prospect.occupation}</td>
                 </tr>
                 <tr>
-                  <th>Partner Name:</th>
+                  <th>Partner’s Name:</th>
                   <td>${prospect.partnerName}</td>
                 </tr>
                 <tr>
@@ -314,7 +314,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                   <td>${prospect.partnerLastName}</td>
                 </tr>
                 <tr>
-                  <th>Partner Occupation:</th>
+                  <th>Partner’s Occupation:</th>
                   <td>${prospect.partnerOccupation}</td>
                 </tr>
                 <tr>
@@ -338,7 +338,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                   <td>${prospect.income}</td>
                 </tr>
                 <tr>
-                  <th>Partner Income:</th>
+                  <th>Partner’s income:</th>
                   <td>${prospect.partnerIncome}</td>
                 </tr>
                 <tr>
