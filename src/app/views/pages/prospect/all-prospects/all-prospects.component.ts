@@ -182,16 +182,16 @@ export class AllProspectsComponent implements OnInit {
                   <td>${prospect.occupation}</td>
                 </tr>
                 <tr>
-                  <th>Couples Name:</th>
-                  <td>${prospect.couplesName}</td>
+                  <th>Partner Name:</th>
+                  <td>${prospect.partnerName}</td>
                 </tr>
                 <tr>
-                  <th>Couples LastName:</th>
-                  <td>${prospect.couplesLastName}</td>
+                  <th>Partner LastName:</th>
+                  <td>${prospect.partnerLastName}</td>
                 </tr>
                 <tr>
-                  <th>Couples Occupation:</th>
-                  <td>${prospect.couplesOccupation}</td>
+                  <th>Partner Occupation:</th>
+                  <td>${prospect.partnerOccupation}</td>
                 </tr>
                 <tr>
                   <th>Children:</th>
@@ -210,16 +210,16 @@ export class AllProspectsComponent implements OnInit {
                   <td>${prospect.properties}</td>
                 </tr>
                 <tr>
-                  <th>Income 1:</th>
-                  <td>${prospect.income1}</td>
+                  <th>Income:</th>
+                  <td>${prospect.income}</td>
                 </tr>
                 <tr>
-                  <th>Income 2:</th>
-                  <td>${prospect.income2}</td>
+                  <th>Partner Income:</th>
+                  <td>${prospect.panertIncome}</td>
                 </tr>
                 <tr>
-                  <th>Income 3:</th>
-                  <td>${prospect.income3}</td>
+                  <th>Addirional Income:</th>
+                  <td>${prospect.additionalIncome}</td>
                 </tr>
                 <tr>
                   <th>Surplus Income:</th>
