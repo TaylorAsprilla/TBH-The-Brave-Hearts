@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
@@ -46,19 +47,19 @@ export class AddProspectsComponent implements OnInit {
     this.prospectForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.minLength(3)]],
-      phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      phone: ['', [Validators.required]],
       email: ['', [Validators.email, Validators.minLength(3)]],
       occupation: [''],
-      couplesName: [''],
-      couplesLastName: [''],
-      couplesOccupation: [''],
+      partnerName: [''],
+      partnerLastName: [''],
+      partnerOccupation: [''],
       children: [],
       retirementPlans: [''],
       lifeInsurance: [''],
       properties: [''],
-      income1: [''],
-      income2: [''],
-      income3: [''],
+      income: [''],
+      panertIncome: [''],
+      additionalIncome: [''],
       surplusIncome: [''],
       observations: [''],
     });
@@ -68,6 +69,35 @@ export class AddProspectsComponent implements OnInit {
 
   get formProspect() {
     return this.prospectForm.controls;
+  }
+
+  // Validated of the phone
+  isValidPhoneNumberFormat(phoneNumber: string): boolean {
+    const regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+    return regex.test(phoneNumber);
+  }
+
+  formatPhoneNumber(phoneNumber: string): string {
+    const regex = /(\d{3})(\d{3})(\d{4})/;
+    return phoneNumber.replace(regex, '($1) $2-$3');
+  }
+
+  formatPhoneNumberField(control: any): void {
+    const phoneNumber = control.value;
+    if (phoneNumber && this.isValidPhoneNumberFormat(phoneNumber)) {
+      const formattedPhoneNumber = this.formatPhoneNumber(phoneNumber);
+      control.setValue(formattedPhoneNumber);
+    } else {
+      control.setErrors({ invalidFormat: true });
+    }
+  }
+
+  isValid(): boolean | undefined {
+    return (
+      (this.isprospectFormSubmitted &&
+        this.prospectForm.get('phone')?.hasError('invalidPhoneNumber')) ||
+      this.prospectForm.get('phone')?.hasError('invalidFormat')
+    );
   }
 
   createProspect() {
@@ -123,16 +153,16 @@ export class AddProspectsComponent implements OnInit {
       firstName: this.formProspect.firstName.value,
       lastName: this.formProspect.lastName.value,
       occupation: this.formProspect.occupation.value,
-      couplesName: this.formProspect.couplesName.value,
-      couplesLastName: this.formProspect.couplesLastName.value,
-      couplesOccupation: this.formProspect.couplesOccupation.value,
+      partnerName: this.formProspect.partnerName.value,
+      partnerLastName: this.formProspect.partnerLastName.value,
+      partnerOccupation: this.formProspect.partnerOccupation.value,
       children: this.formProspect.children.value,
       retirementPlans: this.formProspect.retirementPlans.value,
       lifeInsurance: this.formProspect.lifeInsurance.value,
       properties: this.formProspect.properties.value,
-      income1: this.formProspect.income1.value,
-      income2: this.formProspect.income2.value,
-      income3: this.formProspect.income3.value,
+      income: this.formProspect.income.value,
+      panertIncome: this.formProspect.panertIncome.value,
+      additionalIncome: this.formProspect.additionalIncome.value,
       surplusIncome: this.formProspect.surplusIncome.value,
       observations: this.formProspect.observations.value,
       agent: this.selectedProspect.agent,
@@ -182,16 +212,16 @@ export class AddProspectsComponent implements OnInit {
             firstName,
             lastName,
             occupation,
-            couplesName,
-            couplesLastName,
-            couplesOccupation,
+            partnerName,
+            partnerLastName,
+            partnerOccupation,
             children,
             retirementPlans,
             lifeInsurance,
             properties,
-            income1,
-            income2,
-            income3,
+            income,
+            panertIncome,
+            additionalIncome,
             surplusIncome,
             observations,
           } = prospect;
@@ -203,16 +233,16 @@ export class AddProspectsComponent implements OnInit {
             firstName,
             lastName,
             occupation,
-            couplesName,
-            couplesLastName,
-            couplesOccupation,
+            partnerName,
+            partnerLastName,
+            partnerOccupation,
             children,
             retirementPlans,
             lifeInsurance,
             properties,
-            income1,
-            income2,
-            income3,
+            income,
+            panertIncome,
+            additionalIncome,
             surplusIncome,
             observations,
           });

@@ -18,20 +18,23 @@
                   class="form-control"
                   placeholder="(000) 000 00 00"
                   formControlName="phone"
-                  [ngClass]="{
-                    'is-invalid':
-                      isprospectFormSubmitted && formProspect.phone.errors
-                  }"
+                  (blur)="formatPhoneNumberField(prospectForm.get('phone'))"
+                  [class.is-invalid]="isValid()"
                 />
 
-                <div
-                  *ngIf="
-                    isprospectFormSubmitted &&
-                    formProspect.phone.errors?.pattern
-                  "
-                  class="invalid-feedback"
-                >
-                  Please enter a valid US phone number format: (123) 456-7890
+                <div *ngIf="!!isValid()" class="invalid-feedback">
+                  <div
+                    *ngIf="
+                      prospectForm.get('phone')?.hasError('invalidPhoneNumber')
+                    "
+                  >
+                    Please enter a valid 10-digit US phone number.
+                  </div>
+                  <div
+                    *ngIf="prospectForm.get('phone')?.hasError('invalidFormat')"
+                  >
+                    Please enter a valid US phone number format: (123) 456-7890
+                  </div>
                 </div>
               </div>
             </div>
@@ -138,33 +141,33 @@
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Couple's Name</label>
+                <label class="form-label">Partner Name</label>
                 <input
                   type="text"
                   class="form-control"
-                  formControlName="couplesName"
+                  formControlName="partnerName"
                 />
               </div>
             </div>
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Couple's Last Name</label>
+                <label class="form-label">Partner Last Name</label>
                 <input
                   type="text"
                   class="form-control"
-                  formControlName="couplesLastName"
+                  formControlName="partnerLastName"
                 />
               </div>
             </div>
 
             <div class="col-sm-4">
               <div class="mb-3">
-                <label class="form-label">Couple's Occupation</label>
+                <label class="form-label">Partner Occupation</label>
                 <input
                   type="text"
                   class="form-control"
-                  formControlName="couplesOccupation"
+                  formControlName="partnerOccupation"
                 />
               </div>
             </div>
@@ -176,7 +179,7 @@
                   type="text"
                   class="form-control"
                   formControlName="children"
-                  placeholder="(Age, Occupation, Sex)"
+                  placeholder="(Age, Occupation)"
                 />
               </div>
             </div>
@@ -217,33 +220,33 @@
 
             <div class="col-sm-3">
               <div class="mb-3">
-                <label class="form-label">Income 1</label>
+                <label class="form-label">Income</label>
                 <input
                   type="number"
                   class="form-control"
-                  formControlName="income1"
+                  formControlName="income"
                 />
               </div>
             </div>
 
             <div class="col-sm-3">
               <div class="mb-3">
-                <label class="form-label">Income 2</label>
+                <label class="form-label">Panert Income</label>
                 <input
                   type="number"
                   class="form-control"
-                  formControlName="income2"
+                  formControlName="panertIncome"
                 />
               </div>
             </div>
 
             <div class="col-sm-3">
               <div class="mb-3">
-                <label class="form-label">Income 3</label>
+                <label class="form-label">Additional Income</label>
                 <input
                   type="number"
                   class="form-control"
-                  formControlName="income3"
+                  formControlName="additionalIncome"
                 />
               </div>
             </div>
