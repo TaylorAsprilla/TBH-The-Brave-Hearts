@@ -293,6 +293,35 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
     this.document2File = event.target.files[0];
   }
 
+  // Validated of the phone
+  isValidPhoneNumberFormat(phoneNumber: string): boolean {
+    const regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+    return regex.test(phoneNumber);
+  }
+
+  formatPhoneNumber(phoneNumber: string): string {
+    const regex = /(\d{3})(\d{3})(\d{4})/;
+    return phoneNumber.replace(regex, '($1) $2-$3');
+  }
+
+  formatPhoneNumberField(control: any): void {
+    const phoneNumber = control.value;
+    if (phoneNumber && this.isValidPhoneNumberFormat(phoneNumber)) {
+      const formattedPhoneNumber = this.formatPhoneNumber(phoneNumber);
+      control.setValue(formattedPhoneNumber);
+    } else {
+      control.setErrors({ invalidFormat: true });
+    }
+  }
+
+  isValid(): boolean | undefined {
+    return (
+      (this.isLifePolicyFormSubmitted &&
+        this.lifePolicyForm.get('phone')?.hasError('invalidPhoneNumber')) ||
+      this.lifePolicyForm.get('phone')?.hasError('invalidFormat')
+    );
+  }
+
   submitForm() {
     let customerCreate: CustomerModel;
     this.isDocumentFormSubmitted = true;
@@ -469,7 +498,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
             lifeInsurance,
             properties,
             income,
-            panertIncome,
+            partnerIncome,
             additionalIncome,
             surplusIncome,
             observations,

@@ -215,7 +215,7 @@ export class AllProspectsComponent implements OnInit {
                 </tr>
                 <tr>
                   <th>Partner Income:</th>
-                  <td>${prospect.panertIncome}</td>
+                  <td>${prospect.partnerIncome}</td>
                 </tr>
                 <tr>
                   <th>Addirional Income:</th>

@@ -24,7 +24,7 @@ export class ProspectModel {
     public lifeInsurance?: string,
     public properties?: string,
     public income?: string,
-    public panertIncome?: string,
+    public partnerIncome?: string,
     public additionalIncome?: string,
     public surplusIncome?: string,
     public observations?: string,

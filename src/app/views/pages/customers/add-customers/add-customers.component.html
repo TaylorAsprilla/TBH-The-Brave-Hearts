@@ -364,23 +364,31 @@
                       type="text"
                       class="form-control"
                       placeholder="(000) 000 00 00"
-                      prefix="+7 "
-                      mask="(000) 000 00 00"
                       formControlName="phone"
-                      [ngClass]="{
-                        'is-invalid':
-                          isLifePolicyFormSubmitted &&
-                          formLifePolicy.phone.errors
-                      }"
-                    />
-                    <div
-                      *ngIf="
-                        isLifePolicyFormSubmitted &&
-                        formLifePolicy.phone.errors?.required
+                      (blur)="
+                        formatPhoneNumberField(lifePolicyForm.get('phone'))
                       "
-                      class="invalid-feedback"
-                    >
-                      Required
+                      [class.is-invalid]="isValid()"
+                    />
+
+                    <div *ngIf="!!isValid()" class="invalid-feedback">
+                      <div
+                        *ngIf="
+                          lifePolicyForm
+                            .get('phone')
+                            ?.hasError('invalidPhoneNumber')
+                        "
+                      >
+                        Please enter a valid 10-digit US phone number.
+                      </div>
+                      <div
+                        *ngIf="
+                          lifePolicyForm.get('phone')?.hasError('invalidFormat')
+                        "
+                      >
+                        Please enter a valid US phone number format: (123)
+                        456-7890
+                      </div>
                     </div>
                   </div>
                 </div>
