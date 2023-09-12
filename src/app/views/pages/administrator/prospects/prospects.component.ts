@@ -184,7 +184,7 @@ export class ProspectsComponent implements OnInit, OnDestroy {
                   <td>${prospect.partnerName}</td>
                 </tr>
                 <tr>
-                  <th>Partner LastName:</th>
+                  <th>Partner’s Last Name:</th>
                   <td>${prospect.partnerLastName}</td>
                 </tr>
                 <tr>

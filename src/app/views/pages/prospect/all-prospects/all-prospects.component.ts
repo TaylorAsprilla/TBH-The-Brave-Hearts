@@ -186,7 +186,7 @@ export class AllProspectsComponent implements OnInit {
                   <td>${prospect.partnerName}</td>
                 </tr>
                 <tr>
-                  <th>Partner LastName:</th>
+                  <th>Partner’s Last Name:</th>
                   <td>${prospect.partnerLastName}</td>
                 </tr>
                 <tr>
