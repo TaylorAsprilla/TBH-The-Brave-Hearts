@@ -378,10 +378,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   moreInfoAgent(agent: AgentModel) {
-    const dateOfBirth = agent.dateBirth;
-    const formattedDateOfBirth = new Date(dateOfBirth).toLocaleDateString(
-      'en-US'
-    );
+    let formattedDateOfBirth: string = '';
+
+    if (agent.dateBirth) {
+      const dateOfBirth = agent.dateBirth;
+      formattedDateOfBirth = new Date(dateOfBirth).toLocaleDateString('en-US');
+    }
 
     Swal.fire({
       title: 'Info Agent',

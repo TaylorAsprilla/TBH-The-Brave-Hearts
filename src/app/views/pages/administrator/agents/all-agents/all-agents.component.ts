@@ -107,10 +107,12 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
   }
 
   moreInfo(agent: AgentModel) {
-    const dateOfBirth = agent.dateBirth;
-    const formattedDateOfBirth = new Date(dateOfBirth).toLocaleDateString(
-      'en-US'
-    );
+    let formattedDateOfBirth: string = '';
+
+    if (agent.dateBirth) {
+      const dateOfBirth = agent.dateBirth;
+      formattedDateOfBirth = new Date(dateOfBirth).toLocaleDateString('en-US');
+    }
 
     Swal.fire({
       title: 'Info Agent',
