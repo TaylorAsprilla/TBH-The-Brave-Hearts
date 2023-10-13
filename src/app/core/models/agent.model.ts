@@ -10,7 +10,7 @@ export class AgentModel {
     public lastName: string,
     public state: string,
     public email: string,
-    public dateBirth: Date,
+    public dateBirth?: Date,
     public city?: string,
     public zip?: string,
     public password?: string,

@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
   state: string;
   city: string;
   role: string;
-  dateBirth: Date;
+  dateBirth: Date | string;
 
   agent: AgentModel;
 
@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit {
     this.state = agent.state;
     this.city = agent.city ? agent.city : '';
     this.role = agent.role ? agent.role : '';
-    this.dateBirth = agent.dateBirth;
+    this.dateBirth = agent.dateBirth ? agent.dateBirth : '';
   }
 
   createForm() {

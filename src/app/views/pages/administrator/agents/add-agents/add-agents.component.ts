@@ -54,7 +54,7 @@ export class AddAgentsComponent implements OnInit {
       state: ['', [Validators.required, Validators.minLength(3)]],
       zip: ['', [Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      dateBirth: ['', [Validators.required]],
+      dateBirth: ['', []],
       password: [
         { value: password, disabled: true },
         [
@@ -163,6 +163,8 @@ export class AddAgentsComponent implements OnInit {
   }
 
   getAgentById(id: string) {
+    let formattedDateBirth: string;
+
     if (id !== TEXT.NEW) {
       this.password = false;
       this.agentService.getAgent(id).subscribe({
@@ -179,10 +181,11 @@ export class AddAgentsComponent implements OnInit {
             password,
           } = agent;
           this.selectedAgent = agent;
-
-          const formattedDateBirth = new Date(dateBirth)
-            .toISOString()
-            .split('T')[0];
+          if (dateBirth) {
+            formattedDateBirth = new Date(dateBirth)
+              .toISOString()
+              .split('T')[0];
+          }
 
           this.agentForm.setValue({
             agentCode,
@@ -192,7 +195,7 @@ export class AddAgentsComponent implements OnInit {
             state,
             zip,
             email,
-            dateBirth: formattedDateBirth,
+            dateBirth: formattedDateBirth ? formattedDateBirth : '',
             password: '',
           });
         },
