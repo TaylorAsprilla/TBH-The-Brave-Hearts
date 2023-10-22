@@ -9,6 +9,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SpinnerModule } from '../../components/spinner/spinner.module';
 import { ExporterService } from 'src/app/services/exporter/exporter.service';
+import { MobilePhoneNumberDirectiveModule } from 'src/app/core/directive/mobilePhoneNumber/mobile-phone-number.module';
+import { DollarFormatModule } from 'src/app/core/directive/dollarFormat/dollar-format.module';
 
 @NgModule({
   declarations: [AddProspectsComponent, AllProspectsComponent],
@@ -21,6 +23,8 @@ import { ExporterService } from 'src/app/services/exporter/exporter.service';
     SweetAlert2Module,
     ProspectsRoutingModule,
     SpinnerModule,
+    MobilePhoneNumberDirectiveModule,
+    DollarFormatModule,
   ],
   providers: [ExporterService],
   exports: [AddProspectsComponent, AllProspectsComponent],

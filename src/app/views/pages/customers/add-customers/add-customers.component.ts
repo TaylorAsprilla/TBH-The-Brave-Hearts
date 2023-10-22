@@ -147,6 +147,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
       isMotherAlive: ['', [Validators.required]],
       motherAge: ['', []],
       deceasedMother: ['', []],
+      note: ['', []],
     });
 
     this.additionalQuestionForm = this.formBuilder.group({
@@ -354,9 +355,15 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
           policyType: data.policyType,
           monthly: data.monthly,
           faceAmount: data.faceAmount,
-          beneficiaries: [data.beneficiaries],
-          contingentBeneficiary: [data.contingentBeneficiary],
-          medical: data.medical,
+          beneficiaries: data.beneficiaries,
+          contingentBeneficiary: data.contigentBeneficiaries,
+          medical: {
+            doctorName: data.doctorName,
+            lastVisit: data.lastVisit,
+            smoker: data.smoker,
+            isFatherAlive: data.isFatherAlive,
+            isMotherAlive: data.isMotherAlive,
+          },
           additionalQuestions: {
             criminalRecord: data.criminalRecord,
             pleadedGuilty: data.pleadedGuilty,
@@ -372,58 +379,80 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
             routingNumber: data.routingNumber,
             notes: data.notes,
           },
-          referrals: [data.referrals],
-          document: data.document,
+          referrals: data.referrals,
+          document: {
+            primaryAgentName: data.primaryAgentName,
+            percentage1: data.percentage1,
+            secondaryAgentName: data.secondaryAgentName,
+            percentage2: data.percentage2,
+            fieldTrainingAgent: data.fieldTrainingAgent,
+            mbBase: data.mbBase,
+          },
         },
       };
 
-      this.customerService
-        .createCustomer(information)
-        .pipe(
-          switchMap((resp: any) => {
-            customerCreate = resp.customer;
+      if (
+        information &&
+        this.idPhotoFile &&
+        this.document1File &&
+        this.document2File
+      ) {
+        this.customerService
+          .createCustomer(information)
+          .pipe(
+            switchMap((resp: any) => {
+              customerCreate = resp.customer;
 
-            return this.fileUploadService.uploadDocuments(
-              resp.policy.uid,
-              this.idPhotoFile,
-              this.document1File,
-              this.document2File
-            );
-          })
-        )
-        .subscribe({
-          next: (resp: any) => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Customer created',
-              html: `<b> Customer Name: </b> ${customerCreate.firstName} ${customerCreate.lastName}`,
-            });
-            this.clearForm();
-            this.router.navigateByUrl(
-              `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ALL_CUSTOMERS}`
-            );
-          },
-          error: (error: any) => {
-            const errors = error?.error?.errors;
-            const errorList: string[] = [];
-
-            if (errors) {
-              Object.entries(errors).forEach(([key, value]: [string, any]) => {
-                if (value && value['msg']) {
-                  errorList.push('° ' + value['msg'] + '<br>');
-                }
+              return this.fileUploadService.uploadDocuments(
+                resp.policy.uid,
+                this.idPhotoFile,
+                this.document1File,
+                this.document2File
+              );
+            })
+          )
+          .subscribe({
+            next: (resp: any) => {
+              Swal.fire({
+                icon: 'success',
+                title: 'Customer created',
+                html: `<b> Customer Name: </b> ${customerCreate.firstName} ${customerCreate.lastName}`,
               });
-            }
+              this.clearForm();
+              this.router.navigateByUrl(
+                `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ALL_CUSTOMERS}`
+              );
+            },
+            error: (error: any) => {
+              const errors = error?.error?.errors;
+              const errorList: string[] = [];
 
-            Swal.fire({
-              title: 'Error creating customer',
-              icon: 'error',
-              html: `${
-                errorList.length ? errorList.join('') : error.error.msg
-              }`,
-            });
-          },
+              if (errors) {
+                Object.entries(errors).forEach(
+                  ([key, value]: [string, any]) => {
+                    if (value && value['msg']) {
+                      errorList.push('° ' + value['msg'] + '<br>');
+                    }
+                  }
+                );
+              }
+
+              Swal.fire({
+                title: 'Error creating customer',
+                icon: 'error',
+                html: `${
+                  errorList.length ? errorList.join('') : error.error.msg
+                }`,
+              });
+            },
+          });
+      } else {
+        Swal.fire({
+          title: 'Check if you uploaded all documents',
+          icon: 'error',
+          html: ``,
         });
+      }
     }
   }
 
@@ -439,10 +468,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
           [Validators.minLength(3), Validators.required],
         ],
         phone: ['', [Validators.required]],
-        email: [
-          '',
-          [Validators.required, Validators.email, Validators.minLength(3)],
-        ],
+        email: ['', [Validators.email, Validators.minLength(3)]],
         dateBirth: [''],
         ss: [''],
         share: [''],
@@ -453,12 +479,12 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
   addContigentBeneficiary() {
     this.contigentBeneficiaries.push(
       this.formBuilder.group({
-        firstName: ['', [Validators.required]],
+        firstName: ['', []],
         middleName: ['', []],
-        lastName: ['', [, Validators.required]],
+        lastName: ['', []],
 
-        relationshipToInsured: ['', [, Validators.required]],
-        phone: ['', [Validators.required]],
+        relationshipToInsured: ['', []],
+        phone: ['', []],
         email: ['', [Validators.email]],
         dateBirth: [''],
         ss: [''],
@@ -470,10 +496,10 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
   addReferrals() {
     this.referrals.push(
       this.formBuilder.group({
-        firstName: ['', [Validators.required]],
+        firstName: ['', []],
         middleName: ['', []],
         lastName: ['', []],
-        relationshipToInsured: ['', [Validators.required]],
+        relationshipToInsured: ['', []],
         phone: ['', []],
         email: ['', [Validators.email]],
       })

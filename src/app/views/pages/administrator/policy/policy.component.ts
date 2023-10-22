@@ -26,6 +26,9 @@ export class PolicyComponent implements OnInit {
   documentOneUrl: string = environment.documentOne;
   documentTwoUrl: string = environment.documentTwo;
 
+  orderField: string = 'carrier';
+  orderType: 'asc' | 'desc' = 'asc';
+
   constructor(
     private policyService: PolicyService,
     private exporterService: ExporterService,
@@ -81,6 +84,25 @@ export class PolicyComponent implements OnInit {
     } else {
       this.filteredPolicies = this.policies;
     }
+  }
+
+  sortPolicyBy(field: string) {
+    if (field === this.orderField) {
+      this.orderType = this.orderType === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.orderField = field;
+      this.orderType = 'asc';
+    }
+
+    this.filteredPolicies.sort((a: any, b: any) => {
+      if (a[field] < b[field]) {
+        return this.orderType === 'asc' ? -1 : 1;
+      } else if (a[field] > b[field]) {
+        return this.orderType === 'asc' ? 1 : -1;
+      } else {
+        return 0;
+      }
+    });
   }
 
   navigateWithQueryParams(idPolicy: string) {

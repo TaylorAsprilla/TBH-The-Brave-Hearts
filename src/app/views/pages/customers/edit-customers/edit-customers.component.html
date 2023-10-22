@@ -286,6 +286,7 @@
                   type="text"
                   class="form-control"
                   formControlName="documentNumber"
+                  appSsnFormat
                   [ngClass]="{
                     'is-invalid':
                       isCustomerFormSubmitted &&
@@ -630,9 +631,10 @@
                 <div class="mb-3">
                   <label class="form-label required">Annual Income</label>
                   <input
-                    type="number"
+                    type="text"
                     class="form-control"
                     formControlName="annualIncome"
+                    appDollarFormat
                     [ngClass]="{
                       'is-invalid':
                         isCustomerFormSubmitted &&
@@ -655,9 +657,10 @@
                 <div class="mb-3">
                   <label class="form-label">Household Income</label>
                   <input
-                    type="number"
+                    type="text"
                     class="form-control"
                     formControlName="householdIncome"
+                    appDollarFormat
                   />
                 </div>
               </div>
@@ -666,9 +669,10 @@
                 <div class="mb-3">
                   <label class="form-label">Household net worth</label>
                   <input
-                    type="number"
+                    type="text"
                     class="form-control"
                     formControlName="householdNetWorth"
+                    appDollarFormat
                   />
                 </div>
               </div>

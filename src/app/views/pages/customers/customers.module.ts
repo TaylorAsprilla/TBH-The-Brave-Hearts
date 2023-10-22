@@ -12,6 +12,9 @@ import { SpinnerModule } from '../../components/spinner/spinner.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { EditCustomersComponent } from './edit-customers/edit-customers.component';
 import { ExporterService } from 'src/app/services/exporter/exporter.service';
+import { SsnFormatDirectiveModule } from 'src/app/core/directive/ssnFormatDirective/ssn-format-directive.module';
+import { MobilePhoneNumberDirectiveModule } from 'src/app/core/directive/mobilePhoneNumber/mobile-phone-number.module';
+import { DollarFormatModule } from 'src/app/core/directive/dollarFormat/dollar-format.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { ExporterService } from 'src/app/services/exporter/exporter.service';
     DropzoneModule,
     SpinnerModule,
     NgSelectModule,
+    SsnFormatDirectiveModule,
+    MobilePhoneNumberDirectiveModule,
+    DollarFormatModule,
   ],
   exports: [AllCustomersComponent, AddCustomersComponent],
   providers: [ExporterService],

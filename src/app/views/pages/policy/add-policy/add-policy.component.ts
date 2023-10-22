@@ -60,6 +60,11 @@ export class AddPolicyComponent implements OnInit {
 
   isDisabled: boolean = false;
 
+  formattedAmount: any;
+  formattedMonthly: any;
+  formattedFaceAmount: any;
+  amount: any;
+
   @ViewChild('policy') policy: BaseWizardComponent;
 
   constructor(
@@ -84,7 +89,7 @@ export class AddPolicyComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(({ idPolicy }) => {
       if (idPolicy) {
         this.policyId = idPolicy;
-        this.isDisabled = true;
+        // this.isDisabled = true;
         this.getPolicyAndCustomer(this.policyId);
       }
     });
@@ -123,7 +128,6 @@ export class AddPolicyComponent implements OnInit {
       smoker: [{ value: '', disabled: false }, [Validators.required]],
       medicalCondition: [{ value: '', disabled: false }, []],
       whenItWasDiagnosed: [{ value: '', disabled: false }, []],
-      medications: [{ value: '', disabled: false }, []],
       dosage: [{ value: '', disabled: false }, []],
       additionalInformation: [{ value: '', disabled: false }, []],
       isFatherAlive: [{ value: '', disabled: false }, [Validators.required]],
@@ -132,6 +136,7 @@ export class AddPolicyComponent implements OnInit {
       isMotherAlive: [{ value: '', disabled: false }, [Validators.required]],
       motherAge: [{ value: '', disabled: false }, []],
       deceasedMother: [{ value: '', disabled: false }, []],
+      note: [{ value: '', disabled: false }, []],
     });
 
     this.additionalQuestionForm = this.formBuilder.group({
@@ -315,14 +320,11 @@ export class AddPolicyComponent implements OnInit {
   addContigentBeneficiary() {
     this.contigentBeneficiaries.push(
       this.formBuilder.group({
-        firstName: [{ value: '', disabled: false }, [Validators.required]],
+        firstName: [{ value: '', disabled: false }, []],
         middleName: [{ value: '', disabled: false }, []],
-        lastName: [{ value: '', disabled: false }, [, Validators.required]],
-        relationshipToInsured: [
-          { value: '', disabled: false },
-          [, Validators.required],
-        ],
-        phone: [{ value: '', disabled: false }, [Validators.required]],
+        lastName: [{ value: '', disabled: false }, []],
+        relationshipToInsured: [{ value: '', disabled: false }, []],
+        phone: [{ value: '', disabled: false }, []],
         email: [{ value: '', disabled: false }, [Validators.email]],
         dateBirth: [{ value: '', disabled: false }],
         ss: [{ value: '', disabled: false }],
@@ -334,13 +336,10 @@ export class AddPolicyComponent implements OnInit {
   addReferrals() {
     this.referrals.push(
       this.formBuilder.group({
-        firstName: [{ value: '', disabled: false }, [Validators.required]],
+        firstName: [{ value: '', disabled: false }, []],
         middleName: [{ value: '', disabled: false }, []],
         lastName: [{ value: '', disabled: false }, []],
-        relationshipToInsured: [
-          { value: '', disabled: false },
-          [Validators.required],
-        ],
+        relationshipToInsured: [{ value: '', disabled: false }, []],
         phone: [{ value: '', disabled: false }, []],
         email: [{ value: '', disabled: false }, [Validators.email]],
       })
@@ -414,6 +413,7 @@ export class AddPolicyComponent implements OnInit {
 
   populateBeneficiariesForm(policy: PolicyModel) {
     const beneficiaries = policy?.beneficiaries;
+
     if (beneficiaries) {
       beneficiaries.forEach((beneficiary) => {
         this.formBeneficiaries.push(this.createBeneficiaryGroup(beneficiary));
@@ -437,6 +437,7 @@ export class AddPolicyComponent implements OnInit {
 
   populateContingentBeneficiariesForm(policy: PolicyModel) {
     const contingentBeneficiaries = policy?.contingentBeneficiary;
+
     if (contingentBeneficiaries) {
       contingentBeneficiaries.forEach((contingentBeneficiary) => {
         this.contigentBeneficiaries.push(
@@ -475,7 +476,6 @@ export class AddPolicyComponent implements OnInit {
         smoker: medicalData.smoker,
         medicalCondition: medicalData.medicalCondition,
         whenItWasDiagnosed: medicalData.whenItWasDiagnosed,
-        medications: '',
         dosage: medicalData.dosage,
         additionalInformation: medicalData.additionalInformation,
         isFatherAlive: medicalData.isFatherAlive,
@@ -484,6 +484,7 @@ export class AddPolicyComponent implements OnInit {
         isMotherAlive: medicalData.isMotherAlive,
         motherAge: medicalData.motherAge,
         deceasedMother: medicalData.deceasedMother,
+        note: medicalData.note,
       });
     }
   }
@@ -653,6 +654,7 @@ export class AddPolicyComponent implements OnInit {
         isMotherAlive: data.isMotherAlive,
         motherAge: data.motherAge,
         deceasedMother: data.deceasedMother,
+        note: data.note,
       },
       additionalQuestions: {
         criminalRecord: data.criminalRecord,

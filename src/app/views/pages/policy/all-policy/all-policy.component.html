@@ -21,11 +21,11 @@
           <i class="feather icon-download"></i> Filtered
         </button>
 
-        <button class="btn btn-light float-end" (click)="exportAsXLSX()">
+        <button class="btn btn-light float-end mb-3" (click)="exportAsXLSX()">
           <i class="feather icon-download"></i> Export
         </button>
 
-        <div class="mb-3 mt-5">
+        <div class="mb-3">
           <!-- Input de Searh -->
           <input
             type="search"
@@ -48,10 +48,54 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Carrier</th>
-                <th>PolicyType</th>
-                <th>Monthly</th>
-                <th>Face Amount</th>
+                <th (click)="sortPolicyBy('carrier')">
+                  Carrier
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'carrier' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'carrier' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortPolicyBy('policyType')">
+                  PolicyType
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'policyType' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'policyType' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortPolicyBy('monthly')">
+                  Monthly
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'monthly' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'monthly' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortPolicyBy('faceAmount')">
+                  Face Amount
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'faceAmount' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'faceAmount' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
                 <th>Customer</th>
                 <th>Document</th>
                 <th>View</th>
@@ -68,12 +112,10 @@
                 <td>{{ policy.carrier }}</td>
                 <td>{{ policy.policyType }}</td>
                 <td>
-                  {{ policy.monthly | currency : "USD" : "symbol" : "1.0-2" }}
+                  {{ policy.monthly }}
                 </td>
                 <td>
-                  {{
-                    policy.faceAmount | currency : "USD" : "symbol" : "1.0-2"
-                  }}
+                  {{ policy.faceAmount }}
                 </td>
                 <td>
                   {{ policy.customer.firstName }}
