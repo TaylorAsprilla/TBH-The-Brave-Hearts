@@ -1,7 +1,11 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink=".">Policy</a></li>
-    <li class="breadcrumb-item active" aria-current="page">All Policy</li>
+    <li class="breadcrumb-item">
+      <a routerLink=".">Policy</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      All Policy - Administrator
+    </li>
   </ol>
 </nav>
 
@@ -11,7 +15,7 @@
       <div class="card-body">
         <app-spinner *ngIf="!!loading" [textData]="'Policy'"></app-spinner>
 
-        <h6 class="card-title">Policy</h6>
+        <h6 class="card-title">Policy - Administrator</h6>
         <span class="float-end badge bg-danger">{{ policies.length }}</span>
 
         <button
@@ -23,7 +27,7 @@
         </button>
 
         <button
-          class="btn btn-light float-end"
+          class="btn btn-light float-end mb-4"
           (click)="exportAsXLSX()"
           title="Export all Policies"
         >
@@ -53,10 +57,55 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Carrier</th>
-                <th>PolicyType</th>
-                <th>Monthly</th>
-                <th>Face Amount</th>
+                <th (click)="sortPolicyBy('carrier')">
+                  Carrier
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'carrier' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'carrier' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortPolicyBy('policyType')">
+                  PolicyType
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'policyType' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'policyType' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortPolicyBy('monthly')">
+                  Monthly
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'monthly' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'monthly' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortPolicyBy('faceAmount')">
+                  Face Amount
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'faceAmount' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'faceAmount' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+
                 <th>Customer</th>
                 <th>Document</th>
                 <th>Agent</th>
@@ -74,12 +123,10 @@
                 <td>{{ policy.carrier }}</td>
                 <td>{{ policy.policyType }}</td>
                 <td>
-                  {{ policy.monthly | currency : "USD" : "symbol" : "1.0-2" }}
+                  {{ policy.monthly }}
                 </td>
                 <td>
-                  {{
-                    policy.faceAmount | currency : "USD" : "symbol" : "1.0-2"
-                  }}
+                  {{ policy.faceAmount }}
                 </td>
                 <td>
                   {{ policy.customer.firstName }}

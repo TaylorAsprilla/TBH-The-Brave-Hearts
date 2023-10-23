@@ -1,7 +1,9 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink=".">Prospects</a></li>
-    <li class="breadcrumb-item active" aria-current="page">All Prospects</li>
+    <li class="breadcrumb-item active" aria-current="page">
+      All Prospects - Administrator
+    </li>
   </ol>
 </nav>
 
@@ -11,7 +13,7 @@
       <div class="card-body">
         <app-spinner *ngIf="!!loading" [textData]="'Prospects'"></app-spinner>
 
-        <h6 class="card-title">Prospects</h6>
+        <h6 class="card-title">Prospects - Administrator</h6>
         <span class="float-end badge bg-danger">{{ prospects.length }}</span>
 
         <button

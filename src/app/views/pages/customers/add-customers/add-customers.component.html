@@ -89,11 +89,12 @@
                   <div class="mb-3">
                     <label class="form-label required">Monthly</label>
                     <input
-                      type="number"
+                      type="text"
                       class="form-control"
                       placeholder="Enter Monthly"
                       id="monthly"
                       formControlName="monthly"
+                      appDollarFormat
                       [ngClass]="{
                         'is-invalid':
                           isLifePolicyFormSubmitted &&
@@ -116,11 +117,12 @@
                   <div class="mb-3">
                     <label class="form-label required">Face Amount</label>
                     <input
-                      type="number"
+                      type="text"
                       class="form-control"
                       placeholder="Face Amount"
                       id="faceAmount"
                       formControlName="faceAmount"
+                      appDollarFormat
                       [ngClass]="{
                         'is-invalid':
                           isLifePolicyFormSubmitted &&
@@ -365,31 +367,23 @@
                       class="form-control"
                       placeholder="(000) 000 00 00"
                       formControlName="phone"
-                      (blur)="
-                        formatPhoneNumberField(lifePolicyForm.get('phone'))
-                      "
-                      [class.is-invalid]="isValid()"
+                      appMobilePhoneNumber
+                      [ngClass]="{
+                        'is-invalid':
+                          isLifePolicyFormSubmitted &&
+                          formLifePolicy.phone.errors
+                      }"
                     />
+                  </div>
 
-                    <div *ngIf="!!isValid()" class="invalid-feedback">
-                      <div
-                        *ngIf="
-                          lifePolicyForm
-                            .get('phone')
-                            ?.hasError('invalidPhoneNumber')
-                        "
-                      >
-                        Please enter a valid 10-digit US phone number.
-                      </div>
-                      <div
-                        *ngIf="
-                          lifePolicyForm.get('phone')?.hasError('invalidFormat')
-                        "
-                      >
-                        Please enter a valid US phone number format: (123)
-                        456-7890
-                      </div>
-                    </div>
+                  <div
+                    *ngIf="
+                      isLifePolicyFormSubmitted &&
+                      formLifePolicy.phone.errors?.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Required
                   </div>
                 </div>
 
@@ -401,10 +395,13 @@
                       class="form-control"
                       placeholder="Enter email"
                       formControlName="email"
+                      (blur)="validateEmail(txtEmail.value)"
+                      #txtEmail
                       [ngClass]="{
                         'is-invalid':
-                          isLifePolicyFormSubmitted &&
-                          formLifePolicy.email.errors
+                          (isLifePolicyFormSubmitted &&
+                            formLifePolicy.email.errors) ||
+                          (isLifePolicyFormSubmitted && !!messagesEmail)
                       }"
                     />
                     <div
@@ -426,6 +423,10 @@
                     >
                       The value entered does not correspond to an email.
                     </div>
+
+                    <div class="form-text text-danger" *ngIf="!!messagesEmail">
+                      {{ messagesEmail }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -438,12 +439,18 @@
                       type="text"
                       class="form-control"
                       formControlName="documentNumber"
+                      (blur)="validateDocumentNumber(txtDocumentNumbert.value)"
+                      #txtDocumentNumbert
+                      appSsnFormat
                       [ngClass]="{
                         'is-invalid':
-                          isLifePolicyFormSubmitted &&
-                          formLifePolicy.documentNumber.errors
+                          (isLifePolicyFormSubmitted &&
+                            formLifePolicy.documentNumber.errors) ||
+                          (isLifePolicyFormSubmitted &&
+                            !!messagesDocumentNumbert)
                       }"
                     />
+
                     <div
                       *ngIf="
                         isLifePolicyFormSubmitted &&
@@ -465,6 +472,13 @@
                     >
                       The document number does not have the minimum length
                       allowed.
+                    </div>
+
+                    <div
+                      class="form-text text-danger"
+                      *ngIf="!!messagesDocumentNumbert"
+                    >
+                      {{ messagesDocumentNumbert }}
                     </div>
                   </div>
                 </div>
@@ -800,9 +814,10 @@
                     <div class="mb-3">
                       <label class="form-label required">Annual Income</label>
                       <input
-                        type="number"
+                        type="text"
                         class="form-control"
                         formControlName="annualIncome"
+                        appDollarFormat
                         [ngClass]="{
                           'is-invalid':
                             isLifePolicyFormSubmitted &&
@@ -825,9 +840,10 @@
                     <div class="mb-3">
                       <label class="form-label">Household Income</label>
                       <input
-                        type="number"
+                        type="text"
                         class="form-control"
                         formControlName="householdIncome"
+                        appDollarFormat
                       />
                     </div>
                   </div>
@@ -836,9 +852,10 @@
                     <div class="mb-3">
                       <label class="form-label">Household net worth</label>
                       <input
-                        type="number"
+                        type="text"
                         class="form-control"
                         formControlName="householdNetWorth"
+                        appDollarFormat
                       />
                     </div>
                   </div>
@@ -846,7 +863,11 @@
               </div>
 
               <div class="d-flex justify-content-center mt-2">
-                <button class="btn btn-danger mx-1" (click)="cancelEdit()">
+                <button
+                  class="btn btn-danger mx-1"
+                  type="button"
+                  (click)="cancelEdit()"
+                >
                   Cancel
                 </button>
                 <button class="btn btn-primary" type="submit">Continue</button>
@@ -997,15 +1018,15 @@
                           type="text"
                           class="form-control"
                           placeholder="(000) 000 00 00"
-                          prefix="+7 "
-                          mask="(000) 000 00 00"
                           formControlName="phone"
+                          appMobilePhoneNumber
                           [ngClass]="{
                             'is-invalid':
                               isBeneficiaryFormSubmitted &&
                               beneficiary?.get('phone')?.errors?.required
                           }"
                         />
+
                         <div
                           *ngIf="
                             isBeneficiaryFormSubmitted &&
@@ -1020,9 +1041,7 @@
 
                     <div class="col-sm-4">
                       <div class="mb-3">
-                        <label for="email" class="form-label required"
-                          >Email</label
-                        >
+                        <label for="email" class="form-label">Email</label>
                         <input
                           type="email"
                           class="form-control"
@@ -1037,15 +1056,6 @@
                                 beneficiary?.get('email')?.errors?.minlength)
                           }"
                         />
-                        <div
-                          *ngIf="
-                            isBeneficiaryFormSubmitted &&
-                            beneficiary?.get('email')?.errors?.required
-                          "
-                          class="invalid-feedback"
-                        >
-                          Required
-                        </div>
                         <div
                           *ngIf="
                             isBeneficiaryFormSubmitted &&
@@ -1087,6 +1097,7 @@
                           type="text"
                           class="form-control"
                           formControlName="ss"
+                          appSsnFormat
                         />
                       </div>
                     </div>
@@ -1156,29 +1167,13 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="mb-3">
-                        <label class="form-label required">First Name</label>
+                        <label class="form-label">First Name</label>
                         <input
                           type="text"
                           class="form-control"
                           formControlName="firstName"
                           placeholder="Enter first name"
-                          [ngClass]="{
-                            'is-invalid':
-                              isContigentBeneficiaryFormSubmitted &&
-                              contigentBeneficiary?.get('firstName')?.errors
-                                ?.required
-                          }"
                         />
-                        <div
-                          *ngIf="
-                            isContigentBeneficiaryFormSubmitted &&
-                            contigentBeneficiary?.get('firstName')?.errors
-                              ?.required
-                          "
-                          class="invalid-feedback"
-                        >
-                          Required
-                        </div>
                       </div>
                     </div>
 
@@ -1196,30 +1191,14 @@
 
                     <div class="col-sm-4">
                       <div class="mb-3">
-                        <label class="form-label required">Last Name</label>
+                        <label class="form-label">Last Name</label>
                         <input
                           type="text"
                           class="form-control"
                           placeholder="Enter last name"
                           formControlName="lastName"
                           placeholder="Last name"
-                          [ngClass]="{
-                            'is-invalid':
-                              isContigentBeneficiaryFormSubmitted &&
-                              contigentBeneficiary?.get('lastName')?.errors
-                                ?.required
-                          }"
                         />
-                        <div
-                          *ngIf="
-                            isContigentBeneficiaryFormSubmitted &&
-                            contigentBeneficiary?.get('lastName')?.errors
-                              ?.required
-                          "
-                          class="invalid-feedback"
-                        >
-                          Required.
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -1227,59 +1206,27 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="mb-3">
-                        <label class="form-label required"
+                        <label class="form-label"
                           >Relationship to insured</label
                         >
                         <input
                           type="text"
                           class="form-control"
                           formControlName="relationshipToInsured"
-                          [ngClass]="{
-                            'is-invalid':
-                              isContigentBeneficiaryFormSubmitted &&
-                              contigentBeneficiary?.get('relationshipToInsured')
-                                ?.errors?.required
-                          }"
                         />
-                        <div
-                          *ngIf="
-                            isContigentBeneficiaryFormSubmitted &&
-                            contigentBeneficiary?.get('relationshipToInsured')
-                              ?.errors?.required
-                          "
-                          class="invalid-feedback"
-                        >
-                          Required.
-                        </div>
                       </div>
                     </div>
 
                     <div class="col-sm-4">
                       <div class="mb-3">
-                        <label class="form-label required">Phone</label>
+                        <label class="form-label">Phone</label>
                         <input
                           type="text"
                           class="form-control"
                           placeholder="(000) 000 00 00"
-                          prefix="+7 "
-                          mask="(000) 000 00 00"
                           formControlName="phone"
-                          [ngClass]="{
-                            'is-invalid':
-                              isContigentBeneficiaryFormSubmitted &&
-                              contigentBeneficiary?.get('phone')?.errors
-                                ?.required
-                          }"
+                          appMobilePhoneNumber
                         />
-                        <div
-                          *ngIf="
-                            isContigentBeneficiaryFormSubmitted &&
-                            contigentBeneficiary?.get('phone')?.errors?.required
-                          "
-                          class="invalid-feedback"
-                        >
-                          Required
-                        </div>
                       </div>
                     </div>
 
@@ -1297,22 +1244,12 @@
                             'is-invalid':
                               isContigentBeneficiaryFormSubmitted &&
                               (contigentBeneficiary?.get('email')?.errors
-                                ?.required ||
-                                contigentBeneficiary?.get('email')?.errors
-                                  ?.email ||
+                                ?.email ||
                                 contigentBeneficiary?.get('email')?.errors
                                   ?.minlength)
                           }"
                         />
-                        <div
-                          *ngIf="
-                            isContigentBeneficiaryFormSubmitted &&
-                            contigentBeneficiary?.get('email')?.errors?.required
-                          "
-                          class="invalid-feedback"
-                        >
-                          Required
-                        </div>
+
                         <div
                           *ngIf="
                             isContigentBeneficiaryFormSubmitted &&
@@ -1356,12 +1293,13 @@
                           type="text"
                           class="form-control"
                           formControlName="ss"
+                          appSsnFormat
                         />
                       </div>
                     </div>
                     <div class="col-sm-4">
                       <div class="mb-3">
-                        <label class="form-label required">Share</label>
+                        <label class="form-label">Share</label>
                         <input
                           type="text"
                           class="form-control"
@@ -1456,6 +1394,7 @@
                       class="form-control"
                       formControlName="officePhoneNumber"
                       placeholder="(000) 000 00 00"
+                      appMobilePhoneNumber
                     />
                   </div>
                 </div>
@@ -1466,7 +1405,7 @@
                   <div class="mb-3">
                     <label class="form-label required">Last Visit</label>
                     <input
-                      type="text"
+                      type="date"
                       class="form-control"
                       formControlName="lastVisit"
                       [ngClass]="{
@@ -1694,6 +1633,21 @@
                         class="form-control"
                         formControlName="deceasedMother"
                       />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="mb-3">
+                      <label class="form-label"> Note </label>
+                      <textarea
+                        name="textarea"
+                        class="form-control"
+                        formControlName="note"
+                        rows="10"
+                        cols="30"
+                      ></textarea>
                     </div>
                   </div>
                 </div>
@@ -1971,7 +1925,7 @@
                       >Draft payment date</label
                     >
                     <input
-                      type="text"
+                      type="date"
                       class="form-control"
                       formControlName="draftPaymentDate"
                       [ngClass]="{
@@ -2123,7 +2077,7 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="mb-3">
-                        <label class="form-label required">First Name</label>
+                        <label class="form-label">First Name</label>
                         <input
                           type="text"
                           class="form-control"
@@ -2135,15 +2089,6 @@
                               referral?.get('firstName')?.errors?.required
                           }"
                         />
-                        <div
-                          *ngIf="
-                            isReferralsFormSubmitted &&
-                            referral?.get('firstName')?.errors?.required
-                          "
-                          class="invalid-feedback"
-                        >
-                          Required
-                        </div>
                       </div>
                     </div>
 
@@ -2176,30 +2121,14 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="mb-3">
-                        <label class="form-label required"
+                        <label class="form-label"
                           >Relationship to insured</label
                         >
                         <input
                           type="text"
                           class="form-control"
                           formControlName="relationshipToInsured"
-                          [ngClass]="{
-                            'is-invalid':
-                              isReferralsFormSubmitted &&
-                              referral?.get('relationshipToInsured')?.errors
-                                ?.required
-                          }"
                         />
-                        <div
-                          *ngIf="
-                            isReferralsFormSubmitted &&
-                            referral?.get('relationshipToInsured')?.errors
-                              ?.required
-                          "
-                          class="invalid-feedback"
-                        >
-                          Required
-                        </div>
                       </div>
                     </div>
 
@@ -2210,9 +2139,8 @@
                           type="text"
                           class="form-control"
                           placeholder="(000) 000 00 00"
-                          prefix="+7 "
-                          mask="(000) 000 00 00"
                           formControlName="phone"
+                          appMobilePhoneNumber
                         />
                       </div>
                     </div>

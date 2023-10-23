@@ -132,10 +132,6 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
                     <td>${customer.phone}</td>
                   </tr>
                   <tr>
-                    <th>Phone Type:</th>
-                    <td>${customer.documentType}</td>
-                  </tr>
-                  <tr>
                   <th>Document Number:</th>
                   <td>${customer.documentNumber}</td>
                 </tr>

@@ -1,5 +1,4 @@
 import { PolicyModel } from '../models/policy.model';
-import { ICustomerPolicy } from './customer.interface';
 
 export interface IBeneficiary {
   firstName: string;
@@ -43,6 +42,7 @@ export interface IMedical {
   isMotherAlive: string;
   motherAge?: string;
   deceasedMother?: string;
+  note?: string;
 }
 
 export interface IReferral {
@@ -82,7 +82,7 @@ export interface IPolicy {
   monthly: string;
   faceAmount: string;
   beneficiaries: IBeneficiary[];
-  contingentBeneficiary: IBeneficiary[];
+  contingentBeneficiary: IcontingentBeneficiary[];
   medical: IMedical;
   additionalQuestions: {
     criminalRecord: string;

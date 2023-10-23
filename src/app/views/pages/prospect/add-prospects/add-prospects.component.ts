@@ -71,35 +71,6 @@ export class AddProspectsComponent implements OnInit {
     return this.prospectForm.controls;
   }
 
-  // Validated of the phone
-  isValidPhoneNumberFormat(phoneNumber: string): boolean {
-    const regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
-    return regex.test(phoneNumber);
-  }
-
-  formatPhoneNumber(phoneNumber: string): string {
-    const regex = /(\d{3})(\d{3})(\d{4})/;
-    return phoneNumber.replace(regex, '($1) $2-$3');
-  }
-
-  formatPhoneNumberField(control: any): void {
-    const phoneNumber = control.value;
-    if (phoneNumber && this.isValidPhoneNumberFormat(phoneNumber)) {
-      const formattedPhoneNumber = this.formatPhoneNumber(phoneNumber);
-      control.setValue(formattedPhoneNumber);
-    } else {
-      control.setErrors({ invalidFormat: true });
-    }
-  }
-
-  isValid(): boolean | undefined {
-    return (
-      (this.isprospectFormSubmitted &&
-        this.prospectForm.get('phone')?.hasError('invalidPhoneNumber')) ||
-      this.prospectForm.get('phone')?.hasError('invalidFormat')
-    );
-  }
-
   createProspect() {
     if (this.selectedProspect) {
       this.updateAgent();
