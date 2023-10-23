@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { UserType } from 'src/app/core/type/type';
 import { environment } from 'src/environments/environment';
 
-const imageProfile = environment.imageProfile;
 const base_url = environment.base_url;
 @Injectable({
   providedIn: 'root',

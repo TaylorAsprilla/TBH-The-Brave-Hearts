@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 import { Subscription, switchMap } from 'rxjs';
 import { TEXT } from 'src/app/core/enum/text.enum';
 import { CustomerModel } from 'src/app/core/models/customer.model';
+import { ValidationService } from 'src/app/services/validation/validation.service';
 
 @Component({
   selector: 'app-add-customers',
@@ -51,7 +52,13 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
   idPhotoFile: File;
   document1File: File;
   document2File: File;
+
+  messagesEmail: string = '';
+  messagesDocumentNumbert: string = '';
+
   routerSubscription: Subscription;
+  validationEmailSubscription: Subscription;
+  validationDocumentNumberSubscription: Subscription;
 
   @ViewChild('lifePolicy') lifePolicy: BaseWizardComponent;
 
@@ -61,7 +68,8 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
     private router: Router,
     private customerService: CustomerService,
     private prospectService: ProspectService,
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
+    private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -81,6 +89,8 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routerSubscription?.unsubscribe();
+    this.validationEmailSubscription?.unsubscribe();
+    this.validationDocumentNumberSubscription?.unsubscribe();
   }
 
   createForm() {
@@ -294,33 +304,26 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
     this.document2File = event.target.files[0];
   }
 
-  // Validated of the phone
-  isValidPhoneNumberFormat(phoneNumber: string): boolean {
-    const regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
-    return regex.test(phoneNumber);
+  validateEmail(email: string) {
+    this.messagesEmail = '';
+    this.validationEmailSubscription = this.validationService
+      .validationCustomerEmail(email)
+      .subscribe((respuesta: any) => {
+        if (!respuesta.ok) {
+          this.messagesEmail = respuesta.msg;
+        }
+      });
   }
 
-  formatPhoneNumber(phoneNumber: string): string {
-    const regex = /(\d{3})(\d{3})(\d{4})/;
-    return phoneNumber.replace(regex, '($1) $2-$3');
-  }
-
-  formatPhoneNumberField(control: any): void {
-    const phoneNumber = control.value;
-    if (phoneNumber && this.isValidPhoneNumberFormat(phoneNumber)) {
-      const formattedPhoneNumber = this.formatPhoneNumber(phoneNumber);
-      control.setValue(formattedPhoneNumber);
-    } else {
-      control.setErrors({ invalidFormat: true });
-    }
-  }
-
-  isValid(): boolean | undefined {
-    return (
-      (this.isLifePolicyFormSubmitted &&
-        this.lifePolicyForm.get('phone')?.hasError('invalidPhoneNumber')) ||
-      this.lifePolicyForm.get('phone')?.hasError('invalidFormat')
-    );
+  validateDocumentNumber(documentNumber: string) {
+    this.messagesDocumentNumbert = '';
+    this.validationDocumentNumberSubscription = this.validationService
+      .validationCustomerDocument(documentNumber)
+      .subscribe((respuesta: any) => {
+        if (!respuesta.ok) {
+          this.messagesDocumentNumbert = respuesta.msg;
+        }
+      });
   }
 
   submitForm() {

@@ -139,7 +139,7 @@ export class AddAgentsComponent implements OnInit {
             <p> ${resp.agent.firstName} ${resp.agent.lastName}</p>`,
         });
         this.resetForm();
-        this.router.navigateByUrl(`${ROUTE_APP.AGENT}/${ROUTE_APP.ALL_AGENTS}`);
+        this.router.navigateByUrl(`${ROUTE_APP.DASHBOARD}`);
       },
       error: (error: any) => {
         const errors = error?.error?.errors;

@@ -1,10 +1,11 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
+import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: '[appMobilePhoneNumber]',
 })
 export class MobilePhoneNumberDirective {
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef, private control: NgControl) {}
 
   @HostListener('input', ['$event.target.value']) onInput(value: string): void {
     const cleanedValue = value.replace(/\D/g, '').slice(0, 10);
@@ -19,6 +20,8 @@ export class MobilePhoneNumberDirective {
     if (cleanedValue.length > 6) {
       formattedValue += `-${cleanedValue.slice(6)}`;
     }
+
+    this.control.control?.setValue(formattedValue, { emitEvent: false });
 
     this.elementRef.nativeElement.value = formattedValue;
   }

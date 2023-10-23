@@ -367,29 +367,23 @@
                       class="form-control"
                       placeholder="(000) 000 00 00"
                       formControlName="phone"
-                      [class.is-invalid]="isValid()"
                       appMobilePhoneNumber
+                      [ngClass]="{
+                        'is-invalid':
+                          isLifePolicyFormSubmitted &&
+                          formLifePolicy.phone.errors
+                      }"
                     />
+                  </div>
 
-                    <div *ngIf="!!isValid()" class="invalid-feedback">
-                      <div
-                        *ngIf="
-                          lifePolicyForm
-                            .get('phone')
-                            ?.hasError('invalidPhoneNumber')
-                        "
-                      >
-                        Please enter a valid 10-digit US phone number.
-                      </div>
-                      <div
-                        *ngIf="
-                          lifePolicyForm.get('phone')?.hasError('invalidFormat')
-                        "
-                      >
-                        Please enter a valid US phone number format: (123)
-                        456-7890
-                      </div>
-                    </div>
+                  <div
+                    *ngIf="
+                      isLifePolicyFormSubmitted &&
+                      formLifePolicy.phone.errors?.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Required
                   </div>
                 </div>
 
@@ -401,10 +395,13 @@
                       class="form-control"
                       placeholder="Enter email"
                       formControlName="email"
+                      (blur)="validateEmail(txtEmail.value)"
+                      #txtEmail
                       [ngClass]="{
                         'is-invalid':
-                          isLifePolicyFormSubmitted &&
-                          formLifePolicy.email.errors
+                          (isLifePolicyFormSubmitted &&
+                            formLifePolicy.email.errors) ||
+                          (isLifePolicyFormSubmitted && !!messagesEmail)
                       }"
                     />
                     <div
@@ -426,6 +423,10 @@
                     >
                       The value entered does not correspond to an email.
                     </div>
+
+                    <div class="form-text text-danger" *ngIf="!!messagesEmail">
+                      {{ messagesEmail }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -438,13 +439,18 @@
                       type="text"
                       class="form-control"
                       formControlName="documentNumber"
+                      (blur)="validateDocumentNumber(txtDocumentNumbert.value)"
+                      #txtDocumentNumbert
                       appSsnFormat
                       [ngClass]="{
                         'is-invalid':
-                          isLifePolicyFormSubmitted &&
-                          formLifePolicy.documentNumber.errors
+                          (isLifePolicyFormSubmitted &&
+                            formLifePolicy.documentNumber.errors) ||
+                          (isLifePolicyFormSubmitted &&
+                            !!messagesDocumentNumbert)
                       }"
                     />
+
                     <div
                       *ngIf="
                         isLifePolicyFormSubmitted &&
@@ -466,6 +472,13 @@
                     >
                       The document number does not have the minimum length
                       allowed.
+                    </div>
+
+                    <div
+                      class="form-text text-danger"
+                      *ngIf="!!messagesDocumentNumbert"
+                    >
+                      {{ messagesDocumentNumbert }}
                     </div>
                   </div>
                 </div>
