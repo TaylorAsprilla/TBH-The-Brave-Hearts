@@ -138,9 +138,20 @@ export class ProspectsComponent implements OnInit, OnDestroy {
   }
 
   editProspect(prospect: ProspectModel) {
-    this.router.navigateByUrl(
-      `${ROUTE_APP.PROSPECT}/${ROUTE_APP.ADD_PROSPECTS}/${prospect.uid}`
-    );
+    Swal.fire({
+      title: 'Do you want to update prospect data?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl(
+          `${ROUTE_APP.PROSPECT}/${ROUTE_APP.ADD_PROSPECTS}/${prospect.uid}`
+        );
+      }
+    });
   }
 
   newProspect() {
@@ -150,9 +161,20 @@ export class ProspectsComponent implements OnInit, OnDestroy {
   }
 
   newCustomer(prospect: ProspectModel) {
-    this.router.navigateByUrl(
-      `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ADD_CUSTOMERS}/${ROUTE_APP.PROSPECT}/${prospect.uid}`
-    );
+    Swal.fire({
+      title: 'Do you want to convert the prospect into a customer?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl(
+          `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ADD_CUSTOMERS}/${ROUTE_APP.PROSPECT}/${prospect.uid}`
+        );
+      }
+    });
   }
 
   moreInfo(prospect: ProspectModel) {

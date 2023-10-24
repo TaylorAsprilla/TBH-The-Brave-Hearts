@@ -98,6 +98,7 @@
                 </th>
                 <th>Customer</th>
                 <th>Document</th>
+                <th>Status</th>
                 <th>View</th>
               </tr>
             </thead>
@@ -146,6 +147,22 @@
                 </td>
 
                 <td>
+                  <select
+                    class="form-control w140 selectStatus"
+                    [(ngModel)]="policy.status"
+                    (change)="changeStatus(policy.uid, policy)"
+                    [ngClass]="statusPolicyColors[policy.status]"
+                  >
+                    <option
+                      *ngFor="let status of statusPolicy"
+                      [value]="status.value"
+                    >
+                      {{ status.name }}
+                    </option>
+                  </select>
+                </td>
+
+                <td>
                   <button
                     (click)="navigateWithQueryParams(policy.uid)"
                     type="button"
@@ -166,6 +183,7 @@
                 <th>Face Amount</th>
                 <th>Customer</th>
                 <th>Document</th>
+                <th>Status</th>
                 <th>View</th>
               </tr>
             </tfoot>

@@ -101,6 +101,7 @@ export interface IPolicy {
   };
   referrals: IReferral[];
   document: IDocument;
+  status: string;
   active?: boolean;
   createdAt?: Date;
   agent?: string;
