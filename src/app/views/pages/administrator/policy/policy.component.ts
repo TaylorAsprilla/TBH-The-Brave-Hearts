@@ -6,7 +6,12 @@ import { AgentModel } from 'src/app/core/models/agent.model';
 import { PolicyModel } from 'src/app/core/models/policy.model';
 import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import { PolicyService } from 'src/app/services/policy/policy.service';
+import {
+  statusPolicy,
+  statusPolicyColors,
+} from 'src/environments/configuration/data-utils';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-policy',
@@ -25,6 +30,9 @@ export class PolicyComponent implements OnInit {
   photoIdUrl: string = environment.photoId;
   documentOneUrl: string = environment.documentOne;
   documentTwoUrl: string = environment.documentTwo;
+
+  statusPolicy: any = statusPolicy;
+  statusPolicyColors = statusPolicyColors;
 
   orderField: string = 'carrier';
   orderType: 'asc' | 'desc' = 'asc';
@@ -102,6 +110,37 @@ export class PolicyComponent implements OnInit {
       } else {
         return 0;
       }
+    });
+  }
+
+  changeStatus(uid: string, policy: PolicyModel) {
+    this.policyService.updatePolicy(uid, policy).subscribe({
+      next: (resp: any) => {
+        Swal.fire({
+          position: 'bottom-end',
+          html: 'Policy status updated.',
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      },
+      error: (error: any) => {
+        const errors = error?.error?.errors;
+        const errorList: string[] = [];
+
+        if (errors) {
+          Object.entries(errors).forEach(([key, value]: [string, any]) => {
+            if (value && value['msg']) {
+              errorList.push('° ' + value['msg'] + '<br>');
+            }
+          });
+        }
+
+        Swal.fire({
+          title: 'Error creating agent',
+          icon: 'error',
+          html: `${errorList.length ? errorList.join('') : error.error.msg}`,
+        });
+      },
     });
   }
 

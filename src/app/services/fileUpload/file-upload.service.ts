@@ -55,12 +55,15 @@ export class FileUploadService {
     policyId: any,
     idPhoto: File,
     document1: File,
-    document2: File
+    document2: File | null = null
   ) {
     const formData = new FormData();
     formData.append('idPhoto', idPhoto);
     formData.append('document1', document1);
-    formData.append('document2', document2);
+
+    if (document2) {
+      formData.append('document2', document2);
+    }
 
     return this.httpClient.post(
       `${base_url}/uploads/documents/${policyId}`,

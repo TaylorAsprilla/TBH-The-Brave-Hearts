@@ -59,9 +59,20 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
   }
 
   editCustomer(customer: CustomerModel) {
-    this.router.navigateByUrl(
-      `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.EDIT_CUSTOMERS}/${customer.uid}`
-    );
+    Swal.fire({
+      title: 'Do you want to update customer data?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl(
+          `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.EDIT_CUSTOMERS}/${customer.uid}`
+        );
+      }
+    });
   }
   deleteCustomer(customer: CustomerModel) {}
 

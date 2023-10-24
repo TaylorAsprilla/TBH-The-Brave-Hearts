@@ -39,3 +39,27 @@ export const statusColors: { [key: string]: string } = {
   AGENT: 'purple',
   BOTH: 'grey',
 };
+
+export const statusPolicy = [
+  {
+    name: 'MORE INFORMATION NEEDED',
+    color: 'red',
+    value: 'MORE_INFORMATION_NEEDED',
+  },
+  {
+    name: 'PENDING WITH AGENT',
+    color: 'yellow',
+    value: 'PENDING_WITH_AGENT',
+  },
+  {
+    name: 'SUBMITTED',
+    color: 'green',
+    value: 'SUBMITTED',
+  },
+];
+
+export const statusPolicyColors: { [key: string]: string } = {
+  MORE_INFORMATION_NEEDED: 'red',
+  PENDING_WITH_AGENT: 'yellow',
+  SUBMITTED: 'green',
+};

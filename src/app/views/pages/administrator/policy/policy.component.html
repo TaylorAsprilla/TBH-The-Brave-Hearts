@@ -108,6 +108,7 @@
 
                 <th>Customer</th>
                 <th>Document</th>
+                <th>status</th>
                 <th>Agent</th>
                 <th>View</th>
               </tr>
@@ -158,6 +159,22 @@
                 </td>
 
                 <td>
+                  <select
+                    class="form-control w140 selectStatus"
+                    [(ngModel)]="policy.status"
+                    (change)="changeStatus(policy.uid, policy)"
+                    [ngClass]="statusPolicyColors[policy.status]"
+                  >
+                    <option
+                      *ngFor="let status of statusPolicy"
+                      [value]="status.value"
+                    >
+                      {{ status.name }}
+                    </option>
+                  </select>
+                </td>
+
+                <td>
                   {{ policy?.agent?.firstName }}
                   {{ policy?.agent?.lastName }}
                 </td>
@@ -183,6 +200,7 @@
                 <th>Face Amount</th>
                 <th>Customer</th>
                 <th>Document</th>
+                <th>Status</th>
                 <th>Agent</th>
                 <th>View</th>
               </tr>

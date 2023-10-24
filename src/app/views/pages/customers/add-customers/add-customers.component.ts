@@ -20,6 +20,7 @@ import { Subscription, switchMap } from 'rxjs';
 import { TEXT } from 'src/app/core/enum/text.enum';
 import { CustomerModel } from 'src/app/core/models/customer.model';
 import { ValidationService } from 'src/app/services/validation/validation.service';
+import { EstatusPolicy } from 'src/app/core/enum/estatus-policy';
 
 @Component({
   selector: 'app-add-customers',
@@ -391,15 +392,11 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
             fieldTrainingAgent: data.fieldTrainingAgent,
             mbBase: data.mbBase,
           },
+          status: EstatusPolicy.MORE_INFORMATION_NEEDED,
         },
       };
 
-      if (
-        information &&
-        this.idPhotoFile &&
-        this.document1File &&
-        this.document2File
-      ) {
+      if (information && this.idPhotoFile && this.document1File) {
         this.customerService
           .createCustomer(information)
           .pipe(

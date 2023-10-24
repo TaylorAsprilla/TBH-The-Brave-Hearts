@@ -22,6 +22,7 @@ import {
 } from 'src/app/core/interfaces/policy.interface';
 import { Observable, switchMap } from 'rxjs';
 import { PolicyModel } from 'src/app/core/models/policy.model';
+import { EstatusPolicy } from 'src/app/core/enum/estatus-policy';
 
 @Component({
   selector: 'app-add-policy',
@@ -89,7 +90,7 @@ export class AddPolicyComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(({ idPolicy }) => {
       if (idPolicy) {
         this.policyId = idPolicy;
-        // this.isDisabled = true;
+        this.isDisabled = true;
         this.getPolicyAndCustomer(this.policyId);
       }
     });
@@ -104,10 +105,22 @@ export class AddPolicyComponent implements OnInit {
 
   createForm() {
     this.lifePolicyForm = this.formBuilder.group({
-      carrier: [{ value: '', disabled: false }, [Validators.required]],
-      policyType: [{ value: '', disabled: false }, [Validators.required]],
-      monthly: [{ value: '', disabled: false }, [Validators.required]],
-      faceAmount: [{ value: '', disabled: false }, [Validators.required]],
+      carrier: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      policyType: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      monthly: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      faceAmount: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
     });
 
     this.beneficiaryForm = this.formBuilder.group({
@@ -119,41 +132,80 @@ export class AddPolicyComponent implements OnInit {
     });
 
     this.medicalForm = this.formBuilder.group({
-      doctorName: [{ value: '', disabled: false }, [Validators.required]],
-      doctorOfficeLocation: [{ value: '', disabled: false }, []],
-      officePhoneNumber: [{ value: '', disabled: false }, []],
-      lastVisit: [{ value: '', disabled: false }, [Validators.required]],
-      reasonForVisit: [{ value: '', disabled: false }, []],
-      outcomeOfVisit: [{ value: '', disabled: false }, []],
-      smoker: [{ value: '', disabled: false }, [Validators.required]],
-      medicalCondition: [{ value: '', disabled: false }, []],
-      whenItWasDiagnosed: [{ value: '', disabled: false }, []],
-      dosage: [{ value: '', disabled: false }, []],
-      additionalInformation: [{ value: '', disabled: false }, []],
-      isFatherAlive: [{ value: '', disabled: false }, [Validators.required]],
-      fatherAge: [{ value: '', disabled: false }, []],
-      deceasedFather: [{ value: '', disabled: false }, []],
-      isMotherAlive: [{ value: '', disabled: false }, [Validators.required]],
-      motherAge: [{ value: '', disabled: false }, []],
-      deceasedMother: [{ value: '', disabled: false }, []],
-      note: [{ value: '', disabled: false }, []],
+      doctorName: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      doctorOfficeLocation: [{ value: '', disabled: this.isDisabled }, []],
+      officePhoneNumber: [{ value: '', disabled: this.isDisabled }, []],
+      lastVisit: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      reasonForVisit: [{ value: '', disabled: this.isDisabled }, []],
+      outcomeOfVisit: [{ value: '', disabled: this.isDisabled }, []],
+      smoker: [{ value: '', disabled: this.isDisabled }, [Validators.required]],
+      medicalCondition: [{ value: '', disabled: this.isDisabled }, []],
+      whenItWasDiagnosed: [{ value: '', disabled: this.isDisabled }, []],
+      dosage: [{ value: '', disabled: this.isDisabled }, []],
+      additionalInformation: [{ value: '', disabled: this.isDisabled }, []],
+      isFatherAlive: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      fatherAge: [{ value: '', disabled: this.isDisabled }, []],
+      deceasedFather: [{ value: '', disabled: this.isDisabled }, []],
+      isMotherAlive: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      motherAge: [{ value: '', disabled: this.isDisabled }, []],
+      deceasedMother: [{ value: '', disabled: this.isDisabled }, []],
+      note: [{ value: '', disabled: this.isDisabled }, []],
     });
 
     this.additionalQuestionForm = this.formBuilder.group({
-      criminalRecord: [{ value: '', disabled: false }, [Validators.required]],
-      pleadedGuilty: [{ value: '', disabled: false }, [Validators.required]],
-      anotherLife: [{ value: '', disabled: false }, [Validators.required]],
-      appliedForLife: [{ value: '', disabled: false }, [Validators.required]],
-      participateSport: [{ value: '', disabled: false }, [Validators.required]],
-      involved: [{ value: '', disabled: false }, [Validators.required]],
+      criminalRecord: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      pleadedGuilty: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      anotherLife: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      appliedForLife: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      participateSport: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      involved: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
     });
 
     this.bankInformationForm = this.formBuilder.group({
-      draftPaymentDate: [{ value: '', disabled: false }, [Validators.required]],
-      bank: [{ value: '', disabled: false }, [Validators.required]],
-      accountNumber: [{ value: '', disabled: false }, [Validators.required]],
-      routingNumber: [{ value: '', disabled: false }, [Validators.required]],
-      notes: [{ value: '', disabled: false }, []],
+      draftPaymentDate: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      bank: [{ value: '', disabled: this.isDisabled }, [Validators.required]],
+      accountNumber: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      routingNumber: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      notes: [{ value: '', disabled: this.isDisabled }, []],
     });
 
     this.referralsForm = this.formBuilder.group({
@@ -161,15 +213,21 @@ export class AddPolicyComponent implements OnInit {
     });
 
     this.documentForm = this.formBuilder.group({
-      idPhoto: [{ value: '', disabled: false }, []],
-      document1: [{ value: '', disabled: false }, []],
-      document2: [{ value: '', disabled: false }, []],
-      primaryAgentName: [{ value: '', disabled: false }, [Validators.required]],
-      percentage1: [{ value: '', disabled: false }, [Validators.required]],
-      secondaryAgentName: [{ value: '', disabled: false }, []],
-      percentage2: [{ value: '', disabled: false }, []],
-      fieldTrainingAgent: [{ value: '', disabled: false }, []],
-      mbBase: [{ value: '', disabled: false }, []],
+      idPhoto: [{ value: '', disabled: this.isDisabled }, []],
+      document1: [{ value: '', disabled: this.isDisabled }, []],
+      document2: [{ value: '', disabled: this.isDisabled }, []],
+      primaryAgentName: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      percentage1: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
+      secondaryAgentName: [{ value: '', disabled: this.isDisabled }, []],
+      percentage2: [{ value: '', disabled: this.isDisabled }, []],
+      fieldTrainingAgent: [{ value: '', disabled: this.isDisabled }, []],
+      mbBase: [{ value: '', disabled: this.isDisabled }, []],
     });
 
     this.isSubmitted();
@@ -244,49 +302,55 @@ export class AddPolicyComponent implements OnInit {
   }
 
   formLifePolicySubmit() {
-    if (this.lifePolicyForm.valid) {
+    if (this.lifePolicyForm.valid || this.lifePolicyForm.disabled) {
       this.policy.goToNextStep();
     }
     this.isLifePolicyFormSubmitted = true;
   }
 
   beneficiaryFormSubmittedSubmit() {
-    if (this.beneficiaryForm.valid) {
+    if (this.beneficiaryForm.valid || this.beneficiaryForm.disabled) {
       this.policy.goToNextStep();
     }
     this.isBeneficiaryFormSubmitted = true;
   }
 
   contigentBeneficiaryFormSubmittedSubmit() {
-    if (this.contigentBeneficiaryForm.valid) {
+    if (
+      this.contigentBeneficiaryForm.valid ||
+      this.contigentBeneficiaryForm.disabled
+    ) {
       this.policy.goToNextStep();
     }
     this.isContigentBeneficiaryFormSubmitted = true;
   }
 
   medicalFormSubmittedSubmit() {
-    if (this.medicalForm.valid) {
+    if (this.medicalForm.valid || this.medicalForm.disabled) {
       this.policy.goToNextStep();
     }
     this.isMedicalFormFormSubmitted = true;
   }
 
   additionalQuestionFormSubmittedSubmit() {
-    if (this.additionalQuestionForm.valid) {
+    if (
+      this.additionalQuestionForm.valid ||
+      this.additionalQuestionForm.disabled
+    ) {
       this.policy.goToNextStep();
     }
     this.isAdditionalQuestionFormSubmitted = true;
   }
 
   referralsFormSubmittedSubmit() {
-    if (this.referralsForm.valid) {
+    if (this.referralsForm.valid || this.referralsForm.disabled) {
       this.policy.goToNextStep();
     }
     this.isReferralsFormSubmitted = true;
   }
 
   bankInformationFormSubmittedSubmit() {
-    if (this.bankInformationForm.valid) {
+    if (this.bankInformationForm.valid || this.bankInformationForm.disabled) {
       this.policy.goToNextStep();
     }
     this.isBankInformationFormSubmitted = true;
@@ -295,24 +359,33 @@ export class AddPolicyComponent implements OnInit {
   addBeneficiary() {
     this.formBeneficiaries.push(
       this.formBuilder.group({
-        firstName: [{ value: '', disabled: false }, [Validators.required]],
-        middleName: [{ value: '', disabled: false }, [Validators.minLength(3)]],
+        firstName: [
+          { value: '', disabled: this.isDisabled },
+          [Validators.required],
+        ],
+        middleName: [
+          { value: '', disabled: this.isDisabled },
+          [Validators.minLength(3)],
+        ],
         lastName: [
-          { value: '', disabled: false },
+          { value: '', disabled: this.isDisabled },
           [Validators.minLength(3), Validators.required],
         ],
         relationshipToInsured: [
-          { value: '', disabled: false },
+          { value: '', disabled: this.isDisabled },
           [Validators.minLength(3), Validators.required],
         ],
-        phone: [{ value: '', disabled: false }, [Validators.required]],
+        phone: [
+          { value: '', disabled: this.isDisabled },
+          [Validators.required],
+        ],
         email: [
-          { value: '', disabled: false },
+          { value: '', disabled: this.isDisabled },
           [Validators.required, Validators.email, Validators.minLength(3)],
         ],
-        dateBirth: [{ value: '', disabled: false }],
-        ss: [{ value: '', disabled: false }],
-        share: [{ value: '', disabled: false }],
+        dateBirth: [{ value: '', disabled: this.isDisabled }],
+        ss: [{ value: '', disabled: this.isDisabled }],
+        share: [{ value: '', disabled: this.isDisabled }],
       })
     );
   }
@@ -320,15 +393,15 @@ export class AddPolicyComponent implements OnInit {
   addContigentBeneficiary() {
     this.contigentBeneficiaries.push(
       this.formBuilder.group({
-        firstName: [{ value: '', disabled: false }, []],
-        middleName: [{ value: '', disabled: false }, []],
-        lastName: [{ value: '', disabled: false }, []],
-        relationshipToInsured: [{ value: '', disabled: false }, []],
-        phone: [{ value: '', disabled: false }, []],
-        email: [{ value: '', disabled: false }, [Validators.email]],
-        dateBirth: [{ value: '', disabled: false }],
-        ss: [{ value: '', disabled: false }],
-        share: [{ value: '', disabled: false }],
+        firstName: [{ value: '', disabled: this.isDisabled }, []],
+        middleName: [{ value: '', disabled: this.isDisabled }, []],
+        lastName: [{ value: '', disabled: this.isDisabled }, []],
+        relationshipToInsured: [{ value: '', disabled: this.isDisabled }, []],
+        phone: [{ value: '', disabled: this.isDisabled }, []],
+        email: [{ value: '', disabled: this.isDisabled }, [Validators.email]],
+        dateBirth: [{ value: '', disabled: this.isDisabled }],
+        ss: [{ value: '', disabled: this.isDisabled }],
+        share: [{ value: '', disabled: this.isDisabled }],
       })
     );
   }
@@ -336,12 +409,12 @@ export class AddPolicyComponent implements OnInit {
   addReferrals() {
     this.referrals.push(
       this.formBuilder.group({
-        firstName: [{ value: '', disabled: false }, []],
-        middleName: [{ value: '', disabled: false }, []],
-        lastName: [{ value: '', disabled: false }, []],
-        relationshipToInsured: [{ value: '', disabled: false }, []],
-        phone: [{ value: '', disabled: false }, []],
-        email: [{ value: '', disabled: false }, [Validators.email]],
+        firstName: [{ value: '', disabled: this.isDisabled }, []],
+        middleName: [{ value: '', disabled: this.isDisabled }, []],
+        lastName: [{ value: '', disabled: this.isDisabled }, []],
+        relationshipToInsured: [{ value: '', disabled: this.isDisabled }, []],
+        phone: [{ value: '', disabled: this.isDisabled }, []],
+        email: [{ value: '', disabled: this.isDisabled }, [Validators.email]],
       })
     );
   }
@@ -379,6 +452,8 @@ export class AddPolicyComponent implements OnInit {
   }
 
   getPolicyAndCustomer(policyId: string) {
+    const errorMessage = 'Failed to search for customer';
+
     this.policyService.getPolicy(policyId).subscribe({
       next: (policy) => {
         this.selectPolicy = policy;
@@ -392,11 +467,13 @@ export class AddPolicyComponent implements OnInit {
           this.populateBankInformationForm(policy);
           this.populateReferralsForm(policy);
           this.populateDocumentForm(policy);
+
+          this.disabelFieldForm();
         }
       },
 
       error: (error: any) => {
-        this.handleError(error);
+        this.handleError(error, errorMessage);
       },
     });
   }
@@ -552,56 +629,61 @@ export class AddPolicyComponent implements OnInit {
   }
 
   submitForm() {
-    this.isDocumentFormSubmitted = true;
+    const policyData = this.getPolicyData();
+    const successMessage = 'Policy created';
+    const successMessageUpdate = 'updated policy';
+    const errorMessage = 'Error creating policy';
+    const errorMessageUpdate = 'Error updating policy';
 
-    if (this.isFormValid()) {
-      const policyData = this.getPolicyData();
+    if (this.selectPolicy) {
+      // Updated Policy
 
-      this.createPolicy(policyData)
-        .pipe(
-          switchMap((resp: any) => {
-            return this.uploadDocuments(
-              resp.policy.uid,
-              this.idPhotoFile,
-              this.document1File,
-              this.document2File
-            );
-          })
-        )
-        .subscribe({
-          next: (response) => {
-            Swal.fire({
-              icon: 'success',
-              title: `Policy created `,
+      Swal.fire({
+        title: 'Do you want to edit the policy?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.updatePolicy(policyData)
+            .pipe(
+              switchMap((resp: any) =>
+                this.uploadPolicyDocuments(resp.policy.uid)
+              )
+            )
+            .subscribe({
+              next: () => this.handleSuccess(successMessageUpdate),
+              error: (error) => this.handleError(error, errorMessageUpdate),
             });
+        }
+      });
+    } else {
+      this.isDocumentFormSubmitted = true;
 
-            this.clearForm();
-            this.router.navigateByUrl(
-              `${ROUTE_APP.POLICY}/${ROUTE_APP.ALL_POLICY}`
-            );
-          },
-          error: (error) => {
-            const errors = error?.error?.errors;
-            const errorList: string[] = [];
-
-            if (errors) {
-              Object.entries(errors).forEach(([key, value]: [string, any]) => {
-                if (value && value['msg']) {
-                  errorList.push('° ' + value['msg'] + '<br>');
-                }
-              });
-            }
-
-            Swal.fire({
-              title: 'Error creating policy',
-              icon: 'error',
-              html: `${
-                errorList.length ? errorList.join('') : error.error.msg
-              }`,
-            });
-          },
-        });
+      if (this.isFormValid()) {
+        this.createPolicy(policyData)
+          .pipe(
+            switchMap((resp: any) =>
+              this.uploadPolicyDocuments(resp.policy.uid)
+            )
+          )
+          .subscribe({
+            next: () => this.handleSuccess(successMessage),
+            error: (error) => this.handleError(error, errorMessage),
+          });
+      }
     }
+  }
+
+  private uploadPolicyDocuments(policyUid: string) {
+    return this.uploadDocuments(
+      policyUid,
+      this.idPhotoFile,
+      this.document1File,
+      this.document2File
+    );
   }
 
   isFormValid(): boolean {
@@ -684,6 +766,7 @@ export class AddPolicyComponent implements OnInit {
         mbBase: data.mbBase,
       },
       customer: this.selectCustomer.uid,
+      status: EstatusPolicy.MORE_INFORMATION_NEEDED,
     };
 
     return policyData;
@@ -691,6 +774,10 @@ export class AddPolicyComponent implements OnInit {
 
   createPolicy(policyData: IPolicy): Observable<any> {
     return this.policyService.createPolicy(policyData);
+  }
+
+  updatePolicy(policyData: IPolicy): Observable<any> {
+    return this.policyService.updatePolicy(this.selectPolicy.uid, policyData);
   }
 
   uploadDocuments(
@@ -707,7 +794,7 @@ export class AddPolicyComponent implements OnInit {
     );
   }
 
-  handleError(error: any) {
+  private handleError(error: any, defaultMessage: string) {
     const errors = error?.error?.errors;
     const errorList: string[] = [];
 
@@ -720,11 +807,18 @@ export class AddPolicyComponent implements OnInit {
     }
 
     Swal.fire({
-      title: 'Failed to search for customer',
+      title: defaultMessage,
       icon: 'error',
       html: `${errorList.length ? errorList.join('') : error.error.msg}`,
     });
+  }
 
+  private handleSuccess(message: string) {
+    Swal.fire({
+      icon: 'success',
+      title: message,
+    });
+    this.clearForm();
     this.router.navigateByUrl(`${ROUTE_APP.POLICY}/${ROUTE_APP.ALL_POLICY}`);
   }
 
@@ -734,11 +828,50 @@ export class AddPolicyComponent implements OnInit {
     );
   }
 
-  cancelEdit() {
+  cancelPolicy() {
     this.router.navigateByUrl(`${ROUTE_APP.POLICY}/${ROUTE_APP.ALL_POLICY}`);
   }
 
+  editPolicy() {
+    Swal.fire({
+      title: 'Do you want to edit the policy?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.enableFieldsForm();
+      }
+    });
+  }
+
+  disabelFieldForm() {
+    this.lifePolicyForm.disable();
+    this.beneficiaryForm.disable();
+    this.contigentBeneficiaryForm.disable();
+    this.medicalForm.disable();
+    this.additionalQuestionForm.disable();
+    this.bankInformationForm.disable();
+    this.documentForm.disable();
+    this.referrals.disable();
+  }
+
+  enableFieldsForm() {
+    this.lifePolicyForm.enable();
+    this.beneficiaryForm.enable();
+    this.contigentBeneficiaryForm.enable();
+    this.medicalForm.enable();
+    this.additionalQuestionForm.enable();
+    this.bankInformationForm.enable();
+    this.documentForm.enable();
+    this.referrals.enable();
+    this.isDisabled = false;
+  }
+
   clearForm() {
+    this.lifePolicyForm.reset();
     this.beneficiaryForm.reset();
     this.contigentBeneficiaryForm.reset();
     this.medicalForm.reset();

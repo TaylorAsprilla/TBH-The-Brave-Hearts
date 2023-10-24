@@ -35,6 +35,7 @@ export class PolicyModel {
     },
     public referrals: IReferral[],
     public document: IDocument,
+    public status: string,
     public customer: ICustomerPolicy,
     public active?: boolean,
     public createdAt?: Date,
