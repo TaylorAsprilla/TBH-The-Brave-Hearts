@@ -5,6 +5,7 @@ import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { TEXT } from 'src/app/core/enum/text.enum';
 import { AddPolicyComponent } from './add-policy/add-policy.component';
 import { AllPolicyComponent } from './all-policy/all-policy.component';
+import { CustomersResolver } from 'src/app/core/resolvers/customers/customers.resolver';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
   {
     path: `${ROUTE_APP.ALL_POLICY}`,
     component: AllPolicyComponent,
+    resolve: { customers: CustomersResolver },
   },
 ];
 

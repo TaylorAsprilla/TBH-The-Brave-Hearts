@@ -1,5 +1,5 @@
 <div class="d-flex flex-wrap container">
-  <div class="filter-controls col-md-4 mt-4 pe-2">
+  <div class="filter-controls col-12 col-md-4 mt-4 pe-2">
     <label for="search-input" class="form-label">Search:</label>
     <input
       type="search"
@@ -10,7 +10,7 @@
     />
   </div>
   <ng-container *ngFor="let filterOption of filterOptions">
-    <div class="col-md-4 pe-2 mt-4">
+    <div class="col-12 col-md-4 pe-2 mt-4">
       <label for="{{ filterOption.field }}" class="form-label">
         {{ filterOption.label }}:
       </label>
