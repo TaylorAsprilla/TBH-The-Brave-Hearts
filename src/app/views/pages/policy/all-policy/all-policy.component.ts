@@ -107,9 +107,12 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
     }
 
     this.filteredPolicies.sort((a: any, b: any) => {
-      if (a[field] < b[field]) {
+      const aValue = a.customer ? a.customer.firstName : '';
+      const bValue = b.customer ? b.customer.firstName : '';
+
+      if (aValue < bValue) {
         return this.orderType === 'asc' ? -1 : 1;
-      } else if (a[field] > b[field]) {
+      } else if (aValue > bValue) {
         return this.orderType === 'asc' ? 1 : -1;
       } else {
         return 0;

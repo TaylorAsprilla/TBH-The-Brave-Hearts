@@ -280,7 +280,7 @@ export class ProspectsComponent implements OnInit, OnDestroy {
     }
   }
 
-  sortCustomersBy(field: string) {
+  sortProspectsBy(field: string) {
     if (field === this.orderField) {
       this.orderType = this.orderType === 'asc' ? 'desc' : 'asc';
     } else {
@@ -289,9 +289,12 @@ export class ProspectsComponent implements OnInit, OnDestroy {
     }
 
     this.filteredProspects.sort((a: any, b: any) => {
-      if (a[field] < b[field]) {
+      const aValue = a.agent ? a.agent.firstName : '';
+      const bValue = b.agent ? b.agent.firstName : '';
+
+      if (aValue < bValue) {
         return this.orderType === 'asc' ? -1 : 1;
-      } else if (a[field] > b[field]) {
+      } else if (aValue > bValue) {
         return this.orderType === 'asc' ? 1 : -1;
       } else {
         return 0;

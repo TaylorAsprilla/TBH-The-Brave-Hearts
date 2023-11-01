@@ -18,32 +18,25 @@
         <h6 class="card-title">Policy - Administrator</h6>
         <span class="float-end badge bg-danger">{{ policies.length }}</span>
 
-        <button
-          class="btn btn-info float-end mx-2"
-          (click)="exportAsXLSXFiltered()"
-          title="Export Filtered Policies"
-        >
-          <i class="feather icon-download"></i> Filtered
-        </button>
+        <app-export-data
+          [data]="exportData"
+          [dataFiltered]="exportFiltredData"
+          [nameFile]="'Export Filtered Policies'"
+        ></app-export-data>
 
         <button
-          class="btn btn-light float-end mb-4"
-          (click)="exportAsXLSX()"
-          title="Export all Policies"
+          type="button"
+          class="btn btn-primary float-end mx-2"
+          (click)="resetSelect()"
         >
-          <i class="feather icon-download"></i> Export
+          Reset
         </button>
 
-        <div class="mb-3 mt-5">
-          <!-- Input de Searh -->
-          <input
-            type="search"
-            class="form-control"
-            placeholder="Search"
-            (input)="filterPolicity(busqueda.value)"
-            #busqueda
-          />
-        </div>
+        <app-filters
+          [filterOptions]="filterOptions"
+          (filterData)="filterPolicies($event)"
+          (searchQuery)="filterPolicity($event)"
+        ></app-filters>
 
         <div
           *ngIf="policies.length == 0"
@@ -53,7 +46,7 @@
           There are no policies registered under your agent code
         </div>
 
-        <div class="table-responsive">
+        <div class="table-responsive mt-5">
           <table class="table table-hover">
             <thead>
               <tr>
@@ -106,10 +99,37 @@
                   ></i>
                 </th>
 
-                <th>Customer</th>
+                <th (click)="sortPolicyBy('customer.firstName')">
+                  Customer
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'customer.firstName' &&
+                        orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'customer.firstName' &&
+                        orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+
                 <th>Document</th>
-                <th>status</th>
+                <th (click)="sortPolicyBy('status')">
+                  Status
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'status' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'status' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+
                 <th>Agent</th>
+
                 <th>View</th>
               </tr>
             </thead>

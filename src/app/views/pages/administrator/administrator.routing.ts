@@ -10,6 +10,8 @@ import { AddAgentsComponent } from './agents/add-agents/add-agents.component';
 import { StateResolver } from 'src/app/core/resolvers/state/state.resolver';
 import { AgentResolver } from 'src/app/core/resolvers/agent/agent.resolver';
 import { ReportsComponent } from './reports/reports.component';
+import { AgentsResolver } from 'src/app/core/resolvers/agents/agents.resolver';
+import { CustomersResolver } from 'src/app/core/resolvers/customers/customers.resolver';
 
 const routes: Routes = [
   {
@@ -20,7 +22,7 @@ const routes: Routes = [
   {
     path: ROUTE_APP.ALL_POLICY,
     component: PolicyComponent,
-    resolve: { agent: AgentResolver },
+    resolve: { agents: AgentsResolver, customers: CustomersResolver },
   },
   {
     path: ROUTE_APP.ALL_PROSPECTS,

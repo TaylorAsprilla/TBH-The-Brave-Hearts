@@ -13,7 +13,8 @@ import { AllAgentsComponent } from './agents/all-agents/all-agents.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
 import { ReportsComponent } from './reports/reports.component';
-import { ExporterService } from 'src/app/services/exporter/exporter.service';
+import { ExportDataModule } from '../../components/export-data/export-data.module';
+import { FiltersModule } from '../../components/filters/filters.module';
 
 @NgModule({
   declarations: [
@@ -28,14 +29,15 @@ import { ExporterService } from 'src/app/services/exporter/exporter.service';
     CommonModule,
     BrowserModule,
     SweetAlert2Module,
+    HttpClientModule,
     FormsModule,
     AdministratorRoutingModule,
     SpinnerModule,
     NgSelectModule,
     ReactiveFormsModule,
-    HttpClientModule,
+    FiltersModule,
+    ExportDataModule,
   ],
   exports: [CustomersComponent, PolicyComponent, ProspectsComponent],
-  providers: [ExporterService],
 })
 export class AdministratorModule {}

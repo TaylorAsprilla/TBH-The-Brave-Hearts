@@ -1,0 +1,31 @@
+<div class="d-flex flex-wrap container">
+  <div class="filter-controls col-md-4 mt-4 pe-2">
+    <label for="search-input" class="form-label">Search:</label>
+    <input
+      type="search"
+      class="form-control"
+      placeholder="Search"
+      (input)="onSearchData(searchInput.value)"
+      #searchInput
+    />
+  </div>
+  <ng-container *ngFor="let filterOption of filterOptions">
+    <div class="col-md-4 pe-2 mt-4">
+      <label for="{{ filterOption.field }}" class="form-label">
+        {{ filterOption.label }}:
+      </label>
+      <select
+        id="{{ filterOption.field }}"
+        class="form-select"
+        [(ngModel)]="filterOption.value"
+        (change)="onFilterData()"
+      >
+        <option value="">All {{ filterOption.label }}</option>
+        <option *ngFor="let option of filterOption.options" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+  </ng-container>
+</div>
+<hr class="mt-4" />

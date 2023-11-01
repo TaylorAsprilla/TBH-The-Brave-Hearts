@@ -36,10 +36,13 @@ export class CustomerService {
   }
 
   getAllCustomers() {
-    return this.httpClient.get<ILoadAllCustomers>(
-      `${base_url}/customers/all`,
-      this.headers
-    );
+    return this.httpClient
+      .get<ILoadAllCustomers>(`${base_url}/customers/all`, this.headers)
+      .pipe(
+        map(
+          (resp: { ok: boolean; customers: CustomerModel[] }) => resp.customers
+        )
+      );
   }
 
   getAllCustomersForAgents(idAgent: string) {

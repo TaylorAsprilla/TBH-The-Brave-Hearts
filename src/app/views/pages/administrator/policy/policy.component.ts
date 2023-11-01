@@ -1,10 +1,12 @@
+import { FilterOption } from './../../../../core/interfaces/filter-option';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
+import { policyDataExport } from 'src/app/core/interfaces/policy.interface';
 import { AgentModel } from 'src/app/core/models/agent.model';
+import { CustomerModel } from 'src/app/core/models/customer.model';
 import { PolicyModel } from 'src/app/core/models/policy.model';
-import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import { PolicyService } from 'src/app/services/policy/policy.service';
 import {
   statusPolicy,
@@ -21,9 +23,22 @@ import Swal from 'sweetalert2';
 export class PolicyComponent implements OnInit {
   policySubscription: Subscription;
   policies: PolicyModel[] = [];
-  agent: AgentModel;
+  agents: AgentModel[] = [];
+  customers: CustomerModel[] = [];
+
+  filterOptions: FilterOption[];
+
+  carriers: string[] = [];
+  policyTypes: string[] = [];
+  status: string[] = [];
 
   filteredPolicies: PolicyModel[] = [];
+
+  agentFullNames: string[] = [];
+  customersFullNames: string[] = [];
+
+  exportData: policyDataExport[] = [];
+  exportFiltredData: policyDataExport[] = [];
 
   loading: boolean = false;
 
@@ -39,8 +54,8 @@ export class PolicyComponent implements OnInit {
 
   constructor(
     private policyService: PolicyService,
-    private exporterService: ExporterService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnDestroy(): void {
@@ -48,6 +63,11 @@ export class PolicyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.activatedRoute.data.subscribe((data) => {
+      this.agents = data.agents.agents;
+      this.customers = data.customers;
+    });
+
     this.loadPolicy();
   }
 
@@ -61,8 +81,39 @@ export class PolicyComponent implements OnInit {
         });
 
         this.filteredPolicies = this.policies;
-        this.loading = false;
+        this.extractAllUniqueValues();
       });
+  }
+
+  // Función para extraer los campos deseados de una política
+  extractPolicyFields(policy: PolicyModel) {
+    return {
+      carrier: policy.carrier,
+      policyType: policy.policyType,
+      monthly: policy.monthly,
+      faceAmount: policy.faceAmount,
+      active: policy.active,
+      createdAt: policy.createdAt,
+      uid: policy.uid,
+      status: policy.status,
+      nameAgent: `${policy.agent?.firstName} ${policy.agent?.lastName}`,
+      nameCustomer: `${policy.customer?.firstName} ${policy.customer?.lastName}`,
+    };
+  }
+
+  extractUniqueValues(fieldName: keyof PolicyModel): any[] {
+    return Array.from(
+      new Set(
+        this.filteredPolicies.map((policy: PolicyModel) => policy[fieldName])
+      )
+    );
+  }
+
+  extractAllUniqueValues() {
+    this.carriers = this.extractUniqueValues('carrier');
+    this.policyTypes = this.extractUniqueValues('policyType');
+    this.status = this.extractUniqueValues('status');
+    this.createFiltres();
   }
 
   trackByPolicyId(index: number, policy: PolicyModel): string {
@@ -73,6 +124,53 @@ export class PolicyComponent implements OnInit {
     this.router.navigateByUrl(
       `${ROUTE_APP.POLICY}/${ROUTE_APP.ADD_POLICY}/${policy.uid}`
     );
+  }
+
+  createFiltres() {
+    this.filteredPolicies = this.policies;
+    this.exportData = this.policies.map(this.extractPolicyFields);
+    this.agentFullNames = this.agents.map(
+      (agent) => `${agent.firstName} ${agent.lastName}`
+    );
+
+    this.customersFullNames = this.customers.map(
+      (customer) => `${customer.firstName} ${customer.lastName}`
+    );
+
+    this.filterOptions = [
+      {
+        field: 'agents',
+        label: 'Agents',
+        options: this.agentFullNames,
+        value: '',
+      },
+      {
+        field: 'customers',
+        label: 'Customers',
+        options: this.customersFullNames,
+        value: '',
+      },
+
+      {
+        field: 'carrier',
+        label: 'Carrier',
+        options: this.carriers,
+        value: '',
+      },
+      {
+        field: 'policyType',
+        label: 'Policy Type',
+        options: this.policyTypes,
+        value: '',
+      },
+      {
+        field: 'status',
+        label: 'Status',
+        options: this.status,
+        value: '',
+      },
+    ];
+    this.loading = false;
   }
 
   filterPolicity(value: string) {
@@ -103,14 +201,49 @@ export class PolicyComponent implements OnInit {
     }
 
     this.filteredPolicies.sort((a: any, b: any) => {
-      if (a[field] < b[field]) {
+      const aValue = a.customer ? a.customer.firstName : '';
+      const bValue = b.customer ? b.customer.firstName : '';
+
+      if (aValue < bValue) {
         return this.orderType === 'asc' ? -1 : 1;
-      } else if (a[field] > b[field]) {
+      } else if (aValue > bValue) {
         return this.orderType === 'asc' ? 1 : -1;
       } else {
         return 0;
       }
     });
+  }
+
+  filterPolicies(data: any[] = []) {
+    this.filteredPolicies = this.policies.filter((policy: PolicyModel) => {
+      const agentName = `${policy.agent?.firstName} ${policy.agent?.lastName}`;
+      const customerName = `${policy.customer?.firstName} ${policy.customer?.lastName}`;
+
+      const filters = [
+        // Agent
+        (policy: PolicyModel) => !data[0].value || agentName === data[0].value,
+        // Customer
+        (policy: PolicyModel) =>
+          !data[1].value || customerName === data[1].value,
+        // Carrier
+        (policy: PolicyModel) =>
+          !data[2].value || policy.carrier === data[2].value,
+        // Policy Type
+        (policy: PolicyModel) =>
+          !data[3].value || policy.policyType === data[3].value,
+        // Status
+        (policy: PolicyModel) =>
+          !data[4].value || policy.status === data[4].value,
+      ];
+
+      const passedFilters = filters.every((filter) => filter(policy));
+
+      return passedFilters;
+    });
+
+    this.exportFiltredData = this.filteredPolicies.map(
+      this.extractPolicyFields
+    );
   }
 
   changeStatus(uid: string, policy: PolicyModel) {
@@ -144,6 +277,10 @@ export class PolicyComponent implements OnInit {
     });
   }
 
+  resetSelect() {
+    this.extractAllUniqueValues();
+  }
+
   navigateWithQueryParams(idPolicy: string) {
     const queryParams = {
       idPolicy,
@@ -152,16 +289,5 @@ export class PolicyComponent implements OnInit {
     const url = `${ROUTE_APP.POLICY}/${ROUTE_APP.ADD_POLICY}`;
 
     this.router.navigate([url], { queryParams });
-  }
-
-  exportAsXLSX(): void {
-    this.exporterService.exportToExcel(this.policies, 'Data_policies_admin');
-  }
-
-  exportAsXLSXFiltered(): void {
-    this.exporterService.exportToExcel(
-      this.filteredPolicies,
-      'Data_policies_filtered_admin'
-    );
   }
 }

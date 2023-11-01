@@ -255,7 +255,7 @@ export class AllProspectsComponent implements OnInit {
     }
   }
 
-  sortCustomersBy(field: string) {
+  sortProspectsBy(field: string) {
     if (field === this.orderField) {
       this.orderType = this.orderType === 'asc' ? 'desc' : 'asc';
     } else {
