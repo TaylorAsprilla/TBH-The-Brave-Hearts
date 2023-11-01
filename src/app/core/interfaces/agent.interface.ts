@@ -38,6 +38,7 @@ export interface ChangePadswordInterface {
 
 export interface IAgentPolicy {
   _id: string;
+  agentCode: number;
   firstName: string;
   lastName: string;
   email: string;

@@ -1,24 +1,23 @@
 import { Injectable } from '@angular/core';
 import {
-  Router,
   Resolve,
   RouterStateSnapshot,
   ActivatedRouteSnapshot,
 } from '@angular/router';
-import { Observable, of, catchError } from 'rxjs';
-import { StateService } from 'src/app/services/state/state.service';
+import { Observable, catchError, of } from 'rxjs';
+import { AgentService } from 'src/app/services/agent/agent.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StateResolver implements Resolve<boolean> {
-  constructor(private stateService: StateService) {}
+export class AgentsResolver implements Resolve<boolean> {
+  constructor(private agentService: AgentService) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
-    return this.stateService.getSates().pipe(
+    return this.agentService.getAllAgents().pipe(
       catchError((error) => {
         return of('No data');
       })

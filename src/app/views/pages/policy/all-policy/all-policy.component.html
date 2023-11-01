@@ -62,6 +62,7 @@
                 </th>
                 <th (click)="sortPolicyBy('policyType')">
                   PolicyType
+
                   <i
                     class="feather pointer"
                     [ngClass]="{
@@ -96,9 +97,36 @@
                     }"
                   ></i>
                 </th>
-                <th>Customer</th>
+                <!-- <th>Customer</th> -->
+                <th (click)="sortPolicyBy('customer.firstName')">
+                  Customer
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'customer.firstName' &&
+                        orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'customer.firstName' &&
+                        orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
                 <th>Document</th>
+                <th (click)="sortPolicyBy('createdAt')">
+                  Created
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'createdAt' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'createdAt' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
                 <th>Status</th>
+
                 <th>View</th>
               </tr>
             </thead>
@@ -146,6 +174,8 @@
                   </p>
                 </td>
 
+                <td>{{ policy.createdAt | date : "mediumDate" }}</td>
+
                 <td>
                   <select
                     class="form-control w140 selectStatus"
@@ -183,6 +213,7 @@
                 <th>Face Amount</th>
                 <th>Customer</th>
                 <th>Document</th>
+                <th>Created</th>
                 <th>Status</th>
                 <th>View</th>
               </tr>

@@ -5,20 +5,20 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot,
 } from '@angular/router';
-import { Observable, of, catchError } from 'rxjs';
-import { StateService } from 'src/app/services/state/state.service';
+import { Observable, catchError, of } from 'rxjs';
+import { CustomerService } from 'src/app/services/customer/customer.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StateResolver implements Resolve<boolean> {
-  constructor(private stateService: StateService) {}
+export class CustomersResolver implements Resolve<boolean> {
+  constructor(private customerService: CustomerService) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
-    return this.stateService.getSates().pipe(
+    return this.customerService.getAllCustomers().pipe(
       catchError((error) => {
         return of('No data');
       })

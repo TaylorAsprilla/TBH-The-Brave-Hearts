@@ -59,7 +59,7 @@
             <table class="table table-hover mx-auto">
               <thead>
                 <tr>
-                  <th (click)="sortCustomersBy('firstName')">
+                  <th (click)="sortProspectsBy('firstName')">
                     Name
                     <i
                       class="feather pointer"
@@ -71,7 +71,7 @@
                       }"
                     ></i>
                   </th>
-                  <th (click)="sortCustomersBy('email')">
+                  <th (click)="sortProspectsBy('email')">
                     Email
                     <i
                       class="feather pointer"
@@ -83,7 +83,7 @@
                       }"
                     ></i>
                   </th>
-                  <th (click)="sortCustomersBy('phone')">
+                  <th (click)="sortProspectsBy('phone')">
                     Phone
                     <i
                       class="feather pointer"
@@ -95,7 +95,7 @@
                       }"
                     ></i>
                   </th>
-                  <th (click)="sortCustomersBy('occupation')">
+                  <th (click)="sortProspectsBy('occupation')">
                     Occupation
                     <i
                       class="feather pointer"
@@ -107,7 +107,20 @@
                       }"
                     ></i>
                   </th>
-                  <th (click)="sortCustomersBy('status')">
+                  <th (click)="sortProspectsBy('createdAt')">
+                    Created
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderField === 'createdAt' && orderType === 'asc',
+                        'icon-arrow-down':
+                          orderField === 'createdAt' && orderType === 'desc'
+                      }"
+                    ></i>
+                  </th>
+
+                  <th (click)="sortProspectsBy('status')">
                     Status
                     <i
                       class="feather pointer"
@@ -120,7 +133,20 @@
                     ></i>
                   </th>
 
-                  <th>Agent</th>
+                  <th (click)="sortProspectsBy('agent.firstName')">
+                    Agent
+                    <i
+                      class="feather pointer"
+                      [ngClass]="{
+                        'icon-arrow-up':
+                          orderField === 'agent.firstName' &&
+                          orderType === 'asc',
+                        'icon-arrow-down':
+                          orderField === 'agent.firstName' &&
+                          orderType === 'desc'
+                      }"
+                    ></i>
+                  </th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -136,6 +162,7 @@
                   <td>{{ prospect.email }}</td>
                   <td>{{ prospect.phone }}</td>
                   <td>{{ prospect.occupation }}</td>
+                  <td>{{ prospect.createdAt | date : "mediumDate" }}</td>
 
                   <td>
                     <select
@@ -206,6 +233,7 @@
                   <th>EMAIL</th>
                   <th>OCCUPATION</th>
                   <th>PHONE</th>
+                  <th>CREATED</th>
                   <th>STATUS</th>
                   <th>AGENT</th>
                   <th>ACTION</th>

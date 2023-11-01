@@ -42,11 +42,11 @@ export class CustomersComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.customerSubscription = this.customerService
       .getAllCustomers()
-      .subscribe((resp) => {
-        this.customers = resp.customers.filter((customer) => {
+      .subscribe((customer: CustomerModel[]) => {
+        this.customers = customer.filter((customer) => {
           return customer.active === true;
         });
-        this.filteredCustomers = resp.customers;
+        this.filteredCustomers = customer;
         this.loading = false;
       });
   }
@@ -218,21 +218,20 @@ export class CustomersComponent implements OnInit, OnDestroy {
   }
 
   sortCustomersBy(field: string) {
-    // Verificar si el campo de ordenamiento es el mismo que el anterior
     if (field === this.orderField) {
-      // Cambiar el tipo de orden
       this.orderType = this.orderType === 'asc' ? 'desc' : 'asc';
     } else {
-      // Si es un campo diferente, establecer el campo de ordenamiento y el tipo de orden a sus valores predeterminados
       this.orderField = field;
       this.orderType = 'asc';
     }
 
-    // Ordenar los clientes según el campo y el tipo de orden
     this.filteredCustomers.sort((a: any, b: any) => {
-      if (a[field] < b[field]) {
+      const aValue = a.agent ? a.agent.firstName : '';
+      const bValue = b.agent ? b.agent.firstName : '';
+
+      if (aValue < bValue) {
         return this.orderType === 'asc' ? -1 : 1;
-      } else if (a[field] > b[field]) {
+      } else if (aValue > bValue) {
         return this.orderType === 'asc' ? 1 : -1;
       } else {
         return 0;

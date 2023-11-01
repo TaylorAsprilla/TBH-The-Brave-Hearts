@@ -107,3 +107,16 @@ export interface IPolicy {
   agent?: string;
   customer?: string;
 }
+
+export interface policyDataExport {
+  carrier: string;
+  policyType: string;
+  monthly: string;
+  faceAmount: string;
+  active?: boolean;
+  createdAt?: Date;
+  uid: string;
+  status: string;
+  nameAgent: string;
+  nameCustomer: string;
+}

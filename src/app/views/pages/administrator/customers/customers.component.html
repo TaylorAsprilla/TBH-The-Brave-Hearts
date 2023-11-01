@@ -134,7 +134,31 @@
                     }"
                   ></i>
                 </th>
-                <th>Agent</th>
+                <th (click)="sortCustomersBy('createdAt')">
+                  Created
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'createdAt' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'createdAt' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+                <th (click)="sortCustomersBy('agent.firstName')">
+                  Agent
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'agent.firstName' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'agent.firstName' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+
                 <th>Action</th>
               </tr>
             </thead>
@@ -152,6 +176,7 @@
                 <td>{{ customer.email }}</td>
                 <td>{{ customer.dateBirth | date : "mediumDate" }}</td>
                 <td>{{ customer.phone }}</td>
+                <td>{{ customer.createdAt | date : "mediumDate" }}</td>
                 <td>
                   {{ customer.agent.firstName }} {{ customer.agent.lastName }}
                 </td>
@@ -198,6 +223,7 @@
                 <th>EMAIL</th>
                 <th>DATE BIRTH</th>
                 <th>PHONE</th>
+                <th>CREATED</th>
                 <th>AGENT</th>
                 <th>ACTION</th>
               </tr>
