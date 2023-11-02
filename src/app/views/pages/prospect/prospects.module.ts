@@ -11,6 +11,8 @@ import { SpinnerModule } from '../../components/spinner/spinner.module';
 import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import { MobilePhoneNumberDirectiveModule } from 'src/app/core/directive/mobilePhoneNumber/mobile-phone-number.module';
 import { DollarFormatModule } from 'src/app/core/directive/dollarFormat/dollar-format.module';
+import { FiltersModule } from '../../components/filters/filters.module';
+import { ExportDataModule } from '../../components/export-data/export-data.module';
 
 @NgModule({
   declarations: [AddProspectsComponent, AllProspectsComponent],
@@ -25,6 +27,8 @@ import { DollarFormatModule } from 'src/app/core/directive/dollarFormat/dollar-f
     SpinnerModule,
     MobilePhoneNumberDirectiveModule,
     DollarFormatModule,
+    FiltersModule,
+    ExportDataModule,
   ],
   providers: [ExporterService],
   exports: [AddProspectsComponent, AllProspectsComponent],
