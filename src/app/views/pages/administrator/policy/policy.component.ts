@@ -278,7 +278,7 @@ export class PolicyComponent implements OnInit {
   }
 
   resetSelect() {
-    this.extractAllUniqueValues();
+    this.createFiltres();
   }
 
   navigateWithQueryParams(idPolicy: string) {

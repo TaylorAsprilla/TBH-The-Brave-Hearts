@@ -1,5 +1,5 @@
-export enum EstatusPolicy {
-  MORE_INFORMATION_NEEDED = 'More information needed',
-  PENDING_WITH_AGENT = 'Pending with agent',
-  SUBMITTED = 'Submitted',
+export enum StatusPolicy {
+  MORE_INFORMATION_NEEDED = 'MORE_INFORMATION_NEEDED ',
+  PENDING_WITH_AGENT = 'PENDING_WITH_AGENT',
+  SUBMITTED = 'SUBMITTED',
 }

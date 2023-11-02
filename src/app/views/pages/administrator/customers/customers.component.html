@@ -16,41 +16,34 @@
         <h6 class="card-title">Customers - Administrator</h6>
         <span class="float-end badge bg-danger">{{ customers.length }}</span>
 
-        <button
-          class="btn btn-info float-end mx-2"
-          (click)="exportAsXLSXFiltered()"
-          title="Export Filtered Customer"
-        >
-          <i class="feather icon-download"></i> Filtered
-        </button>
-
-        <button
-          class="btn btn-light float-end"
-          (click)="exportAsXLSX()"
-          title="Export all Customer"
-        >
-          <i class="feather icon-download"></i> Export
-        </button>
-
         <div class="mb-3">
           <button
-            class="btn btn-primary crop mb-2 mb-md-0 feather icon-user-plus"
+            class="btn btn-primary float-start mx-2"
             (click)="newCustomer()"
           >
+            <i class="mdi mdi-account"></i>
             Add Customer
           </button>
         </div>
-        <div class="mb-3">
-          <!-- Input de Searh -->
-          <input
-            type="search"
-            class="form-control"
-            placeholder="Search"
-            (input)="filterCustomers(busqueda.value)"
-            #busqueda
-          />
-        </div>
+        <app-export-data
+          [data]="exportData"
+          [dataFiltered]="exportFiltredData"
+          [nameFile]="'Export Filtered Policies'"
+        ></app-export-data>
 
+        <button
+          type="button"
+          class="btn btn-primary float-end mx-2"
+          (click)="resetSelect()"
+        >
+          Reset
+        </button>
+
+        <app-filters
+          [filterOptions]="filterOptions"
+          (filterData)="filterProspect($event)"
+          (searchQuery)="filterCustomers($event)"
+        ></app-filters>
         <div
           *ngIf="customers.length == 0"
           class="alert alert-primary"

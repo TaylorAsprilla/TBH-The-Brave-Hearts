@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { TEXT } from 'src/app/core/enum/text.enum';
 import { ExporterService } from 'src/app/services/exporter/exporter.service';
+import { FilterOption } from 'src/app/core/interfaces/filter-option';
+import { agentDataExport } from 'src/app/core/interfaces/agent.interface';
 
 @Component({
   selector: 'app-all-agents',
@@ -19,6 +21,21 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
   loading: boolean = false;
 
   filteredAgents: AgentModel[] = [];
+
+  filterOptions: FilterOption[];
+  exportData: agentDataExport[] = [];
+  exportFiltredData: agentDataExport[] = [];
+
+  state: string[] = [];
+  dataBirth: Date[] = [];
+  created: Date[] = [];
+  agentFullNames: string[] = [];
+  email: string[] = [];
+  city: string[] = [];
+  role: string[] = [];
+  zip: string[] = [];
+  agentCode: number[] = [];
+
   orderField: string = 'agentCode';
   orderType: 'asc' | 'desc' = 'asc';
 
@@ -48,7 +65,7 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
           return agent.active === true;
         });
         this.filteredAgents = this.agents;
-        this.loading = false;
+        this.extractAllUniqueValues();
       });
   }
 
@@ -220,14 +237,140 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
     });
   }
 
-  exportAsXLSX(): void {
-    this.exporterService.exportToExcel(this.agents, 'Data_agents_admin');
+  filterProspect(data: any[] = []) {
+    this.filteredAgents = this.agents.filter((agent: AgentModel) => {
+      const agentName = `${agent.firstName} ${agent.lastName}`;
+
+      const createdAt = this.formatDateToYYYYMMDD(agent?.createdAt);
+      const dateBirth = this.formatDateToYYYYMMDD(agent?.dateBirth);
+
+      const filters = [
+        // agent Code
+        (agent: AgentModel) =>
+          !data[0].value || agent.agentCode === data[0].value,
+        // agentName
+        (agent: AgentModel) => !data[1].value || agentName === data[1].value,
+        // dateBirth
+        (agent: AgentModel) => !data[2].value || dateBirth === data[2].value,
+        // State
+        (agent: AgentModel) => !data[3].value || agent.state === data[3].value,
+        (agent: AgentModel) => !data[4].value || agent.city === data[4].value,
+        (agent: AgentModel) => !data[5].value || agent.role === data[5].value,
+        (agent: AgentModel) => !data[6].value || createdAt === data[6].value,
+      ];
+
+      const passedFilters = filters.every((filter) => filter(agent));
+
+      return passedFilters;
+    });
   }
 
-  exportAsXLSXFiltered(): void {
-    this.exporterService.exportToExcel(
-      this.filteredAgents,
-      'Data_agents_filtered_admin'
+  extractUniqueValues(fieldName: keyof AgentModel): any[] {
+    return Array.from(
+      new Set(this.filteredAgents.map((agent: AgentModel) => agent[fieldName]))
     );
+  }
+
+  extractAllUniqueValues() {
+    this.city = this.extractUniqueValues('city');
+    this.state = this.extractUniqueValues('state');
+    this.role = this.extractUniqueValues('role');
+    this.dataBirth = this.extractUniqueValues('dateBirth');
+    this.created = this.extractUniqueValues('createdAt');
+    this.createFiltres();
+  }
+
+  createFiltres() {
+    this.filteredAgents = this.agents;
+    this.exportData = this.agents.map(this.extractCustomerFields);
+
+    const createdAtFormatted = this.created.map((dateString) =>
+      this.formatDateToYYYYMMDD(dateString)
+    );
+
+    const dateBirthFormatted = this.dataBirth.map((dateString) =>
+      this.formatDateToYYYYMMDD(dateString)
+    );
+
+    this.agentFullNames = this.agents.map(
+      (agent) => `${agent.firstName} ${agent.lastName}`
+    );
+
+    this.agentCode = this.agents.map((agent) => agent.agentCode);
+
+    this.filterOptions = [
+      {
+        field: 'agentCode',
+        label: 'Agent Code',
+        options: this.agentCode,
+        value: '',
+      },
+      {
+        field: 'name',
+        label: 'Name',
+        options: this.agentFullNames,
+        value: '',
+      },
+      {
+        field: 'dataBirth',
+        label: 'Data Birth',
+        options: dateBirthFormatted,
+        value: '',
+      },
+      {
+        field: 'state',
+        label: 'State',
+        options: this.state,
+        value: '',
+      },
+      {
+        field: 'city',
+        label: 'City',
+        options: this.city,
+        value: '',
+      },
+      {
+        field: 'role',
+        label: 'Role',
+        options: this.role,
+        value: '',
+      },
+      {
+        field: 'createdAt',
+        label: 'Created At',
+        options: createdAtFormatted,
+        value: '',
+      },
+    ];
+    this.loading = false;
+  }
+
+  extractCustomerFields(agent: AgentModel) {
+    return {
+      agentCode: agent.agentCode,
+      firstName: agent.firstName,
+      lastName: agent.lastName,
+      city: agent.city,
+      state: agent.state,
+      zipCode: agent.zip,
+      email: agent.email,
+      dateBirth: agent.dateBirth,
+      createdAt: agent.createdAt,
+    };
+  }
+
+  formatDateToYYYYMMDD(dateString: Date | undefined) {
+    if (dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+    return;
+  }
+
+  resetSelect() {
+    this.createFiltres();
   }
 }

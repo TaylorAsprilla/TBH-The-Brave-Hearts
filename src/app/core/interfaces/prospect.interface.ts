@@ -31,3 +31,28 @@ export interface ILoadAllProspectInterface {
   ok: boolean;
   prospect: ProspectModel;
 }
+
+export interface prospectDataExport {
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  email?: string;
+  occupation?: string;
+  partnerName?: string;
+  partnerLastName?: string;
+  partnerOccupation?: string;
+  couplesName?: string;
+  couplesLastName?: string;
+  couplesOccupation?: string;
+  children?: string;
+  retirementPlans?: string;
+  lifeInsurance?: string;
+  properties?: string;
+  partnerIncome?: string;
+  additionalIncome?: string;
+  surplusIncome?: string;
+  observations?: string;
+  status?: string;
+  nameAgent?: string;
+  createdAt?: Date;
+}

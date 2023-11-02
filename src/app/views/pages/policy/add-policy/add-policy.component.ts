@@ -22,7 +22,7 @@ import {
 } from 'src/app/core/interfaces/policy.interface';
 import { Observable, switchMap } from 'rxjs';
 import { PolicyModel } from 'src/app/core/models/policy.model';
-import { EstatusPolicy } from 'src/app/core/enum/estatus-policy';
+import { StatusPolicy } from 'src/app/core/enum/estatus-policy';
 
 @Component({
   selector: 'app-add-policy',
@@ -766,7 +766,7 @@ export class AddPolicyComponent implements OnInit {
         mbBase: data.mbBase,
       },
       customer: this.selectCustomer.uid,
-      status: EstatusPolicy.MORE_INFORMATION_NEEDED,
+      status: StatusPolicy.MORE_INFORMATION_NEEDED,
     };
 
     return policyData;

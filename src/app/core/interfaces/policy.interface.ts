@@ -117,6 +117,6 @@ export interface policyDataExport {
   createdAt?: Date;
   uid: string;
   status: string;
-  nameAgent: string;
+  nameAgent?: string;
   nameCustomer: string;
 }

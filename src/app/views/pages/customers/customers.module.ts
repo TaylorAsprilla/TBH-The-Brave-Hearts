@@ -11,10 +11,11 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { SpinnerModule } from '../../components/spinner/spinner.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { EditCustomersComponent } from './edit-customers/edit-customers.component';
-import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import { SsnFormatDirectiveModule } from 'src/app/core/directive/ssnFormatDirective/ssn-format-directive.module';
 import { MobilePhoneNumberDirectiveModule } from 'src/app/core/directive/mobilePhoneNumber/mobile-phone-number.module';
 import { DollarFormatModule } from 'src/app/core/directive/dollarFormat/dollar-format.module';
+import { FiltersModule } from '../../components/filters/filters.module';
+import { ExportDataModule } from '../../components/export-data/export-data.module';
 
 @NgModule({
   declarations: [
@@ -39,8 +40,9 @@ import { DollarFormatModule } from 'src/app/core/directive/dollarFormat/dollar-f
     SsnFormatDirectiveModule,
     MobilePhoneNumberDirectiveModule,
     DollarFormatModule,
+    FiltersModule,
+    ExportDataModule,
   ],
   exports: [AllCustomersComponent, AddCustomersComponent],
-  providers: [ExporterService],
 })
 export class CustomersModule {}
