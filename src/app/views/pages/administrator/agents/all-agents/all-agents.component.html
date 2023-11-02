@@ -15,35 +15,33 @@
 
         <span class="float-end badge bg-danger">{{ agents.length }}</span>
 
-        <button
-          class="btn btn-info float-end mx-2"
-          (click)="exportAsXLSXFiltered()"
-        >
-          <i class="feather icon-download"></i> Filtered
-        </button>
-
-        <button class="btn btn-light float-end" (click)="exportAsXLSX()">
-          <i class="feather icon-download"></i> Export
-        </button>
-
         <div class="mb-3">
-          <button
-            class="btn btn-primary crop mb-2 mb-md-0 feather icon-user-plus"
-            (click)="newAgent()"
-          >
+          <button class="btn btn-primary float-start mx-2" (click)="newAgent()">
+            <i class="mdi mdi-account"></i>
             Add Agents
           </button>
         </div>
-        <div class="mb-3">
-          <!-- Input de Searh -->
-          <input
-            type="search"
-            class="form-control"
-            placeholder="Search"
-            (input)="filterAgents(busqueda.value)"
-            #busqueda
-          />
-        </div>
+
+        <app-export-data
+          [data]="exportData"
+          [dataFiltered]="exportFiltredData"
+          [nameFile]="'Export Filtered Policies'"
+        ></app-export-data>
+
+        <button
+          type="button"
+          class="btn btn-primary float-end mx-2"
+          (click)="resetSelect()"
+        >
+          Reset
+        </button>
+
+        <app-filters
+          [filterOptions]="filterOptions"
+          (filterData)="filterProspect($event)"
+          (searchQuery)="filterAgents($event)"
+        ></app-filters>
+
         <div class="d-flex justify-content-center">
           <div class="table-responsive">
             <table class="table table-hover mx-auto">

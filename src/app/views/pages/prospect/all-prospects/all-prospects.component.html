@@ -14,7 +14,13 @@
         <h6 class="card-title">Prospects</h6>
 
         <span class="float-end badge bg-danger">{{ prospects.length }}</span>
-
+        <button
+          class="btn btn-primary float-start mx-2"
+          (click)="newProspect()"
+        >
+          <i class="mdi mdi-account"></i>
+          Add Prospect
+        </button>
         <app-export-data
           [data]="exportData"
           [dataFiltered]="exportFiltredData"
@@ -34,25 +40,6 @@
           (filterData)="filterProspect($event)"
           (searchQuery)="filterProspects($event)"
         ></app-filters>
-
-        <div class="mb-3">
-          <button
-            class="btn btn-primary crop mb-2 mb-md-0 feather icon-user-plus"
-            (click)="newProspect()"
-          >
-            Add Prospect
-          </button>
-        </div>
-        <div class="mb-3">
-          <!-- Input de Searh -->
-          <input
-            type="search"
-            class="form-control"
-            placeholder="Search"
-            (input)="filterProspects(busqueda.value)"
-            #busqueda
-          />
-        </div>
 
         <div
           *ngIf="prospects.length == 0"

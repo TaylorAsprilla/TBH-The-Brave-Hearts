@@ -4,6 +4,7 @@ export interface AgentFormInterface {
   agentCode: number;
   firstName: string;
   lastName: string;
+  dateBirth: Date;
   city: string;
   state: string;
   zip: string;
@@ -15,6 +16,7 @@ export interface AgentUpdateFormInterface {
   agentCode: number;
   firstName: string;
   lastName: string;
+  dateBirth: Date;
   city: string;
   state: string;
   zip: string;
@@ -42,4 +44,16 @@ export interface IAgentPolicy {
   firstName: string;
   lastName: string;
   email: string;
+}
+
+export interface agentDataExport {
+  agentCode: number;
+  firstName: string;
+  lastName: string;
+  dateBirth?: Date;
+  city?: string;
+  state?: string;
+  zip?: string;
+  email?: string;
+  createdAt?: Date;
 }

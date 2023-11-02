@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { TEXT } from 'src/app/core/enum/text.enum';
+import { FilterOption } from 'src/app/core/interfaces/filter-option';
+import { prospectDataExport } from 'src/app/core/interfaces/prospect.interface';
 import { AgentModel } from 'src/app/core/models/agent.model';
 import { ProspectModel } from 'src/app/core/models/prospect.model';
 import { ExporterService } from 'src/app/services/exporter/exporter.service';
@@ -27,6 +29,18 @@ export class ProspectsComponent implements OnInit, OnDestroy {
 
   statusOptions: any = statusOptions;
   statusColors = statusColors;
+
+  filterOptions: FilterOption[];
+
+  exportData: prospectDataExport[] = [];
+  exportFiltredData: prospectDataExport[] = [];
+
+  name: string[] = [];
+  email: string[] = [];
+  occupation: string[] = [];
+  status: string[] = [];
+  created: Date[] = [];
+  prospectsFullNames: string[] = [];
 
   filteredProspects: ProspectModel[] = [];
 
@@ -57,7 +71,7 @@ export class ProspectsComponent implements OnInit, OnDestroy {
         });
 
         this.filteredProspects = this.prospects;
-        this.loading = false;
+        this.extractAllUniqueValues();
       });
   }
 
@@ -302,14 +316,143 @@ export class ProspectsComponent implements OnInit, OnDestroy {
     });
   }
 
-  exportAsXLSX(): void {
-    this.exporterService.exportToExcel(this.prospects, 'Data_prospects_admin');
+  extractAllUniqueValues() {
+    this.email = this.extractUniqueValues('email');
+    this.occupation = this.extractUniqueValues('occupation');
+    this.created = this.extractUniqueValues('createdAt');
+    this.status = this.extractUniqueValues('status');
+    this.createFiltres();
   }
 
-  exportAsXLSXFiltered(): void {
-    this.exporterService.exportToExcel(
-      this.filteredProspects,
-      'Data_prospects_filtered_admin'
+  extractUniqueValues(fieldName: keyof ProspectModel): any[] {
+    return Array.from(
+      new Set(
+        this.filteredProspects.map(
+          (prospect: ProspectModel) => prospect[fieldName]
+        )
+      )
     );
+  }
+
+  createFiltres() {
+    this.filteredProspects = this.prospects;
+    this.exportData = this.prospects.map(this.extractProspectFields);
+
+    const formattedDates = this.created.map((dateString) =>
+      this.formatDateToYYYYMMDD(dateString)
+    );
+
+    this.prospectsFullNames = this.prospects.map(
+      (prospect) => `${prospect.firstName} ${prospect.lastName}`
+    );
+
+    this.filterOptions = [
+      {
+        field: 'name',
+        label: 'Name',
+        options: this.prospectsFullNames,
+        value: '',
+      },
+      {
+        field: 'email',
+        label: 'Email',
+        options: this.email,
+        value: '',
+      },
+
+      {
+        field: 'occupation',
+        label: 'Occupation',
+        options: this.occupation,
+        value: '',
+      },
+      {
+        field: 'createdAt',
+        label: 'Created At',
+        options: formattedDates,
+        value: '',
+      },
+      {
+        field: 'status',
+        label: 'Status',
+        options: this.status,
+        value: '',
+      },
+    ];
+    this.loading = false;
+  }
+
+  extractProspectFields(prospect: ProspectModel) {
+    return {
+      firstName: prospect.firstName,
+      lastName: prospect.lastName,
+      phone: prospect.phone,
+      email: prospect.email,
+      occupation: prospect.occupation,
+      partnerName: prospect.partnerName,
+      partnerLastName: prospect.lastName,
+      partnerOccupation: prospect.partnerOccupation,
+      children: prospect.children,
+      retirementPlans: prospect.retirementPlans,
+      lifeInsurance: prospect.lifeInsurance,
+      properties: prospect.properties,
+      partnerIncome: prospect.partnerIncome,
+      additionalIncome: prospect.additionalIncome,
+      surplusIncome: prospect.surplusIncome,
+      observations: prospect.observations,
+      status: prospect.status,
+      nameAgent: `${prospect.agent?.firstName} ${prospect.agent?.lastName}`,
+      createdAt: prospect.createdAt,
+    };
+  }
+
+  filterProspect(data: any[] = []) {
+    this.filteredProspects = this.prospects.filter(
+      (prospect: ProspectModel) => {
+        const prospectName = `${prospect.firstName} ${prospect.lastName}`;
+
+        const createdAt = this.formatDateToYYYYMMDD(prospect?.createdAt);
+
+        const filters = [
+          (prospect: ProspectModel) =>
+            !data[0].value || prospectName === data[0].value,
+
+          (prospect: ProspectModel) =>
+            !data[1].value || prospect.email === data[1].value,
+
+          (prospect: ProspectModel) =>
+            !data[2].value || prospect.occupation === data[2].value,
+
+          (prospect: ProspectModel) =>
+            !data[3].value || createdAt === data[3].value,
+
+          (prospect: ProspectModel) =>
+            !data[4].value || prospect.status === data[4].value,
+        ];
+
+        const passedFilters = filters.every((filter) => filter(prospect));
+
+        return passedFilters;
+      }
+    );
+
+    this.exportFiltredData = this.filteredProspects.map(
+      this.extractProspectFields
+    );
+  }
+
+  formatDateToYYYYMMDD(dateString: Date | undefined) {
+    if (dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+    return;
+  }
+
+  resetSelect() {
+    this.createFiltres();
   }
 }

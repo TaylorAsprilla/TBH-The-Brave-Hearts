@@ -1,6 +1,6 @@
 import { AgentService } from 'src/app/services/agent/agent.service';
 import { Component, OnInit } from '@angular/core';
-import { Data, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { TEXT } from 'src/app/core/enum/text.enum';
