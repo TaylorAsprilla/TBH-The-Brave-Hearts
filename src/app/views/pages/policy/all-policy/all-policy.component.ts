@@ -92,7 +92,6 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
       });
   }
 
-  // Función para extraer los campos deseados de una política
   extractPolicyFields(policy: PolicyModel) {
     return {
       carrier: policy.carrier,
