@@ -272,7 +272,7 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
   }
 
   resetSelect() {
-    this.extractAllUniqueValues();
+    this.createFiltres();
   }
 
   navigateWithQueryParams(idPolicy: string) {

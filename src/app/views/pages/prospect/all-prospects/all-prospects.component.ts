@@ -324,13 +324,6 @@ export class AllProspectsComponent implements OnInit {
         value: '',
       },
       {
-        field: 'email',
-        label: 'Email',
-        options: this.email,
-        value: '',
-      },
-
-      {
         field: 'occupation',
         label: 'Occupation',
         options: this.occupation,
@@ -384,21 +377,18 @@ export class AllProspectsComponent implements OnInit {
         const createdAt = this.formatDateToYYYYMMDD(prospect?.createdAt);
 
         const filters = [
-          // Agent
+          // Prospect
           (prospect: ProspectModel) =>
             !data[0].value || prospectName === data[0].value,
-          // Customer
+          // Occupation
           (prospect: ProspectModel) =>
-            !data[1].value || prospect.email === data[1].value,
-          // Carrier
+            !data[1].value || prospect.occupation === data[1].value,
+          // createdAt
           (prospect: ProspectModel) =>
-            !data[2].value || prospect.occupation === data[2].value,
-          // Policy Type
-          (prospect: ProspectModel) =>
-            !data[3].value || createdAt === data[3].value,
+            !data[2].value || createdAt === data[2].value,
           // Status
           (prospect: ProspectModel) =>
-            !data[4].value || prospect.status === data[4].value,
+            !data[3].value || prospect.status === data[3].value,
         ];
 
         const passedFilters = filters.every((filter) => filter(prospect));
@@ -424,6 +414,6 @@ export class AllProspectsComponent implements OnInit {
   }
 
   resetSelect() {
-    this.extractAllUniqueValues();
+    this.createFiltres();
   }
 }
