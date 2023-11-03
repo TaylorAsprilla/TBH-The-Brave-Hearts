@@ -53,7 +53,7 @@ export const MENU: MenuItem[] = [
   },
 
   {
-    label: 'My Policy',
+    label: 'Policies',
     icon: 'copy',
     role: [ROL.ADMINISTRATOR, ROL.USER],
     link: `${ROUTE_APP.POLICY}/${ROUTE_APP.ALL_POLICY}`,
@@ -75,7 +75,7 @@ export const MENU: MenuItem[] = [
             link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_PROSPECTS}`,
           },
           {
-            label: 'All policy',
+            label: 'All policies',
             link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_POLICY}`,
           },
           {

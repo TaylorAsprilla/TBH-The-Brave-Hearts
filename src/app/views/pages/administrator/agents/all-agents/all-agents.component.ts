@@ -247,7 +247,7 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
       const filters = [
         // agent Code
         (agent: AgentModel) =>
-          !data[0].value || agent.agentCode === data[0].value,
+          !data[0].value || agent.agentCode === Number(data[0].value),
         // agentName
         (agent: AgentModel) => !data[1].value || agentName === data[1].value,
         // dateBirth
@@ -263,6 +263,8 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
 
       return passedFilters;
     });
+
+    this.exportFiltredData = this.filteredAgents.map(this.extractAgentFields);
   }
 
   extractUniqueValues(fieldName: keyof AgentModel): any[] {
@@ -282,7 +284,7 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
 
   createFiltres() {
     this.filteredAgents = this.agents;
-    this.exportData = this.agents.map(this.extractCustomerFields);
+    this.exportData = this.agents.map(this.extractAgentFields);
 
     const createdAtFormatted = this.created.map((dateString) =>
       this.formatDateToYYYYMMDD(dateString)
@@ -345,7 +347,7 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
-  extractCustomerFields(agent: AgentModel) {
+  extractAgentFields(agent: AgentModel) {
     return {
       agentCode: agent.agentCode,
       firstName: agent.firstName,

@@ -52,6 +52,8 @@ export class PolicyComponent implements OnInit {
   orderField: string = 'carrier';
   orderType: 'asc' | 'desc' = 'asc';
 
+  hideFilters: boolean = false;
+
   constructor(
     private policyService: PolicyService,
     private router: Router,
@@ -169,6 +171,12 @@ export class PolicyComponent implements OnInit {
         options: this.status,
         value: '',
       },
+      {
+        field: 'createdAt',
+        label: 'Created At',
+        options: this.status,
+        value: '',
+      },
     ];
     this.loading = false;
   }
@@ -279,6 +287,10 @@ export class PolicyComponent implements OnInit {
 
   resetSelect() {
     this.createFiltres();
+  }
+
+  showFilters() {
+    this.hideFilters = true;
   }
 
   navigateWithQueryParams(idPolicy: string) {

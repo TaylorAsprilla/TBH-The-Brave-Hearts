@@ -24,18 +24,11 @@
           [nameFile]="'Export Filtered Policies'"
         ></app-export-data>
 
-        <button
-          type="button"
-          class="btn btn-primary float-end mx-2"
-          (click)="resetSelect()"
-        >
-          Reset
-        </button>
-
         <app-filters
           [filterOptions]="filterOptions"
           (filterData)="filterPolicies($event)"
           (searchQuery)="filterPolicity($event)"
+          (reset)="resetSelect()"
         ></app-filters>
 
         <div
@@ -128,7 +121,31 @@
                   ></i>
                 </th>
 
-                <th>Agent</th>
+                <th (click)="sortPolicyBy('createdAt')">
+                  Created
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'createdAt' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'createdAt' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
+
+                <th (click)="sortPolicyBy('agent.firstName')">
+                  Agent
+                  <i
+                    class="feather pointer"
+                    [ngClass]="{
+                      'icon-arrow-up':
+                        orderField === 'agent.firstName' && orderType === 'asc',
+                      'icon-arrow-down':
+                        orderField === 'agent.firstName' && orderType === 'desc'
+                    }"
+                  ></i>
+                </th>
 
                 <th>View</th>
               </tr>
@@ -194,6 +211,8 @@
                   </select>
                 </td>
 
+                <td>{{ policy.createdAt | date : "mediumDate" }}</td>
+
                 <td>
                   {{ policy?.agent?.firstName }}
                   {{ policy?.agent?.lastName }}
@@ -221,6 +240,7 @@
                 <th>Customer</th>
                 <th>Document</th>
                 <th>Status</th>
+                <th>Created</th>
                 <th>Agent</th>
                 <th>View</th>
               </tr>

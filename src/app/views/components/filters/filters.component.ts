@@ -8,10 +8,14 @@ import { FilterOption } from 'src/app/core/interfaces/filter-option';
 })
 export class FiltersComponent implements OnInit {
   @Input() filterOptions: FilterOption[] = [];
+
   @Output() filterData: EventEmitter<FilterOption[]> = new EventEmitter<
     FilterOption[]
   >();
   @Output() searchQuery: EventEmitter<string> = new EventEmitter<string>();
+  @Output() reset: EventEmitter<void> = new EventEmitter<void>();
+
+  hideFilters: boolean = true;
 
   constructor() {}
 
@@ -29,5 +33,13 @@ export class FiltersComponent implements OnInit {
   onSearchData(query: string) {
     // Emitir un evento con la consulta de búsqueda
     this.searchQuery.emit(query);
+  }
+
+  toggleFilters() {
+    this.hideFilters = !this.hideFilters;
+  }
+
+  resetSelect() {
+    this.reset.emit();
   }
 }

@@ -31,18 +31,11 @@
             [nameFile]="'Export Filtered Policies'"
           ></app-export-data>
 
-          <button
-            type="button"
-            class="btn btn-primary float-end mx-2"
-            (click)="resetSelect()"
-          >
-            Reset
-          </button>
-
           <app-filters
             [filterOptions]="filterOptions"
             (filterData)="filterProspect($event)"
             (searchQuery)="filterProspects($event)"
+            (reset)="resetSelect()"
           ></app-filters>
         </div>
 
