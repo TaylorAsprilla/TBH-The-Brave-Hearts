@@ -84,6 +84,7 @@ export class AllProspectsComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000,
         });
+        this.loadProspects();
       },
       error: (error: any) => {
         const errors = error?.error?.errors;

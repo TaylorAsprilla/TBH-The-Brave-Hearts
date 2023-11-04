@@ -49,7 +49,6 @@ export class ProspectsComponent implements OnInit, OnDestroy {
 
   constructor(
     private prospectService: ProspectService,
-    private exporterService: ExporterService,
     private router: Router
   ) {}
 
@@ -84,6 +83,7 @@ export class ProspectsComponent implements OnInit, OnDestroy {
           showConfirmButton: false,
           timer: 1000,
         });
+        this.loadProspects();
       },
       error: (error: any) => {
         const errors = error?.error?.errors;

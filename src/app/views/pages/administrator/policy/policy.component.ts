@@ -32,6 +32,8 @@ export class PolicyComponent implements OnInit {
   policyTypes: string[] = [];
   status: string[] = [];
 
+  created: Date[] = [];
+
   filteredPolicies: PolicyModel[] = [];
 
   agentFullNames: string[] = [];
@@ -114,6 +116,7 @@ export class PolicyComponent implements OnInit {
     this.carriers = this.extractUniqueValues('carrier');
     this.policyTypes = this.extractUniqueValues('policyType');
     this.status = this.extractUniqueValues('status');
+    this.created = this.extractUniqueValues('createdAt');
     this.createFiltres();
   }
 
@@ -136,6 +139,10 @@ export class PolicyComponent implements OnInit {
 
     this.customersFullNames = this.customers.map(
       (customer) => `${customer.firstName} ${customer.lastName}`
+    );
+
+    const createdAtFormatted = this.created.map((dateString) =>
+      this.formatDateToYYYYMMDD(dateString)
     );
 
     this.filterOptions = [
@@ -173,7 +180,7 @@ export class PolicyComponent implements OnInit {
       {
         field: 'createdAt',
         label: 'Created At',
-        options: this.status,
+        options: createdAtFormatted,
         value: '',
       },
     ];
@@ -222,9 +229,11 @@ export class PolicyComponent implements OnInit {
   }
 
   filterPolicies(data: any[] = []) {
+    console.log(data);
     this.filteredPolicies = this.policies.filter((policy: PolicyModel) => {
       const agentName = `${policy.agent?.firstName} ${policy.agent?.lastName}`;
       const customerName = `${policy.customer?.firstName} ${policy.customer?.lastName}`;
+      const createdAt = this.formatDateToYYYYMMDD(policy?.createdAt);
 
       const filters = [
         // Agent
@@ -241,6 +250,8 @@ export class PolicyComponent implements OnInit {
         // Status
         (policy: PolicyModel) =>
           !data[4].value || policy.status === data[4].value,
+        // CreatedAt
+        (policy: PolicyModel) => !data[5].value || createdAt === data[5].value,
       ];
 
       const passedFilters = filters.every((filter) => filter(policy));
@@ -262,6 +273,8 @@ export class PolicyComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000,
         });
+
+        this.loadPolicy();
       },
       error: (error: any) => {
         const errors = error?.error?.errors;
@@ -282,6 +295,17 @@ export class PolicyComponent implements OnInit {
         });
       },
     });
+  }
+
+  formatDateToYYYYMMDD(dateString: Date | undefined) {
+    if (dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+    return;
   }
 
   resetSelect() {

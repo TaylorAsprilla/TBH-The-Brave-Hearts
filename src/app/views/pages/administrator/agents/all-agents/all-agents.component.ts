@@ -101,6 +101,7 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
           showConfirmButton: false,
           timer: 1000,
         });
+        this.loadAgents();
       },
       error: (error: any) => {
         const errors = error?.error?.errors;
