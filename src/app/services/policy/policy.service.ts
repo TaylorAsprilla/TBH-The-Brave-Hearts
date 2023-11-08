@@ -74,4 +74,12 @@ export class PolicyService {
       this.headers
     );
   }
+
+  updateStatusPolicy(uid: string, status: string) {
+    return this.httpClient.put(
+      `${base_url}/policy/status/${uid}`,
+      { status },
+      this.headers
+    );
+  }
 }

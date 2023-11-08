@@ -7,7 +7,6 @@ import { FilterOption } from 'src/app/core/interfaces/filter-option';
 import { prospectDataExport } from 'src/app/core/interfaces/prospect.interface';
 import { AgentModel } from 'src/app/core/models/agent.model';
 import { ProspectModel } from 'src/app/core/models/prospect.model';
-import { ExporterService } from 'src/app/services/exporter/exporter.service';
 import { ProspectService } from 'src/app/services/prospect/prospect.service';
 import {
   statusColors,
@@ -75,35 +74,37 @@ export class ProspectsComponent implements OnInit, OnDestroy {
   }
 
   changeStatus(prospect: ProspectModel) {
-    this.prospectService.updateProspect(prospect).subscribe({
-      next: (resp: any) => {
-        Swal.fire({
-          position: 'bottom-end',
-          html: 'Prospect status updated.',
-          showConfirmButton: false,
-          timer: 1000,
-        });
-        this.loadProspects();
-      },
-      error: (error: any) => {
-        const errors = error?.error?.errors;
-        const errorList: string[] = [];
-
-        if (errors) {
-          Object.entries(errors).forEach(([key, value]: [string, any]) => {
-            if (value && value['msg']) {
-              errorList.push('° ' + value['msg'] + '<br>');
-            }
+    this.prospectService
+      .updateStatusProspect(prospect.uid, prospect.status)
+      .subscribe({
+        next: (resp: any) => {
+          Swal.fire({
+            position: 'bottom-end',
+            html: 'Prospect status updated.',
+            showConfirmButton: false,
+            timer: 1000,
           });
-        }
+          this.loadProspects();
+        },
+        error: (error: any) => {
+          const errors = error?.error?.errors;
+          const errorList: string[] = [];
 
-        Swal.fire({
-          title: 'Error creating agent',
-          icon: 'error',
-          html: `${errorList.length ? errorList.join('') : error.error.msg}`,
-        });
-      },
-    });
+          if (errors) {
+            Object.entries(errors).forEach(([key, value]: [string, any]) => {
+              if (value && value['msg']) {
+                errorList.push('° ' + value['msg'] + '<br>');
+              }
+            });
+          }
+
+          Swal.fire({
+            title: 'Error',
+            icon: 'error',
+            html: `${errorList.length ? errorList.join('') : error.error.msg}`,
+          });
+        },
+      });
   }
 
   deleteProspect(prospect: ProspectModel) {

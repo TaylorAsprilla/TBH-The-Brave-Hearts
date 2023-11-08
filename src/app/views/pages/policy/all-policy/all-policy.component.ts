@@ -263,7 +263,7 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
         }
 
         Swal.fire({
-          title: 'Error creating agent',
+          title: 'Error',
           icon: 'error',
           html: `${errorList.length ? errorList.join('') : error.error.msg}`,
         });

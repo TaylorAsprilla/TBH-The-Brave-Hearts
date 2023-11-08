@@ -229,7 +229,6 @@ export class PolicyComponent implements OnInit {
   }
 
   filterPolicies(data: any[] = []) {
-    console.log(data);
     this.filteredPolicies = this.policies.filter((policy: PolicyModel) => {
       const agentName = `${policy.agent?.firstName} ${policy.agent?.lastName}`;
       const customerName = `${policy.customer?.firstName} ${policy.customer?.lastName}`;
@@ -265,7 +264,7 @@ export class PolicyComponent implements OnInit {
   }
 
   changeStatus(uid: string, policy: PolicyModel) {
-    this.policyService.updatePolicy(uid, policy).subscribe({
+    this.policyService.updateStatusPolicy(uid, policy.status).subscribe({
       next: (resp: any) => {
         Swal.fire({
           position: 'bottom-end',
@@ -289,7 +288,7 @@ export class PolicyComponent implements OnInit {
         }
 
         Swal.fire({
-          title: 'Error creating agent',
+          title: 'Error',
           icon: 'error',
           html: `${errorList.length ? errorList.join('') : error.error.msg}`,
         });

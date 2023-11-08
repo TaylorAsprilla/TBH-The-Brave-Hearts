@@ -88,4 +88,12 @@ export class ProspectService {
       this.headers
     );
   }
+
+  updateStatusProspect(uid: string, status: string) {
+    return this.httpClient.put(
+      `${base_url}/prospects/status/${uid}`,
+      { status },
+      this.headers
+    );
+  }
 }
