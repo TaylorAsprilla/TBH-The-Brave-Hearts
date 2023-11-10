@@ -362,10 +362,10 @@
                   }"
                 >
                   <option selected disabled>Select Type</option>
-                  <option>Single</option>
-                  <option>Married</option>
-                  <option>Discorced</option>
-                  <option>Widow</option>
+                  <option value="Single">Single</option>
+                  <option value="Married">Married</option>
+                  <option value="Discorced">Discorced</option>
+                  <option value="Widow">Widow</option>
                 </select>
                 <div
                   *ngIf="
@@ -489,9 +489,9 @@
                     }"
                   >
                     <option selected disabled>Select the gender</option>
-                    <option>Male</option>
-                    <option>Female</option>
-                    <option>Other</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
                   </select>
                   <div
                     *ngIf="
@@ -619,8 +619,12 @@
                     formControlName="timeEmployed"
                   >
                     <option selected disabled>Please Select</option>
-                    <option>Less than 6 months</option>
-                    <option>More than 6 months</option>
+                    <option value="Less than 6 months">
+                      Less than 6 months
+                    </option>
+                    <option value="More than 6 months">
+                      More than 6 months
+                    </option>
                   </select>
                 </div>
               </div>
