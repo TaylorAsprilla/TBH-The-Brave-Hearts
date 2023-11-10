@@ -49,6 +49,7 @@ export class CustomerModel {
     public timeEmployed?: string,
     public householdIncome?: string,
     public householdNetWorth?: string,
+    public statusInUS?: string,
     public img?: string,
     public active?: boolean,
     public createdAt?: Date

@@ -242,7 +242,7 @@
               </div>
             </div>
 
-            <div class="col-sm-8">
+            <div class="col-sm-4">
               <div class="mb-3">
                 <label class="form-label required">Email</label>
                 <input
@@ -274,6 +274,23 @@
                 >
                   The value entered does not correspond to an email.
                 </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label required">Status In US</label>
+                <select
+                  class="form-select"
+                  id="carrier"
+                  formControlName="statusInUS"
+                >
+                  <option selected disabled>Select the Status In US</option>
+                  <option value="Citizen">Citizen</option>
+                  <option value="Permanent Resident">Permanent Resident</option>
+                  <option value="Tourist">Tourist</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
             </div>
           </div>
@@ -364,7 +381,7 @@
                   <option selected disabled>Select Type</option>
                   <option>Single</option>
                   <option>Married</option>
-                  <option>Discorced</option>
+                  <option>Divorced</option>
                   <option>Widow</option>
                 </select>
                 <div
