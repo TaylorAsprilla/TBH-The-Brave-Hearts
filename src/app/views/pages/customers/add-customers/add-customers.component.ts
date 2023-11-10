@@ -114,6 +114,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
         '',
         [Validators.required, Validators.email, Validators.minLength(3)],
       ],
+      statusInUS: ['', []],
       documentType: ['', [Validators.required, Validators.minLength(2)]],
       documentNumber: ['', [Validators.required, Validators.minLength(3)]],
       maritalStatus: ['', [Validators.required]],

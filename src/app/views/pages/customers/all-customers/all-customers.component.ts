@@ -125,7 +125,9 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
                 <tbody>
                 <tr>
                     <th>Name:</th>
-                    <td>${customer.firstName} ${customer.middleName} ${customer.lastName}</td>
+                    <td>${customer.firstName} ${customer.middleName} ${
+        customer.lastName
+      }</td>
                   </tr>
                   <tr>
                   <tr>
@@ -151,6 +153,10 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
                   <tr>
                     <th>Phone:</th>
                     <td>${customer.phone}</td>
+                  </tr>
+                 <tr>
+                    <th>Status In US:</th>
+                    <td>${customer.statusInUS ? customer.statusInUS : ''}</td>
                   </tr>
                   <tr>
                   <th>Document Number:</th>
