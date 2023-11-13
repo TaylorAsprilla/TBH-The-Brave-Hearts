@@ -91,15 +91,6 @@ export const MENU: MenuItem[] = [
     label: 'Reports',
     icon: 'file-text',
     role: [ROL.ADMINISTRATOR],
-    subMenus: [
-      {
-        subMenuItems: [
-          {
-            label: 'Report',
-            link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.REPORTS}`,
-          },
-        ],
-      },
-    ],
+    link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.REPORTS}`,
   },
 ];
