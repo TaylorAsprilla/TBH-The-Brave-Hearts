@@ -1705,6 +1705,16 @@
                         formControlName="idPhoto"
                         (change)="onIdPhotoChange($event)"
                       />
+                      <p>
+                        <a
+                          *ngIf="selectPolicy?.document?.idPhoto"
+                          [href]="photoIdUrl + selectPolicy.document.idPhoto"
+                          target="_blank"
+                          class="document"
+                          ><i class="mdi mdi-account-box-outline"></i> Photo
+                          Id</a
+                        >
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1722,6 +1732,18 @@
                         formControlName="document1"
                         (change)="onDocument1Change($event)"
                       />
+
+                      <p>
+                        <a
+                          *ngIf="selectPolicy?.document?.document1"
+                          [href]="
+                            documentOneUrl + selectPolicy.document.document1
+                          "
+                          target="_blank"
+                          class="document"
+                          ><i class="mdi mdi-file-document"></i> Document One</a
+                        >
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1739,6 +1761,18 @@
                         formControlName="document2"
                         (change)="onDocument2Change($event)"
                       />
+
+                      <p>
+                        <a
+                          *ngIf="selectPolicy?.document?.document2"
+                          [href]="
+                            documentTwoUrl + selectPolicy.document.document2
+                          "
+                          target="_blank"
+                          class="document"
+                          ><i class="mdi mdi-file-document"></i> Document Two</a
+                        >
+                      </p>
                     </div>
                   </div>
                 </div>

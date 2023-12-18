@@ -23,6 +23,7 @@ import {
 import { Observable, switchMap } from 'rxjs';
 import { PolicyModel } from 'src/app/core/models/policy.model';
 import { StatusPolicy } from 'src/app/core/enum/estatus-policy';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-policy',
@@ -65,6 +66,10 @@ export class AddPolicyComponent implements OnInit {
   formattedMonthly: any;
   formattedFaceAmount: any;
   amount: any;
+
+  photoIdUrl: string = environment.photoId;
+  documentOneUrl: string = environment.documentOne;
+  documentTwoUrl: string = environment.documentTwo;
 
   @ViewChild('policy') policy: BaseWizardComponent;
 
@@ -457,6 +462,7 @@ export class AddPolicyComponent implements OnInit {
     this.policyService.getPolicy(policyId).subscribe({
       next: (policy) => {
         this.selectPolicy = policy;
+
         if (this.selectPolicy) {
           this.getCustomerById(this.selectPolicy.customer._id);
           this.populateLifePolicyForm(policy);

@@ -560,6 +560,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
             phone: phone,
             phoneType: '',
             email: email,
+            statusInUS: '',
             documentType: '',
             documentNumber: '',
             maritalStatus: '',
