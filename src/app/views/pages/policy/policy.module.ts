@@ -14,6 +14,7 @@ import { SsnFormatDirectiveModule } from 'src/app/core/directive/ssnFormatDirect
 import { MobilePhoneNumberDirectiveModule } from 'src/app/core/directive/mobilePhoneNumber/mobile-phone-number.module';
 import { FiltersModule } from '../../components/filters/filters.module';
 import { ExportDataModule } from '../../components/export-data/export-data.module';
+import { GeneratePdfModule } from '../../components/generate-pdf/generate-pdf.module';
 
 @NgModule({
   declarations: [AllPolicyComponent, AddPolicyComponent],
@@ -32,6 +33,7 @@ import { ExportDataModule } from '../../components/export-data/export-data.modul
     DollarFormatModule,
     FiltersModule,
     ExportDataModule,
+    GeneratePdfModule,
   ],
 })
 export class PolicyModule {}
