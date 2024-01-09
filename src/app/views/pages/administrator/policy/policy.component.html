@@ -232,14 +232,7 @@
                     <i class="feather icon-eye"></i>
                   </button>
 
-                  <button
-                    (click)="generatePDF(policy)"
-                    type="button"
-                    class="btn btn-danger mx-1"
-                    title="Download pdf"
-                  >
-                    <i class="feather icon-download"></i>
-                  </button>
+                  <app-generate-pdf [policyData]="policy"></app-generate-pdf>
                 </td>
               </tr>
             </tbody>

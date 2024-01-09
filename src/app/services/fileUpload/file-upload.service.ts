@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { UserType } from 'src/app/core/type/type';
 import { environment } from 'src/environments/environment';
 
@@ -67,6 +68,39 @@ export class FileUploadService {
 
     return this.httpClient.post(
       `${base_url}/uploads/documents/${policyId}`,
+      formData,
+      this.headers
+    );
+  }
+
+  updateUploadDocument(policyId: any, ...documents: Array<File | null>) {
+    const formData = new FormData();
+
+    const documentKeys = ['idPhoto', 'document1', 'document2'];
+
+    documents.forEach((file, index) => {
+      if (file) {
+        formData.append(documentKeys[index], file);
+      }
+    });
+
+    return this.httpClient.patch(
+      `${base_url}/uploads/updatedocument/${policyId}`,
+      formData,
+      this.headers
+    );
+  }
+
+  updateUploadDocuments(policyId: string, files: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('idPhoto', files.idPhoto); // Adjunta el archivo idPhoto
+    formData.append('document1', files.document1); // Adjunta el archivo document1
+    formData.append('document2', files.document2); // Adjunta el archivo document2
+
+    console.log('Informacion', files.idPhoto, files.document1, files.document2);
+
+    return this.httpClient.patch(
+      `${base_url}/uploads/updatedocument/${policyId}`,
       formData,
       this.headers
     );

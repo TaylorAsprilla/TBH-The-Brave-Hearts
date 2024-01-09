@@ -656,7 +656,7 @@ export class AddPolicyComponent implements OnInit {
           this.updatePolicy(policyData)
             .pipe(
               switchMap((resp: any) =>
-                this.uploadPolicyDocuments(resp.policy.uid)
+                this.updateUploadPolicyDocument(resp.policy.uid)
               )
             )
             .subscribe({
@@ -681,6 +681,15 @@ export class AddPolicyComponent implements OnInit {
           });
       }
     }
+  }
+
+  private updateUploadPolicyDocument(policyUid: string) {
+    return this.updateUploadDocument(
+      policyUid,
+      this.idPhotoFile,
+      this.document1File,
+      this.document2File
+    );
   }
 
   private uploadPolicyDocuments(policyUid: string) {
@@ -793,6 +802,20 @@ export class AddPolicyComponent implements OnInit {
     document2File: File
   ): Observable<any> {
     return this.fileUploadService.uploadDocuments(
+      policyId,
+      idPhotoFile,
+      document1File,
+      document2File
+    );
+  }
+
+  updateUploadDocument(
+    policyId: string,
+    idPhotoFile: File,
+    document1File: File,
+    document2File: File
+  ): Observable<any> {
+    return this.fileUploadService.updateUploadDocument(
       policyId,
       idPhotoFile,
       document1File,

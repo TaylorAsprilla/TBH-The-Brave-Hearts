@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReportsComponent } from './reports/reports.component';
 import { ExportDataModule } from '../../components/export-data/export-data.module';
 import { FiltersModule } from '../../components/filters/filters.module';
+import { GeneratePdfModule } from '../../components/generate-pdf/generate-pdf.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { FiltersModule } from '../../components/filters/filters.module';
     ReactiveFormsModule,
     FiltersModule,
     ExportDataModule,
+    GeneratePdfModule,
   ],
   exports: [CustomersComponent, PolicyComponent, ProspectsComponent],
 })
