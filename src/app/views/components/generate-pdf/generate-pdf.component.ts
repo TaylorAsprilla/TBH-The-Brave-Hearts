@@ -15,7 +15,6 @@ export class GeneratePdfComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  // Función para generar el PDF
   generatePDF() {
     const doc = new jsPDF({
       orientation: 'portrait',
