@@ -93,11 +93,9 @@ export class FileUploadService {
 
   updateUploadDocuments(policyId: string, files: any): Observable<any> {
     const formData = new FormData();
-    formData.append('idPhoto', files.idPhoto); // Adjunta el archivo idPhoto
-    formData.append('document1', files.document1); // Adjunta el archivo document1
-    formData.append('document2', files.document2); // Adjunta el archivo document2
-
-    console.log('Informacion', files.idPhoto, files.document1, files.document2);
+    formData.append('idPhoto', files.idPhoto);
+    formData.append('document1', files.document1);
+    formData.append('document2', files.document2);
 
     return this.httpClient.patch(
       `${base_url}/uploads/updatedocument/${policyId}`,
