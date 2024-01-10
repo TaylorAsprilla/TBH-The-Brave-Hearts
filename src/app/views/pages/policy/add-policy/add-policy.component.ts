@@ -621,9 +621,9 @@ export class AddPolicyComponent implements OnInit {
     const documentData = policy?.document;
     if (documentData) {
       this.documentForm.patchValue({
-        idPhoto: '',
-        document1: '',
-        document2: '',
+        idPhoto: documentData.idPhoto,
+        document1: documentData.document1,
+        document2: documentData.document2,
         primaryAgentName: documentData.primaryAgentName,
         percentage1: documentData.percentage1,
         secondaryAgentName: documentData.secondaryAgentName,
@@ -770,9 +770,9 @@ export class AddPolicyComponent implements OnInit {
       },
       referrals: data.referrals,
       document: {
-        idPhoto: data.idPhoto,
-        document1: data.document1,
-        document2: data.document2,
+        idPhoto: this.selectPolicy.document.idPhoto,
+        document1: this.selectPolicy.document.document1,
+        document2: this.selectPolicy.document.document2,
         primaryAgentName: data.primaryAgentName,
         percentage1: data.percentage1,
         secondaryAgentName: data.secondaryAgentName,
@@ -781,7 +781,9 @@ export class AddPolicyComponent implements OnInit {
         mbBase: data.mbBase,
       },
       customer: this.selectCustomer.uid,
-      status: StatusPolicy.MORE_INFORMATION_NEEDED,
+      status: this.selectPolicy.status
+        ? this.selectPolicy.status
+        : StatusPolicy.MORE_INFORMATION_NEEDED,
     };
 
     return policyData;
