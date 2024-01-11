@@ -1,7 +1,7 @@
 <button
   *ngIf="!hideFilters"
   type="button"
-  class="btn btn-primary float-end mx-2"
+  class="btn btn-primary mx-2"
   (click)="resetSelect()"
 >
   Reset
@@ -9,7 +9,7 @@
 
 <button
   type="button"
-  class="btn float-end mx-1"
+  class="btn mx-1"
   [ngClass]="{ 'btn-primary': hideFilters, 'btn-secondary': !hideFilters }"
   (click)="toggleFilters()"
 >
