@@ -12,20 +12,22 @@
         <app-spinner *ngIf="!!loading" [textData]="'Policy'"></app-spinner>
 
         <h6 class="card-title">Policy</h6>
-        <span class="float-end badge bg-danger">{{ policies.length }}</span>
+        <div class="mb-5">
+          <span class="float-end badge bg-danger">{{ policies.length }}</span>
 
-        <app-export-data
-          [data]="exportData"
-          [dataFiltered]="exportFiltredData"
-          [nameFile]="'Export Filtered Policies'"
-        ></app-export-data>
+          <app-export-data
+            [data]="exportData"
+            [dataFiltered]="exportFiltredData"
+            [nameFile]="'Export Filtered Policies'"
+          ></app-export-data>
 
-        <app-filters
-          [filterOptions]="filterOptions"
-          (filterData)="filterPolicies($event)"
-          (searchQuery)="filterPolicity($event)"
-          (reset)="resetSelect()"
-        ></app-filters>
+          <app-filters
+            [filterOptions]="filterOptions"
+            (filterData)="filterPolicies($event)"
+            (searchQuery)="filterPolicity($event)"
+            (reset)="resetSelect()"
+          ></app-filters>
+        </div>
 
         <div
           *ngIf="policies.length == 0"

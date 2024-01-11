@@ -20,7 +20,7 @@ import {
   IPolicy,
   IcontingentBeneficiary,
 } from 'src/app/core/interfaces/policy.interface';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 import { PolicyModel } from 'src/app/core/models/policy.model';
 import { StatusPolicy } from 'src/app/core/enum/estatus-policy';
 import { environment } from 'src/environments/environment';
@@ -619,11 +619,12 @@ export class AddPolicyComponent implements OnInit {
 
   populateDocumentForm(policy: PolicyModel) {
     const documentData = policy?.document;
+
     if (documentData) {
       this.documentForm.patchValue({
-        idPhoto: documentData.idPhoto,
-        document1: documentData.document1,
-        document2: documentData.document2,
+        idPhoto: '',
+        document1: '',
+        document2: '',
         primaryAgentName: documentData.primaryAgentName,
         percentage1: documentData.percentage1,
         secondaryAgentName: documentData.secondaryAgentName,
@@ -643,7 +644,6 @@ export class AddPolicyComponent implements OnInit {
 
     if (this.selectPolicy) {
       // Updated Policy
-
       Swal.fire({
         title: 'Do you want to edit the policy?',
         icon: 'question',
@@ -661,7 +661,8 @@ export class AddPolicyComponent implements OnInit {
             )
             .subscribe({
               next: () => this.handleSuccess(successMessageUpdate),
-              error: (error) => this.handleError(error, errorMessageUpdate),
+
+              error: (error) => console.log(error),
             });
         }
       });
@@ -813,18 +814,22 @@ export class AddPolicyComponent implements OnInit {
 
   updateUploadDocument(
     policyId: string,
-    idPhotoFile: File,
-    document1File: File,
-    document2File: File
+    idPhotoFile: File | null,
+    document1File: File | null,
+    document2File: File | null
   ): Observable<any> {
-    return this.fileUploadService.updateUploadDocument(
-      policyId,
-      idPhotoFile,
-      document1File,
-      document2File
-    );
+    if (!idPhotoFile && !document1File && !document2File) {
+      this.handleSuccess('Updated policy');
+      return of(null);
+    } else {
+      return this.fileUploadService.updateUploadDocument(
+        policyId,
+        idPhotoFile as File,
+        document1File as File,
+        document2File as File
+      );
+    }
   }
-
   private handleError(error: any, defaultMessage: string) {
     const errors = error?.error?.errors;
     const errorList: string[] = [];
