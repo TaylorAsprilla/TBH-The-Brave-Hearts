@@ -199,7 +199,10 @@
                     <i class="feather icon-eye"></i>
                   </button>
 
-                  <app-generate-pdf [policyData]="policy"></app-generate-pdf>
+                  <app-generate-pdf
+                    [policyData]="policy"
+                    [customers]="customers"
+                  ></app-generate-pdf>
                 </td>
               </tr>
             </tbody>
