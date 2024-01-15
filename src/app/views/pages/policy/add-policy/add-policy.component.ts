@@ -771,9 +771,15 @@ export class AddPolicyComponent implements OnInit {
       },
       referrals: data.referrals,
       document: {
-        idPhoto: this.selectPolicy.document.idPhoto,
-        document1: this.selectPolicy.document.document1,
-        document2: this.selectPolicy.document.document2,
+        idPhoto: this.selectPolicy?.document?.idPhoto
+          ? this.selectPolicy.document.idPhoto
+          : '',
+        document1: this.selectPolicy?.document?.document1
+          ? this.selectPolicy.document.document1
+          : '',
+        document2: this.selectPolicy?.document?.document2
+          ? this.selectPolicy.document.document2
+          : '',
         primaryAgentName: data.primaryAgentName,
         percentage1: data.percentage1,
         secondaryAgentName: data.secondaryAgentName,
@@ -782,8 +788,8 @@ export class AddPolicyComponent implements OnInit {
         mbBase: data.mbBase,
       },
       customer: this.selectCustomer.uid,
-      status: this.selectPolicy.status
-        ? this.selectPolicy.status
+      status: this.selectPolicy?.status
+        ? this.selectPolicy?.status
         : StatusPolicy.MORE_INFORMATION_NEEDED,
     };
 
