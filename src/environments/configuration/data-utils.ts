@@ -5,12 +5,12 @@ export const statusOptions = [
     value: 'NEW',
   },
   {
-    name: 'FOLLOW_UP',
+    name: 'FOLLOW UP',
     color: 'yellow',
     value: 'FOLLOW_UP',
   },
   {
-    name: 'IN_PROGRESS',
+    name: 'IN PROGRESS',
     color: 'blue',
     value: 'IN_PROGRESS',
   },
