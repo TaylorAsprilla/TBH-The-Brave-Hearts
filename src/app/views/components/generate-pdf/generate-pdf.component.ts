@@ -598,6 +598,7 @@ export class GeneratePdfComponent implements OnInit {
         const noteLines = doc.splitTextToSize(item.value, maxNoteWidth);
         noteLines.forEach((line: string, lineIndex: number) => {
           currentY += labelValueSpace;
+          doc.setFont('helvetica', 'normal');
           doc.text(
             line,
             marginLeft + labelValueSpace + reducedMargin,
