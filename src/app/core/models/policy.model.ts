@@ -27,7 +27,7 @@ export class PolicyModel {
       involved: string;
     },
     public bankInformation: {
-      draftPaymentDate: string;
+      draftPaymentDate: Date;
       bank: string;
       accountNumber: number;
       routingNumber: number;

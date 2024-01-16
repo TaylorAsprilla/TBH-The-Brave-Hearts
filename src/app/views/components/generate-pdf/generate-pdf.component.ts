@@ -356,10 +356,6 @@ export class GeneratePdfComponent implements OnInit {
         },
         {
           label: "Father's age",
-          value: `${this.policyData.medical.isFatherAlive || ''}`,
-        },
-        {
-          label: 'Is father alive',
           value: `${this.policyData.medical.fatherAge || ''}`,
         },
         {
@@ -434,7 +430,11 @@ export class GeneratePdfComponent implements OnInit {
       [
         {
           label: 'Draft payment date',
-          value: `${this.policyData.bankInformation.draftPaymentDate || ''}`,
+          value: `${
+            this.formatDateToMMDDYYYY(
+              this.policyData.bankInformation.draftPaymentDate
+            ) || ''
+          }`,
         },
         {
           label: 'Bank/Credit Union name',
@@ -602,7 +602,7 @@ export class GeneratePdfComponent implements OnInit {
             currentY
           );
         });
-        currentY += 10;
+        currentY += 15;
       } else {
         doc.text(`${item.label}:`, marginLeft, currentY);
         doc.setFont('helvetica', 'normal');

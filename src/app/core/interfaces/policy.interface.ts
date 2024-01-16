@@ -28,7 +28,7 @@ export interface IMedical {
   doctorName: string;
   doctorOfficeLocation?: string;
   officePhoneNumber?: string;
-  lastVisit: string;
+  lastVisit: Date;
   reasonForVisit?: string;
   outcomeOfVisit?: string;
   smoker: string;
