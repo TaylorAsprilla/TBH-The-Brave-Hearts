@@ -320,7 +320,9 @@ export class GeneratePdfComponent implements OnInit {
         },
         {
           label: 'Last Visit',
-          value: `${this.policyData.medical.lastVisit || ''}`,
+          value: `${
+            this.formatDateToMMDDYYYY(this.policyData.medical.lastVisit) || ''
+          }`,
         },
         {
           label: 'Reason for visit',
