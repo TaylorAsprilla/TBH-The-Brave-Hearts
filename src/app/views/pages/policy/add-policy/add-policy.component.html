@@ -129,6 +129,7 @@
           <aw-wizard-step stepTitle="step 2">
             <div class="d-flex justify-content-end">
               <button
+                *ngIf="!!this.policyId"
                 type="button"
                 class="btn btn-primary"
                 (click)="editPolicy()"
