@@ -106,7 +106,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
       address: ['', [Validators.minLength(3), Validators.required]],
       addressLine2: [''],
       city: ['', [Validators.minLength(3)]],
-      state: ['', [Validators.minLength(3)]],
+      state: ['', [Validators.minLength(3), Validators.required]],
       zipCode: [''],
       phone: ['', [Validators.required]],
       phoneType: ['', []],

@@ -218,6 +218,19 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
                   <th>Household Net Worth:</th>
                   <td>${customer.householdNetWorth}</td>
                 </tr>
+                <tr>
+                  <th>ID Number:</th>
+                  <td>${customer.idNumber ? customer.idNumber : ''}</td>
+                </tr>
+                <tr>
+                  <th>Expiration date:</th>
+                  <td>${customer.expirationDate ? customer.expirationDate : ''}
+                  </td>
+                </tr>
+                <tr>
+                  <th>ID State:</th>
+                  <td>${customer.idState ? customer.idState : ''}</td>
+                </tr>
                 </tbody>
               </table>
             </div>

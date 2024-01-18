@@ -164,7 +164,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 <tbody>
                 <tr>
                     <th>Name:</th>
-                    <td>${customer.firstName} ${customer.middleName} ${customer.lastName}</td>
+                    <td>${customer.firstName} ${customer.middleName} ${
+        customer.lastName
+      }</td>
                   </tr>
                   <tr>
                   <tr>
@@ -250,6 +252,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 <tr>
                   <th>Household Net Worth:</th>
                   <td>${customer.householdNetWorth}</td>
+                </tr>
+                  <tr>
+                  <th>ID Number:</th>
+                  <td>${customer.idNumber ? customer.idNumber : ''}</td>
+                </tr>
+                <tr>
+                  <th>Expiration date:</th>
+                  <td>${
+                    customer.expirationDate ? customer.expirationDate : ''
+                  }</td>
+                </tr>
+                <tr>
+                  <th>ID State:</th>
+                  <td>${customer.idState ? customer.idState : ''}</td>
                 </tr>
                 </tbody>
               </table>
