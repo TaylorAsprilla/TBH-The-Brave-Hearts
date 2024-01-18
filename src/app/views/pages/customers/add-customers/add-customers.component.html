@@ -884,6 +884,58 @@
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label">ID Number</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="idNumber"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label">Expiration date</label>
+                      <input
+                        type="date"
+                        class="form-control"
+                        formControlName="expirationDate"
+                        placeholder="MM/DD/YYYY"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="mb-3">
+                      <label class="form-label required">ID State</label>
+                      <ng-select
+                        [items]="states"
+                        bindLabel="state"
+                        bindValue="state"
+                        placeholder="type to search"
+                        formControlName="idState"
+                        [ngClass]="{
+                          'is-invalid':
+                            isLifePolicyFormSubmitted &&
+                            formLifePolicy.idState.errors
+                        }"
+                      >
+                      </ng-select>
+                      <div
+                        *ngIf="
+                          isLifePolicyFormSubmitted &&
+                          formLifePolicy.idState.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Required
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div class="d-flex justify-content-center mt-2">

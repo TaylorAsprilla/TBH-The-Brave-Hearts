@@ -50,6 +50,9 @@ export class CustomerModel {
     public householdIncome?: string,
     public householdNetWorth?: string,
     public statusInUS?: string,
+    public idNumber?: string,
+    public expirationDate?: Date,
+    public idState?: string,
     public img?: string,
     public active?: boolean,
     public createdAt?: Date

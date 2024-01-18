@@ -130,6 +130,9 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
       annualIncome: ['', [Validators.required]],
       householdIncome: [''],
       householdNetWorth: [''],
+      idNumber: [''],
+      expirationDate: [''],
+      idState: [''],
     });
 
     this.beneficiaryForm = this.formBuilder.group({

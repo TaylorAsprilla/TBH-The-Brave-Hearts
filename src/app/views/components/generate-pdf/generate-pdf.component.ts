@@ -38,9 +38,9 @@ export class GeneratePdfComponent implements OnInit {
     let currentPage = 1;
 
     const marginLeft = 25;
-    const marginBottom = 15;
+    const marginBottom = 10;
     const marginRight = 25;
-    const marginTop = 20;
+    const marginTop = 10;
     let currentY = marginTop;
 
     // Agregar una imagen (ejemplo usando una imagen en formato base64)
@@ -165,6 +165,18 @@ export class GeneratePdfComponent implements OnInit {
         {
           label: 'Household Net Worth',
           value: `${customer?.householdNetWorth || ''}`,
+        },
+        {
+          label: 'ID Number',
+          value: `${customer?.idNumber || ''}`,
+        },
+        {
+          label: 'Expiration Date',
+          value: `${this.formatDateToMMDDYYYY(customer?.expirationDate) || ''}`,
+        },
+        {
+          label: 'ID State',
+          value: `${customer?.idState || ''}`,
         },
       ],
       doc,
@@ -553,8 +565,8 @@ export class GeneratePdfComponent implements OnInit {
     const labelValueSpace = 10;
     const reducedMargin = 0;
 
-    const marginBottom = 45;
-    const marginTop = 40;
+    const marginBottom = 30;
+    const marginTop = 30;
     const pageWidth = doc.internal.pageSize.width;
     const maxNoteWidth = pageWidth - marginLeft - marginRight - labelValueSpace;
 
