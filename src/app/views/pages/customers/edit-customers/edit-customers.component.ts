@@ -73,6 +73,9 @@ export class EditCustomersComponent implements OnInit {
       annualIncome: ['', [Validators.required]],
       householdIncome: [''],
       householdNetWorth: [''],
+      idNumber: [''],
+      expirationDate: [''],
+      idState: [''],
     });
 
     this.isCustomerFormSubmitted = false;
@@ -83,6 +86,7 @@ export class EditCustomersComponent implements OnInit {
   }
 
   getCustomerById(id: string) {
+    let formattedexpirationDate: string;
     if (id !== TEXT.NEW) {
       this.customerService.getCustomer(id).subscribe({
         next: (customer) => {
@@ -113,12 +117,21 @@ export class EditCustomersComponent implements OnInit {
             timeEmployed,
             householdIncome,
             householdNetWorth,
+            idNumber,
+            expirationDate,
+            idState,
           } = customer;
           this.selectedCustomer = customer;
 
           const formattedDateBirth = new Date(dateBirth)
             .toISOString()
             .split('T')[0];
+
+          if (expirationDate) {
+            formattedexpirationDate = new Date(expirationDate)
+              .toISOString()
+              .split('T')[0];
+          }
 
           this.customerForm.setValue({
             firstName,
@@ -147,6 +160,11 @@ export class EditCustomersComponent implements OnInit {
             annualIncome,
             householdIncome,
             householdNetWorth,
+            idNumber,
+            expirationDate: formattedexpirationDate
+              ? formattedexpirationDate
+              : '',
+            idState,
           });
         },
         error: (error: any) => {
@@ -206,6 +224,9 @@ export class EditCustomersComponent implements OnInit {
       householdNetWorth: this.formCustomer.householdNetWorth.value,
       agent: this.selectedCustomer.agent,
       imageUrl: this.selectedCustomer.imageUrl,
+      idNumber: this.formCustomer.idNumber.value,
+      expirationDate: this.formCustomer.expirationDate.value,
+      idState: this.formCustomer.idState.value,
     };
 
     this.customerService.updateCustomer(data).subscribe({
