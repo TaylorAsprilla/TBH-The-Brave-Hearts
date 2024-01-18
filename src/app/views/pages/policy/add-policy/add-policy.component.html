@@ -114,7 +114,9 @@
 
                       <p>
                         <b>Expiration Date:</b>
-                        {{ selectCustomer.expirationDate }}
+                        {{
+                          selectCustomer.expirationDate | date : "mediumDate"
+                        }}
                       </p>
 
                       <p>
