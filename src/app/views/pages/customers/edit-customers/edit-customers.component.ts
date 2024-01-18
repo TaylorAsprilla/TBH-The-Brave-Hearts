@@ -50,7 +50,7 @@ export class EditCustomersComponent implements OnInit {
       address: ['', [Validators.minLength(3), Validators.required]],
       addressLine2: [''],
       city: ['', [Validators.minLength(3)]],
-      state: ['', [Validators.minLength(3)]],
+      state: ['', [Validators.minLength(3), Validators.required]],
       zipCode: [''],
       phone: ['', [Validators.required]],
       email: [
@@ -144,7 +144,7 @@ export class EditCustomersComponent implements OnInit {
             zipCode,
             phone,
             email,
-            statusInUS,
+            statusInUS: statusInUS ? statusInUS : '',
             documentType: documentType ? documentType : '',
             documentNumber,
             maritalStatus,
@@ -160,11 +160,11 @@ export class EditCustomersComponent implements OnInit {
             annualIncome,
             householdIncome,
             householdNetWorth,
-            idNumber,
+            idNumber: idNumber ? idNumber : '',
             expirationDate: formattedexpirationDate
               ? formattedexpirationDate
               : '',
-            idState,
+            idState: idState ? idState : '',
           });
         },
         error: (error: any) => {
