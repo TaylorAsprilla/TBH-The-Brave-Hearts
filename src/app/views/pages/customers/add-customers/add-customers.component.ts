@@ -148,8 +148,8 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
       doctorOfficeLocation: ['', []],
       officePhoneNumber: ['', []],
       lastVisit: ['', [Validators.required]],
-      reasonForVisit: ['', []],
-      outcomeOfVisit: ['', []],
+      reasonForVisit: ['', [Validators.required]],
+      outcomeOfVisit: ['', [Validators.required]],
       smoker: ['', [Validators.required]],
       medicalCondition: ['', []],
       whenItWasDiagnosed: ['', []],
@@ -191,6 +191,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
       document1: ['', []],
       document2: ['', []],
       primaryAgentName: ['', [Validators.required]],
+      carrierCode: ['', []],
       percentage1: ['', [Validators.required]],
       secondaryAgentName: ['', []],
       percentage2: ['', []],
@@ -486,9 +487,9 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
         ],
         phone: ['', [Validators.required]],
         email: ['', [Validators.email, Validators.minLength(3)]],
-        dateBirth: [''],
+        dateBirth: ['', [Validators.email]],
         ss: [''],
-        share: [''],
+        share: ['', [Validators.email]],
       })
     );
   }

@@ -225,6 +225,7 @@ export class AddPolicyComponent implements OnInit {
         { value: '', disabled: this.isDisabled },
         [Validators.required],
       ],
+      carrierCode: [{ value: '', disabled: this.isDisabled }, []],
       percentage1: [
         { value: '', disabled: this.isDisabled },
         [Validators.required],
@@ -388,9 +389,15 @@ export class AddPolicyComponent implements OnInit {
           { value: '', disabled: this.isDisabled },
           [Validators.required, Validators.email, Validators.minLength(3)],
         ],
-        dateBirth: [{ value: '', disabled: this.isDisabled }],
-        ss: [{ value: '', disabled: this.isDisabled }],
-        share: [{ value: '', disabled: this.isDisabled }],
+        dateBirth: [
+          { value: '', disabled: this.isDisabled },
+          [Validators.required],
+        ],
+        ss: [{ value: '', disabled: this.isDisabled }, [Validators.required]],
+        share: [
+          { value: '', disabled: this.isDisabled },
+          [Validators.required],
+        ],
       })
     );
   }

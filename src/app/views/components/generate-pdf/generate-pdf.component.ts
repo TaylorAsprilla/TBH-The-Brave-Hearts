@@ -444,11 +444,7 @@ export class GeneratePdfComponent implements OnInit {
       [
         {
           label: 'Draft payment date',
-          value: `${
-            this.formatDateToMMDDYYYY(
-              this.policyData.bankInformation.draftPaymentDate
-            ) || ''
-          }`,
+          value: `${this.policyData.bankInformation.draftPaymentDate || ''}`,
         },
         {
           label: 'Bank/Credit Union name',
@@ -514,6 +510,10 @@ export class GeneratePdfComponent implements OnInit {
         {
           label: "Primary Agent's Name",
           value: `${this.policyData.document.primaryAgentName || ''}`,
+        },
+        {
+          label: 'Carrier Code',
+          value: `${this.policyData.document.carrierCode || ''}`,
         },
         {
           label: '%',

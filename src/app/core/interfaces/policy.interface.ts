@@ -59,6 +59,7 @@ export interface IDocument {
   document1?: string;
   document2?: string;
   primaryAgentName: string;
+  carrierCode?: string;
   percentage1: string;
   secondaryAgentName?: string;
   percentage2?: string;

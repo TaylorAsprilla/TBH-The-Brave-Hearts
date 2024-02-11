@@ -226,7 +226,7 @@
                       <option value="Final Expense">Final Expense</option>
                       <option value="IUL">IUL</option>
                       <option value="ROP">ROP</option>
-                      <option value="Wole Life">Whole Life</option>
+                      <option value="Whole Life">Whole Life</option>
                     </select>
 
                     <div
@@ -534,13 +534,27 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="mb-3">
-                        <label class="form-label">Date of Birth</label>
+                        <label class="form-label required">Date of Birth</label>
                         <input
                           type="date"
                           class="form-control"
                           formControlName="dateBirth"
                           placeholder="MM/DD/YYYY"
+                          [ngClass]="{
+                            'is-invalid':
+                              isBeneficiaryFormSubmitted &&
+                              beneficiary?.get('dateBirth')?.errors?.required
+                          }"
                         />
+                        <div
+                          *ngIf="
+                            isBeneficiaryFormSubmitted &&
+                            beneficiary?.get('dateBirth')?.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          Required
+                        </div>
                       </div>
                     </div>
 
@@ -558,12 +572,26 @@
 
                     <div class="col-sm-4">
                       <div class="mb-3">
-                        <label class="form-label">Share</label>
+                        <label class="form-label required">Share</label>
                         <input
                           type="text"
                           class="form-control"
                           formControlName="share"
+                          [ngClass]="{
+                            'is-invalid':
+                              isBeneficiaryFormSubmitted &&
+                              beneficiary?.get('share')?.errors?.required
+                          }"
                         />
+                        <div
+                          *ngIf="
+                            isBeneficiaryFormSubmitted &&
+                            beneficiary?.get('share')?.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          Required
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -898,18 +926,32 @@
 
                 <div class="col-sm-4">
                   <div class="mb-3">
-                    <label class="form-label"> Reason for visit</label>
+                    <label class="form-label required"> Reason for visit</label>
                     <input
                       type="text"
                       class="form-control"
                       formControlName="reasonForVisit"
+                      [ngClass]="{
+                        'is-invalid':
+                          isMedicalFormFormSubmitted &&
+                          formMedical.reasonForVisit.errors
+                      }"
                     />
+                    <div
+                      *ngIf="
+                        isMedicalFormFormSubmitted &&
+                        formMedical.reasonForVisit.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-sm-4">
                   <div class="mb-3">
-                    <label for="email" class="form-label"
+                    <label for="email" class="form-label required"
                       >Outcome of visit</label
                     >
                     <input
@@ -917,7 +959,21 @@
                       class="form-control"
                       id="outcomeOfVisit"
                       formControlName="outcomeOfVisit"
+                      [ngClass]="{
+                        'is-invalid':
+                          isMedicalFormFormSubmitted &&
+                          formMedical.outcomeOfVisit.errors
+                      }"
                     />
+                    <div
+                      *ngIf="
+                        isMedicalFormFormSubmitted &&
+                        formMedical.outcomeOfVisit.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1409,10 +1465,9 @@
                       >Draft payment date</label
                     >
                     <input
-                      type="date"
+                      type="text"
                       class="form-control"
                       formControlName="draftPaymentDate"
-                      placeholder="MM/DD/YYYY"
                       [ngClass]="{
                         'is-invalid':
                           isBankInformationFormSubmitted &&
@@ -1790,7 +1845,7 @@
               </div>
 
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                   <div class="mb-3">
                     <label class="form-label required"
                       >Primary Agent's Name</label
@@ -1817,7 +1872,18 @@
                   </div>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label class="form-label">Carrier Code </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="carrierCode"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
                   <div class="mb-3">
                     <label class="form-label required">%</label>
                     <select
