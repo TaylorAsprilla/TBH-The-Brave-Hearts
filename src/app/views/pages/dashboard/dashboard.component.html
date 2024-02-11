@@ -1,254 +1,386 @@
-<div
-  class="d-flex justify-content-between align-items-center flex-wrap grid-margin"
->
-  <div>
-    <h4 class="mb-3 mb-md-0">Welcome {{ nameAgents }}</h4>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-12 col-xl-12 stretch-card">
-    <div class="row flex-grow-1">
-      <div
-        *appShowForRoles="[ROL.ADMINISTRATOR]"
-        class="col-md-3 grid-margin stretch-card"
-      >
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-baseline">
-              <h6 class="card-title mb-0">Agents</h6>
-            </div>
-
-            <div class="row">
-              <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">{{ totalAgents }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-3 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-baseline">
-              <h6 class="card-title mb-0">Customers</h6>
-            </div>
-            <div class="row">
-              <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">{{ totalCustomers }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-3 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-baseline">
-              <h6 class="card-title mb-0">Prospects</h6>
-            </div>
-            <div class="row">
-              <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">{{ totalProspects }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-3 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-baseline">
-              <h6 class="card-title mb-0">Policy</h6>
-            </div>
-            <div class="row">
-              <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">{{ totalPolicy }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<div class="container">
+  <div
+    class="d-flex justify-content-between align-items-center flex-wrap grid-margin"
+  >
+    <div>
+      <h4 class="mb-3 mb-md-0">Welcome {{ nameAgents }}</h4>
     </div>
   </div>
-</div>
-<!-- row -->
 
-<app-spinner
-  *ngIf="!!loading"
-  [textData]="'Agents, prospects y customers'"
-></app-spinner>
-
-<div class="row">
-  <div
-    *appShowForRoles="[ROL.ADMINISTRATOR]"
-    class="col-lg-4 col-xl-3 grid-margin grid-margin-xl-0 stretch-card mb-3"
-  >
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-baseline mb-2">
-          <h6 class="card-title mb-0">Agents</h6>
-          <button class="btn btn-primary" (click)="newAgent()">
-            <i class="mdi mdi-account"></i> Add Agents
-          </button>
-        </div>
-
-        <div class="d-flex flex-column mt-4">
-          <div *ngFor="let agent of agents">
-            <a
-              href=""
-              (click)="(false)"
-              class="d-flex align-items-center border-bottom pb-3"
-            >
-              <div class="me-3">
-                <img
-                  [src]="agent.imageUrl"
-                  [alt]="agent.firstName"
-                  class="rounded-circle img-xs"
-                />
+  <div class="row">
+    <div class="col-12 col-xl-12 stretch-card">
+      <div class="row flex-grow-1">
+        <div
+          *appShowForRoles="[ROL.ADMINISTRATOR]"
+          class="col-md-3 grid-margin stretch-card"
+        >
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Agents</h6>
               </div>
-              <div class="w-100">
-                <div class="d-flex justify-content-between">
-                  <h6 class="text-body mb-2" (click)="moreInfoAgent(agent)">
-                    {{ agent.firstName }} {{ agent.lastName }}
-                  </h6>
+
+              <div class="row">
+                <div class="col-6 col-md-12 col-xl-5">
+                  <h3 class="mb-2">{{ totalAgents }}</h3>
                 </div>
               </div>
-            </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Clients</h6>
+              </div>
+              <div class="row">
+                <div class="col-6 col-md-12 col-xl-5">
+                  <h3 class="mb-2">{{ totalCustomers }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Prospects</h6>
+              </div>
+              <div class="row">
+                <div class="col-6 col-md-12 col-xl-5">
+                  <h3 class="mb-2">{{ totalProspects }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Policy</h6>
+              </div>
+              <div class="row">
+                <div class="col-6 col-md-12 col-xl-5">
+                  <h3 class="mb-2">{{ totalPolicy }}</h3>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <!-- row -->
 
-  <div class="col-lg col-xl grid-margin grid-margin-xl-0 stretch-card mb-3">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-baseline mb-2">
-          <h6 class="card-title mb-0">Prospects</h6>
-          <div ngbDropdown class="mb-2">
-            <button
-              ngbDropdownToggle
-              class="btn p-0 no-dropdown-toggle-icon"
-              type="button"
-              id="dropdownMenuButton6"
-            >
-              <i
-                class="icon-lg text-muted pb-3px"
-                data-feather="more-horizontal"
-                appFeatherIcon
-              ></i>
+  <app-spinner
+    *ngIf="!!loading"
+    [textData]="'Agents, Prospects y Clients'"
+  ></app-spinner>
+
+  <div class="row">
+    <div
+      *appShowForRoles="[ROL.ADMINISTRATOR]"
+      class="col-lg-4 col-xl-3 grid-margin grid-margin-xl-0 stretch-card mb-3"
+    >
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-baseline mb-2">
+            <h6 class="card-title mb-0">Agents</h6>
+            <button class="btn btn-primary" (click)="newAgent()">
+              <i class="mdi mdi-account"></i> Add Agents
             </button>
-            <div ngbDropdownMenu aria-labelledby="dropdownMenuButton6">
+          </div>
+
+          <div class="d-flex flex-column mt-4">
+            <div *ngFor="let agent of agents">
               <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                (click)="linkAllProspects()"
-                ><i data-feather="eye" appFeatherIcon class="icon-sm me-2"></i>
-                <span class="">All Prospects</span></a
+                href=""
+                (click)="(false)"
+                class="d-flex align-items-center border-bottom pb-3"
               >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                (click)="linkNewProspect()"
-                ><i
-                  data-feather="edit-2"
-                  appFeatherIcon
-                  class="icon-sm me-2"
-                ></i>
-                <span class="">New Prospect</span></a
-              >
+                <div class="me-3">
+                  <img
+                    [src]="agent.imageUrl"
+                    [alt]="agent.firstName"
+                    class="rounded-circle img-xs"
+                  />
+                </div>
+                <div class="w-100">
+                  <div class="d-flex justify-content-between">
+                    <h6 class="text-body mb-2" (click)="moreInfoAgent(agent)">
+                      {{ agent.firstName }} {{ agent.lastName }}
+                    </h6>
+                  </div>
+                </div>
+              </a>
             </div>
           </div>
         </div>
-        <div
-          *ngIf="prospects.length == 0"
-          class="alert alert-primary"
-          role="alert"
-        >
-          There are no prospects registered under your agent code
+      </div>
+    </div>
+
+    <div class="col grid-margin grid-margin-xl-0 stretch-card mb-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-baseline mb-2">
+            <h6 class="card-title mb-0">Prospects</h6>
+            <div ngbDropdown class="mb-2">
+              <button
+                ngbDropdownToggle
+                class="btn p-0 no-dropdown-toggle-icon"
+                type="button"
+                id="dropdownMenuButton6"
+              >
+                <i
+                  class="icon-lg text-muted pb-3px"
+                  data-feather="more-horizontal"
+                  appFeatherIcon
+                ></i>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownMenuButton6">
+                <a
+                  ngbDropdownItem
+                  class="d-flex align-items-center"
+                  (click)="linkAllProspects()"
+                  ><i
+                    data-feather="eye"
+                    appFeatherIcon
+                    class="icon-sm me-2"
+                  ></i>
+                  <span class="">All Prospects</span></a
+                >
+                <a
+                  ngbDropdownItem
+                  class="d-flex align-items-center"
+                  (click)="linkNewProspect()"
+                  ><i
+                    data-feather="edit-2"
+                    appFeatherIcon
+                    class="icon-sm me-2"
+                  ></i>
+                  <span class="">New Prospect</span></a
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            *ngIf="prospects.length == 0"
+            class="alert alert-primary"
+            role="alert"
+          >
+            There are no prospects registered under your agent code
+          </div>
+          <div class="d-flex flex-column">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th class="pt-0" (click)="sortProspectBy('firstName')">
+                      Name
+                      <i
+                        class="feather pointer"
+                        [ngClass]="{
+                          'icon-arrow-up':
+                            orderFieldProspect === 'firstName' &&
+                            orderTypeProspect === 'asc',
+                          'icon-arrow-down':
+                            orderFieldProspect === 'firstName' &&
+                            orderTypeProspect === 'desc'
+                        }"
+                      ></i>
+                    </th>
+                    <th class="pt-0" (click)="sortProspectBy('phone')">
+                      Phone
+                      <i
+                        class="feather pointer"
+                        [ngClass]="{
+                          'icon-arrow-up':
+                            orderFieldProspect === 'phone' &&
+                            orderTypeProspect === 'asc',
+                          'icon-arrow-down':
+                            orderFieldProspect === 'phone' &&
+                            orderTypeProspect === 'desc'
+                        }"
+                      ></i>
+                    </th>
+                    <th class="pt-0" (click)="sortProspectBy('email')">
+                      Email
+                      <i
+                        class="feather pointer"
+                        [ngClass]="{
+                          'icon-arrow-up':
+                            orderFieldProspect === 'email' &&
+                            orderTypeProspect === 'asc',
+                          'icon-arrow-down':
+                            orderFieldProspect === 'email' &&
+                            orderTypeProspect === 'desc'
+                        }"
+                      ></i>
+                    </th>
+                    <th class="pt-0" (click)="sortProspectBy('status')">
+                      <i
+                        class="feather pointer"
+                        [ngClass]="{
+                          'icon-arrow-up':
+                            orderFieldProspect === 'status' &&
+                            orderTypeProspect === 'asc',
+                          'icon-arrow-down':
+                            orderFieldProspect === 'status' &&
+                            orderTypeProspect === 'desc'
+                        }"
+                      ></i>
+                      Status
+                    </th>
+                    <th class="pt-0">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let prospect of prospects">
+                    <td (click)="moreInfoProspect(prospect)" class="pointer">
+                      {{ prospect.firstName }} {{ prospect.lastName }}
+                    </td>
+                    <td>{{ prospect.phone }}</td>
+                    <td>{{ prospect.email }}</td>
+                    <td>{{ prospect.status }}</td>
+
+                    <td>
+                      <span
+                        class="badge bg-primary pointer"
+                        (click)="salesPolicy(prospect)"
+                        >Sales Policy</span
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-        <div class="d-flex flex-column">
+      </div>
+    </div>
+    <div class="col stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-baseline mb-3">
+            <h6 class="card-title mb-0">Clients</h6>
+            <div ngbDropdown class="mb-2">
+              <button
+                ngbDropdownToggle
+                class="btn p-0 no-dropdown-toggle-icon"
+                type="button"
+                id="dropdownMenuButton7"
+              >
+                <i
+                  class="icon-lg text-muted pb-3px"
+                  data-feather="more-horizontal"
+                  appFeatherIcon
+                ></i>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownMenuButton7">
+                <a
+                  ngbDropdownItem
+                  class="d-flex align-items-center"
+                  (click)="linkAllCustomers()"
+                  ><i
+                    data-feather="eye"
+                    appFeatherIcon
+                    class="icon-sm me-2"
+                  ></i>
+                  <span class="">All Clients</span></a
+                >
+                <a
+                  ngbDropdownItem
+                  class="d-flex align-items-center"
+                  (click)="linkNewCustomers()"
+                  ><i
+                    data-feather="edit-2"
+                    appFeatherIcon
+                    class="icon-sm me-2"
+                  ></i>
+                  <span class="">New Clients</span></a
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            *ngIf="customers.length == 0"
+            class="alert alert-primary"
+            role="alert"
+          >
+            There are no clients registered under your agent code
+          </div>
           <div class="table-responsive">
             <table class="table table-hover mb-0">
               <thead>
                 <tr>
-                  <th class="pt-0" (click)="sortProspectBy('firstName')">
+                  <th class="pt-0" (click)="sortCustomerBy('firstName')">
                     Name
                     <i
                       class="feather pointer"
                       [ngClass]="{
                         'icon-arrow-up':
-                          orderFieldProspect === 'firstName' &&
-                          orderTypeProspect === 'asc',
+                          orderFieldCustomer === 'firstName' &&
+                          orderTypeCustomer === 'asc',
                         'icon-arrow-down':
-                          orderFieldProspect === 'firstName' &&
-                          orderTypeProspect === 'desc'
+                          orderFieldCustomer === 'firstName' &&
+                          orderTypeCustomer === 'desc'
                       }"
                     ></i>
                   </th>
-                  <th class="pt-0" (click)="sortProspectBy('phone')">
+                  <th class="pt-0" (click)="sortCustomerBy('phone')">
                     Phone
                     <i
                       class="feather pointer"
                       [ngClass]="{
                         'icon-arrow-up':
-                          orderFieldProspect === 'phone' &&
-                          orderTypeProspect === 'asc',
+                          orderFieldCustomer === 'phone' &&
+                          orderTypeCustomer === 'asc',
                         'icon-arrow-down':
-                          orderFieldProspect === 'phone' &&
-                          orderTypeProspect === 'desc'
+                          orderFieldCustomer === 'phone' &&
+                          orderTypeCustomer === 'desc'
                       }"
                     ></i>
                   </th>
-                  <th class="pt-0" (click)="sortProspectBy('email')">
+                  <th class="pt-0" (click)="sortCustomerBy('email')">
                     Email
                     <i
                       class="feather pointer"
                       [ngClass]="{
                         'icon-arrow-up':
-                          orderFieldProspect === 'email' &&
-                          orderTypeProspect === 'asc',
+                          orderFieldCustomer === 'email' &&
+                          orderTypeCustomer === 'asc',
                         'icon-arrow-down':
-                          orderFieldProspect === 'email' &&
-                          orderTypeProspect === 'desc'
+                          orderFieldCustomer === 'email' &&
+                          orderTypeCustomer === 'desc'
                       }"
                     ></i>
                   </th>
-                  <th class="pt-0" (click)="sortProspectBy('status')">
-                    <i
-                      class="feather pointer"
-                      [ngClass]="{
-                        'icon-arrow-up':
-                          orderFieldProspect === 'status' &&
-                          orderTypeProspect === 'asc',
-                        'icon-arrow-down':
-                          orderFieldProspect === 'status' &&
-                          orderTypeProspect === 'desc'
-                      }"
-                    ></i>
-                    Status
-                  </th>
+                  <th class="pt-0">Date Birth</th>
                   <th class="pt-0">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let prospect of prospects">
-                  <td (click)="moreInfoProspect(prospect)" class="pointer">
-                    {{ prospect.firstName }} {{ prospect.lastName }}
+                <tr *ngFor="let customer of customers">
+                  <td (click)="moreInfoCustomer(customer)" class="pointer">
+                    {{ customer.firstName }} {{ customer.lastName }}
                   </td>
-                  <td>{{ prospect.phone }}</td>
-                  <td>{{ prospect.email }}</td>
-                  <td>{{ prospect.status }}</td>
+                  <td>{{ customer.phone }}</td>
+                  <td>{{ customer.email }}</td>
+                  <td>
+                    {{ customer.dateBirth | date : "mediumDate" : "UTC" }}
+                  </td>
 
                   <td>
                     <span
                       class="badge bg-primary pointer"
-                      (click)="salesPolicy(prospect)"
-                      >Sales Policy</span
+                      (click)="addPolicy(customer)"
+                      >New Policy</span
                     >
                   </td>
                 </tr>
@@ -259,125 +391,4 @@
       </div>
     </div>
   </div>
-  <div class="col-lg col-xl stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-baseline mb-3">
-          <h6 class="card-title mb-0">Customers</h6>
-          <div ngbDropdown class="mb-2">
-            <button
-              ngbDropdownToggle
-              class="btn p-0 no-dropdown-toggle-icon"
-              type="button"
-              id="dropdownMenuButton7"
-            >
-              <i
-                class="icon-lg text-muted pb-3px"
-                data-feather="more-horizontal"
-                appFeatherIcon
-              ></i>
-            </button>
-            <div ngbDropdownMenu aria-labelledby="dropdownMenuButton7">
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                (click)="linkAllCustomers()"
-                ><i data-feather="eye" appFeatherIcon class="icon-sm me-2"></i>
-                <span class="">All Customers</span></a
-              >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                (click)="linkNewCustomers()"
-                ><i
-                  data-feather="edit-2"
-                  appFeatherIcon
-                  class="icon-sm me-2"
-                ></i>
-                <span class="">New Customers</span></a
-              >
-            </div>
-          </div>
-        </div>
-        <div
-          *ngIf="customers.length == 0"
-          class="alert alert-primary"
-          role="alert"
-        >
-          There are no customers registered under your agent code
-        </div>
-        <div class="table-responsive">
-          <table class="table table-hover mb-0">
-            <thead>
-              <tr>
-                <th class="pt-0" (click)="sortCustomerBy('firstName')">
-                  Name
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderFieldCustomer === 'firstName' &&
-                        orderTypeCustomer === 'asc',
-                      'icon-arrow-down':
-                        orderFieldCustomer === 'firstName' &&
-                        orderTypeCustomer === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th class="pt-0" (click)="sortCustomerBy('phone')">
-                  Phone
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderFieldCustomer === 'phone' &&
-                        orderTypeCustomer === 'asc',
-                      'icon-arrow-down':
-                        orderFieldCustomer === 'phone' &&
-                        orderTypeCustomer === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th class="pt-0" (click)="sortCustomerBy('email')">
-                  Email
-                  <i
-                    class="feather pointer"
-                    [ngClass]="{
-                      'icon-arrow-up':
-                        orderFieldCustomer === 'email' &&
-                        orderTypeCustomer === 'asc',
-                      'icon-arrow-down':
-                        orderFieldCustomer === 'email' &&
-                        orderTypeCustomer === 'desc'
-                    }"
-                  ></i>
-                </th>
-                <th class="pt-0">Date Birth</th>
-                <th class="pt-0">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let customer of customers">
-                <td (click)="moreInfoCustomer(customer)" class="pointer">
-                  {{ customer.firstName }} {{ customer.lastName }}
-                </td>
-                <td>{{ customer.phone }}</td>
-                <td>{{ customer.email }}</td>
-                <td>{{ customer.dateBirth | date : "mediumDate" }}</td>
-
-                <td>
-                  <span
-                    class="badge bg-primary pointer"
-                    (click)="addPolicy(customer)"
-                    >New Policy</span
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
-<!-- row -->

@@ -141,7 +141,7 @@
                   </td>
                   <td>{{ agent.agentCode }}</td>
                   <td>{{ agent.firstName }} {{ agent.lastName }}</td>
-                  <td>{{ agent.dateBirth | date : "mediumDate" }}</td>
+                  <td>{{ agent.dateBirth | date : "mediumDate" : "UTC" }}</td>
                   <td>{{ agent.city }}</td>
                   <td>{{ agent.state }}</td>
 

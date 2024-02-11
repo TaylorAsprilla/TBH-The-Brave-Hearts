@@ -1,8 +1,8 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink=".">Customers</a></li>
+    <li class="breadcrumb-item"><a routerLink=".">Clients</a></li>
     <li class="breadcrumb-item active" aria-current="page">
-      All Customers - Administrator
+      All Clients - Administrator
     </li>
   </ol>
 </nav>
@@ -13,7 +13,7 @@
       <div class="card-body">
         <app-spinner *ngIf="!!loading" [textData]="'Customers'"></app-spinner>
 
-        <h6 class="card-title">Customers - Administrator</h6>
+        <h6 class="card-title">Clients - Administrator</h6>
         <span class="float-end badge bg-danger">{{ customers.length }}</span>
 
         <div class="mb-3">
@@ -22,13 +22,13 @@
             (click)="newCustomer()"
           >
             <i class="mdi mdi-account"></i>
-            Add Customer
+            Add Clients
           </button>
         </div>
         <app-export-data
           [data]="exportData"
           [dataFiltered]="exportFiltredData"
-          [nameFile]="'Export Data Customers'"
+          [nameFile]="'Export Data Clients'"
         ></app-export-data>
 
         <app-filters
@@ -43,7 +43,7 @@
           class="alert alert-primary"
           role="alert"
         >
-          There are no customers registered under your agent code
+          There are no clients registered under your agent code
         </div>
 
         <div class="table-responsive">
@@ -161,9 +161,9 @@
                 <td>{{ customer.documentNumber }}</td>
                 <td>{{ customer.state }}</td>
                 <td>{{ customer.email }}</td>
-                <td>{{ customer.dateBirth | date : "mediumDate" }}</td>
+                <td>{{ customer.dateBirth | date : "mediumDate" : "UTC" }}</td>
                 <td>{{ customer.phone }}</td>
-                <td>{{ customer.createdAt | date : "mediumDate" }}</td>
+                <td>{{ customer.createdAt | date : "mediumDate" : "UTC" }}</td>
                 <td>
                   {{ customer.agent.firstName }} {{ customer.agent.lastName }}
                 </td>

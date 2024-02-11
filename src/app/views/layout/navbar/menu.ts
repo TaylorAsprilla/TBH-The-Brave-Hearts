@@ -11,7 +11,7 @@ export const MENU: MenuItem[] = [
   },
 
   {
-    label: 'Customers',
+    label: 'Clients',
     icon: 'users',
     isMegaMenu: false,
     role: [ROL.ADMINISTRATOR, ROL.USER],
@@ -19,11 +19,11 @@ export const MENU: MenuItem[] = [
       {
         subMenuItems: [
           {
-            label: 'Add Customer',
+            label: 'Add Clients',
             link: `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ADD_CUSTOMERS}/${TEXT.NEW}`,
           },
           {
-            label: 'All customers',
+            label: 'All Clients',
             link: `${ROUTE_APP.CUSTOMER}/${ROUTE_APP.ALL_CUSTOMERS}`,
           },
         ],
@@ -39,12 +39,12 @@ export const MENU: MenuItem[] = [
       {
         subMenuItems: [
           {
-            label: 'Add prospects',
+            label: 'Add Prospects',
             isTitle: false,
             link: `${ROUTE_APP.PROSPECT}/${ROUTE_APP.ADD_PROSPECTS}/${TEXT.NEW}`,
           },
           {
-            label: 'All prospects',
+            label: 'All Prospects',
             link: `${ROUTE_APP.PROSPECT}/${ROUTE_APP.ALL_PROSPECTS}`,
           },
         ],
@@ -67,19 +67,19 @@ export const MENU: MenuItem[] = [
       {
         subMenuItems: [
           {
-            label: 'All customers',
+            label: 'All Clients',
             link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_CUSTOMERS}`,
           },
           {
-            label: 'All prospects',
+            label: 'All Prospects',
             link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_PROSPECTS}`,
           },
           {
-            label: 'All policies',
+            label: 'All Policies',
             link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_POLICY}`,
           },
           {
-            label: 'All agents',
+            label: 'All Agents',
             link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_AGENTS}`,
           },
         ],

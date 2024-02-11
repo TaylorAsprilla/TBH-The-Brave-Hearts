@@ -63,7 +63,9 @@
                       </p>
                       <p>
                         <b>Date of Birth:</b>
-                        {{ selectCustomer.dateBirth | date : "mediumDate" }}
+                        {{
+                          selectCustomer.dateBirth | date : "mediumDate" : "UTC"
+                        }}
                       </p>
 
                       <p>
@@ -224,7 +226,7 @@
                       <option value="Final Expense">Final Expense</option>
                       <option value="IUL">IUL</option>
                       <option value="ROP">ROP</option>
-                      <option value="Wole Life">Wole Life</option>
+                      <option value="Wole Life">Whole Life</option>
                     </select>
 
                     <div

@@ -64,6 +64,7 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
         this.agents = resp.agents.filter((agent) => {
           return agent.active === true;
         });
+
         this.filteredAgents = this.agents;
         this.extractAllUniqueValues();
       });
