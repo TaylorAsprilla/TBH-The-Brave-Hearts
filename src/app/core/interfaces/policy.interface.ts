@@ -42,7 +42,7 @@ export interface IMedical {
   isMotherAlive: string;
   motherAge?: string;
   deceasedMother?: string;
-  note?: string;
+  notes?: string;
 }
 
 export interface IReferral {
@@ -59,11 +59,13 @@ export interface IDocument {
   document1?: string;
   document2?: string;
   primaryAgentName: string;
+  carrierCode?: string;
   percentage1: string;
   secondaryAgentName?: string;
   percentage2?: string;
   fieldTrainingAgent?: string;
   mbBase?: string;
+  notes?: string;
 }
 
 export interface ILoadAllPolicies {
@@ -91,6 +93,7 @@ export interface IPolicy {
     appliedForLife: string;
     participateSport: string;
     involved: string;
+    notes?: string;
   };
   bankInformation: {
     draftPaymentDate: string;

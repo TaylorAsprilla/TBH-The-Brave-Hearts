@@ -16,6 +16,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { ExportDataModule } from '../../components/export-data/export-data.module';
 import { FiltersModule } from '../../components/filters/filters.module';
 import { GeneratePdfModule } from '../../components/generate-pdf/generate-pdf.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { GeneratePdfModule } from '../../components/generate-pdf/generate-pdf.mo
     FiltersModule,
     ExportDataModule,
     GeneratePdfModule,
+    NgxPaginationModule,
   ],
   exports: [CustomersComponent, PolicyComponent, ProspectsComponent],
 })

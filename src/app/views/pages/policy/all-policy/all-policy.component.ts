@@ -57,6 +57,9 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
   orderField: string = 'carrier';
   orderType: 'asc' | 'desc' = 'asc';
 
+  page: number = 1;
+  itemsPerPage: number = 15;
+
   constructor(
     private policyService: PolicyService,
     private agentService: AgentService,
@@ -270,6 +273,13 @@ export class AllPolicyComponent implements OnInit, OnDestroy {
       },
     });
   }
+
+  // pageChanged(event: any): void {
+  //   // Obtén las pólizas para la página actual
+  //   const startIndex = (event.page - 1) * this.pageSize;
+  //   const endIndex = startIndex + this.pageSize;
+  //   this.pagedPolicies = this.filteredPolicies.slice(startIndex, endIndex);
+  // }
 
   resetSelect() {
     this.createFiltres();

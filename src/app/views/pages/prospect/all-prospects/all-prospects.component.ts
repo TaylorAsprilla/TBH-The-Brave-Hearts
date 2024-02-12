@@ -46,6 +46,9 @@ export class AllProspectsComponent implements OnInit {
   orderField: string = 'firstName';
   orderType: 'asc' | 'desc' = 'asc';
 
+  page: number = 1;
+  itemsPerPage: number = 15;
+
   constructor(
     private prospectService: ProspectService,
     private agentService: AgentService,

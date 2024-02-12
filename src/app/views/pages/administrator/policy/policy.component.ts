@@ -56,6 +56,9 @@ export class PolicyComponent implements OnInit {
 
   hideFilters: boolean = false;
 
+  page: number = 1;
+  itemsPerPage: number = 15;
+
   @ViewChild('htmlData') htmlData: ElementRef;
 
   constructor(

@@ -39,6 +39,9 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
   orderField: string = 'agentCode';
   orderType: 'asc' | 'desc' = 'asc';
 
+  page: number = 1;
+  itemsPerPage: number = 15;
+
   get ROUTE_APP() {
     return ROUTE_APP;
   }
@@ -64,6 +67,7 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
         this.agents = resp.agents.filter((agent) => {
           return agent.active === true;
         });
+
         this.filteredAgents = this.agents;
         this.extractAllUniqueValues();
       });

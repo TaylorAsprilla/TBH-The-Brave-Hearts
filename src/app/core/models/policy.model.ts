@@ -25,9 +25,10 @@ export class PolicyModel {
       appliedForLife: string;
       participateSport: string;
       involved: string;
+      notes?: string;
     },
     public bankInformation: {
-      draftPaymentDate: Date;
+      draftPaymentDate: string;
       bank: string;
       accountNumber: number;
       routingNumber: number;

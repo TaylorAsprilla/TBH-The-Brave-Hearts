@@ -130,7 +130,12 @@
 
               <tbody>
                 <tr
-                  *ngFor="let agent of filteredAgents; trackBy: trackByAgentId"
+                  *ngFor="
+                    let agent of filteredAgents
+                      | paginate
+                        : { itemsPerPage: itemsPerPage, currentPage: page };
+                    trackBy: trackByAgentId
+                  "
                 >
                   <td>
                     <img
@@ -141,7 +146,7 @@
                   </td>
                   <td>{{ agent.agentCode }}</td>
                   <td>{{ agent.firstName }} {{ agent.lastName }}</td>
-                  <td>{{ agent.dateBirth | date : "mediumDate" }}</td>
+                  <td>{{ agent.dateBirth | date : "mediumDate" : "UTC" }}</td>
                   <td>{{ agent.city }}</td>
                   <td>{{ agent.state }}</td>
 
@@ -204,6 +209,13 @@
               </tfoot>
             </table>
           </div>
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+          <pagination-controls
+            (pageChange)="page = $event"
+            [autoHide]="true"
+            [responsive]="true"
+          ></pagination-controls>
         </div>
       </div>
     </div>

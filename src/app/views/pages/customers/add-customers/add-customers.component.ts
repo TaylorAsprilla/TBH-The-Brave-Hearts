@@ -148,8 +148,8 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
       doctorOfficeLocation: ['', []],
       officePhoneNumber: ['', []],
       lastVisit: ['', [Validators.required]],
-      reasonForVisit: ['', []],
-      outcomeOfVisit: ['', []],
+      reasonForVisit: ['', [Validators.required]],
+      outcomeOfVisit: ['', [Validators.required]],
       smoker: ['', [Validators.required]],
       medicalCondition: ['', []],
       whenItWasDiagnosed: ['', []],
@@ -162,7 +162,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
       isMotherAlive: ['', [Validators.required]],
       motherAge: ['', []],
       deceasedMother: ['', []],
-      note: ['', []],
+      notesMedical: ['', []],
     });
 
     this.additionalQuestionForm = this.formBuilder.group({
@@ -172,6 +172,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
       appliedForLife: ['', [Validators.required]],
       participateSport: ['', [Validators.required]],
       involved: ['', [Validators.required]],
+      notesAdditionalQuestion: ['', []],
     });
 
     this.bankInformationForm = this.formBuilder.group({
@@ -179,7 +180,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
       bank: ['', [Validators.required]],
       accountNumber: ['', [Validators.required]],
       routingNumber: ['', [Validators.required]],
-      notes: ['', []],
+      notesBankInformation: ['', []],
     });
 
     this.referralsForm = this.formBuilder.group({
@@ -191,11 +192,13 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
       document1: ['', []],
       document2: ['', []],
       primaryAgentName: ['', [Validators.required]],
+      carrierCode: ['', []],
       percentage1: ['', [Validators.required]],
       secondaryAgentName: ['', []],
       percentage2: ['', []],
       fieldTrainingAgent: ['', []],
       mbBase: ['', []],
+      notesDocument: ['', []],
     });
 
     this.isLifePolicyFormSubmitted = false;
@@ -383,7 +386,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
             isMotherAlive: data.isMotherAlive,
             motherAge: data.motherAge,
             deceasedMother: data.deceasedMother,
-            note: data.note,
+            notes: data.notesMedical,
           },
           additionalQuestions: {
             criminalRecord: data.criminalRecord,
@@ -392,13 +395,14 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
             appliedForLife: data.appliedForLife,
             participateSport: data.participateSport,
             involved: data.involved,
+            notes: data.notesAdditionalQuestion,
           },
           bankInformation: {
             draftPaymentDate: data.draftPaymentDate,
             bank: data.bank,
             accountNumber: data.accountNumber,
             routingNumber: data.routingNumber,
-            notes: data.notes,
+            notes: data.notesBankInformation,
           },
           referrals: data.referrals,
           document: {
@@ -408,6 +412,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
             percentage2: data.percentage2,
             fieldTrainingAgent: data.fieldTrainingAgent,
             mbBase: data.mbBase,
+            notes: data.notesDocument,
           },
           status: StatusPolicy.MORE_INFORMATION_NEEDED,
         },
@@ -486,9 +491,9 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
         ],
         phone: ['', [Validators.required]],
         email: ['', [Validators.email, Validators.minLength(3)]],
-        dateBirth: [''],
+        dateBirth: ['', [Validators.required]],
         ss: [''],
-        share: [''],
+        share: ['', [Validators.required]],
       })
     );
   }
@@ -579,6 +584,9 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
             annualIncome: '',
             householdIncome: '',
             householdNetWorth: '',
+            idNumber: '',
+            expirationDate: '',
+            idState: '',
           });
         },
         error: (error: any) => {

@@ -36,6 +36,9 @@ export class CustomersComponent implements OnInit, OnDestroy {
   orderField: string = 'firstName';
   orderType: 'asc' | 'desc' = 'asc';
 
+  page: number = 1;
+  itemsPerPage: number = 15;
+
   constructor(
     private customerService: CustomerService,
     private exporterService: ExporterService,
