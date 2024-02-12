@@ -584,6 +584,9 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
             annualIncome: '',
             householdIncome: '',
             householdNetWorth: '',
+            idNumber: '',
+            expirationDate: '',
+            idState: '',
           });
         },
         error: (error: any) => {
