@@ -166,7 +166,7 @@ export class AddPolicyComponent implements OnInit {
       ],
       motherAge: [{ value: '', disabled: this.isDisabled }, []],
       deceasedMother: [{ value: '', disabled: this.isDisabled }, []],
-      note: [{ value: '', disabled: this.isDisabled }, []],
+      notesMedical: [{ value: '', disabled: this.isDisabled }, []],
     });
 
     this.additionalQuestionForm = this.formBuilder.group({
@@ -194,6 +194,7 @@ export class AddPolicyComponent implements OnInit {
         { value: '', disabled: this.isDisabled },
         [Validators.required],
       ],
+      notesAdditionalQuestion: [{ value: '', disabled: this.isDisabled }, []],
     });
 
     this.bankInformationForm = this.formBuilder.group({
@@ -210,7 +211,7 @@ export class AddPolicyComponent implements OnInit {
         { value: '', disabled: this.isDisabled },
         [Validators.required],
       ],
-      notes: [{ value: '', disabled: this.isDisabled }, []],
+      notesBankInformation: [{ value: '', disabled: this.isDisabled }, []],
     });
 
     this.referralsForm = this.formBuilder.group({
@@ -234,6 +235,7 @@ export class AddPolicyComponent implements OnInit {
       percentage2: [{ value: '', disabled: this.isDisabled }, []],
       fieldTrainingAgent: [{ value: '', disabled: this.isDisabled }, []],
       mbBase: [{ value: '', disabled: this.isDisabled }, []],
+      notesDocument: [{ value: '', disabled: this.isDisabled }, []],
     });
 
     this.isSubmitted();
@@ -393,7 +395,7 @@ export class AddPolicyComponent implements OnInit {
           { value: '', disabled: this.isDisabled },
           [Validators.required],
         ],
-        ss: [{ value: '', disabled: this.isDisabled }, [Validators.required]],
+        ss: [{ value: '', disabled: this.isDisabled }, []],
         share: [
           { value: '', disabled: this.isDisabled },
           [Validators.required],
@@ -574,7 +576,7 @@ export class AddPolicyComponent implements OnInit {
         isMotherAlive: medicalData.isMotherAlive,
         motherAge: medicalData.motherAge,
         deceasedMother: medicalData.deceasedMother,
-        note: medicalData.note,
+        notes: medicalData.notes,
       });
     }
   }
@@ -759,7 +761,7 @@ export class AddPolicyComponent implements OnInit {
         isMotherAlive: data.isMotherAlive,
         motherAge: data.motherAge,
         deceasedMother: data.deceasedMother,
-        note: data.note,
+        notes: data.notesMedical,
       },
       additionalQuestions: {
         criminalRecord: data.criminalRecord,
@@ -768,13 +770,14 @@ export class AddPolicyComponent implements OnInit {
         appliedForLife: data.appliedForLife,
         participateSport: data.participateSport,
         involved: data.involved,
+        notes: data.notesAdditionalQuestion,
       },
       bankInformation: {
         draftPaymentDate: data.draftPaymentDate,
         bank: data.bank,
         accountNumber: data.accountNumber,
         routingNumber: data.routingNumber,
-        notes: data.notes,
+        notes: data.notesBankInformation,
       },
       referrals: data.referrals,
       document: {
@@ -793,6 +796,7 @@ export class AddPolicyComponent implements OnInit {
         percentage2: data.percentage2,
         fieldTrainingAgent: data.fieldTrainingAgent,
         mbBase: data.mbBase,
+        notes: data.notesDocument,
       },
       customer: this.selectCustomer.uid,
       status: this.selectPolicy?.status

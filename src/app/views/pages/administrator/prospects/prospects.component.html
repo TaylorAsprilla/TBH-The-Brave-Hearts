@@ -147,7 +147,9 @@
               <tbody>
                 <tr
                   *ngFor="
-                    let prospect of filteredProspects;
+                    let prospect of filteredProspects
+                      | paginate
+                        : { itemsPerPage: itemsPerPage, currentPage: page };
                     trackBy: trackByProspectId
                   "
                 >
@@ -234,6 +236,13 @@
               </tfoot>
             </table>
           </div>
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+          <pagination-controls
+            (pageChange)="page = $event"
+            [autoHide]="true"
+            [responsive]="true"
+          ></pagination-controls>
         </div>
       </div>
     </div>

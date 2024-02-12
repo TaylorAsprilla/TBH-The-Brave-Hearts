@@ -130,7 +130,12 @@
 
               <tbody>
                 <tr
-                  *ngFor="let agent of filteredAgents; trackBy: trackByAgentId"
+                  *ngFor="
+                    let agent of filteredAgents
+                      | paginate
+                        : { itemsPerPage: itemsPerPage, currentPage: page };
+                    trackBy: trackByAgentId
+                  "
                 >
                   <td>
                     <img
@@ -204,6 +209,13 @@
               </tfoot>
             </table>
           </div>
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+          <pagination-controls
+            (pageChange)="page = $event"
+            [autoHide]="true"
+            [responsive]="true"
+          ></pagination-controls>
         </div>
       </div>
     </div>

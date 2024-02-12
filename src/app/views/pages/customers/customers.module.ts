@@ -16,6 +16,7 @@ import { MobilePhoneNumberDirectiveModule } from 'src/app/core/directive/mobileP
 import { DollarFormatModule } from 'src/app/core/directive/dollarFormat/dollar-format.module';
 import { FiltersModule } from '../../components/filters/filters.module';
 import { ExportDataModule } from '../../components/export-data/export-data.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ExportDataModule } from '../../components/export-data/export-data.modul
     DollarFormatModule,
     FiltersModule,
     ExportDataModule,
+    NgxPaginationModule,
   ],
   exports: [AllCustomersComponent, AddCustomersComponent],
 })

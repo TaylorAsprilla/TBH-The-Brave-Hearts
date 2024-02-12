@@ -813,7 +813,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="mb-4">
-                      <label for="timeEmployed" class="form-label required"
+                      <label for="timeEmployed" class="form-label"
                         >Time Employed
                       </label>
                       <select
@@ -910,29 +910,15 @@
 
                   <div class="col-sm-4">
                     <div class="mb-3">
-                      <label class="form-label required">ID State</label>
+                      <label class="form-label">ID State</label>
                       <ng-select
                         [items]="states"
                         bindLabel="state"
                         bindValue="state"
                         placeholder="type to search"
                         formControlName="idState"
-                        [ngClass]="{
-                          'is-invalid':
-                            isLifePolicyFormSubmitted &&
-                            formLifePolicy.idState.errors
-                        }"
                       >
                       </ng-select>
-                      <div
-                        *ngIf="
-                          isLifePolicyFormSubmitted &&
-                          formLifePolicy.idState.errors?.required
-                        "
-                        class="invalid-feedback"
-                      >
-                        Required
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -1536,7 +1522,7 @@
 
                 <div class="col-sm-4">
                   <div class="mb-3">
-                    <label class="form-label"> Reason for visit</label>
+                    <label class="form-label required"> Reason for visit</label>
                     <input
                       type="text"
                       class="form-control"
@@ -1561,7 +1547,7 @@
 
                 <div class="col-sm-4">
                   <div class="mb-3">
-                    <label for="email" class="form-label"
+                    <label for="outcomeOfVisit" class="form-label required"
                       >Outcome of visit</label
                     >
                     <input
@@ -1780,7 +1766,7 @@
                       <textarea
                         name="textarea"
                         class="form-control"
-                        formControlName="note"
+                        formControlName="notesMedical"
                         rows="10"
                         cols="30"
                       ></textarea>
@@ -2030,6 +2016,21 @@
               </div>
 
               <div class="row">
+                <div class="col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label"> Notes </label>
+                    <textarea
+                      name="textarea"
+                      class="form-control"
+                      formControlName="notesAdditionalQuestion"
+                      rows="10"
+                      cols="30"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
                 <div class="d-flex justify-content-center mt-5">
                   <button
                     class="btn btn-secondary me-2"
@@ -2167,7 +2168,7 @@
                       <textarea
                         name="textarea"
                         class="form-control"
-                        formControlName="notes"
+                        formControlName="notesBankInformation"
                         rows="10"
                         cols="30"
                       ></textarea>
@@ -2526,6 +2527,21 @@
                       <option value="TPT">TPT</option>
                       <option value="TTP">TTP</option>
                     </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="mb-3">
+                    <label class="form-label"> Notes </label>
+                    <textarea
+                      name="textarea"
+                      class="form-control"
+                      formControlName="notesDocument"
+                      rows="10"
+                      cols="30"
+                    ></textarea>
                   </div>
                 </div>
               </div>

@@ -57,6 +57,7 @@
     "ngx-dropzone-wrapper": "^13.0.0",
     "ngx-highlightjs": "^7.0.1",
     "ngx-owl-carousel-o": "^14.0.1",
+    "ngx-pagination": "^6.0.3",
     "ngx-perfect-scrollbar": "^10.1.1",
     "ngx-quill": "^19.0.1",
     "ngx-sortablejs": "^11.1.0",

@@ -1,3 +1,4 @@
+import { NgxPaginationModule } from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -34,6 +35,7 @@ import { GeneratePdfModule } from '../../components/generate-pdf/generate-pdf.mo
     FiltersModule,
     ExportDataModule,
     GeneratePdfModule,
+    NgxPaginationModule,
   ],
 })
 export class PolicyModule {}

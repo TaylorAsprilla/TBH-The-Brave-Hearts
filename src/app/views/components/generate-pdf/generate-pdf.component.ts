@@ -20,9 +20,7 @@ export class GeneratePdfComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log('Policy', this.policyData);
-  }
+  ngOnInit(): void {}
 
   generatePDF() {
     const customer = this.customers.find(
@@ -390,7 +388,7 @@ export class GeneratePdfComponent implements OnInit {
         },
         {
           label: 'Notes',
-          value: `${this.policyData.medical.note || ''}`,
+          value: `${this.policyData.medical.notes || ''}`,
         },
       ],
       doc,
@@ -431,6 +429,10 @@ export class GeneratePdfComponent implements OnInit {
           label:
             'Have you been or are you currently involved in any bankruptcy proceedings that have not been discharged?',
           value: `${this.policyData.additionalQuestions.involved}`,
+        },
+        {
+          label: 'Notes',
+          value: `${this.policyData.additionalQuestions.notes || ''}`,
         },
       ],
       doc,
@@ -534,6 +536,10 @@ export class GeneratePdfComponent implements OnInit {
         {
           label: 'MB Base',
           value: `${this.policyData.document.mbBase || ''}`,
+        },
+        {
+          label: 'Notes',
+          value: `${this.policyData.document.notes || ''}`,
         },
       ],
       doc,
