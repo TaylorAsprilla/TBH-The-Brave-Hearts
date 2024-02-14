@@ -664,9 +664,17 @@ export class AddPolicyComponent implements OnInit {
         if (result.isConfirmed) {
           this.updatePolicy(policyData)
             .pipe(
-              switchMap((resp: any) =>
-                this.updateUploadPolicyDocument(resp.policy.uid)
-              )
+              switchMap((resp: any) => {
+                if (
+                  this.idPhotoFile ||
+                  this.document1File ||
+                  this.document2File
+                ) {
+                  return this.updateUploadPolicyDocument(resp.policy.uid);
+                } else {
+                  return of(null);
+                }
+              })
             )
             .subscribe({
               next: () => this.handleSuccess(successMessageUpdate),
@@ -681,9 +689,17 @@ export class AddPolicyComponent implements OnInit {
       if (this.isFormValid()) {
         this.createPolicy(policyData)
           .pipe(
-            switchMap((resp: any) =>
-              this.uploadPolicyDocuments(resp.policy.uid)
-            )
+            switchMap((resp: any) => {
+              if (
+                this.idPhotoFile ||
+                this.document1File ||
+                this.document2File
+              ) {
+                return this.uploadPolicyDocuments(resp.policy.uid);
+              } else {
+                return of(null);
+              }
+            })
           )
           .subscribe({
             next: () => this.handleSuccess(successMessage),
