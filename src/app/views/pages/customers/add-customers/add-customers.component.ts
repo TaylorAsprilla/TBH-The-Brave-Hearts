@@ -16,7 +16,7 @@ import { ICreateCustomer } from 'src/app/core/interfaces/customer.interface';
 import { StateModel } from 'src/app/core/models/state.model';
 import { FileUploadService } from 'src/app/services/fileUpload/file-upload.service';
 import Swal from 'sweetalert2';
-import { Subscription, switchMap } from 'rxjs';
+import { Subscription, of, switchMap } from 'rxjs';
 import { TEXT } from 'src/app/core/enum/text.enum';
 import { CustomerModel } from 'src/app/core/models/customer.model';
 import { ValidationService } from 'src/app/services/validation/validation.service';
@@ -418,19 +418,27 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
         },
       };
 
-      if (information && this.idPhotoFile && this.document1File) {
+      if (information) {
         this.customerService
           .createCustomer(information)
           .pipe(
             switchMap((resp: any) => {
               customerCreate = resp.customer;
 
-              return this.fileUploadService.uploadDocuments(
-                resp.policy.uid,
-                this.idPhotoFile,
-                this.document1File,
+              if (
+                this.idPhotoFile ||
+                this.document1File ||
                 this.document2File
-              );
+              ) {
+                return this.fileUploadService.uploadDocuments(
+                  resp.policy.uid,
+                  this.idPhotoFile,
+                  this.document1File,
+                  this.document2File
+                );
+              } else {
+                return of(null);
+              }
             })
           )
           .subscribe({
