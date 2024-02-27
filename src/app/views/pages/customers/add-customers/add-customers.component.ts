@@ -437,9 +437,6 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
           .updatePolicy(this.policy.uid, information.policy)
           .pipe(
             switchMap((resp: any) => {
-              console.log('Respuesta', resp);
-              // customerCreate = resp.customer;
-
               if (
                 this.idPhotoFile ||
                 this.document1File ||
@@ -645,7 +642,6 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
 
     this.customerService.createCustomer(formData).subscribe({
       next: (resp: any) => {
-        console.log(resp);
         this.customer = resp.customer;
         this.policy = resp.policy;
 
