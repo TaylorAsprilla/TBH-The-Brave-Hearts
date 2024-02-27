@@ -12,7 +12,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
 
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
-import { ICreateCustomer } from 'src/app/core/interfaces/customer.interface';
+import {
+  ICreateClient,
+  ICreateCustomer,
+} from 'src/app/core/interfaces/customer.interface';
 import { StateModel } from 'src/app/core/models/state.model';
 import { FileUploadService } from 'src/app/services/fileUpload/file-upload.service';
 import Swal from 'sweetalert2';
@@ -21,6 +24,8 @@ import { TEXT } from 'src/app/core/enum/text.enum';
 import { CustomerModel } from 'src/app/core/models/customer.model';
 import { ValidationService } from 'src/app/services/validation/validation.service';
 import { StatusPolicy } from 'src/app/core/enum/estatus-policy';
+import { PolicyModel } from 'src/app/core/models/policy.model';
+import { PolicyService } from 'src/app/services/policy/policy.service';
 
 @Component({
   selector: 'app-add-customers',
@@ -60,6 +65,8 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
   routerSubscription: Subscription;
   validationEmailSubscription: Subscription;
   validationDocumentNumberSubscription: Subscription;
+  policy: PolicyModel;
+  customer: CustomerModel;
 
   @ViewChild('lifePolicy') lifePolicy: BaseWizardComponent;
 
@@ -70,7 +77,8 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
     private customerService: CustomerService,
     private prospectService: ProspectService,
     private fileUploadService: FileUploadService,
-    private validationService: ValidationService
+    private validationService: ValidationService,
+    private policyService: PolicyService
   ) {}
 
   ngOnInit(): void {
@@ -109,7 +117,6 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
       state: ['', [Validators.minLength(3), Validators.required]],
       zipCode: [''],
       phone: ['', [Validators.required]],
-      phoneType: ['', []],
       email: [
         '',
         [Validators.required, Validators.email, Validators.minLength(3)],
@@ -253,6 +260,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
 
   formLifePolicySubmit() {
     if (this.lifePolicyForm.valid) {
+      this.createClient(this.lifePolicyForm.value);
       this.lifePolicy.goToNextStep();
     }
     this.isLifePolicyFormSubmitted = true;
@@ -260,6 +268,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
 
   beneficiaryFormSubmittedSubmit() {
     if (this.beneficiaryForm.valid) {
+      this.updatePolicy(this.beneficiaryForm.value);
       this.lifePolicy.goToNextStep();
     }
     this.isBeneficiaryFormSubmitted = true;
@@ -267,6 +276,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
 
   contigentBeneficiaryFormSubmittedSubmit() {
     if (this.contigentBeneficiaryForm.valid) {
+      this.updatePolicy(this.contigentBeneficiaryForm.value);
       this.lifePolicy.goToNextStep();
     }
     this.isContigentBeneficiaryFormSubmitted = true;
@@ -274,6 +284,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
 
   medicalFormSubmittedSubmit() {
     if (this.medicalForm.valid) {
+      this.updatePolicy(this.medicalForm.value);
       this.lifePolicy.goToNextStep();
     }
     this.isMedicalFormFormSubmitted = true;
@@ -281,6 +292,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
 
   additionalQuestionFormSubmittedSubmit() {
     if (this.additionalQuestionForm.valid) {
+      this.updatePolicy(this.additionalQuestionForm.value);
       this.lifePolicy.goToNextStep();
     }
     this.isAdditionalQuestionFormSubmitted = true;
@@ -288,6 +300,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
 
   referralsFormSubmittedSubmit() {
     if (this.referralsForm.valid) {
+      this.updatePolicy(this.referralsForm.value);
       this.lifePolicy.goToNextStep();
     }
     this.isReferralsFormSubmitted = true;
@@ -295,6 +308,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
 
   bankInformationFormSubmittedSubmit() {
     if (this.bankInformationForm.valid) {
+      this.updatePolicy(this.bankInformationForm.value);
       this.lifePolicy.goToNextStep();
     }
     this.isBankInformationFormSubmitted = true;
@@ -419,11 +433,12 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
       };
 
       if (information) {
-        this.customerService
-          .createCustomer(information)
+        this.policyService
+          .updatePolicy(this.policy.uid, information.policy)
           .pipe(
             switchMap((resp: any) => {
-              customerCreate = resp.customer;
+              console.log('Respuesta', resp);
+              // customerCreate = resp.customer;
 
               if (
                 this.idPhotoFile ||
@@ -446,7 +461,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
               Swal.fire({
                 icon: 'success',
                 title: 'Customer created',
-                html: `<b> Customer Name: </b> ${customerCreate.firstName} ${customerCreate.lastName}`,
+                html: `<b> Customer Name: </b> ${this.customer.firstName} ${this.customer.lastName}`,
               });
               this.clearForm();
               this.router.navigateByUrl(
@@ -574,7 +589,6 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
             state: '',
             zipCode: '',
             phone: phone,
-            phoneType: '',
             email: email,
             statusInUS: '',
             documentType: '',
@@ -621,6 +635,79 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
         },
       });
     }
+  }
+
+  createClient(data: ICreateClient) {
+    const formData: ICreateClient = {
+      customer: this.lifePolicyForm.value,
+      policy: this.lifePolicyForm.value,
+    };
+
+    this.customerService.createCustomer(formData).subscribe({
+      next: (resp: any) => {
+        console.log(resp);
+        this.customer = resp.customer;
+        this.policy = resp.policy;
+
+        Swal.fire({
+          icon: 'success',
+          position: 'bottom-right',
+          text: resp.msg,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      },
+      error: (error: any) => {
+        const errors = error?.error?.errors;
+        const errorList: string[] = [];
+
+        if (errors) {
+          Object.entries(errors).forEach(([key, value]: [string, any]) => {
+            if (value && value['msg']) {
+              errorList.push('° ' + value['msg'] + '<br>');
+            }
+          });
+        }
+
+        Swal.fire({
+          title: 'Error',
+          icon: 'error',
+          html: `${errorList.length ? errorList.join('') : error.error.msg}`,
+        });
+      },
+    });
+  }
+
+  updatePolicy(data: PolicyModel) {
+    this.policyService.updatePolicy(this.policy.uid, data).subscribe({
+      next: (resp: any) => {
+        Swal.fire({
+          icon: 'info',
+          position: 'bottom-right',
+          text: resp.msg,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      },
+      error: (error: any) => {
+        const errors = error?.error?.errors;
+        const errorList: string[] = [];
+
+        if (errors) {
+          Object.entries(errors).forEach(([key, value]: [string, any]) => {
+            if (value && value['msg']) {
+              errorList.push('° ' + value['msg'] + '<br>');
+            }
+          });
+        }
+
+        Swal.fire({
+          title: 'Error',
+          icon: 'error',
+          html: `${errorList.length ? errorList.join('') : error.error.msg}`,
+        });
+      },
+    });
   }
 
   cancelEdit() {

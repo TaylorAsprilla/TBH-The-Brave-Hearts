@@ -67,14 +67,6 @@ export class PolicyService {
     );
   }
 
-  updateCustomer(policy: PolicyModel) {
-    return this.httpClient.put(
-      `${base_url}/policy/${this.uid}`,
-      policy,
-      this.headers
-    );
-  }
-
   updateStatusPolicy(uid: string, status: string) {
     return this.httpClient.put(
       `${base_url}/policy/status/${uid}`,

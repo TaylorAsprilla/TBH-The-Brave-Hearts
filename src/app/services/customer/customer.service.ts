@@ -2,7 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
-import { ICreateCustomer } from 'src/app/core/interfaces/customer.interface';
+import {
+  ICreateClient,
+  ICreateCustomer,
+} from 'src/app/core/interfaces/customer.interface';
 import {
   CustomerModel,
   ILoadAllCustomer,
@@ -60,7 +63,7 @@ export class CustomerService {
       );
   }
 
-  createCustomer(customer: ICreateCustomer) {
+  createCustomer(customer: ICreateCustomer | ICreateClient) {
     return this.httpClient.post(
       `${base_url}/customers`,
       customer,
