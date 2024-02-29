@@ -1,4 +1,4 @@
-import { CustomerModel } from '../models/customer.model';
+import { CustomerModel, ICustomerAgent } from '../models/customer.model';
 import { IPolicy } from './policy.interface';
 
 export interface ICreateCustomer {
@@ -40,4 +40,46 @@ export interface customerDataExport {
   documentType?: string;
   nameAgent?: string;
   createdAt?: Date;
+}
+
+export interface IClient {
+  firstName: string;
+  lastName: string;
+  address: string;
+  state: string;
+  phone: string;
+  email: string;
+  maritalStatus: string;
+  dateBirth: Date;
+  documentNumber: string;
+  documentType: string;
+  countryBirth: string;
+  cityBirth: string;
+  gender: string;
+  weight: string;
+  height: string;
+  employerName: string;
+  annualIncome: string;
+  agent: ICustomerAgent;
+  middleName?: string;
+  addressLine2?: string;
+  city?: string;
+  zipCode?: string;
+  occupation?: string;
+  timeEmployed?: string;
+  householdIncome?: string;
+  householdNetWorth?: string;
+  statusInUS?: string;
+  idNumber?: string;
+  expirationDate?: Date;
+}
+
+export interface ICreateClient {
+  customer: IClient;
+  policy: {
+    carrier: string;
+    policyType: string;
+    monthly: string;
+    faceAmount: string;
+  };
 }

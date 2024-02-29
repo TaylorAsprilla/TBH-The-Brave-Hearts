@@ -311,6 +311,12 @@ export class AddPolicyComponent implements OnInit {
 
   formLifePolicySubmit() {
     if (this.lifePolicyForm.valid || this.lifePolicyForm.disabled) {
+      if (this.selectPolicy) {
+        this.updatePolicy();
+      } else {
+        this.createPolicy();
+      }
+
       this.policy.goToNextStep();
     }
     this.isLifePolicyFormSubmitted = true;
@@ -318,6 +324,7 @@ export class AddPolicyComponent implements OnInit {
 
   beneficiaryFormSubmittedSubmit() {
     if (this.beneficiaryForm.valid || this.beneficiaryForm.disabled) {
+      this.updatePolicy();
       this.policy.goToNextStep();
     }
     this.isBeneficiaryFormSubmitted = true;
@@ -328,6 +335,7 @@ export class AddPolicyComponent implements OnInit {
       this.contigentBeneficiaryForm.valid ||
       this.contigentBeneficiaryForm.disabled
     ) {
+      this.updatePolicy();
       this.policy.goToNextStep();
     }
     this.isContigentBeneficiaryFormSubmitted = true;
@@ -335,6 +343,7 @@ export class AddPolicyComponent implements OnInit {
 
   medicalFormSubmittedSubmit() {
     if (this.medicalForm.valid || this.medicalForm.disabled) {
+      this.updatePolicy();
       this.policy.goToNextStep();
     }
     this.isMedicalFormFormSubmitted = true;
@@ -345,6 +354,7 @@ export class AddPolicyComponent implements OnInit {
       this.additionalQuestionForm.valid ||
       this.additionalQuestionForm.disabled
     ) {
+      this.updatePolicy();
       this.policy.goToNextStep();
     }
     this.isAdditionalQuestionFormSubmitted = true;
@@ -352,6 +362,7 @@ export class AddPolicyComponent implements OnInit {
 
   referralsFormSubmittedSubmit() {
     if (this.referralsForm.valid || this.referralsForm.disabled) {
+      this.updatePolicy();
       this.policy.goToNextStep();
     }
     this.isReferralsFormSubmitted = true;
@@ -359,6 +370,7 @@ export class AddPolicyComponent implements OnInit {
 
   bankInformationFormSubmittedSubmit() {
     if (this.bankInformationForm.valid || this.bankInformationForm.disabled) {
+      this.updatePolicy();
       this.policy.goToNextStep();
     }
     this.isBankInformationFormSubmitted = true;
@@ -653,41 +665,28 @@ export class AddPolicyComponent implements OnInit {
 
     if (this.selectPolicy) {
       // Updated Policy
-      Swal.fire({
-        title: 'Do you want to edit the policy?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.updatePolicy(policyData)
-            .pipe(
-              switchMap((resp: any) => {
-                if (
-                  this.idPhotoFile ||
-                  this.document1File ||
-                  this.document2File
-                ) {
-                  return this.updateUploadPolicyDocument(resp.policy.uid);
-                } else {
-                  return of(null);
-                }
-              })
-            )
-            .subscribe({
-              next: () => this.handleSuccess(successMessageUpdate),
+      this.policyService
+        .updatePolicy(this.selectPolicy.uid, policyData)
+        .pipe(
+          switchMap((resp: any) => {
+            if (this.idPhotoFile || this.document1File || this.document2File) {
+              return this.updateUploadPolicyDocument(resp.policy.uid);
+            } else {
+              return of(null);
+            }
+          })
+        )
+        .subscribe({
+          next: () => this.handleSuccess(successMessageUpdate),
 
-              error: (error) => console.log(error),
-            });
-        }
-      });
+          error: (error) => console.log(error),
+        });
     } else {
       this.isDocumentFormSubmitted = true;
 
       if (this.isFormValid()) {
-        this.createPolicy(policyData)
+        this.policyService
+          .createPolicy(policyData)
           .pipe(
             switchMap((resp: any) => {
               if (
@@ -823,12 +822,42 @@ export class AddPolicyComponent implements OnInit {
     return policyData;
   }
 
-  createPolicy(policyData: IPolicy): Observable<any> {
-    return this.policyService.createPolicy(policyData);
-  }
+  createPolicy() {
+    if (!this.isDisabled && !this.selectPolicy) {
+      const policyData = this.getPolicyData();
 
-  updatePolicy(policyData: IPolicy): Observable<any> {
-    return this.policyService.updatePolicy(this.selectPolicy.uid, policyData);
+      this.policyService.createPolicy(policyData).subscribe({
+        next: (resp: any) => {
+          this.selectPolicy = resp.policy;
+
+          Swal.fire({
+            icon: 'info',
+            position: 'bottom-right',
+            text: resp.msg,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        },
+        error: (error: any) => {
+          const errors = error?.error?.errors;
+          const errorList: string[] = [];
+
+          if (errors) {
+            Object.entries(errors).forEach(([key, value]: [string, any]) => {
+              if (value && value['msg']) {
+                errorList.push('° ' + value['msg'] + '<br>');
+              }
+            });
+          }
+
+          Swal.fire({
+            title: 'Error',
+            icon: 'error',
+            html: `${errorList.length ? errorList.join('') : error.error.msg}`,
+          });
+        },
+      });
+    }
   }
 
   uploadDocuments(
@@ -914,6 +943,45 @@ export class AddPolicyComponent implements OnInit {
         this.enableFieldsForm();
       }
     });
+  }
+
+  updatePolicy() {
+    if (!this.isDisabled) {
+      const policyData = this.getPolicyData();
+      this.policyService
+        .updatePolicy(this.selectPolicy.uid, policyData)
+        .subscribe({
+          next: (resp: any) => {
+            Swal.fire({
+              icon: 'info',
+              position: 'bottom-right',
+              text: resp.msg,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          },
+          error: (error: any) => {
+            const errors = error?.error?.errors;
+            const errorList: string[] = [];
+
+            if (errors) {
+              Object.entries(errors).forEach(([key, value]: [string, any]) => {
+                if (value && value['msg']) {
+                  errorList.push('° ' + value['msg'] + '<br>');
+                }
+              });
+            }
+
+            Swal.fire({
+              title: 'Error',
+              icon: 'error',
+              html: `${
+                errorList.length ? errorList.join('') : error.error.msg
+              }`,
+            });
+          },
+        });
+    }
   }
 
   disabelFieldForm() {

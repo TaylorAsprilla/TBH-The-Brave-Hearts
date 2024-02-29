@@ -12,7 +12,7 @@ export interface ILoadAllCustomer {
   customer: CustomerModel;
 }
 
-interface ICustomerAgent {
+export interface ICustomerAgent {
   _id: string;
   agentCode: number;
   firstName: string;
