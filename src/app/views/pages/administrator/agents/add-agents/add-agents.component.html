@@ -53,6 +53,7 @@
                   class="form-control"
                   formControlName="firstName"
                   placeholder="Enter first name"
+                  appCapitalizeFirstLetter
                   [ngClass]="{
                     'is-invalid':
                       isAgentFormSubmitted && formAgent.firstName.errors
@@ -86,6 +87,7 @@
                   class="form-control"
                   formControlName="lastName"
                   placeholder="Enter last name"
+                  appCapitalizeFirstLetter
                   [ngClass]="{
                     'is-invalid':
                       isAgentFormSubmitted && formAgent.lastName.errors
@@ -121,6 +123,7 @@
                   class="form-control"
                   formControlName="city"
                   placeholder="Enter city"
+                  appCapitalizeFirstLetter
                 />
                 <div
                   class="form-text text-danger"
@@ -267,8 +270,12 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary submit">
-            Submit form
+          <button
+            type="submit"
+            class="btn btn-primary submit"
+            title="Create Agent"
+          >
+            Create agent
           </button>
         </form>
       </div>

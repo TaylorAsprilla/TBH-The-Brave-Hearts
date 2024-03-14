@@ -64,6 +64,7 @@
                   type="text"
                   class="form-control"
                   formControlName="firstName"
+                  appCapitalizeFirstLetter
                   [ngClass]="{
                     'is-invalid':
                       isprospectFormSubmitted && formProspect.firstName.errors
@@ -98,6 +99,7 @@
                   type="text"
                   class="form-control"
                   formControlName="lastName"
+                  appCapitalizeFirstLetter
                 />
 
                 <div
@@ -119,6 +121,7 @@
                   type="text"
                   class="form-control"
                   formControlName="occupation"
+                  appCapitalizeFirstLetter
                 />
               </div>
             </div>
@@ -130,6 +133,7 @@
                   type="text"
                   class="form-control"
                   formControlName="partnerName"
+                  appCapitalizeFirstLetter
                 />
               </div>
             </div>
@@ -141,6 +145,7 @@
                   type="text"
                   class="form-control"
                   formControlName="partnerLastName"
+                  appCapitalizeFirstLetter
                 />
               </div>
             </div>
@@ -152,6 +157,7 @@
                   type="text"
                   class="form-control"
                   formControlName="partnerOccupation"
+                  appCapitalizeFirstLetter
                 />
               </div>
             </div>
@@ -266,11 +272,14 @@
             <button
               class="btn btn-danger mx-1"
               type="button"
+              title="Cancel"
               (click)="cancelEdit()"
             >
               Cancel
             </button>
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <button class="btn btn-primary" type="submit" title="Submit">
+              Submit
+            </button>
           </div>
         </form>
       </div>

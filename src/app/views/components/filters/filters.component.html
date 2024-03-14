@@ -2,6 +2,7 @@
   *ngIf="!hideFilters"
   type="button"
   class="btn btn-primary mx-2"
+  title="Reset Filters"
   (click)="resetSelect()"
 >
   Reset
@@ -10,6 +11,7 @@
 <button
   type="button"
   class="btn mx-1"
+  title="Filters"
   [ngClass]="{ 'btn-primary': hideFilters, 'btn-secondary': !hideFilters }"
   (click)="toggleFilters()"
 >

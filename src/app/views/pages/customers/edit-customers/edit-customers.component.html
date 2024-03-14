@@ -18,6 +18,7 @@
                   class="form-control"
                   formControlName="firstName"
                   placeholder="Enter first name"
+                  appCapitalizeFirstLetter
                   [ngClass]="{
                     'is-invalid':
                       isCustomerFormSubmitted && formCustomer.firstName.errors
@@ -52,6 +53,7 @@
                   class="form-control"
                   placeholder="Enter middle name"
                   formControlName="middleName"
+                  appCapitalizeFirstLetter
                 />
                 <div
                   class="form-text text-danger"
@@ -74,6 +76,7 @@
                   placeholder="Enter last name"
                   formControlName="lastName"
                   placeholder="Last name"
+                  appCapitalizeFirstLetter
                   [ngClass]="{
                     'is-invalid':
                       isCustomerFormSubmitted && formCustomer.lastName.errors
@@ -430,6 +433,7 @@
                   type="text"
                   class="form-control"
                   formControlName="countryBirth"
+                  appCapitalizeFirstLetter
                   [ngClass]="{
                     'is-invalid':
                       isCustomerFormSubmitted &&
@@ -464,6 +468,7 @@
                   type="text"
                   class="form-control"
                   formControlName="cityBirth"
+                  appCapitalizeFirstLetter
                   [ngClass]="{
                     'is-invalid':
                       isCustomerFormSubmitted && formCustomer.cityBirth.errors
@@ -579,6 +584,7 @@
                     type="text"
                     class="form-control"
                     formControlName="employerName"
+                    appCapitalizeFirstLetter
                     [ngClass]="{
                       'is-invalid':
                         isCustomerFormSubmitted &&
@@ -613,6 +619,7 @@
                     type="text"
                     class="form-control"
                     formControlName="occupation"
+                    appCapitalizeFirstLetter
                   />
                   <div
                     class="form-text text-danger"
@@ -743,7 +750,9 @@
             <button class="btn btn-danger" (click)="cancelEdit()">
               Cancel
             </button>
-            <button class="btn btn-primary mx-1" type="submit">Save</button>
+            <button class="btn btn-primary mx-1" type="submit" title="Save">
+              Save
+            </button>
           </div>
         </form>
       </div>

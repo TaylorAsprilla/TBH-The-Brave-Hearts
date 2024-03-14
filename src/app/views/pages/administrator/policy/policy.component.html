@@ -92,16 +92,16 @@
                   ></i>
                 </th>
 
-                <th (click)="sortPolicyBy('customer.firstName')">
+                <th (click)="sortPolicyBy('customer.fullName')">
                   Customer
                   <i
                     class="feather pointer"
                     [ngClass]="{
                       'icon-arrow-up':
-                        orderField === 'customer.firstName' &&
+                        orderField === 'customer.fullName' &&
                         orderType === 'asc',
                       'icon-arrow-down':
-                        orderField === 'customer.firstName' &&
+                        orderField === 'customer.fullName' &&
                         orderType === 'desc'
                     }"
                   ></i>

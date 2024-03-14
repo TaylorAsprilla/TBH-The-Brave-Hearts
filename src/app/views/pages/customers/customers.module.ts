@@ -17,6 +17,7 @@ import { DollarFormatModule } from 'src/app/core/directive/dollarFormat/dollar-f
 import { FiltersModule } from '../../components/filters/filters.module';
 import { ExportDataModule } from '../../components/export-data/export-data.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { CapitalizeFirstLetterModule } from 'src/app/core/directive/capitalizeFirstLetter/capitalize-first-letter.module';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FiltersModule,
     ExportDataModule,
     NgxPaginationModule,
+    CapitalizeFirstLetterModule,
   ],
   exports: [AllCustomersComponent, AddCustomersComponent],
 })

@@ -313,7 +313,9 @@
                 >
                   Back
                 </button>
-                <button class="btn btn-primary" type="submit">Continue</button>
+                <button class="btn btn-primary" type="submit" title="Continue">
+                  Continue
+                </button>
               </div>
             </form>
           </aw-wizard-step>
@@ -346,6 +348,7 @@
                           class="form-control"
                           formControlName="firstName"
                           placeholder="Enter first name"
+                          appCapitalizeFirstLetter
                           [ngClass]="{
                             'is-invalid':
                               isBeneficiaryFormSubmitted &&
@@ -372,6 +375,7 @@
                           class="form-control"
                           placeholder="Enter middle name"
                           formControlName="middleName"
+                          appCapitalizeFirstLetter
                           [ngClass]="{
                             'is-invalid':
                               isBeneficiaryFormSubmitted &&
@@ -398,6 +402,7 @@
                           class="form-control"
                           placeholder="Enter last name"
                           formControlName="lastName"
+                          appCapitalizeFirstLetter
                           [ngClass]="{
                             'is-invalid':
                               isBeneficiaryFormSubmitted &&
@@ -430,6 +435,7 @@
                           type="text"
                           class="form-control"
                           formControlName="relationshipToInsured"
+                          appCapitalizeFirstLetter
                           [ngClass]="{
                             'is-invalid':
                               isBeneficiaryFormSubmitted &&
@@ -626,7 +632,11 @@
                   >
                     Back
                   </button>
-                  <button class="btn btn-primary" type="submit">
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    title="Continue"
+                  >
                     Continue
                   </button>
                 </div>
@@ -663,6 +673,7 @@
                           class="form-control"
                           formControlName="firstName"
                           placeholder="Enter first name"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -675,6 +686,7 @@
                           class="form-control"
                           placeholder="Enter middle name"
                           formControlName="middleName"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -688,6 +700,7 @@
                           placeholder="Enter last name"
                           formControlName="lastName"
                           placeholder="Last name"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -703,6 +716,7 @@
                           type="text"
                           class="form-control"
                           formControlName="relationshipToInsured"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -806,6 +820,7 @@
                     *ngIf="!isDisabled"
                     class="btn btn-primary"
                     type="button"
+                    title="Add Contigent Beneficiaries"
                     (click)="addContigentBeneficiary()"
                   >
                     <i class="feather icon-plus-square"></i>
@@ -818,6 +833,7 @@
                   <button
                     class="btn btn-danger mx-1"
                     type="button"
+                    title="Cancel Policy"
                     (click)="cancelPolicy()"
                   >
                     Cancel
@@ -829,7 +845,11 @@
                   >
                     Back
                   </button>
-                  <button class="btn btn-primary" type="submit">
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    title="Continue"
+                  >
                     Continue
                   </button>
                 </div>
@@ -854,6 +874,7 @@
                       class="form-control"
                       formControlName="doctorName"
                       placeholder="Enter Doctor Name"
+                      appCapitalizeFirstLetter
                       [ngClass]="{
                         'is-invalid':
                           isMedicalFormFormSubmitted &&
@@ -1184,6 +1205,7 @@
                   <button
                     class="btn btn-danger mx-1"
                     type="button"
+                    title="Cancel Policy"
                     (click)="cancelPolicy()"
                   >
                     Cancel
@@ -1195,7 +1217,11 @@
                   >
                     Back
                   </button>
-                  <button class="btn btn-primary" type="submit">
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    title="Continue"
+                  >
                     Continue
                   </button>
                 </div>
@@ -1446,6 +1472,7 @@
                   <button
                     class="btn btn-danger mx-1"
                     type="button"
+                    title="Cancel Policy"
                     (click)="cancelPolicy()"
                   >
                     Cancel
@@ -1453,11 +1480,16 @@
                   <button
                     class="btn btn-secondary me-2"
                     type="button"
+                    title="Back"
                     awPreviousStep
                   >
                     Back
                   </button>
-                  <button class="btn btn-primary" type="submit">
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    title="Continue"
+                  >
                     Continue
                   </button>
                 </div>
@@ -1600,6 +1632,7 @@
                   <button
                     class="btn btn-danger mx-1"
                     type="button"
+                    title="Cancel Policy"
                     (click)="cancelPolicy()"
                   >
                     Cancel
@@ -1607,11 +1640,16 @@
                   <button
                     class="btn btn-secondary me-2"
                     type="button"
+                    title="Back"
                     awPreviousStep
                   >
                     Back
                   </button>
-                  <button class="btn btn-primary" type="submit">
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    title="Continue"
+                  >
                     Continue
                   </button>
                 </div>
@@ -1645,6 +1683,7 @@
                           class="form-control"
                           formControlName="firstName"
                           placeholder="Enter first name"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -1657,6 +1696,7 @@
                           class="form-control"
                           placeholder="Enter middle name"
                           formControlName="middleName"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -1670,6 +1710,7 @@
                           placeholder="Enter last name"
                           formControlName="lastName"
                           placeholder="Last name"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -1685,6 +1726,7 @@
                           type="text"
                           class="form-control"
                           formControlName="relationshipToInsured"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -1740,6 +1782,7 @@
                     *ngIf="!isDisabled"
                     class="btn btn-primary"
                     type="button"
+                    title="Add Referrals"
                     (click)="addReferrals()"
                   >
                     <i class="feather icon-plus-square"></i>
@@ -1752,6 +1795,7 @@
                   <button
                     class="btn btn-danger mx-1"
                     type="button"
+                    title="Cancel Policy"
                     (click)="cancelPolicy()"
                   >
                     Cancel
@@ -1759,11 +1803,16 @@
                   <button
                     class="btn btn-secondary me-2"
                     type="button"
+                    title="Back"
                     awPreviousStep
                   >
                     Back
                   </button>
-                  <button class="btn btn-primary" type="submit">
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    title="Continue"
+                  >
                     Continue
                   </button>
                 </div>
@@ -1869,6 +1918,7 @@
                       type="text"
                       class="form-control"
                       formControlName="primaryAgentName"
+                      appCapitalizeFirstLetter
                       [ngClass]="{
                         'is-invalid':
                           isDocumentFormSubmitted &&
@@ -1938,6 +1988,7 @@
                       type="text"
                       class="form-control"
                       formControlName="secondaryAgentName"
+                      appCapitalizeFirstLetter
                     />
                   </div>
                 </div>
@@ -1970,6 +2021,7 @@
                       type="text"
                       class="form-control"
                       formControlName="fieldTrainingAgent"
+                      appCapitalizeFirstLetter
                     />
                   </div>
                 </div>
@@ -2013,6 +2065,7 @@
                   <button
                     class="btn btn-secondary me-2"
                     type="button"
+                    title="Back"
                     awPreviousStep
                   >
                     Back
@@ -2020,6 +2073,7 @@
                   <button
                     class="btn btn-primary"
                     type="submit"
+                    title="Submit"
                     [disabled]="isDisabled"
                   >
                     Submit

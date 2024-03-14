@@ -62,7 +62,6 @@ export class CustomersComponent implements OnInit, OnDestroy {
           return customer.active === true;
         });
 
-        console.log(this.customers[0].fullName);
         this.filteredCustomers = customer;
         this.extractAllUniqueValues();
       });
