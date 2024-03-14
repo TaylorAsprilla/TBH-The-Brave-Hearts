@@ -212,6 +212,7 @@ export class PolicyComponent implements OnInit {
   }
 
   sortPolicyBy(field: string) {
+    console.log(field);
     // Verificar si el campo de ordenamiento es el mismo que el anterior
     if (field === this.orderField) {
       // Cambiar el tipo de orden
@@ -243,6 +244,18 @@ export class PolicyComponent implements OnInit {
         if (aAgentName < bAgentName) {
           return this.orderType === 'asc' ? -1 : 1;
         } else if (aAgentName > bAgentName) {
+          return this.orderType === 'asc' ? 1 : -1;
+        } else {
+          return 0;
+        }
+      } else if (field === 'customer.firstName') {
+        const aCustomerName = a.customer ? a.customer.firstName : '';
+
+        const bCustomerName = b.customer ? b.customer.firstName : '';
+
+        if (aCustomerName < bCustomerName) {
+          return this.orderType === 'asc' ? -1 : 1;
+        } else if (aCustomerName > bCustomerName) {
           return this.orderType === 'asc' ? 1 : -1;
         } else {
           return 0;
