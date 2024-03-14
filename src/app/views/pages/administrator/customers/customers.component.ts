@@ -264,6 +264,10 @@ export class CustomersComponent implements OnInit, OnDestroy {
         } else {
           return 0;
         }
+      } else if (field === 'document') {
+        const aValue = a[field] || 0;
+        const bValue = b[field] || 0;
+        return (aValue - bValue) * (this.orderType === 'asc' ? 1 : -1);
       } else {
         // Realizar el ordenamiento por el campo proporcionado
         const aValue = a[field];

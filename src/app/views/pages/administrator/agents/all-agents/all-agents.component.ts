@@ -232,12 +232,29 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
     }
 
     this.filteredAgents.sort((a: any, b: any) => {
-      if (a[field] < b[field]) {
-        return this.orderType === 'asc' ? -1 : 1;
-      } else if (a[field] > b[field]) {
-        return this.orderType === 'asc' ? 1 : -1;
+      if (
+        (field === 'createdAt' || field === 'dateBirth') &&
+        a[field] &&
+        b[field]
+      ) {
+        const aValue = new Date(a[field]).toISOString();
+        const bValue = new Date(b[field]).toISOString();
+
+        return (
+          aValue.localeCompare(bValue) * (this.orderType === 'asc' ? 1 : -1)
+        );
+      } else if (field === 'agentCode') {
+        const aValue = a[field] || 0;
+        const bValue = b[field] || 0;
+        return (aValue - bValue) * (this.orderType === 'asc' ? 1 : -1);
       } else {
-        return 0;
+        const aValue = a[field] || '';
+        const bValue = b[field] || '';
+
+        return (
+          aValue.toString().localeCompare(bValue.toString()) *
+          (this.orderType === 'asc' ? 1 : -1)
+        );
       }
     });
   }
