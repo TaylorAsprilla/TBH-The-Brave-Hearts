@@ -233,6 +233,20 @@ export class PolicyComponent implements OnInit {
         return (
           aValue.localeCompare(bValue) * (this.orderType === 'asc' ? 1 : -1)
         );
+      } else if (field === 'agent.firstName') {
+        // Obtener el nombre del agente para el cliente 'a'
+        const aAgentName = a.agent ? a.agent.firstName : '';
+        // Obtener el nombre del agente para el cliente 'b'
+        const bAgentName = b.agent ? b.agent.firstName : '';
+
+        // Realizar el ordenamiento por el nombre del agente
+        if (aAgentName < bAgentName) {
+          return this.orderType === 'asc' ? -1 : 1;
+        } else if (aAgentName > bAgentName) {
+          return this.orderType === 'asc' ? 1 : -1;
+        } else {
+          return 0;
+        }
       } else {
         // Ordenar normalmente si no es createdAt ni dateBirth
         const aValue = a[field];
