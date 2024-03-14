@@ -212,7 +212,6 @@ export class PolicyComponent implements OnInit {
   }
 
   sortPolicyBy(field: string) {
-    console.log(field);
     // Verificar si el campo de ordenamiento es el mismo que el anterior
     if (field === this.orderField) {
       // Cambiar el tipo de orden
