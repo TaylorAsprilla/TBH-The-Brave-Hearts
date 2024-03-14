@@ -22,7 +22,7 @@ export interface ICustomerAgent {
 
 export class CustomerModel {
   constructor(
-    public uid: string,
+    public readonly uid: string,
     public firstName: string,
     public lastName: string,
     public address: string,
@@ -64,5 +64,15 @@ export class CustomerModel {
     } else {
       return `${imageProfile}/customers/no-file.jpg`;
     }
+  }
+
+  get fullName(): string {
+    const capitalizedFirstName = this.capitalizeFirstLetter(this.firstName);
+    const capitalizedLastName = this.capitalizeFirstLetter(this.lastName);
+    return `${capitalizedFirstName} ${capitalizedLastName}`;
+  }
+
+  private capitalizeFirstLetter(word: string): string {
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
   }
 }

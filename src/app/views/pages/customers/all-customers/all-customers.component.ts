@@ -58,11 +58,11 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.customerSubscription = this.customerService
       .getAllCustomersForAgents(this.agent.uid)
-      .subscribe((resp) => {
-        this.customers = resp.customers.filter((customer) => {
+      .subscribe((customer) => {
+        this.customers = customer.filter((customer) => {
           return customer.active === true;
         });
-        this.filteredCustomers = resp.customers;
+        this.filteredCustomers = customer;
         this.extractAllUniqueValues();
       });
   }
@@ -87,7 +87,6 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
       }
     });
   }
-  deleteCustomer(customer: CustomerModel) {}
 
   newCustomer() {
     this.router.navigateByUrl(
@@ -244,6 +243,7 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
 
   filterCustomers(value: string) {
     if (value) {
+      this.page = 1;
       this.filteredCustomers = this.customers.filter(
         (customer: CustomerModel) => {
           return (
@@ -275,13 +275,29 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
     }
 
     // Ordenar los clientes según el campo y el tipo de orden
+
     this.filteredCustomers.sort((a: any, b: any) => {
-      if (a[field] < b[field]) {
-        return this.orderType === 'asc' ? -1 : 1;
-      } else if (a[field] > b[field]) {
-        return this.orderType === 'asc' ? 1 : -1;
+      if (field === 'createdAt' || field === 'dateBirth') {
+        // Convertir los valores a objetos Date para comparar
+        const aValue = new Date(a[field]).toISOString();
+        const bValue = new Date(b[field]).toISOString();
+
+        return (
+          aValue.localeCompare(bValue) * (this.orderType === 'asc' ? 1 : -1)
+        );
+      } else if (field === 'document') {
+        const aValue = a[field] || 0;
+        const bValue = b[field] || 0;
+        return (aValue - bValue) * (this.orderType === 'asc' ? 1 : -1);
       } else {
-        return 0;
+        // Ordenar normalmente si no es createdAt ni dateBirth
+        const aValue = a[field];
+        const bValue = b[field];
+
+        // Comparar los valores directamente
+        return (
+          aValue.localeCompare(bValue) * (this.orderType === 'asc' ? 1 : -1)
+        );
       }
     });
   }

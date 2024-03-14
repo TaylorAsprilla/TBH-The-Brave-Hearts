@@ -16,7 +16,11 @@
         <span class="float-end badge bg-danger">{{ agents.length }}</span>
 
         <div class="mb-3">
-          <button class="btn btn-primary float-start mx-2" (click)="newAgent()">
+          <button
+            class="btn btn-primary float-start mx-2"
+            title="Add Agents"
+            (click)="newAgent()"
+          >
             <i class="mdi mdi-account"></i>
             Add Agents
           </button>

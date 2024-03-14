@@ -67,20 +67,20 @@ export const MENU: MenuItem[] = [
       {
         subMenuItems: [
           {
-            label: 'All Clients',
-            link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_CUSTOMERS}`,
+            label: 'All Agents',
+            link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_AGENTS}`,
           },
           {
-            label: 'All Prospects',
-            link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_PROSPECTS}`,
+            label: 'All Clients',
+            link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_CUSTOMERS}`,
           },
           {
             label: 'All Policies',
             link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_POLICY}`,
           },
           {
-            label: 'All Agents',
-            link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_AGENTS}`,
+            label: 'All Prospects',
+            link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_PROSPECTS}`,
           },
         ],
       },

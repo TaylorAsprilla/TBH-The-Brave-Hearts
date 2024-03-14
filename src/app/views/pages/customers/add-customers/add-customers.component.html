@@ -152,12 +152,15 @@
                         class="form-control"
                         formControlName="firstName"
                         placeholder="Enter first name"
+                        appCapitalizeFirstLetter
+                        #value
                         [ngClass]="{
                           'is-invalid':
                             isLifePolicyFormSubmitted &&
                             formLifePolicy.firstName.errors
                         }"
                       />
+
                       <div
                         *ngIf="
                           isLifePolicyFormSubmitted &&
@@ -189,6 +192,7 @@
                         class="form-control"
                         placeholder="Enter middle name"
                         formControlName="middleName"
+                        appCapitalizeFirstLetter
                       />
                       <div
                         class="form-text text-danger"
@@ -214,6 +218,7 @@
                         placeholder="Enter last name"
                         formControlName="lastName"
                         placeholder="Last name"
+                        appCapitalizeFirstLetter
                         [ngClass]="{
                           'is-invalid':
                             isLifePolicyFormSubmitted &&
@@ -304,6 +309,7 @@
                       class="form-control"
                       placeholder="Enter city"
                       formControlName="city"
+                      appCapitalizeFirstLetter
                     />
                     <div
                       class="form-text text-danger"
@@ -602,6 +608,7 @@
                       type="text"
                       class="form-control"
                       formControlName="countryBirth"
+                      appCapitalizeFirstLetter
                       [ngClass]="{
                         'is-invalid':
                           isLifePolicyFormSubmitted &&
@@ -639,6 +646,7 @@
                       type="text"
                       class="form-control"
                       formControlName="cityBirth"
+                      appCapitalizeFirstLetter
                       [ngClass]="{
                         'is-invalid':
                           isLifePolicyFormSubmitted &&
@@ -760,6 +768,7 @@
                         type="text"
                         class="form-control"
                         formControlName="employerName"
+                        appCapitalizeFirstLetter
                         [ngClass]="{
                           'is-invalid':
                             isLifePolicyFormSubmitted &&
@@ -797,6 +806,7 @@
                         type="text"
                         class="form-control"
                         formControlName="occupation"
+                        appCapitalizeFirstLetter
                       />
                       <div
                         class="form-text text-danger"
@@ -928,12 +938,17 @@
                 <button
                   class="btn btn-danger mx-1"
                   type="button"
+                  title="Cancel"
                   (click)="cancelEdit()"
                 >
                   Cancel
                 </button>
 
-                <button class="btn btn-primary mx-1" type="submit">
+                <button
+                  class="btn btn-primary mx-1"
+                  type="submit"
+                  title="Continue"
+                >
                   Continue
                 </button>
               </div>
@@ -968,6 +983,7 @@
                           class="form-control"
                           formControlName="firstName"
                           placeholder="Enter first name"
+                          appCapitalizeFirstLetter
                           [ngClass]="{
                             'is-invalid':
                               isBeneficiaryFormSubmitted &&
@@ -994,6 +1010,7 @@
                           class="form-control"
                           placeholder="Enter middle name"
                           formControlName="middleName"
+                          appCapitalizeFirstLetter
                           [ngClass]="{
                             'is-invalid':
                               isBeneficiaryFormSubmitted &&
@@ -1020,6 +1037,7 @@
                           class="form-control"
                           placeholder="Enter last name"
                           formControlName="lastName"
+                          appCapitalizeFirstLetter
                           [ngClass]="{
                             'is-invalid':
                               isBeneficiaryFormSubmitted &&
@@ -1052,6 +1070,7 @@
                           type="text"
                           class="form-control"
                           formControlName="relationshipToInsured"
+                          appCapitalizeFirstLetter
                           [ngClass]="{
                             'is-invalid':
                               isBeneficiaryFormSubmitted &&
@@ -1217,6 +1236,7 @@
                   <button
                     class="btn btn-primary"
                     type="button"
+                    title="Add Beneficiary"
                     (click)="addBeneficiary()"
                   >
                     <i class="feather icon-plus-square"></i>
@@ -1228,11 +1248,16 @@
                   <button
                     class="btn btn-secondary me-2"
                     type="button"
+                    title="Back"
                     awPreviousStep
                   >
                     Back
                   </button>
-                  <button class="btn btn-primary" type="submit">
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    title="Continue"
+                  >
                     Continue
                   </button>
                 </div>
@@ -1269,6 +1294,7 @@
                           class="form-control"
                           formControlName="firstName"
                           placeholder="Enter first name"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -1281,6 +1307,7 @@
                           class="form-control"
                           placeholder="Enter middle name"
                           formControlName="middleName"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -1294,6 +1321,7 @@
                           placeholder="Enter last name"
                           formControlName="lastName"
                           placeholder="Last name"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -1309,6 +1337,7 @@
                           type="text"
                           class="form-control"
                           formControlName="relationshipToInsured"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -1412,6 +1441,7 @@
                   <button
                     class="btn btn-primary"
                     type="button"
+                    title="Add Contigent Beneficiaries"
                     (click)="addContigentBeneficiary()"
                   >
                     <i class="feather icon-plus-square"></i>
@@ -1424,11 +1454,16 @@
                   <button
                     class="btn btn-secondary me-2"
                     type="button"
+                    title="Back"
                     awPreviousStep
                   >
                     Back
                   </button>
-                  <button class="btn btn-primary" type="submit">
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    title="Continue"
+                  >
                     Continue
                   </button>
                 </div>
@@ -1453,6 +1488,7 @@
                       class="form-control"
                       formControlName="doctorName"
                       placeholder="Enter Doctor Name"
+                      appCapitalizeFirstLetter
                       [ngClass]="{
                         'is-invalid':
                           isMedicalFormFormSubmitted &&
@@ -2223,6 +2259,7 @@
                           class="form-control"
                           formControlName="firstName"
                           placeholder="Enter first name"
+                          appCapitalizeFirstLetter
                           [ngClass]="{
                             'is-invalid':
                               isReferralsFormSubmitted &&
@@ -2240,6 +2277,7 @@
                           class="form-control"
                           placeholder="Enter middle name"
                           formControlName="middleName"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -2253,6 +2291,7 @@
                           placeholder="Enter last name"
                           formControlName="lastName"
                           placeholder="Last name"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -2268,6 +2307,7 @@
                           type="text"
                           class="form-control"
                           formControlName="relationshipToInsured"
+                          appCapitalizeFirstLetter
                         />
                       </div>
                     </div>
@@ -2410,6 +2450,7 @@
                       type="text"
                       class="form-control"
                       formControlName="primaryAgentName"
+                      appCapitalizeFirstLetter
                       [ngClass]="{
                         'is-invalid':
                           isDocumentFormSubmitted &&
@@ -2479,6 +2520,7 @@
                       type="text"
                       class="form-control"
                       formControlName="secondaryAgentName"
+                      appCapitalizeFirstLetter
                     />
                   </div>
                 </div>
@@ -2511,6 +2553,7 @@
                       type="text"
                       class="form-control"
                       formControlName="fieldTrainingAgent"
+                      appCapitalizeFirstLetter
                     />
                   </div>
                 </div>
@@ -2558,7 +2601,9 @@
                   >
                     Back
                   </button>
-                  <button class="btn btn-primary" type="submit">Submit</button>
+                  <button class="btn btn-primary" type="submit" title="Submit">
+                    Submit
+                  </button>
                 </div>
               </div>
             </form>

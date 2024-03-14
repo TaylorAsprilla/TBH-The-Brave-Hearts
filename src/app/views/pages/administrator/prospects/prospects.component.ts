@@ -299,23 +299,47 @@ export class ProspectsComponent implements OnInit, OnDestroy {
   }
 
   sortProspectsBy(field: string) {
+    // Verificar si el campo de ordenamiento es el mismo que el anterior
     if (field === this.orderField) {
+      // Cambiar el tipo de orden
       this.orderType = this.orderType === 'asc' ? 'desc' : 'asc';
     } else {
+      // Si es un campo diferente, establecer el campo de ordenamiento y el tipo de orden a sus valores predeterminados
       this.orderField = field;
       this.orderType = 'asc';
     }
 
-    this.filteredProspects.sort((a: any, b: any) => {
-      const aValue = a.agent ? a.agent.firstName : '';
-      const bValue = b.agent ? b.agent.firstName : '';
+    // Ordenar los clientes según el campo y el tipo de orden
 
-      if (aValue < bValue) {
-        return this.orderType === 'asc' ? -1 : 1;
-      } else if (aValue > bValue) {
-        return this.orderType === 'asc' ? 1 : -1;
+    this.filteredProspects.sort((a: any, b: any) => {
+      if (field === 'createdAt' || field === 'dateBirth') {
+        // Convertir los valores a objetos Date para comparar
+        const aValue = new Date(a[field]).toISOString();
+        const bValue = new Date(b[field]).toISOString();
+
+        return (
+          aValue.localeCompare(bValue) * (this.orderType === 'asc' ? 1 : -1)
+        );
+      } else if (field === 'agent.firstName') {
+        const aValue = a.agent ? a.agent.firstName : '';
+        const bValue = b.agent ? b.agent.firstName : '';
+
+        if (aValue < bValue) {
+          return this.orderType === 'asc' ? -1 : 1;
+        } else if (aValue > bValue) {
+          return this.orderType === 'asc' ? 1 : -1;
+        } else {
+          return 0;
+        }
       } else {
-        return 0;
+        // Ordenar normalmente si no es createdAt ni dateBirth
+        const aValue = a[field];
+        const bValue = b[field];
+
+        // Comparar los valores directamente
+        return (
+          aValue.localeCompare(bValue) * (this.orderType === 'asc' ? 1 : -1)
+        );
       }
     });
   }

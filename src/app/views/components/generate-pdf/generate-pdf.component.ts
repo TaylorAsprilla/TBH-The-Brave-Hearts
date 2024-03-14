@@ -1,6 +1,5 @@
 import { jsPDF } from 'jspdf';
 import { Component, Input, OnInit } from '@angular/core';
-
 import { PolicyModel } from 'src/app/core/models/policy.model';
 import { CustomerModel } from 'src/app/core/models/customer.model';
 import {

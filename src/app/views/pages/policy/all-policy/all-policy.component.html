@@ -146,30 +146,32 @@
                   {{ policy.customer.lastName }}
                 </td>
                 <td>
-                  <p>
-                    <a
-                      *ngIf="policy.document.idPhoto"
-                      [href]="photoIdUrl + policy?.document?.idPhoto"
-                      target="_blank"
-                      >Photo Id</a
-                    >
-                  </p>
-                  <p>
-                    <a
-                      *ngIf="policy.document.document1"
-                      [href]="documentOneUrl + policy?.document?.document1"
-                      target="_blank"
-                      >Document One</a
-                    >
-                  </p>
-                  <p>
-                    <a
-                      *ngIf="policy.document.document2"
-                      [href]="documentTwoUrl + policy?.document?.document2"
-                      target="_blank"
-                      >Document Two</a
-                    >
-                  </p>
+                  <div *ngIf="policy.document">
+                    <p>
+                      <a
+                        *ngIf="policy.document.idPhoto"
+                        [href]="photoIdUrl + policy?.document?.idPhoto"
+                        target="_blank"
+                        >Photo Id</a
+                      >
+                    </p>
+                    <p>
+                      <a
+                        *ngIf="policy.document.document1"
+                        [href]="documentOneUrl + policy?.document?.document1"
+                        target="_blank"
+                        >Document One</a
+                      >
+                    </p>
+                    <p>
+                      <a
+                        *ngIf="policy.document.document2"
+                        [href]="documentTwoUrl + policy?.document?.document2"
+                        target="_blank"
+                        >Document Two</a
+                      >
+                    </p>
+                  </div>
                 </td>
 
                 <td>{{ policy.createdAt | date : "mediumDate" }}</td>
