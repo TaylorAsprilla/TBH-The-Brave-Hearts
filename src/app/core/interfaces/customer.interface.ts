@@ -43,6 +43,7 @@ export interface customerDataExport {
 }
 
 export interface IClient {
+  readonly uid?: string;
   firstName: string;
   lastName: string;
   address: string;
@@ -72,6 +73,7 @@ export interface IClient {
   statusInUS?: string;
   idNumber?: string;
   expirationDate?: Date;
+  idState?: string;
 }
 
 export interface ICreateClient {

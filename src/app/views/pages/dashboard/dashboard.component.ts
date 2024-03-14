@@ -81,14 +81,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.customerSubscription = this.customerService
       .getAllCustomersForAgents(this.agent.uid)
-      .subscribe((resp) => {
-        this.customers = resp.customers
+      .subscribe((customer) => {
+        this.customers = customer
           .filter((customer) => customer.active === true)
           .slice(-10);
 
         this.filteredCustomer = this.customers;
 
-        this.totalCustomers = resp.customers.filter(
+        this.totalCustomers = customer.filter(
           (customer) => customer.active === true
         ).length;
 

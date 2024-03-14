@@ -7,6 +7,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { TEXT } from 'src/app/core/enum/text.enum';
+import { IClient } from 'src/app/core/interfaces/customer.interface';
 import { CustomerModel } from 'src/app/core/models/customer.model';
 import { StateModel } from 'src/app/core/models/state.model';
 import { CustomerService } from 'src/app/services/customer/customer.service';
@@ -194,7 +195,7 @@ export class EditCustomersComponent implements OnInit {
   }
 
   editCustomer() {
-    const data: CustomerModel = {
+    const data: IClient = {
       uid: this.selectedCustomer.uid,
       firstName: this.formCustomer.firstName.value,
       middleName: this.formCustomer.middleName.value,
@@ -223,7 +224,6 @@ export class EditCustomersComponent implements OnInit {
       householdIncome: this.formCustomer.householdIncome.value,
       householdNetWorth: this.formCustomer.householdNetWorth.value,
       agent: this.selectedCustomer.agent,
-      imageUrl: this.selectedCustomer.imageUrl,
       idNumber: this.formCustomer.idNumber.value,
       expirationDate: this.formCustomer.expirationDate.value,
       idState: this.formCustomer.idState.value,

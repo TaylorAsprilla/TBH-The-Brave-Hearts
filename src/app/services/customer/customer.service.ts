@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import {
+  IClient,
   ICreateClient,
   ICreateCustomer,
 } from 'src/app/core/interfaces/customer.interface';
@@ -38,21 +39,101 @@ export class CustomerService {
     };
   }
 
-  getAllCustomers() {
+  getAllCustomers(): Observable<CustomerModel[]> {
     return this.httpClient
       .get<ILoadAllCustomers>(`${base_url}/customers/all`, this.headers)
       .pipe(
-        map(
-          (resp: { ok: boolean; customers: CustomerModel[] }) => resp.customers
+        map((resp: { ok: boolean; customers: CustomerModel[] }) =>
+          resp.customers.map((customer) => {
+            return new CustomerModel(
+              customer.uid,
+              customer.firstName,
+              customer.lastName,
+              customer.address,
+              customer.state,
+              customer.phone,
+              customer.email,
+              customer.maritalStatus,
+              customer.dateBirth,
+              customer.documentNumber,
+              customer.documentType,
+              customer.countryBirth,
+              customer.cityBirth,
+              customer.gender,
+              customer.weight,
+              customer.height,
+              customer.employerName,
+              customer.annualIncome,
+              customer.agent,
+              customer.middleName,
+              customer.addressLine2,
+              customer.city,
+              customer.zipCode,
+              customer.occupation,
+              customer.timeEmployed,
+              customer.householdIncome,
+              customer.householdNetWorth,
+              customer.statusInUS,
+              customer.idNumber,
+              customer.expirationDate,
+              customer.idState,
+              customer.img,
+              customer.active,
+              customer.createdAt
+            );
+          })
         )
       );
   }
 
-  getAllCustomersForAgents(idAgent: string) {
-    return this.httpClient.get<ILoadAllCustomers>(
-      `${base_url}/customers/all/${idAgent}`,
-      this.headers
-    );
+  getAllCustomersForAgents(idAgent: string): Observable<CustomerModel[]> {
+    return this.httpClient
+      .get<ILoadAllCustomers>(
+        `${base_url}/customers/all/${idAgent}`,
+        this.headers
+      )
+      .pipe(
+        map((resp: { ok: boolean; customers: CustomerModel[] }) =>
+          resp.customers.map((customer) => {
+            return new CustomerModel(
+              customer.uid,
+              customer.firstName,
+              customer.lastName,
+              customer.address,
+              customer.state,
+              customer.phone,
+              customer.email,
+              customer.maritalStatus,
+              customer.dateBirth,
+              customer.documentNumber,
+              customer.documentType,
+              customer.countryBirth,
+              customer.cityBirth,
+              customer.gender,
+              customer.weight,
+              customer.height,
+              customer.employerName,
+              customer.annualIncome,
+              customer.agent,
+              customer.middleName,
+              customer.addressLine2,
+              customer.city,
+              customer.zipCode,
+              customer.occupation,
+              customer.timeEmployed,
+              customer.householdIncome,
+              customer.householdNetWorth,
+              customer.statusInUS,
+              customer.idNumber,
+              customer.expirationDate,
+              customer.idState,
+              customer.img,
+              customer.active,
+              customer.createdAt
+            );
+          })
+        )
+      );
   }
 
   getCustomer(id: string) {
@@ -71,7 +152,7 @@ export class CustomerService {
     );
   }
 
-  updateCustomer(customer: CustomerModel) {
+  updateCustomer(customer: IClient) {
     return this.httpClient.put(
       `${base_url}/customers/${customer.uid}`,
       customer,

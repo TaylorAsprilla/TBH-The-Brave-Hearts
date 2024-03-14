@@ -61,6 +61,8 @@ export class CustomersComponent implements OnInit, OnDestroy {
         this.customers = customer.filter((customer) => {
           return customer.active === true;
         });
+
+        console.log(this.customers[0].fullName);
         this.filteredCustomers = customer;
         this.extractAllUniqueValues();
       });
@@ -219,6 +221,7 @@ export class CustomersComponent implements OnInit, OnDestroy {
 
   filterCustomers(value: string) {
     if (value) {
+      this.page = 1;
       this.filteredCustomers = this.customers.filter(
         (customer: CustomerModel) => {
           return (
@@ -247,15 +250,33 @@ export class CustomersComponent implements OnInit, OnDestroy {
     }
 
     this.filteredCustomers.sort((a: any, b: any) => {
-      const aValue = a.agent ? a.agent.firstName : '';
-      const bValue = b.agent ? b.agent.firstName : '';
+      // Verificar si el campo es 'agent.firstName'
+      if (field === 'agent.firstName') {
+        // Obtener el nombre del agente para el cliente 'a'
+        const aAgentName = a.agent ? a.agent.firstName : '';
+        // Obtener el nombre del agente para el cliente 'b'
+        const bAgentName = b.agent ? b.agent.firstName : '';
 
-      if (aValue < bValue) {
-        return this.orderType === 'asc' ? -1 : 1;
-      } else if (aValue > bValue) {
-        return this.orderType === 'asc' ? 1 : -1;
+        // Realizar el ordenamiento por el nombre del agente
+        if (aAgentName < bAgentName) {
+          return this.orderType === 'asc' ? -1 : 1;
+        } else if (aAgentName > bAgentName) {
+          return this.orderType === 'asc' ? 1 : -1;
+        } else {
+          return 0;
+        }
       } else {
-        return 0;
+        // Realizar el ordenamiento por el campo proporcionado
+        const aValue = a[field];
+        const bValue = b[field];
+
+        if (aValue < bValue) {
+          return this.orderType === 'asc' ? -1 : 1;
+        } else if (aValue > bValue) {
+          return this.orderType === 'asc' ? 1 : -1;
+        } else {
+          return 0;
+        }
       }
     });
   }
@@ -280,7 +301,7 @@ export class CustomersComponent implements OnInit, OnDestroy {
     );
 
     this.customerFullNames = this.customers.map(
-      (customer) => `${customer.firstName} ${customer.lastName}`
+      (customer) => `${customer.fullName}`
     );
 
     this.filterOptions = [

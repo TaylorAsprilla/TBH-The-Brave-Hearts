@@ -49,15 +49,15 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th (click)="sortCustomersBy('firstName')">
+                <th (click)="sortCustomersBy('fullName')">
                   Name
                   <i
                     class="feather pointer"
                     [ngClass]="{
                       'icon-arrow-up':
-                        orderField === 'firstName' && orderType === 'asc',
+                        orderField === 'fullName' && orderType === 'asc',
                       'icon-arrow-down':
-                        orderField === 'firstName' && orderType === 'desc'
+                        orderField === 'fullName' && orderType === 'desc'
                     }"
                   ></i>
                 </th>
@@ -146,7 +146,7 @@
                   trackBy: trackByCustomerId
                 "
               >
-                <td>{{ customer.firstName }} {{ customer.lastName }}</td>
+                <td>{{ customer.fullName }}</td>
                 <td>{{ customer.documentNumber }}</td>
                 <td>{{ customer.state }}</td>
                 <td>{{ customer.email }}</td>

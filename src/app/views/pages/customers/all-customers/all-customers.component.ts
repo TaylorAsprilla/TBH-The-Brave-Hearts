@@ -58,11 +58,11 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.customerSubscription = this.customerService
       .getAllCustomersForAgents(this.agent.uid)
-      .subscribe((resp) => {
-        this.customers = resp.customers.filter((customer) => {
+      .subscribe((customer) => {
+        this.customers = customer.filter((customer) => {
           return customer.active === true;
         });
-        this.filteredCustomers = resp.customers;
+        this.filteredCustomers = customer;
         this.extractAllUniqueValues();
       });
   }
@@ -87,7 +87,6 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
       }
     });
   }
-  deleteCustomer(customer: CustomerModel) {}
 
   newCustomer() {
     this.router.navigateByUrl(
@@ -244,6 +243,7 @@ export class AllCustomersComponent implements OnInit, OnDestroy {
 
   filterCustomers(value: string) {
     if (value) {
+      this.page = 1;
       this.filteredCustomers = this.customers.filter(
         (customer: CustomerModel) => {
           return (
