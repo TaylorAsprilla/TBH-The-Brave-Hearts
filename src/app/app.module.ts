@@ -16,6 +16,8 @@ import { ProspectsModule } from './views/pages/prospect/prospects.module';
 import { PolicyModule } from './views/pages/policy/policy.module';
 import { SearchesModule } from './views/pages/searches/searches.module';
 import { AdministratorModule } from './views/pages/administrator/administrator.module';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent, ErrorPageComponent],
@@ -29,9 +31,15 @@ import { AdministratorModule } from './views/pages/administrator/administrator.m
     PolicyModule,
     SearchesModule,
     AdministratorModule,
+    HttpClientModule,
   ],
   providers: [
     AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     {
       provide: HIGHLIGHT_OPTIONS, // https://www.npmjs.com/package/ngx-highlightjs
       useValue: {
