@@ -104,9 +104,12 @@ export class CustomersComponent implements OnInit, OnDestroy {
 
   moreInfo(customer: CustomerModel) {
     const dateOfBirth = customer.dateBirth;
-    const formattedDateOfBirth = new Date(dateOfBirth).toLocaleDateString(
-      'en-US'
-    );
+
+    const year = dateOfBirth.getUTCFullYear();
+    const month = dateOfBirth.getUTCMonth() + 1;
+    const day = dateOfBirth.getUTCDate();
+
+    const formattedDateOfBirth = `${month}/${day}/${year}`;
 
     Swal.fire({
       title: 'Info Customer',

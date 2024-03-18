@@ -132,8 +132,12 @@ export class AllAgentsComponent implements OnInit, OnDestroy {
     let formattedDateOfBirth: string = '';
 
     if (agent.dateBirth) {
-      const dateOfBirth = agent.dateBirth;
-      formattedDateOfBirth = new Date(dateOfBirth).toLocaleDateString('en-US');
+      const dateOfBirth = new Date(agent.dateBirth);
+      const year = dateOfBirth.getUTCFullYear();
+      const month = dateOfBirth.getUTCMonth() + 1;
+      const day = dateOfBirth.getUTCDate();
+
+      formattedDateOfBirth = `${month}/${day}/${year}`;
     }
 
     Swal.fire({

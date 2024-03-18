@@ -151,9 +151,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   moreInfoCustomer(customer: CustomerModel) {
     const dateOfBirth = customer.dateBirth;
-    const formattedDateOfBirth = new Date(dateOfBirth).toLocaleDateString(
-      'en-US'
-    );
+
+    const year = dateOfBirth.getUTCFullYear();
+    const month = dateOfBirth.getUTCMonth() + 1;
+    const day = dateOfBirth.getUTCDate();
+
+    const formattedDateOfBirth = `${month}/${day}/${year}`;
 
     Swal.fire({
       title: 'Info Customer',
@@ -394,7 +397,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     if (agent.dateBirth) {
       const dateOfBirth = agent.dateBirth;
-      formattedDateOfBirth = new Date(dateOfBirth).toLocaleDateString('en-US');
+
+      const year = dateOfBirth.getUTCFullYear();
+      const month = dateOfBirth.getUTCMonth() + 1;
+      const day = dateOfBirth.getUTCDate();
+
+      formattedDateOfBirth = `${month}/${day}/${year}`;
     }
 
     Swal.fire({
