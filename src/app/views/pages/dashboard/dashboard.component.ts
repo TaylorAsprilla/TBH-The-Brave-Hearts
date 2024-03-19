@@ -150,13 +150,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   moreInfoCustomer(customer: CustomerModel) {
-    const dateOfBirth = customer.dateBirth;
+    let formattedDateOfBirth = '';
 
-    const year = dateOfBirth.getUTCFullYear();
-    const month = dateOfBirth.getUTCMonth() + 1;
-    const day = dateOfBirth.getUTCDate();
-
-    const formattedDateOfBirth = `${month}/${day}/${year}`;
+    if (customer.dateBirth) {
+      const dateOfBirth = customer.dateBirth;
+      const year = dateOfBirth.getUTCFullYear();
+      const month = dateOfBirth.getUTCMonth() + 1;
+      const day = dateOfBirth.getUTCDate();
+      formattedDateOfBirth = `${month}/${day}/${year}`;
+    }
 
     Swal.fire({
       title: 'Info Customer',
