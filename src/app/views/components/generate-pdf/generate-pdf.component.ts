@@ -213,7 +213,7 @@ export class GeneratePdfComponent implements OnInit {
       currentY
     );
 
-    if (this.policyData.beneficiaries[0].firstName !== '') {
+    if (this.policyData.beneficiaries[0]?.firstName !== '') {
       // Agregar información de los beneficiarios
       currentY = this.addSectionToPDF(
         'Beneficiaries',
@@ -262,7 +262,7 @@ export class GeneratePdfComponent implements OnInit {
       );
     }
 
-    if (this.policyData.contingentBeneficiary[0].firstName !== '') {
+    if (this.policyData.contingentBeneficiary[0]?.firstName !== '') {
       // Agregar información de beneficiarios contingentes
       currentY = this.addSectionToPDF(
         'Contingent Beneficiary',
@@ -470,7 +470,7 @@ export class GeneratePdfComponent implements OnInit {
       currentY
     );
 
-    if (this.policyData.referrals[0].firstName !== '') {
+    if (this.policyData.referrals[0]?.firstName !== '') {
       // Agregar información de los beneficiarios
       currentY = this.addSectionToPDF(
         'Referrals',
