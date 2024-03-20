@@ -106,8 +106,9 @@
             >
               <a
                 class="nav-link"
+                [routerLinkActive]="['active']"
+                *ngIf="!hasItems(item) && item.link"
                 [routerLink]="item.link"
-                *ngIf="!hasItems(item)"
               >
                 <i
                   class="link-icon"
@@ -140,7 +141,10 @@
                       {{ subMenuItem.label }}
                     </li>
 
-                    <li class="nav-item" *ngIf="!subMenuItem.isTitle">
+                    <li
+                      class="nav-item"
+                      *ngIf="!subMenuItem.isTitle && !subMenuItem.isDocument"
+                    >
                       <a
                         class="nav-link"
                         [routerLinkActive]="['active']"
@@ -152,6 +156,18 @@
                         *ngIf="subMenuItem.badge"
                         >{{ subMenuItem.badge.text }}</span
                       >
+                    </li>
+                    <li
+                      class="nav-item"
+                      *ngIf="!subMenuItem.isTitle && subMenuItem.isDocument"
+                    >
+                      <a
+                        href="{{ subMenuItem.link }}"
+                        class="nav-link"
+                        target="_blank"
+                      >
+                        {{ subMenuItem.label }}
+                      </a>
                     </li>
                   </ng-container>
                 </ul>
@@ -207,7 +223,7 @@
         <!-- <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="link-icon" data-feather="hash"></i>
-            <span class="menu-title">support</span></a
+            <span class="menu-title">Documents</span></a
           >
         </li> -->
       </ul>
