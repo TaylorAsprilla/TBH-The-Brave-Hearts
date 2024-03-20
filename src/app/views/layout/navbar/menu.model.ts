@@ -15,6 +15,7 @@ export interface SubMenus {
 export interface SubMenuItems {
   label?: string;
   link?: string;
+  isDocument?: boolean;
   isTitle?: boolean;
   badge?: Badge;
 }
@@ -27,4 +28,9 @@ export interface Badge {
 export enum ROL {
   ADMINISTRATOR = 'ADMIN_ROLE',
   USER = 'USER_ROLE',
+}
+
+export enum DOCUMENT_ENUM {
+  BOT_SPANISH = 'assets/documents/BOM-Spanish-2023.pdf',
+  HUSTLE_NEW_SPANISH = 'assets/documents/Hustle-New-Spanish.pdf',
 }

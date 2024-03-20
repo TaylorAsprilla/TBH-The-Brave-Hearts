@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
@@ -13,7 +13,9 @@ import {
 } from 'src/app/core/interfaces/agent.interface';
 import { LoginFormInterface } from 'src/app/core/interfaces/login-form.interface';
 import { AgentModel } from 'src/app/core/models/agent.model';
+import { config } from 'src/environments/configuration/config';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 const base_url = environment.base_url;
 @Injectable({
@@ -22,7 +24,16 @@ const base_url = environment.base_url;
 export class AgentService {
   public agent: AgentModel;
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  private inactiveTimeout: any;
+  public timeRemaining: EventEmitter<number> = new EventEmitter<number>();
+  private readonly INACTIVE_TIMEOUT_MS: number = config.INACTIVE_TIMEOUT_MS;
+  private readonly timerModal: number = config.TIMER_MODEL;
+
+  constructor(private httpClient: HttpClient, private router: Router) {
+    this.resetInactiveTimer();
+    window.addEventListener('mousemove', () => this.resetInactiveTimer());
+    window.addEventListener('keypress', () => this.resetInactiveTimer());
+  }
 
   get token(): string {
     return localStorage.getItem('token') || '';
@@ -38,6 +49,67 @@ export class AgentService {
         'x-token': this.token,
       },
     };
+  }
+
+  resetInactiveTimer(): void {
+    if (this.inactiveTimeout !== null) {
+      clearTimeout(this.inactiveTimeout);
+    }
+    this.inactiveTimeout = setTimeout(() => {
+      this.showSessionExpirationAlert(); // Llama a la función en lugar de pasarla como referencia
+    }, this.INACTIVE_TIMEOUT_MS);
+
+    this.startCountdown();
+  }
+
+  startCountdown(): void {
+    let remainingTime = this.INACTIVE_TIMEOUT_MS;
+    const countdownInterval = setInterval(() => {
+      remainingTime -= 1000;
+      if (remainingTime <= 0) {
+        clearInterval(countdownInterval);
+      }
+      this.timeRemaining.emit(remainingTime);
+    }, 1000);
+  }
+
+  showSessionExpirationAlert(): void {
+    if (this.token != '') {
+      let timerInterval: any;
+      Swal.fire({
+        title: 'Attention!',
+        html: 'Your session will be automatically logged out due to inactivity in <b></b>',
+        icon: 'warning',
+        timer: this.timerModal,
+        timerProgressBar: true,
+        showCancelButton: true,
+        cancelButtonText: 'Continue session',
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+          const popup = Swal.getPopup();
+          const timer = popup ? popup.querySelector('b') : null;
+          if (timer) {
+            timerInterval = setInterval(() => {
+              const timeLeft = Swal.getTimerLeft();
+              if (timeLeft !== null && timeLeft !== undefined) {
+                const minutes = Math.floor(timeLeft / 60000);
+                const seconds = Math.floor((timeLeft % 60000) / 1000);
+                timer.textContent = `${minutes}m ${seconds}s`;
+              }
+            }, 100);
+          }
+        },
+        willClose: () => {
+          clearInterval(timerInterval);
+        },
+      }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+          this.logout();
+        }
+      });
+    }
   }
 
   validateToken(): Observable<boolean> {
@@ -100,7 +172,11 @@ export class AgentService {
     );
   }
 
-  logout() {
+  verifyLogged(): boolean {
+    return !!this.token;
+  }
+
+  logout(): void {
     localStorage.removeItem('token');
     this.router.navigateByUrl(ROUTE_APP.AUTH_LOGIN);
   }

@@ -416,6 +416,10 @@ export class AddPolicyComponent implements OnInit {
     );
   }
 
+  removeBeneficiary(index: number) {
+    this.formBeneficiaries.removeAt(index);
+  }
+
   addContigentBeneficiary() {
     this.contigentBeneficiaries.push(
       this.formBuilder.group({
@@ -432,6 +436,10 @@ export class AddPolicyComponent implements OnInit {
     );
   }
 
+  removeContigentBeneficiary(index: number) {
+    this.contigentBeneficiaries.removeAt(index);
+  }
+
   addReferrals() {
     this.referrals.push(
       this.formBuilder.group({
@@ -443,6 +451,10 @@ export class AddPolicyComponent implements OnInit {
         email: [{ value: '', disabled: this.isDisabled }, [Validators.email]],
       })
     );
+  }
+
+  removeReferrals(index: number) {
+    this.referrals.removeAt(index);
   }
 
   getCustomerById(id: string) {

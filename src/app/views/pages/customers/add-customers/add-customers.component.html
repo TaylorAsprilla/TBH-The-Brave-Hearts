@@ -963,7 +963,7 @@
               [formGroup]="beneficiaryForm"
             >
               <div
-                class="border-bottom border-success mb-4"
+                class="border-bottom border-success mb-5"
                 formArrayName="beneficiaries"
                 *ngFor="
                   let beneficiary of formBeneficiaries.controls;
@@ -1229,20 +1229,31 @@
                     </div>
                   </div>
                 </ng-container>
-              </div>
 
-              <div class="row float-end mb-5">
-                <div class="col-sm-2 col-md-2 col-lg-2">
-                  <button
-                    class="btn btn-primary"
-                    type="button"
-                    title="Add Beneficiary"
-                    (click)="addBeneficiary()"
-                  >
-                    <i class="feather icon-plus-square"></i>
-                  </button>
+                <div class="row float-end mt-2">
+                  <div class="col">
+                    <button
+                      class="btn btn-primary me-1"
+                      type="button"
+                      title="Add Beneficiary"
+                      (click)="addBeneficiary()"
+                    >
+                      <i class="feather icon-plus-square"></i>
+                    </button>
+
+                    <button
+                      *ngIf="i !== 0"
+                      class="btn btn-danger"
+                      type="button"
+                      title="Delete beneficiary"
+                      (click)="removeBeneficiary(i)"
+                    >
+                      <i class="feather icon-x-square"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
+
               <div class="row">
                 <div class="d-flex justify-content-center mt-5">
                   <button
@@ -1274,7 +1285,7 @@
               [formGroup]="contigentBeneficiaryForm"
             >
               <div
-                class="border-bottom border-success mb-4"
+                class="border-bottom border-success mb-5"
                 formArrayName="contigentBeneficiaries"
                 *ngFor="
                   let contigentBeneficiary of contigentBeneficiaries.controls;
@@ -1434,18 +1445,27 @@
                     </div>
                   </div>
                 </ng-container>
-              </div>
+                <div class="row float-end mt-2">
+                  <div class="col">
+                    <button
+                      class="btn btn-primary me-1"
+                      type="button"
+                      title="Add Contigent Beneficiaries"
+                      (click)="addContigentBeneficiary()"
+                    >
+                      <i class="feather icon-plus-square"></i>
+                    </button>
 
-              <div class="row float-end mb-5">
-                <div class="col-sm-2 col-md-2 col-lg-2">
-                  <button
-                    class="btn btn-primary"
-                    type="button"
-                    title="Add Contigent Beneficiaries"
-                    (click)="addContigentBeneficiary()"
-                  >
-                    <i class="feather icon-plus-square"></i>
-                  </button>
+                    <button
+                      *ngIf="i !== 0"
+                      class="btn btn-danger"
+                      type="button"
+                      title="Delete Contigent Beneficiaries"
+                      (click)="removeContigentBeneficiary(i)"
+                    >
+                      <i class="feather icon-x-square"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -2242,7 +2262,7 @@
               [formGroup]="referralsForm"
             >
               <div
-                class="border-bottom border-success mb-4"
+                class="border-bottom border-success mb-5"
                 formArrayName="referrals"
                 *ngFor="let referral of referrals.controls; let i = index"
               >
@@ -2355,17 +2375,25 @@
                     </div>
                   </div>
                 </ng-container>
-              </div>
-
-              <div class="row float-end mb-5">
-                <div class="col-sm-2 col-md-2 col-lg-2">
-                  <button
-                    class="btn btn-primary"
-                    type="button"
-                    (click)="addReferrals()"
-                  >
-                    <i class="feather icon-plus-square"></i>
-                  </button>
+                <div class="row float-end mt-2">
+                  <div class="col">
+                    <button
+                      class="btn btn-primary me-1"
+                      type="button"
+                      (click)="addReferrals()"
+                    >
+                      <i class="feather icon-plus-square"></i>
+                    </button>
+                    <button
+                      *ngIf="i !== 0"
+                      class="btn btn-danger"
+                      type="button"
+                      title="Delete beneficiary"
+                      (click)="removeReferrals(i)"
+                    >
+                      <i class="feather icon-x-square"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
 

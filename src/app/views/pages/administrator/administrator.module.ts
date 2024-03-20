@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddAgentsComponent } from './agents/add-agents/add-agents.component';
 import { AllAgentsComponent } from './agents/all-agents/all-agents.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { HttpClientModule } from '@angular/common/http';
 import { ReportsComponent } from './reports/reports.component';
 import { ExportDataModule } from '../../components/export-data/export-data.module';
 import { FiltersModule } from '../../components/filters/filters.module';
@@ -31,7 +30,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CommonModule,
     BrowserModule,
     SweetAlert2Module,
-    HttpClientModule,
     FormsModule,
     AdministratorRoutingModule,
     SpinnerModule,

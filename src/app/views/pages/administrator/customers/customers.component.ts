@@ -104,14 +104,24 @@ export class CustomersComponent implements OnInit, OnDestroy {
 
   moreInfo(customer: CustomerModel) {
     let formattedDateOfBirth = '';
+    let formattedExpirationDate = '';
 
     if (customer.dateBirth) {
-      const dateOfBirth = customer.dateBirth;
+      const dateOfBirth = new Date(customer.dateBirth);
       const year = dateOfBirth.getUTCFullYear();
-      const month = dateOfBirth.getUTCMonth() + 1;
-      const day = dateOfBirth.getUTCDate();
+      const month = String(dateOfBirth.getUTCMonth() + 1).padStart(2, '0');
+      const day = String(dateOfBirth.getUTCDate()).padStart(2, '0');
 
       formattedDateOfBirth = `${month}/${day}/${year}`;
+    }
+
+    if (customer.expirationDate) {
+      const dateOfBirth = new Date(customer.dateBirth);
+      const year = dateOfBirth.getUTCFullYear();
+      const month = String(dateOfBirth.getUTCMonth() + 1).padStart(2, '0');
+      const day = String(dateOfBirth.getUTCDate()).padStart(2, '0');
+
+      formattedExpirationDate = `${month}/${day}/${year}`;
     }
 
     Swal.fire({
@@ -215,6 +225,15 @@ export class CustomersComponent implements OnInit, OnDestroy {
                 <tr>
                   <th>Household Net Worth:</th>
                   <td>${customer.householdNetWorth}</td>
+                </tr>
+                <tr>
+                  <th>Expiration date:</th>
+                  <td>${formattedExpirationDate}
+                  </td>
+                </tr>
+                <tr>
+                  <th>ID State:</th>
+                  <td>${customer.idState ? customer.idState : ''}</td>
                 </tr>
                 </tbody>
               </table>

@@ -1,5 +1,5 @@
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
-import { MenuItem, ROL } from './menu.model';
+import { DOCUMENT_ENUM, MenuItem, ROL } from './menu.model';
 import { TEXT } from 'src/app/core/enum/text.enum';
 
 export const MENU: MenuItem[] = [
@@ -81,6 +81,28 @@ export const MENU: MenuItem[] = [
           {
             label: 'All Prospects',
             link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_PROSPECTS}`,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Documents',
+    icon: 'file',
+    role: [ROL.ADMINISTRATOR, ROL.USER],
+    isMegaMenu: false,
+    subMenus: [
+      {
+        subMenuItems: [
+          {
+            isDocument: true,
+            label: 'BOM Spanish 2023',
+            link: DOCUMENT_ENUM.BOT_SPANISH,
+          },
+          {
+            isDocument: true,
+            label: 'Hustle New Spanish',
+            link: DOCUMENT_ENUM.HUSTLE_NEW_SPANISH,
           },
         ],
       },

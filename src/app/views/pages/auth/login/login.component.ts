@@ -34,8 +34,11 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    if (this.agentService.verifyLogged()) {
+      this.router.navigate([this.returnUrl]);
+    }
+    // get return url from route parameters or default to '/'
     this.createForm();
   }
 

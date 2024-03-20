@@ -518,6 +518,10 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
     );
   }
 
+  removeBeneficiary(index: number) {
+    this.formBeneficiaries.removeAt(index);
+  }
+
   addContigentBeneficiary() {
     this.contigentBeneficiaries.push(
       this.formBuilder.group({
@@ -535,6 +539,10 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
     );
   }
 
+  removeContigentBeneficiary(index: number) {
+    this.contigentBeneficiaries.removeAt(index);
+  }
+
   addReferrals() {
     this.referrals.push(
       this.formBuilder.group({
@@ -546,6 +554,10 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
         email: ['', [Validators.email]],
       })
     );
+  }
+
+  removeReferrals(index: number) {
+    this.referrals.removeAt(index);
   }
 
   getProspectById(id: string) {
