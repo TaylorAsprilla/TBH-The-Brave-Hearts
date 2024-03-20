@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe((customer) => {
         this.customers = customer
           .filter((customer) => customer.active === true)
-          .slice(-10);
+          .slice(0, 10);
 
         this.filteredCustomer = this.customers;
 
@@ -103,7 +103,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe((prospect) => {
         this.prospects = prospect
           .filter((prospect) => prospect.active === true)
-          .slice(-10);
+          .slice(0, 10);
 
         this.filteredProspects = this.prospects;
 
@@ -122,7 +122,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe((resp) => {
         this.agents = resp.agents
           .filter((agent) => agent.active === true)
-          .slice(-10);
+          .slice(0, 10);
 
         this.totalAgents = resp.agents.filter(
           (agent) => agent.active === true
@@ -139,7 +139,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe((resp) => {
         this.policy = resp.policy
           .filter((policy) => policy.active === true)
-          .slice(-10);
+          .slice(0, 10);
 
         this.totalPolicy = resp.policy.filter(
           (policy) => policy.active === true
