@@ -4,5 +4,11 @@ RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
 RewriteRule ^ - [L]
 
+RewriteBase /
+RewriteRule ^index.html - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
+
 # If the requested resource doesn't exist, use index.html
 RewriteRule ^(.*)$ index.html
