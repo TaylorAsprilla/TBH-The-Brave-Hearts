@@ -507,6 +507,10 @@ export class AddPolicyComponent implements OnInit {
           this.populateReferralsForm(policy);
           this.populateDocumentForm(policy);
 
+          this.addBeneficiary();
+          this.addContigentBeneficiary();
+          this.addReferrals();
+
           this.disabelFieldForm();
         }
       },
