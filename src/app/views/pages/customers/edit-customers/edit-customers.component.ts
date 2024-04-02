@@ -223,7 +223,6 @@ export class EditCustomersComponent implements OnInit {
       timeEmployed: this.formCustomer.timeEmployed.value,
       householdIncome: this.formCustomer.householdIncome.value,
       householdNetWorth: this.formCustomer.householdNetWorth.value,
-      agent: this.selectedCustomer.agent,
       idNumber: this.formCustomer.idNumber.value,
       expirationDate: this.formCustomer.expirationDate.value,
       idState: this.formCustomer.idState.value,

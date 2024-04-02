@@ -61,7 +61,7 @@ export interface IClient {
   height: string;
   employerName: string;
   annualIncome: string;
-  agent: ICustomerAgent;
+  agent?: ICustomerAgent;
   middleName?: string;
   addressLine2?: string;
   city?: string;
