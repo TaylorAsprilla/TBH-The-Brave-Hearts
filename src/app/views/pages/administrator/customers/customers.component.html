@@ -166,9 +166,13 @@
                 <td>{{ customer.documentNumber }}</td>
                 <td>{{ customer.state }}</td>
                 <td>{{ customer.email }}</td>
-                <td>{{ customer.dateBirth | date : "mediumDate" : "UTC" }}</td>
+                <td>
+                  {{ customer.dateBirth | date : "mediumDate" : "UTC-4" }}
+                </td>
                 <td>{{ customer.phone }}</td>
-                <td>{{ customer.createdAt | date : "mediumDate" : "UTC" }}</td>
+                <td>
+                  {{ customer.createdAt | date : "mediumDate" : "UTC-4" }}
+                </td>
                 <td>
                   {{ customer.agent.firstName }} {{ customer.agent.lastName }}
                 </td>

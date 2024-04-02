@@ -136,7 +136,9 @@
                 <td>{{ prospect.email }}</td>
                 <td>{{ prospect.phone }}</td>
                 <td>{{ prospect.occupation }}</td>
-                <td>{{ prospect.createdAt | date : "mediumDate" : "UTC" }}</td>
+                <td>
+                  {{ prospect.createdAt | date : "mediumDate" : "UTC-4" }}
+                </td>
 
                 <td>
                   <select
