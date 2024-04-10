@@ -507,14 +507,17 @@ export class AddPolicyComponent implements OnInit {
           this.populateReferralsForm(policy);
           this.populateDocumentForm(policy);
 
-          if (policy.beneficiaries.length < 0) {
+          if (!policy.beneficiaries || policy.beneficiaries.length == 0) {
             this.addBeneficiary();
           }
-          if (policy.contingentBeneficiary.length < 0) {
+          if (
+            !policy.contingentBeneficiary ||
+            policy.contingentBeneficiary.length == 0
+          ) {
             this.addContigentBeneficiary();
           }
 
-          if (policy.referrals.length < 0) {
+          if (!policy.referrals || policy.referrals.length == 0) {
             this.addReferrals();
           }
 
