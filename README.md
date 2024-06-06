@@ -62,3 +62,6 @@ Para obtener ayuda o soporte técnico relacionado con la aplicación TBH - THE B
 
 - Correo Electrónico: taylor.asprilla@gmail.com
 - Teléfono: +57 311 887 3332
+
+
+¡Gracias por elegir el Sistema de Gestión TBH - THE BRAVE HEARTS para administrar sus pólizas, clientes, prospectos y agentes! Esperamos que la experiencia sea satisfactoria y que la aplicación satisfaga todas sus necesidades comerciales.
