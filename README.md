@@ -17,19 +17,9 @@ El Sistema de Gestión TBH - THE BRAVE HEARTS es una plataforma desarrollada par
   - Sistema operativo compatible: Windows, macOS, Linux, etc.
 - **Dominio: <https://david-vera.com>** 
 - **Base de datos:** 
-  MongoDB
-  Almacenamiento: 512 MB
-  Cloud Provider & Region: AWS, N. Virginia (us-east-1)
+  MongoDB, Almacenamiento: 512 MB, Cloud Provider & Region: AWS, N. Virginia (us-east-1), 
 - **Hosting:** 
-  OnPremise
-  30GB Espacio en Disco
-  300GB Transferencia Mensual
-  Correos Ilimitados
-  Bases de datos MYSQL Ilimitadas
-  Cuentas FTP Ilimitados
-  Apuntar dominios Ilimitados
-  SSL
-  Discos SSD
+  OnPremise, 30GB Espacio en Disco, 300GB Transferencia Mensual, Correos Ilimitados, Bases de datos MYSQL Ilimitadas, Cuentas FTP Ilimitados,  Apuntar dominios Ilimitados, SSL, Discos SSD.
 
 ## Instrucciones
 
