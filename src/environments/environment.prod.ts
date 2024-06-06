@@ -5,5 +5,5 @@ export const environment = {
   photoId: 'https://thebravehearts.us/api-tbh/uploads/policy/photoId/',
   documentOne: 'https://thebravehearts.us/api-tbh/uploads/policy/documentOne/',
   documentTwo: 'https://thebravehearts.us/api-tbh/uploads/policy/documentTwo/',
-  document: 'https://thebravehearts.us/api-tbh/uploads/document/',
+  document: 'https://thebravehearts.us/api-tbh/',
 };
