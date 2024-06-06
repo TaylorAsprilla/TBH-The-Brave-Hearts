@@ -10,7 +10,7 @@ El Sistema de Gestión TBH - THE BRAVE HEARTS es una plataforma desarrollada par
   - Angular: Framework de desarrollo frontend para crear aplicaciones web.
   - MongoDB: Base de datos NoSQL utilizada para almacenar datos de la aplicación.
   - Node.js: Entorno de ejecución para JavaScript utilizado en el backend.
-  - Express.js: Framework de desarrollo backend para Node.js.
+  - Express.js: Framework de desarrollo backend para Node.js. [Repositorio del Backend](https://github.com/TaylorAsprilla/Back-TBH-The-Brave-Hearts)
 - **Requisitos del Sistema:**
   - Navegador web moderno (Google Chrome, Mozilla Firefox, Safari, etc.).
   - Conexión a Internet para acceder a la aplicación.
