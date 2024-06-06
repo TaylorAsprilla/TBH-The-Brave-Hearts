@@ -62,6 +62,7 @@ const routes: Routes = [
             (m) => m.SearchesRoutingModule
           ),
       },
+
       {
         path: ROUTE_APP.ADMINISTRATOR,
         canLoad: [HasRoleGuard],

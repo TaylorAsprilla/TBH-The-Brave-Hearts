@@ -6,4 +6,5 @@ export const environment = {
   photoId: 'http://localhost:3000/uploads/policy/photoId/',
   documentOne: 'http://localhost:3000/uploads/policy/documentOne/',
   documentTwo: 'http://localhost:3000/uploads/policy/documentTwo/',
+  document: 'http://localhost:3000/',
 };

@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import {
   Component,
   OnInit,
@@ -13,6 +14,7 @@ import { MenuItem } from './menu.model';
 import { AgentService } from 'src/app/services/agent/agent.service';
 import { ROUTE_APP } from 'src/app/core/enum/router-app.enum';
 import { AgentModel } from 'src/app/core/models/agent.model';
+import { DocumentService } from 'src/app/services/document/document.service';
 
 @Component({
   selector: 'app-navbar',
@@ -27,6 +29,8 @@ export class NavbarComponent implements OnInit {
   lastName: string;
   agentCode: number;
   agent: AgentModel;
+  documents: any[] = [];
+  documentUrl: string = environment.document;
 
   /**
    * Fixed header menu on scroll
@@ -48,7 +52,8 @@ export class NavbarComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     private router: Router,
-    private agentService: AgentService
+    private agentService: AgentService,
+    private documentService: DocumentService
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +74,7 @@ export class NavbarComponent implements OnInit {
     }
 
     this.agentInformation();
+    this.loadDocuments();
   }
 
   /**
@@ -117,5 +123,11 @@ export class NavbarComponent implements OnInit {
         `/${ROUTE_APP.SEARCHES}/${ROUTE_APP.SEARCH}/${value}`
       );
     }
+  }
+
+  loadDocuments() {
+    this.documentService.getDocuments().subscribe((docs: any) => {
+      this.documents = docs.documents;
+    });
   }
 }
