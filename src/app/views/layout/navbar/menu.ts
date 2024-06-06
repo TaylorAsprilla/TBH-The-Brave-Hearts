@@ -82,27 +82,9 @@ export const MENU: MenuItem[] = [
             label: 'All Prospects',
             link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.ALL_PROSPECTS}`,
           },
-        ],
-      },
-    ],
-  },
-  {
-    label: 'Documents',
-    icon: 'file',
-    role: [ROL.ADMINISTRATOR, ROL.USER],
-    isMegaMenu: false,
-    subMenus: [
-      {
-        subMenuItems: [
           {
-            isDocument: true,
-            label: 'BOM Spanish 2023',
-            link: DOCUMENT_ENUM.BOT_SPANISH,
-          },
-          {
-            isDocument: true,
-            label: 'Hustle New Spanish',
-            link: DOCUMENT_ENUM.HUSTLE_NEW_SPANISH,
+            label: 'Upload Documents',
+            link: `${ROUTE_APP.ADMINISTRATOR}/${ROUTE_APP.UPLOAD_DOCUMENTS}`,
           },
         ],
       },

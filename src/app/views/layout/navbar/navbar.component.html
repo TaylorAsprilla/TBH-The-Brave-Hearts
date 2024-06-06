@@ -220,12 +220,39 @@
           </ng-container>
         </ng-container>
 
-        <!-- <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="link-icon" data-feather="hash"></i>
-            <span class="menu-title">Documents</span></a
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="documentsDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
           >
-        </li> -->
+            <i class="link-icon" data-feather="file"></i>
+            <span class="menu-title">Documents</span>
+          </a>
+          <div class="submenu">
+            <div class="row">
+              <div class="col-md-3" *ngIf="documents.length">
+                <ul class="submenu-item">
+                  <ng-container *ngFor="let doc of documents">
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        [routerLinkActive]="['active']"
+                        [href]="documentUrl + doc.path"
+                        target="_blank"
+                      >
+                        {{ doc.filename }}</a
+                      >
+                    </li>
+                  </ng-container>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
   </nav>

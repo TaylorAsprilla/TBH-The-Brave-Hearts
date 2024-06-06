@@ -1,0 +1,54 @@
+<div class="row">
+  <!-- Columna para subir documentos -->
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-center mb-4">Upload Document</h5>
+
+        <form [formGroup]="documentForm" (submit)="onSubmit()">
+          <div class="mb-3">
+            <label for="file" class="form-label">Select file to upload:</label>
+            <input
+              type="file"
+              id="file"
+              (change)="onFileSelect($event)"
+              class="form-control"
+              formControlName="file"
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="documentForm.invalid"
+          >
+            Upload
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Columna para mostrar documentos -->
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-center mb-4">Documents</h5>
+
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let document of documents">
+            <a [href]="documentUrl + document.path" target="_blank">{{
+              document.filename
+            }}</a>
+
+            <button
+              class="btn btn-outline-danger float-end"
+              (click)="disableDocument(document._id)"
+            >
+              Disable
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

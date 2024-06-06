@@ -18,6 +18,7 @@ import { SearchesModule } from './views/pages/searches/searches.module';
 import { AdministratorModule } from './views/pages/administrator/administrator.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { UploadDocumentModule } from './views/pages/upload-document/upload-document.module';
 
 @NgModule({
   declarations: [AppComponent, ErrorPageComponent],
@@ -32,6 +33,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     SearchesModule,
     AdministratorModule,
     HttpClientModule,
+    UploadDocumentModule,
   ],
   providers: [
     AuthGuard,

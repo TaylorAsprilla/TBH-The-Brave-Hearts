@@ -21,4 +21,5 @@ export enum ROUTE_APP {
   SEARCHES = 'searches',
   RECOVER_ACCOUNT = '../recover-account',
   REPORTS = 'reports',
+  UPLOAD_DOCUMENTS = 'upload documents',
 }

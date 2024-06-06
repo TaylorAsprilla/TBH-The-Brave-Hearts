@@ -12,6 +12,7 @@ import { AgentResolver } from 'src/app/core/resolvers/agent/agent.resolver';
 import { ReportsComponent } from './reports/reports.component';
 import { AgentsResolver } from 'src/app/core/resolvers/agents/agents.resolver';
 import { CustomersResolver } from 'src/app/core/resolvers/customers/customers.resolver';
+import { UploadDocumentComponent } from '../upload-document/upload-document.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
   {
     path: ROUTE_APP.REPORTS,
     component: ReportsComponent,
+  },
+  {
+    path: `${ROUTE_APP.UPLOAD_DOCUMENTS}`,
+    component: UploadDocumentComponent,
   },
 ];
 
