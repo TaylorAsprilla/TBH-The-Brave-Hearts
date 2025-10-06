@@ -152,7 +152,7 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
 
     this.medicalForm = this.formBuilder.group({
       doctorName: ['', [Validators.required]],
-      doctorOfficeLocation: ['', []],
+      doctorOfficeLocation: ['', [Validators.required]],
       officePhoneNumber: ['', []],
       lastVisit: ['', [Validators.required]],
       reasonForVisit: ['', [Validators.required]],

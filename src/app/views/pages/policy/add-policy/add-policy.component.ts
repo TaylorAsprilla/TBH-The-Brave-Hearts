@@ -141,7 +141,10 @@ export class AddPolicyComponent implements OnInit {
         { value: '', disabled: this.isDisabled },
         [Validators.required],
       ],
-      doctorOfficeLocation: [{ value: '', disabled: this.isDisabled }, []],
+      doctorOfficeLocation: [
+        { value: '', disabled: this.isDisabled },
+        [Validators.required],
+      ],
       officePhoneNumber: [{ value: '', disabled: this.isDisabled }, []],
       lastVisit: [
         { value: '', disabled: this.isDisabled },
