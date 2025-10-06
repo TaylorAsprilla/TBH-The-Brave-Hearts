@@ -919,12 +919,28 @@
 
                 <div class="col-sm-4">
                   <div class="mb-3">
-                    <label class="form-label">Doctor's Office Location</label>
+                    <label class="form-label required"
+                      >Doctor's Office Location</label
+                    >
                     <input
                       type="text"
                       class="form-control"
                       formControlName="doctorOfficeLocation"
+                      [ngClass]="{
+                        'is-invalid':
+                          isMedicalFormFormSubmitted &&
+                          formMedical.doctorOfficeLocation.errors
+                      }"
                     />
+                    <div
+                      *ngIf="
+                        isMedicalFormFormSubmitted &&
+                        formMedical.doctorOfficeLocation.errors?.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Required
+                    </div>
                   </div>
                 </div>
 
