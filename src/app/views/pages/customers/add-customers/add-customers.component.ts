@@ -258,6 +258,14 @@ export class AddCustomersComponent implements OnInit, OnDestroy {
     return this.referralsForm.get('referrals') as FormArray;
   }
 
+  get isLifePolicyFormValid(): boolean {
+    return (
+      this.lifePolicyForm.valid &&
+      !this.messagesEmail &&
+      !this.messagesDocumentNumbert
+    );
+  }
+
   formLifePolicySubmit() {
     if (this.lifePolicyForm.valid) {
       this.createClient(this.lifePolicyForm.value);
